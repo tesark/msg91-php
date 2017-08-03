@@ -24,7 +24,7 @@ before_script:
 script: composer test
 
 after_script:
-  - php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/coveralls -v
 
 notifications:
   email: false

@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class MyFirstPackageTest extends TestCase {
     public function testTrueIsTrue () {
-        $test = true;
-        $this->assertTrue($test);
+        $this->assertTrue(true);
     }
 }
