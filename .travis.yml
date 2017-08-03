@@ -4,19 +4,11 @@ sudo: false
 dist: precise
 
 php:
-  - 7.0
   - 7.1
-  - nightly
 
 cache:
   directories:
     - $HOME/.composer/cache
-
-matrix:
-    include:
-        - php: 7.0
-          env: deps=low
-    fast_finish: true
 
 before_script:
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
