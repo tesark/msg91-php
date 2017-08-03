@@ -3,5 +3,11 @@
 namespace MyFirstPackage;
 
 class MyFirstPackage {
+    private function __construct () {
 
+    }
+
+    public function testTrueIsTrue () {
+
+    }
 }

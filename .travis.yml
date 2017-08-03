@@ -23,5 +23,8 @@ before_script:
 
 script: composer test
 
+after_script:
+  - php vendor/bin/coveralls -v
+
 notifications:
   email: false
