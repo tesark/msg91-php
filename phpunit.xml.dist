@@ -2,14 +2,14 @@
 
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="MyFirstPackage Test Suite">
-            <directory>tests/MyFirstPackage/</directory>
+        <testsuite name="sender Test Suite">
+            <directory>tests/sender/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/MyFirstPackage/</directory>
+            <directory suffix=".php">src/sender/</directory>
         </whitelist>
     </filter>
 

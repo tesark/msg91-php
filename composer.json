@@ -1,16 +1,18 @@
 {
-    "name": "chantqube/my-first-package",
-    "description": "My First Package",
-    "keywords": ["first package"],
+    "name": "venkatsamuthiram/deliver",
+    "description": "Send SMS and OTP using MSG91 service",
+    "keywords": ["SMS OTP"],
     "type": "package",
     "license": "UNLICENSED",
     "require": {
         "guzzlehttp/guzzle": "^6.2",
-        "monolog/monolog": "^2.0@dev"
+        "monolog/monolog": "^2.0@dev",
+        "spatie/array-to-xml": "dev-master",
+        "propaganistas/laravel-phone": "dev-master"
     },
     "authors": [{
-    	"name": "Chandresh Rajkumar Manonmani",
-    	"email": "chan@tqube.com"
+    	"name": "VenkaSkpi",
+    	"email": "venkatsamuthiram5@gmail.com"
     }],
     "version": "1.0.0",
     "minimum-stability": "dev",
@@ -22,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "MyFirstPackage\\": "src/MyFirstPackage"
+            "sender\\": "src/sender"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MyFirstPackage\\": "tests/MyFirstPackage"
+            "sender\\": "tests/sender"
         }
     },
     "scripts": {
