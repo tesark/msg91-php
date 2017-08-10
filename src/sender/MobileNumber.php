@@ -3,18 +3,21 @@ namespace sender;
 
 use Propaganistas\LaravelPhone\PhoneNumber;
 
+/**
+* 
+*/
 class MobileNumber
 {
 
     // public function __construct($mobileNumber) {
 
-    // 	$this->mobileNumber = $mobileNumber;    
+    // 	$this->mobileNumber = $mobileNumber;
     // }
 
     
     public function isValid($phone)
     {
-        if(is_int($phone)) {  
+        if(is_int($phone)) {
 
             return  true;
         }         
@@ -26,10 +29,10 @@ class MobileNumber
        $length = strlen($phone);
 
        if($length > 1 && $length < 14) {
-       	 return true;
+       	return true;
        } else {
 
-       	return false;
+         return false;
        }
     }
 

@@ -4,9 +4,12 @@ namespace sender;
 use PHPUnit\Framework\TestCase;
 use sender\MobileNumber;
 
+/**
+* 
+*/
 class MobileNumberTest extends TestCase
 {
-	private $Mobile;
+    private $Mobile;
     protected function setUp()
     {
         $this->mobile = new MobileNumber();
@@ -36,26 +39,22 @@ class MobileNumberTest extends TestCase
     
     public function testLengthCheck(){
 
-    	$result = $this->mobile->getLength(9791466728);
-    	$this->assertTrue($result);
+        $result = $this->mobile->getLength(9791466728);
+        $this->assertTrue($result);
     }
     public function testLengthCheckAbove(){
 
-    	$result = $this->mobile->getLength(979146672823456);
-    	$this->assertFalse($result);
+        $result = $this->mobile->getLength(979146672823456);
+        $this->assertFalse($result);
     }
     public function testLengthCheckBelow(){
 
-    	$result = $this->mobile->getLength(9);
-    	$this->assertFalse($result);
+        $result = $this->mobile->getLength(9);
+        $this->assertFalse($result);
     }
     public function testLengthCheckNutral(){
 
-    	$result = $this->mobile->getLength(9791466);
-    	$this->assertTrue($result);
+        $result = $this->mobile->getLength(9791466);
+        $this->assertTrue($result);
     }
-
-
-
-
 }
