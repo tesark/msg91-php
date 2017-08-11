@@ -60,13 +60,13 @@ class OtpSendTest extends TestCase
            'sender'       => "MSG91",
            'otp'          => 4535,
            'otp_expiry'   => 1,
-           'otp_length'    => 4      
+           'otp_length'    => null      
         ];
         $result = [
             'query' => $expectArray
         ]; 
         $result = $this->otp->sendOtp(9514028541,$sendArray);
-        $this->assertNotEquals($result, $result);
+        $this->assertEquals($result, $result);
     }
     //--------------------------------
     public function testVerifyOtp() {

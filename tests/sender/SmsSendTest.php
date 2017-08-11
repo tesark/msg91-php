@@ -20,12 +20,7 @@ class SmsSendTest extends TestCase
         $this->sms = null;
     }
     //-----------------------------------
-    public function testSendPromotional()
-    {       
-        $result = $this->otp->sendPromotional();
-        $this->assertEquals($result, $result);
-        
-    }
+
 
     public function testSendTransactional()
     {

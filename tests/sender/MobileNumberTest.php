@@ -22,7 +22,6 @@ class MobileNumberTest extends TestCase
     public function testIsvalid(){
         $result = $this->mobile->isValid(9514028541);
         $this->assertTrue($result);
-
     }
     public function testIsvalidfalse(){
         $result = $this->mobile->isValid("9514028541");
@@ -36,7 +35,7 @@ class MobileNumberTest extends TestCase
         $result = $this->mobile->isValid('');
         $this->assertFalse($result);
     }
-    
+    //----------------------------------------------
     public function testLengthCheck(){
 
         $result = $this->mobile->getLength(9791466728);
@@ -56,5 +55,32 @@ class MobileNumberTest extends TestCase
 
         $result = $this->mobile->getLength(9791466);
         $this->assertTrue($result);
+    }
+    //-------------------------------------------
+    public function testGetCountryCodeIn(){
+
+        $expectArray = [
+            "name"=>"India",
+            "dial_code"=>"91",
+            "code"=>"IN"
+        ];
+        $result = $this->mobile->getCountry("IN");
+        $this->assertEquals($expectArray,$result);
+    }
+    public function testGetCountryCodeUs(){
+
+        $expectArray = [
+            "name"=>"United States",
+            "dial_code"=>"1",
+            "code"=>"US"
+        ];
+        $result = $this->mobile->getCountry("US");
+        $this->assertEquals($expectArray,$result);
+    }
+    public function testGetCountryCodeFalse(){
+
+        $expectArray = [];
+        $result = $this->mobile->getCountry("44");
+        $this->assertEquals($expectArray,$result);
     }
 }
