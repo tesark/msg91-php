@@ -5,10 +5,12 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
 use Guzzle\Http\Exception;
+
 /**
-* 
+* This Class for send data using GET and POST method
 */
-class ClassName extends AnotherClass
+
+class Deliver
 {
 
     protected $client;
@@ -17,43 +19,36 @@ class ClassName extends AnotherClass
     {
         $this->client = new Client();
     }
-
     //Send POST method 
-    public function sendPost($url, $headers, $body) {
-        
-        $promise = $this->client->requestAsync('POST', $uri, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);        
-        return  $promise;
+    public function sendPost($url, $body)
+    {
+        $promise = $this->client->requestAsync('POST', $url, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);
+        $result  = $this->callResponse($promise);
+        return $result;
     }
-
     //Send GET method 
-    public function sendGet($url){
-       
+    public function sendGet($url, $query)
+    {
        try {
             
-            $request = $this->client->get($url,$query);            
+            $request = $this->client->get($url,$query);
             // Send the request and get the response
-            $promise = $request->send();            
+            $promise = $request->send();
             $result  = $this->callResponse($promise);
-            return $result; 
+            return $result;
 
         } catch (Exception $e) {
 
-            $this->logger->error($e);           
-        }   
-
+            $this->logger->error($e);
+        }
     }
-    
     //Response Function
-    protected function callResponse() {
-
+    protected function callResponse()
+    {
         $promise->then(
             function (ResponseInterface $res) {
                 echo $res->getStatusCode() . "\n";
             }
         );
-
     }
-
-
-	
 }

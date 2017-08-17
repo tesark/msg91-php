@@ -1,37 +1,36 @@
 <?php
 namespace sender;
 
+use DateTime;
+
 /**
-* 
+* this class for Validation functions
 */
+
 class Validation
 {
 
-    function __construct()
+    public function __construct()
     {
     }
-
     //Check validate date time format
-
-    function isValidDateFirstFormat($date, $format = 'Y-m-d h:i:s')
+    public function isValidDateFirstFormat($date, $format = 'Y-m-d h:i:s')
     {
-        $date = trim ($date);
+        $date = trim($date);
         $d    = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
-
-    function isValidDateSecondFormat($date, $format = 'Y/m/d h:i:s')
+    public function isValidDateSecondFormat($date, $format = 'Y/m/d h:i:s')
     {
-        $date = trim ($date);
+        $date = trim($date);
         $d    = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
-        
     //Test Unix Timestamp
-    function isValidTimeStamp($timestamp)
+    public function isValidTimeStamp($timestamp)
     {
-        $timestamp = trim ($timestamp);
-        return ((string) (int) $timestamp === $timestamp) 
+        $timestamp = trim($timestamp);
+        return ((string) (int) $timestamp === $timestamp)
             && ($timestamp <= PHP_INT_MAX)
             && ($timestamp >= ~PHP_INT_MAX);
     }
