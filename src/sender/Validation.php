@@ -10,9 +10,6 @@ use DateTime;
 class Validation
 {
 
-    public function __construct()
-    {
-    }
     //Check validate date time format
     public function isValidDateFirstFormat($date, $format = 'Y-m-d h:i:s')
     {

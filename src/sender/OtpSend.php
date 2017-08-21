@@ -1,6 +1,8 @@
 <?php
 namespace sender;
 
+use sender\Deliver;
+
 /**
 * This function for send OTP through MSG91 service
 */
@@ -36,7 +38,10 @@ class OtpSend
                 }
             } elseif ($key === 'sender') {
                 if (is_string($value)) {
-                    $data[$key] = $value ? $value : null;
+
+                    if (strlen($value) == 6) {
+                        $data[$key] = $value ? $value : null;
+                    }                    
                 }
             } elseif ($key === 'otp') {
                 if (is_int($value)) {
@@ -54,9 +59,8 @@ class OtpSend
                 }
             }
         }
-        $result = [
-            'query' => $data
-        ];
+        $uri = "sendotp.php";
+        $response = Deliver::sendOtpGet($uri, $data);
         return $result;
     }
     /**
@@ -76,9 +80,8 @@ class OtpSend
         if (is_int($otp)) {
             $data['otp'] = $otp ? $otp : null;
         }
-        $result = [
-            'query' => $data
-        ];
+        $uri = "verifyRequestOTP.php";
+        $response = Deliver::sendOtpGet($uri, $data);
         return $result;
     }
     /**
@@ -100,10 +103,8 @@ class OtpSend
         if (is_string($retrytype) || $retrytype == null) {
             $data['retrytype'] = $retrytype ? $retrytype : $retryTypeArray[$random];
         }
-        $result = [
-            'query' => $data,
-        ];
-        var_dump($result);
+        $uri = 'retryotp.php';
+        $response = Deliver::sendOtpGet($uri, $data);        
         return $result;
     }
 }

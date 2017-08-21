@@ -88,4 +88,22 @@ class MobileNumberTest extends TestCase
         $result = $this->mobile->getCountry("44");
         $this->assertEquals($expectArray, $result);
     }
+    //--------------------------
+    public function testIsValidNumber()
+    {   
+        $expectArray = [
+            "value"=> true            
+        ];         
+        $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597837,9514028532");
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testIsValidNumberFalse()
+    {   
+        $expectArray = [
+            "value"=> false ,
+            "mobile"=> "951402853"           
+        ];   
+        $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597837,9514028532");
+        $this->assertEquals($expectArray, $result);
+    }
 }

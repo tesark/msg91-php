@@ -1,6 +1,9 @@
 <?php
 namespace sender;
 
+use sender\Deliver;
+use sender\MobileNumber;
+
 /**
 * This class for send MSG91 Transactional SMS
 */
@@ -25,7 +28,7 @@ class TransactionalSms
         //transactional SMS content
         $sendData = array(
 
-            'authkey'     => "123456",
+            'authkey'     => "170436A8DCExM8m259969531",
             'route'       => 4,
         );
         //this condition are check  this parameter are their added to sendData array
@@ -34,14 +37,30 @@ class TransactionalSms
                 if (is_int($mobileNumber)) {
                     $sendData += ['mobile' => $mobileNumber];
                 } elseif (is_string($mobileNumber)) {
-                    $sendData += ['mobile' => $mobileNumber];
+
+                    $result = MobileNumber::isValidNumber($mobileNumber);
+                    if ($result['value'] == true){
+                        $sendData += ['mobile' => $mobileNumber];
+                    } else {
+                        return $result['mobile'];
+                    }                    
                 }
             }
             if (array_key_exists("message", $data) && is_string($data["message"])) {
-                $sendData += ['message' => $data["message"]];
+                if(!array_key_exists("unicode", $data) && strlen($data["message"]) <= 160 ) {
+                    $sendData += ['message' => $data["message"]];
+                }
+
+                if(array_key_exists("unicode", $data) && strlen($data["message"]) <= 70) {
+                    $sendData += ['message' => $data["message"]];
+                }
             }
             if (array_key_exists("sender", $data)) {
-                $sendData += ['sender' => $data["sender"]];
+                if (is_string($value)) {
+                    if (strlen($value) == 6) {
+                       $sendData += ['sender' => $data["sender"]];
+                    }                    
+                }                
             }
             if (array_key_exists("country", $data)) {
                 $sendData += ['country' => $data["country"]];
@@ -72,7 +91,9 @@ class TransactionalSms
             }
         }
         if ((sizeof($data)+3) == sizeof($sendData)) {
-            return $sendData;
+        	$uri      = "sendhttp.php";
+            $response = Deliver::sendOtpGet($uri, $data);
+            return $response;
         } else {
             return false;
         }
