@@ -4,13 +4,13 @@ namespace sender;
 use PHPUnit\Framework\TestCase;
 use sender\OtpSend;
 
+/**
+* This test class for testing MSG91 OTP functions
+*/
+
 class OtpSendTest extends TestCase
 {
     private $otp;
-    // $array = [
-    //     'senderId'  => "MSG91",
-    //     'otpLength' => 4
-    // ];    
     protected function setUp()
     {
         $this->otp = new OtpSend();
@@ -20,59 +20,105 @@ class OtpSendTest extends TestCase
         $this->otp = null;
     }
     //-----------------------------------
-    public function testSendOtp() {        
+    public function testSendOtp()
+    {
+        $sendArray = [
+           'message'       => "this is test value",
+           'sender'        => "MSG91",
+           'otp'           => 4535,
+           'otp_expiry'    => 1,
+           'otp_length'    => 4
+        ];
 
-        $sendArray = [     
+        $expectArray = [
+           'mobile'        => 9514028541,
+           'message'       => "this is test value",
+           'sender'        => "MSG91",
+           'otp'           => 4535,
+           'otp_expiry'    => 1,
+           'otp_length'    => 4
+        ];
+
+        $result = $this->otp->sendOtp(9514028541, $sendArray);
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testSendOtpfalse()
+    {
+        $sendArray = [
            'message'      => "this is test value",
-	       'sender'  	  => "MSG91",
-	       'otp'          => 4535,
-	       'otp_expiry'   => 1,
-	       'otp_length'    => 4, 
-	              
+           'sender'       => "MSG91",
+           'otp'          => 4535,
+           'otp_expiry'   => 1,
+           'otp_length'    => 10
         ];
 
         $expectArray = [
            'mobile'       => 9514028541,
            'message'      => "this is test value",
-	       'sender'  	  => "MSG91",
-	       'otp'          => 4535,
-	       'otp_expiry'   => 1,
-	       'otp_length'    => 4,       
-	       
+           'sender'       => "MSG91",
+           'otp'          => 4535,
+           'otp_expiry'   => 1,
+           'otp_length'    => null
         ];
 
-        $result = $this->otp->sendOtp(9514028541,$sendArray);
+        $result = $this->otp->sendOtp(9514028541, $sendArray);
         $this->assertEquals($expectArray, $result);
+    }
+    //--------------------------------
+    public function testVerifyOtp()
+    {
+        $expectArray = [
+           'mobile'       => 9514028541,
+           'otp'          => 4535
+        ];
+ 
+        $result = $this->otp->verifyOtp(9514028541, 4535);
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testVerifyOtpfalse()
+    {
+        $expectArray = [
+           'mobile'       => 9514028541,
+           'otp'          => 4535
+        ];
 
+        $result = $this->otp->verifyOtp('9514028541', 4535);
+        $this->assertNotEquals($expectArray, $result);
     }
 
-    // public function testSendOtpfalse() {        
+    //------------------------
+    public function testResendOtp()
+    {
+        $expectArray = [
+           'mobile'       => 9514028541,
+           'retrytype'    => 'voice'
+        ];
 
-    //     $sendArray = [     
-    //        'message'      => "this is test value",
-	   //     'sender'  	  => "MSG91",
-	   //     'otp'          => 4535,
-	   //     'otp_expiry'   => 1,
-	   //     'otp_length'    => 10, 
-	              
-    //     ];
+        $result = $this->otp->resendOtp(9514028541, 'voice');
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testResendOtpTrue()
+    {
+        $expectArray = [
+           'mobile'       => 9514028541,
+           'retrytype'    => 'text'
+        ];
 
-    //     $expectArray = [
-    //        'mobile'       => "9514028541",
-    //        'message'      => "this is test value",
-	   //     'sender'  	  => "MSG91",
-	   //     'otp'          => 4535,
-	   //     'otp_expiry'   => 1,
-	   //     'otp_length'    => 4,       
-	       
-    //     ];
+        $result = $this->otp->resendOtp(9514028541, 'text');
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testResendOtpEmpty()
+    {
+        $expectArrayT = [
+           'mobile'       => 9514028541,
+           'retrytype'    => 'text'
+        ];
+        $expectArrayV = [
+           'mobile'       => 9514028541,
+           'retrytype'    => 'voice'
+        ];
 
-    //     $result = $this->otp->sendOtp("9514028541",$sendArray);
-    //     $this->assertNotEquals($expectArray, $result);
-
-    // } 
-
-    
-
-
+        $result = $this->otp->resendOtp(9514028541);
+        $this->assertEquals($expectArray, $result);
+    }
 }
