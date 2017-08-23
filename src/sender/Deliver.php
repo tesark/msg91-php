@@ -24,7 +24,7 @@ class Deliver
         // return $result;
     }
     //Send GET method
-    public function sendOtpGet($uri, $query)
+    public static function sendOtpGet($uri, $query)
     {
         try {
             $paramStr = "";
