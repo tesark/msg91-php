@@ -48,8 +48,8 @@ class Deliver
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 $responseArray += ['body' => $response->getBody()];
                 $result        = json_encode($responseArray);
-                return $result;
                 var_dump($result);
+                return $result;
             });            
         } catch (Exception $e) {
             echo $e;
