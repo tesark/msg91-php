@@ -46,7 +46,7 @@ class Deliver
                 $responseArray = [];
                 $responseArray += ['statusCode' => $response->getStatusCode()];
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
-                $responseArray += ['body' => $response->getBody()];
+                $responseArray += ['body' => json_decode($response->getBody())];
                 $result        = json_encode($responseArray);
                 var_dump($result);
                 return $result;
