@@ -49,8 +49,8 @@ class Deliver
                 $responseArray += ['body' => $response->getBody()];
                 $result        = json_encode($responseArray);
                 return $result;
-            });
-            $promise->wait();
+                var_dump($result);
+            });            
         } catch (Exception $e) {
             echo $e;
         }

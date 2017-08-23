@@ -90,7 +90,7 @@ class OtpSend
         }
         $uri = "verifyRequestOTP.php";
         $response = Deliver::sendOtpGet($uri, $data);
-        return $result;
+        return $response;
     }
     /**
     *  Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
@@ -114,6 +114,6 @@ class OtpSend
         }
         $uri = 'retryotp.php';
         $response = Deliver::sendOtpGet($uri, $data);
-        return $result;
+        return $response;
     }
 }
