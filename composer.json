@@ -5,8 +5,7 @@
     "type": "package",
     "license": "UNLICENSED",
     "require": {
-        "guzzlehttp/guzzle": "^6.2",
-        "monolog/monolog": "^2.0@dev",
+        "guzzlehttp/guzzle": "^6.2",        
         "antimattr/xml": "~1.0@stable",
         "spatie/array-to-xml": "dev-master",
         "propaganistas/laravel-phone": "dev-master"
