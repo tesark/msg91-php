@@ -28,39 +28,37 @@ class TransactionalSms
         //transactional SMS content
         $sendData = array(
 
-            'authkey'     => "170436A8DCExM8m259969531",
+            'authkey'     => "170867ARdROqjKklk599a87a1",
             'route'       => 4,
         );
         //this condition are check  this parameter are their added to sendData array
         for ($i = 0; $i<sizeof($data); $i++) {
             if (isset($mobileNumber)) {
                 if (is_int($mobileNumber)) {
-                    $sendData += ['mobile' => $mobileNumber];
+                    $sendData += ['mobiles' => $mobileNumber];
                 } elseif (is_string($mobileNumber)) {
-
                     $result = MobileNumber::isValidNumber($mobileNumber);
-                    if ($result['value'] == true){
-                        $sendData += ['mobile' => $mobileNumber];
+                    if ($result['value'] == true) {
+                        $sendData += ['mobiles' => $mobileNumber];
                     } else {
                         return $result['mobile'];
-                    }                    
+                    }
                 }
             }
             if (array_key_exists("message", $data) && is_string($data["message"])) {
-                if(!array_key_exists("unicode", $data) && strlen($data["message"]) <= 160 ) {
+                if (!array_key_exists("unicode", $data) && strlen($data["message"]) <= 160) {
                     $sendData += ['message' => $data["message"]];
                 }
-
-                if(array_key_exists("unicode", $data) && strlen($data["message"]) <= 70) {
+                if (array_key_exists("unicode", $data) && strlen($data["message"]) <= 70) {
                     $sendData += ['message' => $data["message"]];
                 }
             }
             if (array_key_exists("sender", $data)) {
-                if (is_string($value)) {
-                    if (strlen($value) == 6) {
-                       $sendData += ['sender' => $data["sender"]];
-                    }                    
-                }                
+                if (is_string($data['sender'])) {
+                    if (strlen($data['sender']) == 6) {
+                        $sendData += ['sender' => $data["sender"]];
+                    }
+                }
             }
             if (array_key_exists("country", $data)) {
                 $sendData += ['country' => $data["country"]];
@@ -91,8 +89,8 @@ class TransactionalSms
             }
         }
         if ((sizeof($data)+3) == sizeof($sendData)) {
-        	$uri      = "sendhttp.php";
-            $response = Deliver::sendOtpGet($uri, $data);
+            $uri      = "sendhttp.php";
+            $response = Deliver::sendOtpGet($uri, $sendData);
             return $response;
         } else {
             return false;

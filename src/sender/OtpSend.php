@@ -29,7 +29,8 @@ class OtpSend
     public function sendOtp($mobileNumber, $dataArray)
     {
         $data = [];
-        $data['mobile'] = $mobileNumber;
+        $data['authkey'] = "170436A8DCExM8m259969531";
+        $data['mobile']  = $mobileNumber;
         
         foreach ($dataArray as $key => $value) {
             if ($key === 'message') {
@@ -38,10 +39,9 @@ class OtpSend
                 }
             } elseif ($key === 'sender') {
                 if (is_string($value)) {
-
                     if (strlen($value) == 6) {
                         $data[$key] = $value ? $value : null;
-                    }                    
+                    }
                 }
             } elseif ($key === 'otp') {
                 if (is_int($value)) {
@@ -58,10 +58,17 @@ class OtpSend
                     $data[$key] = $result ? $result : null;
                 }
             }
+        }        
+        if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
+             var_dump("--working--");
+             goto end;
+        } else {
+            echo "flase";
         }
+        end:
         $uri = "sendotp.php";
         $response = Deliver::sendOtpGet($uri, $data);
-        return $result;
+        return $response;
     }
     /**
     *  Verify OTP using MSG91 Service, you want to Verify OTP using this "verifyOtp method"
@@ -76,6 +83,7 @@ class OtpSend
     public function verifyOtp($mobileNumber, $otp)
     {
         $data = [];
+        $data += ['authkey' => "170436A8DCExM8m259969531"];
         $data += ['mobile' => $mobileNumber];
         if (is_int($otp)) {
             $data['otp'] = $otp ? $otp : null;
@@ -99,12 +107,13 @@ class OtpSend
         $data = [];
         $retryTypeArray = array('voice', 'text');
         $random = array_rand($retryTypeArray);
+        $data['authkey'] = "170436A8DCExM8m259969531";
         $data['mobile'] = $mobileNumber;
         if (is_string($retrytype) || $retrytype == null) {
             $data['retrytype'] = $retrytype ? $retrytype : $retryTypeArray[$random];
         }
         $uri = 'retryotp.php';
-        $response = Deliver::sendOtpGet($uri, $data);        
+        $response = Deliver::sendOtpGet($uri, $data);
         return $result;
     }
 }
