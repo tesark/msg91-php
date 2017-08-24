@@ -19,7 +19,7 @@ class Deliver
     {
     }
     //Send POST method
-    public static function sendSmsPost($uri, $body)
+    public static function sendSmsPost($uri, $xml)
     {
         try {
             echo "----------";
