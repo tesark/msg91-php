@@ -19,8 +19,31 @@ class Deliver
     {
     }
     //Send POST method
-    public function sendPost($uri, $body)
+    public static function sendPost($uri, $body)
     {
+        try {
+            echo "----------";
+            var_dump($xml);
+            $headers = ['Content-Type' => 'application/json; charset=UTF8'];
+            $client  = new Client();
+            $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
+            // var_dump($request);
+            $promise = $client->sendAsync($request)->then(function ($response) {
+                // $responseArray = [];
+                echo "----------------------";
+                echo $response->getBody();
+                echo $response->getStatusCode();
+               
+                // $responseArray += ['statusCode' => $response->getStatusCode()];
+                // $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
+                // $responseArray += ['body' => json_decode($response->getBody())];
+                // $result        = json_encode($responseArray);
+                // var_dump($result);
+                return $result;
+            });
+        } catch (Exception $e) {
+            echo $e;
+        }
         // $promise = $this->client->requestAsync('POST', $uri, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);
         // $result  = $this->callResponse($promise);
         // return $result;
@@ -50,7 +73,7 @@ class Deliver
                 $result        = json_encode($responseArray);
                 var_dump($result);
                 return $result;
-            });            
+            });
         } catch (Exception $e) {
             echo $e;
         }

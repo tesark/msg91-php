@@ -108,51 +108,88 @@ class PromotionalSms
     */
     public function sendBulkSms($data)
     {
-        $dataArray = [];
-        for ($i =0; $i< sizeof($data); $i++) {
-            $bulkData = [
-               'AUTHKEY' => '1234567890'
-            ];
-            $arraySet = $data[$i];
-
-            if (isset($arraySet["sender"]) && is_string($arraySet['sender'])) {
-                $bulkData += ['SENDER'=>$arraySet["sender"]];
+        //create the xml document
+        $xmlDoc = new \DOMDocument();
+        //create the root element
+        $root = $xmlDoc->appendChild($xmlDoc->createElement("MESSAGE"));
+        $arrayLength = sizeof($data);
+        if ($arrayLength == 1) {
+            $currentArray = $data[0];
+            //check Auth
+            if (array_key_exists('authkey', $currentArray) && is_string($currentArray['authkey'])) {
+                //create a element
+                $authTag = $root->appendChild($xmlDoc->createElement("authkey", $currentArray['authkey']));
             }
-            if (isset($arraySet["scheduleDateTime"])) {
-                $bulkData += ['SCHEDULE DATE TIME'=>$arraySet["scheduleDateTime"]];
-            }
-            if (isset($arraySet["flash"])) {
-                $bulkData += ['FLASH'=> $arraySet["flash"]];
-            }
-            if (isset($arraySet["unicode"])) {
-                $bulkData += ['UNICODE'=> $arraySet["unicode"]];
-            }
-            if (isset($arraySet["campaign"]) && is_string($arraySet['campaign'])) {
-                $bulkData += ['CAMPAIGN'=> $arraySet["campaign"]];
-            }
-            if (isset($arraySet["countryCode"])) {
-                $bulkData += ['COUNTRY'=> $arraySet["countryCode"]];
-            }
-            if (isset($arraySet["route"])) {
-                $bulkData += ['ROUTE'=> $arraySet["route"]];
-            }
-            //mobile number Comma seperated string to Array
-            if (isset($arraySet['message']) && is_string($arraySet['message'])) {
-                $attributes = [];
-                $attributes += ['TEXT'=> $arraySet["message"]];
-                $content = [
-                    '_attributes' => $attributes
-                ];
-                if (isset($arraySet["mobileNumbers"]) && is_int($arraySet['mobileNumbers'])) {
-                    $content += ['ADDRESS'=>['_attributes'=> ['TO' => $arraySet["mobileNumbers"]]]];
+            //Check Sender
+            if (array_key_exists("sender", $currentArray)) {
+                if (is_string($currentArray['sender'])) {
+                    if (strlen($currentArray['sender']) == 6) {
+                        //create a element
+                        $senderTag = $root->appendChild($xmlDoc->createElement("sender", $currentArray['sender']));
+                    }
                 }
-                $bulkData += ['SMS'=> $content];
             }
-            array_push($dataArray, $bulkData);
+            if (array_key_exists("schtime", $currentArray)) {
+                //create a element
+                $senderTag = $root->appendChild($xmlDoc->createElement("scheduledatetime", $currentArray['schtime']));
+            }
+            if (array_key_exists("campaign", $currentArray) && is_string($currentArray["campaign"])) {
+                //create a element
+                $campaignTag = $root->appendChild($xmlDoc->createElement("campaign", $currentArray['campaign']));
+            }
+            if (array_key_exists("country", $currentArray)) {
+                //create a element
+                $countryTag = $root->appendChild($xmlDoc->createElement("country", $currentArray['country']));
+            }
+            if (array_key_exists("flash", $currentArray)) {
+                $responseFormat =  array(0,1);
+                $value = in_array($currentArray["flash"], $responseFormat)? $currentArray["flash"] : 0;
+                $flashTag = $root->appendChild($xmlDoc->createElement("flash", $value));
+            }
+            if (array_key_exists("unicode", $currentArray)) {
+                $responseFormat =  array(0,1);
+                $value = in_array(strtolower($currentArray["unicode"]), $responseFormat) ? $currentArray["unicode"] : 0;
+                $unicodeTag = $root->appendChild($xmlDoc->createElement("unicode", $value));
+            }
+            if (array_key_exists('content', $currentArray)) {
+                $bulkSms      = $currentArray['content'];
+                $lenOfBulkSms = sizeof($bulkSms);
+                for ($j=0; $j< $lenOfBulkSms; $j++) {
+                    $bulkCurrentArray =  $bulkSms[$j];
+                    $smsTag = $root->appendChild($xmlDoc->createElement("sms"));
+                    //check message legth
+                    if (array_key_exists("message", $bulkCurrentArray) && is_string($bulkCurrentArray["message"])) {
+                        if (!array_key_exists("unicode", $currentArray) && strlen($bulkCurrentArray["message"]) <= 160) {
+                            $childAttr = $xmlDoc->createAttribute("text");
+                            $childText = $xmlDoc->createTextNode($bulkCurrentArray['message']);
+                            $smsTag->appendChild($childAttr)->appendChild($childText);
+                        }
+                        if (array_key_exists("unicode", $currentArray) && strlen($bulkCurrentArray["message"]) <= 70) {
+                            $child = $xmlDoc->createTextNode($bulkCurrentArray['message']);
+                            $smsTag->appendChild($xmlDoc->createAttribute("text"))->appendChild($child);
+                        }
+                    }
+                    //check mobile contents
+                    if (is_string($bulkCurrentArray['mobile'])) {
+                        $mobileArray = MobileNumber::isValidNumber($bulkCurrentArray['mobile']);
+                        $mobiles     = $mobileArray['Mobiles'];
+                        for ($k=0; $k<sizeof($mobileArray); $k++) {
+                            $addressTag = $smsTag->appendChild($xmlDoc->createElement("address"));
+                            $childAttr = $xmlDoc->createAttribute("to");
+                            $childText = $xmlDoc->createTextNode($mobiles[$k]);
+                            $addressTag->appendChild($childAttr)->appendChild($childText);
+                        }
+                    }
+                }
+            }
+            header("Content-Type: text/plain");
+            //make the output pretty
+            $xmlDoc->formatOutput = true;
+            $xml     = $xmlDoc->saveXML();
+            var_dump($xml);
+            $uri      = "postsms.php";
+            $response = Deliver::sendSmsPost($uri, $xml);
+            return $response;
         }
-        for ($j=0; $j<sizeof($dataArray); $j++) {
-            $result[]= ArrayToXml::convert($dataArray[$j], 'MESSAGE', false);
-        }
-        return $result;
     }
 }

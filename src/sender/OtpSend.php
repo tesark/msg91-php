@@ -58,7 +58,7 @@ class OtpSend
                     $data[$key] = $result ? $result : null;
                 }
             }
-        }        
+        }
         if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
              var_dump("--working--");
              goto end;
