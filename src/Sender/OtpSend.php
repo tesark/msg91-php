@@ -2,6 +2,7 @@
 namespace Sender;
 
 use Sender\Deliver;
+use Sender\Exception\InvalidParameterException;
 
 /**
 * This function for send OTP through MSG91 service
@@ -36,12 +37,16 @@ class OtpSend
             if ($key === 'message') {
                 if (is_string($value)) {
                     $data[$key] = $value ? $value : null;
+                } else {
+                    throw InvalidParameterException::invalidArrtibuteType("message", "string", $value);
                 }
             } elseif ($key === 'sender') {
                 if (is_string($value)) {
                     if (strlen($value) == 6) {
                         $data[$key] = $value ? $value : null;
                     }
+                } else {
+                   throw InvalidParameterException::invalidArrtibuteType("sender", "string", $value); 
                 }
             } elseif ($key === 'otp') {
                 if (is_int($value)) {
