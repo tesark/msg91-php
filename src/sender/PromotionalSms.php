@@ -140,8 +140,7 @@ class PromotionalSms
         //create the xml document
         $xmlDoc = new \DOMDocument();
         //create the root element
-        $root = $xmlDoc->appendChild(
-        $xmlDoc->createElement("MESSAGE"));
+        $root = $xmlDoc->appendChild($xmlDoc->createElement("MESSAGE"));
         //check Auth
         if (array_key_exists('authkey', $currentArray) && is_string($currentArray['authkey'])) {
             //create a element
@@ -198,9 +197,9 @@ class PromotionalSms
                 }
                 //check mobile contents
                 if (is_string($bulkCurrentArray['mobile'])) {
-                    $mobileArray = MobileNumber::isValidNumber($bulkCurrentArray['mobile']);                                
+                    $mobileArray = MobileNumber::isValidNumber($bulkCurrentArray['mobile']);
                     $mobiles     = $mobileArray['Mobiles'];
-                    for ($k=0; $k<=sizeof($mobileArray); $k++) {
+                    for ($k=0; $k <sizeof($mobiles); $k++) {
                         $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                         $childAttr = $xmlDoc->createAttribute("TO");
                         $childText = $xmlDoc->createTextNode($mobiles[$k]);
@@ -211,5 +210,4 @@ class PromotionalSms
         }
         return $xmlDoc;
     }
-    
 }
