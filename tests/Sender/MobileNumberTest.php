@@ -1,8 +1,8 @@
 <?php
-namespace sender;
+namespace Sender;
 
 use PHPUnit\Framework\TestCase;
-use sender\MobileNumber;
+use Sender\MobileNumber;
 
 /**
 * This test class for testing mobile number

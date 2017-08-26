@@ -5,9 +5,7 @@
     "type": "package",
     "license": "UNLICENSED",
     "require": {
-        "guzzlehttp/guzzle": "^6.2",        
-        "antimattr/xml": "~1.0@stable",
-        "spatie/array-to-xml": "dev-master",
+        "guzzlehttp/guzzle": "^6.2",
         "propaganistas/laravel-phone": "dev-master"
     },
     "authors": [{
@@ -24,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "sender\\": "src/sender"
+            "Sender\\": "src/Sender"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "sender\\": "tests/sender"
+            "Sender\\": "tests/Sender"
         }
     },
     "scripts": {

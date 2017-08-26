@@ -1,8 +1,8 @@
 <?php
-namespace sender;
+namespace Sender;
 
-use sender\Deliver;
-use sender\MobileNumber;
+use Sender\Deliver;
+use Sender\MobileNumber;
 
 /**
 * This class for send MSG91 Transactional SMS

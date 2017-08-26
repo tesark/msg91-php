@@ -1,10 +1,8 @@
 <?php
-namespace sender;
+namespace Sender;
 
-use sender\Deliver;
-use sender\MobileNumber;
-use AntiMattr\Xml\XmlBuilder;
-use Spatie\ArrayToXml\ArrayToXml;
+use Sender\Deliver;
+use Sender\MobileNumber;
 
 /**
 * this class for testing MSG91 Promotional SMS

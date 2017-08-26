@@ -1,8 +1,8 @@
 <?php
-namespace sender;
+namespace Sender;
 
 use PHPUnit\Framework\TestCase;
-use sender\Validation;
+use Sender\Validation;
 
 /**
 * This test calss use for tesing Validation Call

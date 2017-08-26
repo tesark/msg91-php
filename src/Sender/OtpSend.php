@@ -1,7 +1,7 @@
 <?php
-namespace sender;
+namespace Sender;
 
-use sender\Deliver;
+use Sender\Deliver;
 
 /**
 * This function for send OTP through MSG91 service

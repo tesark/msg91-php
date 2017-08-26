@@ -1,26 +1,26 @@
 <?php
-namespace sender;
+namespace Sender;
 
 use PHPUnit\Framework\TestCase;
-use sender\PromotionalSms;
+use Sender\TransactionalSms;
 
 /**
-* This test class use for testing Promotional SMS
+* This test class use for testing TransactionalSMS
 */
 
-class PromotionalSmsTest extends TestCase
+class TransactionalSmsTest extends TestCase
 {
-    private $PromoSms;
+    private $tranSms;
     protected function setUp()
     {
-        $this->PromoSms = new PromotionalSms();
+        $this->tranSms = new TransactionalSms();
     }
     protected function tearDown()
     {
-        $this->PromoSms = null;
+        $this->tranSms = null;
     }
-    //----------------------------------
-    public function testsendPromotional()
+    //------------------------------------------
+    public function testsendTransactional()
     {
         $sendArray = [
            'message'      => "this is test value",
@@ -34,7 +34,7 @@ class PromotionalSmsTest extends TestCase
 
         $expectArray = [
            'authkey'     => "123456",
-           'route'       => 1,
+           'route'       => 4,
            'mobile'       => 9514028541,
            'message'      => "this is test value",
            'sender'       => "MSG91",
@@ -44,7 +44,7 @@ class PromotionalSmsTest extends TestCase
            'schtime'      => "2020-01-01 10:10:00",
            'response'     => "json"
         ];
-        $result = $this->PromoSms->sendPromotional(9514028541, $sendArray);
+        $result = $this->tranSms->sendTransactional(9514028541, $sendArray);
         $this->assertEquals($expectArray, $result);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace sender;
+namespace Sender;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;

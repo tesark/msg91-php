@@ -3,13 +3,13 @@
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="sender Test Suite">
-            <directory>tests/sender/</directory>
+            <directory>tests/Sender/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/sender/</directory>
+            <directory suffix=".php">src/Sender/</directory>
         </whitelist>
     </filter>
 
