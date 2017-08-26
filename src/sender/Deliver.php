@@ -22,12 +22,12 @@ class Deliver
     public static function sendSmsPost($uri, $xml)
     {
         try {
-            echo "----------";
-            var_dump($xml);
-            $headers = ['Content-Type' => 'application/json; charset=UTF8'];
+            $value =  substr($xml,0);
+            $xmlData = substr($value,0,-1);
+            var_dump( $xmlData);
+            $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
-            $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
-            // var_dump($request);
+            $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);          
             $promise = $client->sendAsync($request)->then(function ($response) {
                 // $responseArray = [];
                 echo "----------------------";
