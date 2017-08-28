@@ -33,18 +33,21 @@ class SmsClass
                 } 
             }
             if (array_key_exists("message", $data) && is_string($data["message"])) {
-                if (!array_key_exists("unicode", $data) && strlen($data["message"]) <= 160) {
-                    $buildSmsData += ['message' => $data["message"]];
-                } else {
-                    $message = "message allowed only below 160 cheracter, but given length:__". strlen($data["message"]);
-                    throw InvalidParameterException::invalidInput("message", "string", $data["message"], $message);
-                }
-                if (array_key_exists("unicode", $data) && strlen($data["message"]) <= 70) {
-                    $buildSmsData += ['message' => $data["message"]];
-                } else {
-                    $message = "message allowed only below 70 cheracter because you choose unicode, but given:__". strlen($data["message"]);
-                    throw InvalidParameterException::invalidInput("message", "string", $data["message"], $message);
-                }
+                if (!array_key_exists("unicode", $data)) {
+                    if (strlen($data["message"]) <= 160) {
+                        $buildSmsData += ['message' => $data["message"]];
+                    } else {
+                        $message = "message allowed only below 160 cheracter, but given length:__". strlen($data["message"]);
+                        throw InvalidParameterException::invalidInput("message", "string", $data["message"], $message);
+                    }
+                } elseif (array_key_exists("unicode", $data)) {
+                    if(strlen($data["message"]) <= 70) {
+                        $buildSmsData += ['message' => $data["message"]];
+                    } else {
+                        $message = "message allowed only below 70 cheracter because you choose unicode, but given:__". strlen($data["message"]);
+                        throw InvalidParameterException::invalidInput("message", "string", $data["message"], $message);
+                    }
+                }    
             }
             if (array_key_exists("sender", $data)) {
                 if (is_string($data['sender'])) {
