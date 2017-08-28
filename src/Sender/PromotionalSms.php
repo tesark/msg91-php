@@ -33,9 +33,10 @@ class PromotionalSms
         );
         $buildedProSmsData = SmsClass::buildSmsDataArray($mobileNumber, $data, $sendData);
         if ((sizeof($data)+3) == sizeof($buildedProSmsData)) {
-             $uri      = "sendhttp.php";
-             $response = Deliver::sendOtpGet($uri, $buildedProSmsData);
-             return $response;
+            $uri      = "sendhttp.php";
+            $response = Deliver::sendOtpGet($uri, $buildedProSmsData);
+            var_dump($response);
+            return $response;
         } else {
             throw InvalidParameterException::missinglogic("Check second parameter, correct or wrong");
         }
@@ -62,6 +63,7 @@ class PromotionalSms
             $xmlData  = $xmlDoc->saveXML();
             $uri      = "postsms.php";
             $response = Deliver::sendSmsPost($uri, $xmlData);
+            var_dump($response);            
             return $response;
         } else {
             for ($i=0; $i<$arrayLength; $i++) {
@@ -75,6 +77,7 @@ class PromotionalSms
                 $uri      = "postsms.php";
                 $res = array_push($response, Deliver::sendSmsPost($uri, $xmlData));// doubt for response pending
             }
+            var_dump($response);            
             return $response;
         }
     }

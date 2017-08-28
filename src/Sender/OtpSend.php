@@ -80,6 +80,8 @@ class OtpSend
         end:
         $uri = "sendotp.php";
         $response = Deliver::sendOtpGet($uri, $data);
+        var_dump("----------------");
+        var_dump($response);
         return $response;
     }
     /**
@@ -104,6 +106,8 @@ class OtpSend
         }
         $uri = "verifyRequestOTP.php";
         $response = Deliver::sendOtpGet($uri, $data);
+        var_dump("----------------");
+        var_dump($response);
         return $response;
     }
     /**
@@ -128,6 +132,8 @@ class OtpSend
         }
         $uri = 'retryotp.php';
         $response = Deliver::sendOtpGet($uri, $data);
+        var_dump("----------------");
+        var_dump($response);
         return $response;
     }
 }

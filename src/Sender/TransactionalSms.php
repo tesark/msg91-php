@@ -36,6 +36,8 @@ class TransactionalSms
         if ((sizeof($data)+3) == sizeof($buildedTransSmsData)) {
             $uri      = "sendhttp.php";
             $response = Deliver::sendOtpGet($uri, $buildedTransSmsData);
+            var_dump("----------------");
+            var_dump($response);
             return $response;
         } else {
             throw InvalidParameterException::missinglogic("Check second parameter, correct or wrong");
