@@ -36,7 +36,7 @@ class Deliver
                 // $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 // $responseArray += ['body' => json_decode($response->getBody())];
                 // $result        = json_encode($responseArray);
-                // var_dump($result);
+                var_dump($result);
                 return $result;
             });
         } catch (Exception $e) {
@@ -66,7 +66,7 @@ class Deliver
                     $responseArray += ['statusCode' => $response->getStatusCode()];
                     $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                     $responseArray += ['body' => json_decode($response->getBody())];
-                    $result        = $responseArray;
+                    $result        = json_encode($responseArray);
                 } else {
                     $result  = $response->getBody();
                 }
