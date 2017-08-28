@@ -2,7 +2,9 @@
 namespace Sender;
 
 use Sender\Deliver;
+use Sender\SmsClass;
 use Sender\MobileNumber;
+use Sender\Exception\InvalidParameterException;
 
 /**
 * This class for send MSG91 Transactional SMS
@@ -27,73 +29,16 @@ class TransactionalSms
     {
         //transactional SMS content
         $sendData = array(
-
             'authkey'     => "170867ARdROqjKklk599a87a1",
             'route'       => 4,
         );
-        //this condition are check  this parameter are their added to sendData array
-        for ($i = 0; $i<sizeof($data); $i++) {
-            if (isset($mobileNumber)) {
-                if (is_int($mobileNumber)) {
-                    $sendData += ['mobiles' => $mobileNumber];
-                } elseif (is_string($mobileNumber)) {
-                    $result = MobileNumber::isValidNumber($mobileNumber);
-                    if ($result['value'] == true) {
-                        $sendData += ['mobiles' => $mobileNumber];
-                    } else {
-                        return $result['mobile'];
-                    }
-                }
-            }
-            if (array_key_exists("message", $data) && is_string($data["message"])) {
-                if (!array_key_exists("unicode", $data) && strlen($data["message"]) <= 160) {
-                    $sendData += ['message' => $data["message"]];
-                }
-                if (array_key_exists("unicode", $data) && strlen($data["message"]) <= 70) {
-                    $sendData += ['message' => $data["message"]];
-                }
-            }
-            if (array_key_exists("sender", $data)) {
-                if (is_string($data['sender'])) {
-                    if (strlen($data['sender']) == 6) {
-                        $sendData += ['sender' => $data["sender"]];
-                    }
-                }
-            }
-            if (array_key_exists("country", $data)) {
-                $sendData += ['country' => $data["country"]];
-            }
-            if (array_key_exists("flash", $data)) {
-                $responseFormat =  array(0,1);
-                $value = in_array($data["flash"], $responseFormat)? $data["flash"] : null;
-                $sendData += ['flash' => $value];
-            }
-            if (array_key_exists("unicode", $data)) {
-                $responseFormat =  array(0,1);
-                $value = in_array(strtolower($data["unicode"]), $responseFormat) ? $data["unicode"] : null;
-                $sendData += ['unicode' => $value];
-            }
-            if (array_key_exists("schtime", $data)) {
-                $sendData += ['schtime' => $data["schtime"]];
-            }
-            if (array_key_exists("afterminutes", $data) && is_int($data["afterminutes"])) {
-                $sendData += ['afterminutes' => $data["afterminutes"]];
-            }
-            if (array_key_exists("response", $data) && is_string($data["response"])) {
-                $responseFormat =  array('xml','json');
-                $value = in_array(strtolower($data["response"]), $responseFormat) ? strtolower($data["response"]):null;
-                $sendData += ['response' => $value];
-            }
-            if (array_key_exists("campaign", $data) && is_string($data["campaign"])) {
-                $sendData += ['campaign' => $data["campaign"]];
-            }
-        }
-        if ((sizeof($data)+3) == sizeof($sendData)) {
+        $buildedTransSmsData = SmsClass::buildSmsDataArray($mobileNumber, $data, $sendData);
+        if ((sizeof($data)+3) == sizeof($buildedTransSmsData)) {
             $uri      = "sendhttp.php";
-            $response = Deliver::sendOtpGet($uri, $sendData);
+            $response = Deliver::sendOtpGet($uri, $buildedTransSmsData, 'sms');
             return $response;
         } else {
-            return false;
+            throw InvalidParameterException::missinglogic("Check second parameter, correct or wrong");
         }
     }
 }

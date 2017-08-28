@@ -68,18 +68,18 @@ class OtpSend
                     $result = filter_var($value, FILTER_VALIDATE_INT, $value);
                     $data[$key] = $result ? $result : null;
                 } else {
-                        throw InvalidParameterException::invalidInput("sender", "int", $value, "otp_length between 4 to 6 integer value");
+                        throw InvalidParameterException::invalidInput("sender", "int", $value, "otp_length between 4 to 6 integer ");
                 }
             }
         }
         if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
              goto end;
         } else {
-            throw InvalidParameterException::missinglogic("When using otp and message only using same time, unable to use seperately");
+            throw InvalidParameterException::missinglogic("When using otp or message, unable to use seperately");
         }
         end:
         $uri = "sendotp.php";
-        $response = Deliver::sendOtpGet($uri, $data);
+        $response = Deliver::sendOtpGet($uri, $data, 'otp');
         return $response;
     }
     /**
@@ -103,7 +103,7 @@ class OtpSend
             throw InvalidParameterException::invalidArrtibuteType("otp", "int", $value);
         }
         $uri = "verifyRequestOTP.php";
-        $response = Deliver::sendOtpGet($uri, $data);
+        $response = Deliver::sendOtpGet($uri, $data, 'otp');
         return $response;
     }
     /**
@@ -127,7 +127,7 @@ class OtpSend
             throw InvalidParameterException::invalidInput("retrytype", "string", $retrytype, "retrytype are text or voice");
         }
         $uri = 'retryotp.php';
-        $response = Deliver::sendOtpGet($uri, $data);
+        $response = Deliver::sendOtpGet($uri, $data, 'otp');
         return $response;
     }
 }

@@ -30,7 +30,6 @@ class Deliver
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
             $promise = $client->sendAsync($request)->then(function ($response) {
                 // $responseArray = [];
-                echo "----------------------";
                 echo $response->getBody();
                 echo $response->getStatusCode();               
                 // $responseArray += ['statusCode' => $response->getStatusCode()];
@@ -43,12 +42,9 @@ class Deliver
         } catch (Exception $e) {
             echo $e;
         }
-        // $promise = $this->client->requestAsync('POST', $uri, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);
-        // $result  = $this->callResponse($promise);
-        // return $result;
     }
     //Send GET method
-    public static function sendOtpGet($uri, $query)
+    public static function sendOtpGet($uri, $query, $funcIdentify)
     {
         try {
             $paramStr = "";
@@ -65,11 +61,15 @@ class Deliver
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
             $promise = $client->sendAsync($request)->then(function ($response) {
-                $responseArray = [];
-                $responseArray += ['statusCode' => $response->getStatusCode()];
-                $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
-                $responseArray += ['body' => json_decode($response->getBody())];
-                $result        = json_encode($responseArray);
+                if ($funcIdentify == 'otp') {
+                    $responseArray = [];
+                    $responseArray += ['statusCode' => $response->getStatusCode()];
+                    $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
+                    $responseArray += ['body' => json_decode($response->getBody())];
+                    $result        = $responseArray;
+                } else {
+                    $result  = $response->getBody();
+                }
                 var_dump($result);
                 return $result;
             });
