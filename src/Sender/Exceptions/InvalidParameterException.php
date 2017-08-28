@@ -6,23 +6,18 @@ namespace Sender\Exception;
 */
 class InvalidParameterException extends \Exception
 {
-    public static function invalidArrtibuteType($arrName, $arrtype, $value = null)
+    public static function invalidArrtibuteType($arrName, $arrtype, $value)
     {
-        if (isset($value)) {
-            return new static("Invalid Arrtibute, expect type:".$arrtype."given:". gettype($value)."for this".$arrName);
-        } else {
-            return new static("Invalid Arrtibute, expect type:".$arrtype."for this".$arrName);
-        }
+        return new static("Invalid Arrtibute, expect type:".$arrtype."given:". gettype($value)."for this".$arrName);
     }
     
-    public static function invalidInput($arrName, $arrtype, $message = null, $value = null)
+    public static function invalidInput($arrName, $arrtype, $value, $message)
     {
-        if (isset($value) && isset($message)) {
-            return new static("Invalid Input, expect type:".$arrtype."for this".$arrName."Reason:".$message."given:".gettype($value));
-        } elseif (isset($message) && !isset($value)) {
-            return new static("Invalid Input, expect type:".$arrtype."for this".$arrName."Reason:".$message);
-        } else {
-            return new static("Invalid Input, expect type:".$arrtype."for this".$arrName);
-        }
+        return new static("Invalid Input, expect type:".$arrtype."for this".$arrName."given:".gettype($value)."Reason:".$message);
+    }
+
+    public static function missinglogic($message)
+    {
+    	return new static("Error exception:".$message);
     }
 }
