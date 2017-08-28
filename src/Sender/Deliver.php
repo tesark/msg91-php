@@ -47,7 +47,6 @@ class Deliver
     public static function sendOtpGet($uri, $query)
     {
         try {
-            var_dump($query);
             $paramStr = "";
             $flag = 1;
             foreach ($query as $key => $value) {
@@ -58,7 +57,6 @@ class Deliver
                     $paramStr .=  "&" .  $key .'='. urlencode(trim($value));
                 }
             }
-            var_dump($paramStr);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
@@ -68,9 +66,7 @@ class Deliver
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 $responseArray += ['body' => json_decode($response->getBody())];
                 $result        =  json_encode($responseArray);
-                var_dump($result);            
-                // $result  = $response->getBody();              
-                // var_dump($result);
+                var_dump($result);
                 return $result;
             });
         } catch (Exception $e) {
