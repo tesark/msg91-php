@@ -47,6 +47,7 @@ class Deliver
     public static function sendOtpGet($uri, $query, $funcIdentify)
     {
         try {
+            var_dump($funcIdentify);
             $paramStr = "";
             $flag = 1;
             foreach ($query as $key => $value) {
@@ -67,6 +68,7 @@ class Deliver
                     $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                     $responseArray += ['body' => json_decode($response->getBody())];
                     $result        = json_encode($responseArray);
+                    var_dump($result);
                 } else {
                     $result  = $response->getBody();
                 }
