@@ -44,7 +44,7 @@ class Deliver
         }
     }
     //Send GET method
-    public static function sendOtpGet($uri, $query, $funcIdentify)
+    public static function sendOtpGet($uri, $query)
     {
         try {
             var_dump($funcIdentify);
@@ -62,16 +62,13 @@ class Deliver
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
             $promise = $client->sendAsync($request)->then(function ($response) {
-                if ($funcIdentify == 'otp') {
-                    $responseArray = [];
-                    $responseArray += ['statusCode' => $response->getStatusCode()];
-                    $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
-                    $responseArray += ['body' => json_decode($response->getBody())];
-                    $result        = json_encode($responseArray);
-                    var_dump($result);
-                } else {
-                    $result  = $response->getBody();
-                }
+                $responseArray = [];
+                $responseArray += ['statusCode' => $response->getStatusCode()];
+                $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
+                $responseArray += ['body' => json_decode($response->getBody())];
+                $result        = json_encode($responseArray);
+                var_dump($result);            
+                $result  = $response->getBody();              
                 var_dump($result);
                 return $result;
             });

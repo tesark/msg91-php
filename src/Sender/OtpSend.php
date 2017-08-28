@@ -79,7 +79,7 @@ class OtpSend
         }
         end:
         $uri = "sendotp.php";
-        $response = Deliver::sendOtpGet($uri, $data, 'otp');
+        $response = Deliver::sendOtpGet($uri, $data);
         return $response;
     }
     /**
@@ -103,7 +103,7 @@ class OtpSend
             throw InvalidParameterException::invalidArrtibuteType("otp", "int", $value);
         }
         $uri = "verifyRequestOTP.php";
-        $response = Deliver::sendOtpGet($uri, $data, 'otp');
+        $response = Deliver::sendOtpGet($uri, $data);
         return $response;
     }
     /**
@@ -127,7 +127,7 @@ class OtpSend
             throw InvalidParameterException::invalidInput("retrytype", "string", $retrytype, "retrytype are text or voice");
         }
         $uri = 'retryotp.php';
-        $response = Deliver::sendOtpGet($uri, $data, 'otp');
+        $response = Deliver::sendOtpGet($uri, $data);
         return $response;
     }
 }

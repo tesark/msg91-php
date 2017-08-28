@@ -34,7 +34,7 @@ class PromotionalSms
         $buildedProSmsData = SmsClass::buildSmsDataArray($mobileNumber, $data, $sendData);
         if ((sizeof($data)+3) == sizeof($buildedProSmsData)) {
              $uri      = "sendhttp.php";
-             $response = Deliver::sendOtpGet($uri, $buildedProSmsData, 'sms');
+             $response = Deliver::sendOtpGet($uri, $buildedProSmsData);
              return $response;
         } else {
             throw InvalidParameterException::missinglogic("Check second parameter, correct or wrong");
