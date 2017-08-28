@@ -13,6 +13,7 @@ class SmsClass
     {
     	$buildSmsData = $sendData;
     	var_dump($buildSmsData);
+    	var_dump($data);
     	//this condition are check  this parameter are their added to buildSmsData array
         for ($i = 0; $i<sizeof($data); $i++) {
             if (isset($mobileNumber)) {
