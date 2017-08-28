@@ -47,7 +47,6 @@ class Deliver
     public static function sendOtpGet($uri, $query)
     {
         try {
-            var_dump($funcIdentify);
             $paramStr = "";
             $flag = 1;
             foreach ($query as $key => $value) {
