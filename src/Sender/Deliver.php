@@ -31,7 +31,7 @@ class Deliver
             $promise = $client->sendAsync($request)->then(function ($response) {
                 // $responseArray = [];
                 echo $response->getBody();
-                echo $response->getStatusCode();               
+                echo $response->getStatusCode();
                 // $responseArray += ['statusCode' => $response->getStatusCode()];
                 // $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 // $responseArray += ['body' => json_decode($response->getBody())];
