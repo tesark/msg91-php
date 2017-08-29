@@ -109,6 +109,7 @@ class SmsClass
 
     public static function buildXmlData($xmlData)
     {
+        $currentArray = $xmlData;
         //create the xml document
         $xmlDoc = new \DOMDocument();
         //create the root element
