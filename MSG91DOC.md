@@ -1,5 +1,3 @@
-# MSG91 SMS & OTP Composer Package
-
 ### SMS
  [Msg91 Send SMS](http://api.msg91.com/apidoc/textsms/send-sms.php) 
 - `GET` Method

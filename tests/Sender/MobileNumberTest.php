@@ -1,8 +1,8 @@
 <?php
-namespace sender;
+namespace Sender;
 
 use PHPUnit\Framework\TestCase;
-use sender\MobileNumber;
+use Sender\MobileNumber;
 
 /**
 * This test class for testing mobile number
@@ -90,19 +90,19 @@ class MobileNumberTest extends TestCase
     }
     //--------------------------
     public function testIsValidNumber()
-    {   
+    {
         $expectArray = [
-            "value"=> true            
-        ];         
+            "value"=> true
+        ];
         $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597837,9514028532");
         $this->assertEquals($expectArray, $result);
     }
     public function testIsValidNumberFalse()
-    {   
+    {
         $expectArray = [
             "value"=> false ,
-            "mobile"=> "951402853"           
-        ];   
+            "mobile"=> "951402853"
+        ];
         $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597837,9514028532");
         $this->assertEquals($expectArray, $result);
     }

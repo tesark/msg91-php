@@ -1,8 +1,8 @@
 <?php
-namespace sender;
+namespace Sender;
 
 use PHPUnit\Framework\TestCase;
-use sender\OtpSend;
+use Sender\OtpSend;
 
 /**
 * This test class for testing MSG91 OTP functions
