@@ -22,8 +22,8 @@ class Deliver
     public static function sendSmsPost($uri, $xml)
     {
         try {
-            $value =  substr($xml, 0);
-            $xmlData = substr($value, 0, -1);
+            $value   =  substr($xml, 0);
+            $xmlData =  substr($value, 0, -1);
             var_dump($xmlData);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
@@ -66,10 +66,9 @@ class Deliver
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 $responseArray += ['body' => json_decode($response->getBody())];
                 $result        =  json_encode($responseArray);
-                // var_dump($result);
+                var_dump($result);
                 return $result;
             });
-            return $promise;
         } catch (Exception $e) {
             echo $e;
         }

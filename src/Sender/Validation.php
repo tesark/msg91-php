@@ -27,8 +27,19 @@ class Validation
     public function isValidTimeStamp($timestamp)
     {
         $timestamp = trim($timestamp);
-        return ((string) (int) $timestamp === $timestamp)
-            && ($timestamp <= PHP_INT_MAX)
-            && ($timestamp >= ~PHP_INT_MAX);
+        if (is_int($timestamp)) {
+            if (strtotime("-1 minutes") === $timestamp) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    //build minutes to datetime string
+    public function getDateTime($minutes)
+    {
+        $value   = trim($minutes);
+        $minutes = "+".$value."minutes";
+        return date("Y/m/d h:i:s", strtotime($minutes));
     }
 }

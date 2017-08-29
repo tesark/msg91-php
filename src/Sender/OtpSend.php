@@ -68,8 +68,10 @@ class OtpSend
                     $result = filter_var($value, FILTER_VALIDATE_INT, $value);
                     $data[$key] = $result ? $result : null;
                 } else {
-                        throw InvalidParameterException::invalidInput("sender", "int", $value, "otp_length between 4 to 6 integer ");
+                        throw InvalidParameterException::invalidInput("sender", "int", $value, "otp_length between 4 to 6 integer");
                 }
+            } else {
+                throw InvalidParameterException::missinglogic("Unwanted prameters found:".$key."is the wrong parameter");
             }
         }
         if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
