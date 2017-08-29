@@ -2,7 +2,7 @@
 namespace Sender;
 
 use Sender\Deliver;
-use Sender\Exception\InvalidParameterException;
+use Sender\Exception\ParameterException;
 
 /**
 * This function for send OTP through MSG91 service
@@ -32,52 +32,61 @@ class OtpSend
         $data = [];
         $data['authkey'] = "170436A8DCExM8m259969531";
         $data['mobile']  = $mobileNumber;
-        
         foreach ($dataArray as $key => $value) {
-            if ($key === 'message') {
-                if (is_string($value)) {
-                    $data[$key] = $value ? $value : null;
-                } else {
-                    throw InvalidParameterException::invalidArrtibuteType("message", "string", $value);
-                }
-            } elseif ($key === 'sender') {
-                if (is_string($value)) {
-                    if (strlen($value) == 6) {
+            switch ($key) {
+                case 'message':
+                    if (is_string($value)) {
                         $data[$key] = $value ? $value : null;
                     } else {
-                        throw InvalidParameterException::invalidInput("sender", "string", $value, "String length must be 6 characters");
+                        throw ParameterException::invalidArrtibuteType("message", "string", $value);
                     }
-                } else {
-                   throw InvalidParameterException::invalidArrtibuteType("sender", "string", $value); 
-                }
-            } elseif ($key === 'otp') {
-                if (is_int($value)) {
-                    $data[$key] = $value ? $value : null;
-                } else{
-                    throw InvalidParameterException::invalidArrtibuteType("otp", "int", $value);
-                }
-            } elseif ($key === 'otp_expiry') {
-                if (is_int($value)) {
-                    $data[$key] = $value ? $value : null;
-                } else{
-                    throw InvalidParameterException::invalidArrtibuteType("otp_expiry", "int", $value);
-                }
-            } elseif ($key === 'otp_length') {
-                if (is_int($value)) {
-                    $value  = array('options' => array('min_range' => 4,'max_range' => 9));
-                    $result = filter_var($value, FILTER_VALIDATE_INT, $value);
-                    $data[$key] = $result ? $result : null;
-                } else {
-                        throw InvalidParameterException::invalidInput("sender", "int", $value, "otp_length between 4 to 6 integer");
-                }
-            } else {
-                throw InvalidParameterException::missinglogic("Unwanted prameters found:".$key."is the wrong parameter");
+                    break;
+                case 'sender':
+                    if (is_string($value)) {
+                        if (strlen($value) == 6) {
+                            $data[$key] = $value ? $value : null;
+                        } else {
+                            $message = "String length must be 6 characters";
+                            throw ParameterException::invalidInput("sender", "string", $value, $message);
+                        }
+                    } else {
+                        throw ParameterException::invalidArrtibuteType("sender", "string", $value);
+                    }
+                    break;
+                case 'otp':
+                    if (is_int($value)) {
+                        $data[$key] = $value ? $value : null;
+                    } else {
+                        throw ParameterException::invalidArrtibuteType("otp", "int", $value);
+                    }
+                    break;
+                case 'otp_expiry':
+                    if (is_int($value)) {
+                        $data[$key] = $value ? $value : null;
+                    } else {
+                        throw ParameterException::invalidArrtibuteType("otp_expiry", "int", $value);
+                    }
+                    break;
+                case 'otp_length':
+                    if (is_int($value)) {
+                        $value  = array('options' => array('min_range' => 4,'max_range' => 9));
+                        $result = filter_var($value, FILTER_VALIDATE_INT, $value);
+                        $data[$key] = $result ? $result : null;
+                    } else {
+                            $message = "otp_length between 4 to 6 integer";
+                            throw ParameterException::invalidInput("sender", "int", $value, $message);
+                    }
+                    break;
+                default:
+                    $message = "Unwanted prameters found:".$key."is the wrong parameter";
+                    throw ParameterException::missinglogic($message);
+                    break;
             }
         }
         if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
              goto end;
         } else {
-            throw InvalidParameterException::missinglogic("When using otp or message, unable to use seperately");
+            throw ParameterException::missinglogic("When using otp or message, unable to use seperately");
         }
         end:
         $uri = "sendotp.php";
@@ -104,7 +113,7 @@ class OtpSend
         if (is_int($otp)) {
             $data['otp'] = $otp ? $otp : null;
         } else {
-            throw InvalidParameterException::invalidArrtibuteType("otp", "int", $value);
+            throw ParameterException::invalidArrtibuteType("otp", "int", $value);
         }
         $uri = "verifyRequestOTP.php";
         $response = Deliver::sendOtpGet($uri, $data);
@@ -124,13 +133,14 @@ class OtpSend
     */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
-        $data = [];       
+        $data = [];
         $data['authkey'] = "170436A8DCExM8m259969531";
         $data['mobile'] = $mobileNumber;
         if (is_string($retrytype) || $retrytype == null) {
             $data['retrytype'] = $retrytype ? $retrytype : 'text';
         } else {
-            throw InvalidParameterException::invalidInput("retrytype", "string", $retrytype, "retrytype are text or voice");
+            $message = "retrytype are text or voice";
+            throw ParameterException::invalidInput("retrytype", "string", $retrytype, $message);
         }
         $uri = 'retryotp.php';
         $response = Deliver::sendOtpGet($uri, $data);

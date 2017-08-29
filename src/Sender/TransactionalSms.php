@@ -4,7 +4,7 @@ namespace Sender;
 use Sender\Deliver;
 use Sender\SmsClass;
 use Sender\MobileNumber;
-use Sender\Exception\InvalidParameterException;
+use Sender\Exception\ParameterException;
 
 /**
 * This class for send MSG91 Transactional SMS
@@ -39,7 +39,7 @@ class TransactionalSms
             var_dump($response);
             return $response;
         } else {
-            throw InvalidParameterException::missinglogic("Check second parameter, correct or wrong");
+            throw ParameterException::missinglogic("Check second parameter, correct or wrong");
         }
     }
 }

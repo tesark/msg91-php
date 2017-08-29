@@ -4,6 +4,7 @@ namespace Sender;
 use Sender\Deliver;
 use Sender\SmsClass;
 use Sender\MobileNumber;
+use Sender\ParameterException;
 
 /**
 * this class for testing MSG91 Promotional SMS
@@ -38,7 +39,7 @@ class PromotionalSms
             var_dump($response);
             return $response;
         } else {
-            throw InvalidParameterException::missinglogic("Check parameters, something wrong");
+            throw ParameterException::missinglogic("Check parameters, something wrong");
         }
     }
 
@@ -47,7 +48,7 @@ class PromotionalSms
     *
     * @param  $data    string
     *
-    * @return 
+    * @return
     *
     * @throws error missing parameters or return empty
     */
@@ -82,7 +83,7 @@ class PromotionalSms
                 return $response;
             }
         } else {
-            throw InvalidParameterException::missinglogic("Check parameter is must be array.");
+            throw ParameterException::missinglogic("Check parameter is must be array.");
         }
     }
 }

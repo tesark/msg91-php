@@ -2,19 +2,19 @@
 namespace Sender;
 
 use Sender\MobileNumber;
-use Sender\Exception\InvalidParameterException;
+use Sender\Exception\ParameterException;
 
 /**
-* 
+*
 */
 class SmsClass
 {
     public static function buildSmsDataArray($mobileNumber, $data, $sendData)
     {
-    	$buildSmsData = $sendData;
-    	var_dump($buildSmsData);
-    	var_dump($data);
-    	//this condition are check  this parameter are their added to buildSmsData array
+        $buildSmsData = $sendData;
+        var_dump($buildSmsData);
+        var_dump($data);
+        //this condition are check  this parameter are their added to buildSmsData array
         for ($i = 0; $i<sizeof($data); $i++) {
             if (isset($mobileNumber)) {
                 if (is_int($mobileNumber)) {
@@ -25,46 +25,47 @@ class SmsClass
                         $buildSmsData += ['mobiles' => $mobileNumber];
                     } else {
                         $message = "this number not the correct:__". $result['mobile'];
-                        throw InvalidParameterException::invalidInput("mobiles", "string", $mobileNumber, $message);
+                        throw ParameterException::invalidInput("mobiles", "string", $mobileNumber, $message);
                     }
                 } else {
-                    $message = "interger 1 mobileNumber, string comma seperate mobile values";
-                    throw InvalidParameterException::invalidInput("mobiles", "string or integer", $mobileNumber, $message);
-                } 
+                    $message = "interger or string comma seperate values";
+                    throw ParameterException::invalidInput("mobiles", "string or integer", $mobileNumber, $message);
+                }
             }
             if (array_key_exists("message", $data) && is_string($data["message"])) {
                 if (!array_key_exists("unicode", $data)) {
                     if (strlen($data["message"]) <= 160) {
                         $buildSmsData += ['message' => $data["message"]];
                     } else {
-                        $message = "message allowed only below 160 cheracter, but given length:__". strlen($data["message"]);
-                        throw InvalidParameterException::invalidInput("message", "string", $data["message"], $message);
+                        $message = "allowed below 160 cheracters,but given length:_". strlen($data["message"]);
+                        throw ParameterException::invalidInput("message", "string", $data["message"], $message);
                     }
                 } elseif (array_key_exists("unicode", $data)) {
-                    if(strlen($data["message"]) <= 70) {
+                    if (strlen($data["message"]) <= 70) {
                         $buildSmsData += ['message' => $data["message"]];
                     } else {
-                        $message = "message allowed only below 70 cheracter because you choose unicode, but given:__". strlen($data["message"]);
-                        throw InvalidParameterException::invalidInput("message", "string", $data["message"], $message);
+                        $message = "allowed below 70 cheracter using unicode, but given:__". strlen($data["message"]);
+                        throw ParameterException::invalidInput("message", "string", $data["message"], $message);
                     }
-                }    
+                }
             }
             if (array_key_exists("sender", $data)) {
                 if (is_string($data['sender'])) {
                     if (strlen($data['sender']) == 6) {
                         $buildSmsData += ['sender' => $data["sender"]];
                     } else {
-                        throw InvalidParameterException::invalidInput("sender", "string", $data["sender"], "String length must be 6 characters");
+                        $message = "String length must be 6 characters";
+                        throw ParameterException::invalidInput("sender", "string", $data["sender"], $message);
                     }
                 } else {
-                    throw InvalidParameterException::invalidArrtibuteType("message", "string", $data['sender']);
+                    throw ParameterException::invalidArrtibuteType("message", "string", $data['sender']);
                 }
             }
             if (array_key_exists("country", $data)) {
                 if (is_numeric($data["country"])) {
                      $buildSmsData += ['country' => $data["country"]];
                 } else {
-                    throw InvalidParameterException::invalidArrtibuteType("country", "numeric", $data["country"]);
+                    throw ParameterException::invalidArrtibuteType("country", "numeric", $data["country"]);
                 }
             }
             if (array_key_exists("flash", $data)) {
@@ -84,29 +85,30 @@ class SmsClass
                 if (is_int($data["afterminutes"])) {
                     $buildSmsData += ['afterminutes' => $data["afterminutes"]];
                 } else {
-                    throw InvalidParameterException::invalidArrtibuteType("afterminutes", "int", $data["afterminutes"]);
+                    throw ParameterException::invalidArrtibuteType("afterminutes", "int", $data["afterminutes"]);
                 }
             }
             if (array_key_exists("response", $data)) {
                 if (is_string($data["response"])) {
                     $responseFormat =  array('xml','json');
-                    $value = in_array(strtolower($data["response"]), $responseFormat) ? strtolower($data["response"]):null;
+                    $responseVal = strtolower($data["response"]);
+                    $value = in_array($responseVal, $responseFormat) ? $responseVal:null;
                     $buildSmsData += ['response' => $value];
                 } else {
-                    throw InvalidParameterException::invalidArrtibuteType("response", "string", $data["response"]);
+                    throw ParameterException::invalidArrtibuteType("response", "string", $data["response"]);
                 }
             }
             if (array_key_exists("campaign", $data)) {
                 if (is_string($data["campaign"])) {
                     $buildSmsData += ['campaign' => $data["campaign"]];
                 } else {
-                    throw InvalidParameterException::invalidArrtibuteType("campaign", "string", $data["campaign"]);
+                    throw ParameterException::invalidArrtibuteType("campaign", "string", $data["campaign"]);
                 }
             }
         }
         return $buildSmsData;
     }
-
+    //build xml format
     public static function buildXmlData($xmlData)
     {
         $currentArray = $xmlData;
