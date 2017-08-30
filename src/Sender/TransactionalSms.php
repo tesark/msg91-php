@@ -25,14 +25,15 @@ class TransactionalSms
     *
     * @throws error missing parameters or return empty
     */
-    public function sendTransactional($mobileNumber, $data)
+    public static function sendTransactional($mobileNumber, $data)
     {
         //transactional SMS content
         $sendData = array(
             'authkey'     => "170867ARdROqjKklk599a87a1",
             'route'       => 4,
         );
-        $buildedTransSmsData = SmsClass::buildSmsDataArray($mobileNumber, $data, $sendData);
+        $sms = new SmsClass();
+        $buildedTransSmsData = $sms->buildSmsDataArray($mobileNumber, $data, $sendData);
         if ((sizeof($data)+3) == sizeof($buildedTransSmsData)) {
             $uri      = "sendhttp.php";
             $response = Deliver::sendOtpGet($uri, $buildedTransSmsData);

@@ -27,7 +27,7 @@ class OtpSend
     * @throws error missing parameters or return empty
     */
     //Method for send OTP
-    public function sendOtp($mobileNumber, $dataArray)
+    public static function sendOtp($mobileNumber, $dataArray)
     {
         $data = [];
         $data['authkey'] = "170436A8DCExM8m259969531";
@@ -105,7 +105,7 @@ class OtpSend
     *
     * @throws error missing parameters or return empty
     */
-    public function verifyOtp($mobileNumber, $otp)
+    public static function verifyOtp($mobileNumber, $otp)
     {
         $data = [];
         $data += ['authkey' => "170436A8DCExM8m259969531"];
@@ -131,7 +131,7 @@ class OtpSend
     *
     * @throws error missing parameters or return empty
     */
-    public function resendOtp($mobileNumber, $retrytype = null)
+    public static function resendOtp($mobileNumber, $retrytype = null)
     {
         $data = [];
         $data['authkey'] = "170436A8DCExM8m259969531";

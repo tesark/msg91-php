@@ -25,14 +25,14 @@ class PromotionalSms
     *
     * @throws error missing parameters or return empty
     */
-    public function sendPromotional($mobileNumber, $data)
+    public static function sendPromotional($mobileNumber, $data)
     {
         $sendData = array(
-
             'authkey'     => "170867ARdROqjKklk599a87a1",
             'route'       => 1,
         );
-        $buildedProSmsData = SmsClass::buildSmsDataArray($mobileNumber, $data, $sendData);
+        $sms = new SmsClass();
+        $buildedTransSmsData = $sms->buildSmsDataArray($mobileNumber, $data, $sendData);        
         if ((sizeof($data)+3) == sizeof($buildedProSmsData)) {
             $uri      = "sendhttp.php";
             $response = Deliver::sendOtpGet($uri, $buildedProSmsData);
@@ -52,7 +52,7 @@ class PromotionalSms
     *
     * @throws error missing parameters or return empty
     */
-    public function sendBulkSms($data)
+    public static function sendBulkSms($data)
     {
         if (is_array($data)) {
             $arrayLength = sizeof($data);
