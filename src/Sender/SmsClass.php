@@ -477,7 +477,7 @@ class SmsClass
     {
        if ($this->isAfterMinutesKeyExists() && $this->setAfterminutes()) {
             if ($this->isInterger($this->getAfterminutes())) {
-                if ($this->isAfterMinutes($this->getAfterminutes()) {
+                if ($this->isAfterMinutes($this->getAfterminutes())) {
                     $buildSmsData += ['afterminutes' => $this->getAfterminutes()];
                 } else {
                     $message = "Allowed between 10 to 20000 mintutes";
