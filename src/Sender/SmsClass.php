@@ -396,7 +396,7 @@ class SmsClass
     *Check vaild Date Time
     */
     public function isVaildDateTime($value)
-    {    
+    {
         if (Validation::isValidDateFirstFormat($value)) {
             return true;
         } elseif (Validation::isValidDateSecondFormat($value)) {
@@ -542,7 +542,7 @@ class SmsClass
     */
     public function addAfterMinutes($buildSmsData)
     {
-       if ($this->isAfterMinutesKeyExists() && $this->setAfterminutes()) {
+        if ($this->isAfterMinutesKeyExists() && $this->setAfterminutes()) {
             if ($this->isInterger($this->getAfterminutes())) {
                 if ($this->isAfterMinutes($this->getAfterminutes())) {
                     $buildSmsData += ['afterminutes' => $this->getAfterminutes()];
@@ -559,7 +559,7 @@ class SmsClass
     /*
     *This function for sms array build with Response
     *
-    */    
+    */
     public function addResponse($buildSmsData)
     {
         if ($this->isResponseKeyExists() && $this->setResponse()) {
@@ -636,9 +636,9 @@ class SmsClass
     *
     */
     public function sendXmlSms($xmlData)
-    {   
+    {
         $this->inputData = $xmlData;
-        var_dump($this->inputData); 
+        var_dump($this->inputData);
         if ($this->hasXmlData()) {
             var_dump("---test---");
             //create the xml document

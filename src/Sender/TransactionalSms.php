@@ -31,6 +31,6 @@ class TransactionalSms
         );
         $sms = new SmsClass();
         $TransactionOutput = $sms->sendSms($mobileNumber, $data, $sendData);
-        return $TransactionOutput;        
+        return $TransactionOutput;
     }
 }

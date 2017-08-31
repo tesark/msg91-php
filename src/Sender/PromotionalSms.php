@@ -30,7 +30,7 @@ class PromotionalSms
             'route'       => 1,
         );
         $sms = new SmsClass();
-        $promotionalOuput = $sms->sendSms($mobileNumber, $data, $sendData);        
+        $promotionalOuput = $sms->sendSms($mobileNumber, $data, $sendData);
         return $promotionalOuput;
     }
 
