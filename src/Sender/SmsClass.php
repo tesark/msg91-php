@@ -530,7 +530,7 @@ class SmsClass
         $this->sendSmsData = $sendData;
         var_dump("----test----");
         //this condition are check and parameters are added to buildSmsData array
-        if ($this->hasMobileNumber() && $this->hasMobileNumber() && $this->hasMobileNumber()) {
+        if ($this->hasMobileNumber() && $this->hasData() && $this->hasSendData()) {
             $buildSmsData = $sendData;
             for ($i = 0; $i<sizeof($this->inputData); $i++) {
                 $buildSmsData =  $this->addMobile($buildSmsData);
@@ -551,7 +551,7 @@ class SmsClass
         return $buildSmsData;
     }
     //build xml format
-    public static function buildXmlData($xmlData)
+    public function buildXmlData($xmlData)
     {
         $currentArray = $xmlData;
         //create the xml document
