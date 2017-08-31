@@ -1,10 +1,7 @@
 <?php
 namespace Sender;
 
-use Sender\Deliver;
 use Sender\SmsClass;
-use Sender\MobileNumber;
-use Sender\Exception\ParameterException;
 
 /**
 * This class for send MSG91 Transactional SMS
@@ -33,14 +30,7 @@ class TransactionalSms
             'route'       => 4,
         );
         $sms = new SmsClass();
-        $buildedTransSmsData = $sms->buildSmsDataArray($mobileNumber, $data, $sendData);
-        if ((sizeof($data)+3) == sizeof($buildedTransSmsData)) {
-            $uri      = "sendhttp.php";
-            $response = Deliver::sendOtpGet($uri, $buildedTransSmsData);
-            var_dump($response);
-            return $response;
-        } else {
-            throw ParameterException::missinglogic("Check second parameter, correct or wrong");
-        }
+        $TransactionOutput = $sms->sendSms($mobileNumber, $data, $sendData);
+        return $TransactionOutput;        
     }
 }

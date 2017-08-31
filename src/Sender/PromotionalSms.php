@@ -1,9 +1,7 @@
 <?php
 namespace Sender;
 
-use Sender\Deliver;
 use Sender\SmsClass;
-use Sender\MobileNumber;
 use Sender\ParameterException;
 
 /**
@@ -32,15 +30,8 @@ class PromotionalSms
             'route'       => 1,
         );
         $sms = new SmsClass();
-        $buildedTransSmsData = $sms->buildSmsDataArray($mobileNumber, $data, $sendData);        
-        if ((sizeof($data)+3) == sizeof($buildedProSmsData)) {
-            $uri      = "sendhttp.php";
-            $response = Deliver::sendOtpGet($uri, $buildedProSmsData);
-            var_dump($response);
-            return $response;
-        } else {
-            throw ParameterException::missinglogic("Check parameters, something wrong");
-        }
+        $promotionalOuput = $sms->sendSms($mobileNumber, $data, $sendData);        
+        return $promotionalOuput;
     }
 
     /**
@@ -58,26 +49,17 @@ class PromotionalSms
             $arrayLength = sizeof($data);
             if (isset($arrayLength) && $arrayLength == 1) {
                 $currentArray = $data[0];
-                $xmlDoc       = SmsClass::buildXmlData($currentArray);
-                header("Content-Type: text/xml");
-                //make the output pretty
-                $xmlDoc->formatOutput = true;
-                $xmlData  = $xmlDoc->saveXML();
-                $uri      = "postsms.php";
-                $response = Deliver::sendSmsPost($uri, $xmlData);
+                $sms          = new SmsClass();
+                $response     = $sms->sendXmlSms($currentArray);
+                
                 var_dump($response);
                 return $response;
             } else {
                 for ($i=0; $i<$arrayLength; $i++) {
                     $response     = [];
                     $currentArray = $data[$i];
-                    $xmlDoc       = SmsClass::buildXmlData($currentArray);
-                    header("Content-Type: text/plain");
-                    //make the output pretty
-                    $xmlDoc->formatOutput = true;
-                    $xmlData  = $xmlDoc->saveXML();
-                    $uri      = "postsms.php";
-                    $res = array_push($response, Deliver::sendSmsPost($uri, $xmlData));// doubt for response pending
+                    $sms          = new SmsClass();
+                    $response     = $sms->sendXmlSms($currentArray);
                 }
                 var_dump($response);
                 return $response;

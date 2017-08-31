@@ -1,6 +1,7 @@
 <?php
 namespace Sender;
 
+use Sender\Deliver;
 use Sender\Validation;
 use Sender\MobileNumber;
 use Sender\Exception\ParameterException;
@@ -522,8 +523,13 @@ class SmsClass
         }
         return $buildSmsData;
     }
-
-    public function buildSmsDataArray($mobileNumber, $data, $sendData)
+    /*
+    *This function Used to send the SMS data to Deliver Class
+    *@params $mobileNumber, $data, $sendData
+    *
+    *
+    */
+    public function sendSms($mobileNumber, $data, $sendData)
     {
         $this->mobiles     = $mobileNumber;
         $this->inputData   = $data;
@@ -544,11 +550,18 @@ class SmsClass
                 $buildSmsData =  $this->addResponse($buildSmsData);
                 $buildSmsData =  $this->addCampaign($buildSmsData);
             }
+            if ((sizeof($data)+3) == sizeof($buildSmsData)) {
+                $uri      = "sendhttp.php";
+                $response = Deliver::sendOtpGet($uri, $buildSmsData);
+                var_dump($response);
+                return $response;
+            } else {
+                throw ParameterException::missinglogic("Check Input parameters, something wrong");
+            }
         } else {
             $message = "parameters Missing";
             throw ParameterException::missinglogic($message);
         }
-        return $buildSmsData;
     }
     //build xml format
     public function buildXmlData($xmlData)
@@ -600,7 +613,7 @@ class SmsClass
             for ($j=0; $j< $lenOfBulkSms; $j++) {
                 $bulkCurrentArray =  $bulkSms[$j];
                 $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
-                //check message legth
+                //check message length
                 if (array_key_exists("message", $bulkCurrentArray) && is_string($bulkCurrentArray["message"])) {
                     if (!array_key_exists("unicode", $currentArray) && strlen($bulkCurrentArray["message"]) <= 160) {
                         $childAttr = $xmlDoc->createAttribute("TEXT");
@@ -625,6 +638,12 @@ class SmsClass
                 }
             }
         }
-        return $xmlDoc;
+        header("Content-Type: text/xml");
+        //make the output pretty
+        $xmlDoc->formatOutput = true;
+        $xmlData  = $xmlDoc->saveXML();
+        $uri      = "postsms.php";
+        $response = Deliver::sendSmsPost($uri, $xmlData);
+        return $response;
     }
 }
