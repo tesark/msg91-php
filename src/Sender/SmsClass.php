@@ -74,6 +74,20 @@ class SmsClass
         return isset($this->sendSmsData);
     }
     /*
+    * Check the hasXmlData empty
+    */
+    public function hasXmlData()
+    {
+        return isset($this->inputData);
+    }
+    /*
+    * Check the Auth key existes in array
+    */
+    public function isAuthKeyExists()
+    {
+        return array_key_exists("authkey", $this->inputData);
+    }
+    /*
     * Check the message key existes in array
     */
     public function isMessageKeyExists()
@@ -137,6 +151,43 @@ class SmsClass
         return array_key_exists("campaign", $this->inputData);
     }
     /*
+    * Check the response key existes in array
+    */
+    public function isContentKeyExists()
+    {
+        return array_key_exists("content", $this->inputData);
+    }
+    /*
+    * set content
+    */
+    public function setContent()
+    {
+        $this->content =  $this->inputData['content'];
+        return true;
+    }
+    /*
+    * get content
+    */
+    public function getContent()
+    {
+        return $this->content;
+    }
+     /*
+    * set mobile
+    */
+    public function setMobile()
+    {
+        $this->mobile =  $this->inputData['mobile'];
+        return true;
+    }
+    /*
+    * get mobile
+    */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+    /*
     * set mobiles
     */
     public function setMobiles()
@@ -150,6 +201,21 @@ class SmsClass
     public function getMobiles()
     {
         return $this->mobiles;
+    }
+    /*
+    * set authkey
+    */
+    public function setAuthKey()
+    {
+        $this->authkey =  $this->inputData['authkey'];
+        return true;
+    }
+    /*
+    * get authkey
+    */
+    public function getAuthKey()
+    {
+        return $this->authkey;
     }
     /*
     * set message
@@ -509,7 +575,7 @@ class SmsClass
         return $buildSmsData;
     }
     /*
-    *This function for sms array build with 
+    *This function for sms array build with campaign
     *
     */
     public function addCampaign($buildSmsData)
@@ -570,78 +636,157 @@ class SmsClass
     *
     */
     public function sendXmlSms($xmlData)
-    {
-        $currentArray = $xmlData;
-        //create the xml document
-        $xmlDoc = new \DOMDocument();
-        //create the root element
-        $root = $xmlDoc->appendChild($xmlDoc->createElement("MESSAGE"));
-        //check Auth
-        if (array_key_exists('authkey', $currentArray) && is_string($currentArray['authkey'])) {
-            //create a element
-            $authTag = $root->appendChild($xmlDoc->createElement("AUTHKEY", $currentArray['authkey']));
-        }
-        //Check Sender
-        if (array_key_exists("sender", $currentArray)) {
-            if (is_string($currentArray['sender'])) {
-                if (strlen($currentArray['sender']) == 6) {
+    {   
+        $this->inputData = $xmlData;
+        var_dump($this->inputData); 
+        if ($this->hasXmlData()) {
+            var_dump("---test---");
+            //create the xml document
+            $xmlDoc = new \DOMDocument();
+            //create the root element
+            $root = $xmlDoc->appendChild($xmlDoc->createElement("MESSAGE"));
+            /*
+            *check Auth
+            *
+            */
+            if ($this->isAuthKeyExists() && $this->setAuthKey()) {
+                if ($this->isString($this->getAuthKey())) {
                     //create a element
-                    $senderTag = $root->appendChild($xmlDoc->createElement("SENDER", $currentArray['sender']));
+                    $authTag = $root->appendChild($xmlDoc->createElement("AUTHKEY", $this->getAuthKey()));
+                } else {
+                    throw ParameterException::invalidArrtibuteType("authkey", "string", $this->getAuthKey());
                 }
             }
-        }
-        if (array_key_exists("schtime", $currentArray)) {
-            //create a element
-            $senderTag = $root->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $currentArray['schtime']));
-        }
-        if (array_key_exists("campaign", $currentArray) && is_string($currentArray["campaign"])) {
-            //create a element
-            $campaignTag = $root->appendChild($xmlDoc->createElement("CAMPAIGN", $currentArray['campaign']));
-        }
-        if (array_key_exists("country", $currentArray)) {
-            //create a element
-            $countryTag = $root->appendChild($xmlDoc->createElement("COUNTRY", $currentArray['country']));
-        }
-        if (array_key_exists("flash", $currentArray)) {
-            $responseFormat =  array(0,1);
-            $value = in_array($currentArray["flash"], $responseFormat)? $currentArray["flash"] : 0;
-            $flashTag = $root->appendChild($xmlDoc->createElement("FLASH", $value));
-        }
-        if (array_key_exists("unicode", $currentArray)) {
-            $responseFormat =  array(0,1);
-            $value = in_array(strtolower($currentArray["unicode"]), $responseFormat) ? $currentArray["unicode"] : 0;
-            $unicodeTag = $root->appendChild($xmlDoc->createElement("UNICODE", $value));
-        }
-        if (array_key_exists('content', $currentArray)) {
-            $bulkSms      = $currentArray['content'];
-            $lenOfBulkSms = sizeof($bulkSms);
-            for ($j=0; $j< $lenOfBulkSms; $j++) {
-                $bulkCurrentArray =  $bulkSms[$j];
-                $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
-                //check message length
-                if (array_key_exists("message", $bulkCurrentArray) && is_string($bulkCurrentArray["message"])) {
-                    if (!array_key_exists("unicode", $currentArray) && strlen($bulkCurrentArray["message"]) <= 160) {
-                        $childAttr = $xmlDoc->createAttribute("TEXT");
-                        $childText = $xmlDoc->createTextNode($bulkCurrentArray['message']);
-                        $smsTag->appendChild($childAttr)->appendChild($childText);
+            /*
+            *Check Sender
+            *
+            */
+            if ($this->isSenderKeyExists() && $this->setSender()) {
+                if ($this->isString($this->getSender())) {
+                    if (strlen($this->getSender()) == 6) {
+                        //create a Sender element
+                        $senderTag = $root->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
+                    } else {
+                        $message = "String length must be 6 characters";
+                        throw ParameterException::invalidInput("sender", "string", $this->getSender(), $message);
                     }
-                    if (array_key_exists("unicode", $currentArray) && strlen($bulkCurrentArray["message"]) <= 70) {
-                        $child = $xmlDoc->createTextNode($bulkCurrentArray['message']);
-                        $smsTag->appendChild($xmlDoc->createAttribute("TEXT"))->appendChild($child);
-                    }
+                } else {
+                    throw ParameterException::invalidArrtibuteType("message", "string", $this->getSender());
                 }
-                //check mobile contents
-                if (is_string($bulkCurrentArray['mobile'])) {
-                    $mobileArray = MobileNumber::isValidNumber($bulkCurrentArray['mobile']);
-                    $mobiles     = $mobileArray['Mobiles'];
-                    for ($k=0; $k <sizeof($mobiles); $k++) {
-                        $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
-                        $childAttr = $xmlDoc->createAttribute("TO");
-                        $childText = $xmlDoc->createTextNode($mobiles[$k]);
-                        $addressTag->appendChild($childAttr)->appendChild($childText);
+            }
+            /*
+            *Check schtime
+            *
+            */
+            if ($this->isSchtimeKeyExists() && $this->setSchtime()) {
+                if ($this->isVaildDateTime($this->getSchtime())) {
+                    //create a schtime element
+                    $senderTag = $root->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $this->getSchtime()));
+                } else {
+                    $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
+                    throw ParameterException::invalidInput("schtime", "string", $this->getSchtime(), $message);
+                }
+            }
+            /*
+            *Check campaign
+            *
+            */
+            if ($this->isCampaignKeyExists() && $this->setCampaign()) {
+                if ($this->isString($this->getCampaign())) {
+                    //create a campaign element
+                    $campaignTag = $root->appendChild($xmlDoc->createElement("CAMPAIGN", $this->getCampaign()));
+                } else {
+                    throw ParameterException::invalidArrtibuteType("campaign", "string", $this->getCampaign());
+                }
+            }
+            /*
+            *Check country
+            *
+            */
+            if ($this->isCountryKeyExists() && $this->setCountry()) {
+                if ($this->isNumeric($this->getCountry())) {
+                    //create a country element
+                    $countryTag = $root->appendChild($xmlDoc->createElement("COUNTRY", $this->getCountry()));
+                } else {
+                    throw ParameterException::invalidArrtibuteType("country", "numeric", $this->getCountry());
+                }
+            }
+            /*
+            *Check flash
+            *
+            */
+            if ($this->isFlashKeyExists() && $this->setFlash()) {
+                $responseFormat =  array(0,1);
+                $value = in_array($this->getFlash(), $responseFormat)? $this->getFlash() : null;
+                //create a flash element
+                $flashTag = $root->appendChild($xmlDoc->createElement("FLASH", $value));
+            }
+            /*
+            *Check unicode
+            *
+            */
+            if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
+                $responseFormat =  array(0,1);
+                $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
+                //create a unicode element
+                $unicodeTag = $root->appendChild($xmlDoc->createElement("UNICODE", $value));
+            }
+            if ($this->isContentKeyExists() && $this->setContent()) {
+                $bulkSms      = $this->getContent();
+                $lenOfBulkSms = sizeof($bulkSms);
+                for ($j=0; $j< $lenOfBulkSms; $j++) {
+                    $this->inputData =  $bulkSms[$j];
+                    $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
+                    //check message length
+                    if ($this->isMessageKeyExists() && $this->setMessage()) {
+                        if ($this->isString($this->getMessage())) {
+                            if (!$this->isUnicodeKeyExists()) {
+                                if (strlen($this->getMessage()) <= 160) {
+                                    $childAttr = $xmlDoc->createAttribute("TEXT");
+                                    $childText = $xmlDoc->createTextNode($this->getMessage());
+                                    $smsTag->appendChild($childAttr)->appendChild($childText);
+                                } else {
+                                    $message = "allowed below 160 cheracters,but given length:_". strlen($this->getMessage());
+                                    throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
+                                }
+                            } elseif ($this->isUnicodeKeyExists()) {
+                                if (strlen($this->getMessage()) <= 70) {
+                                    $child = $xmlDoc->createTextNode($this->getMessage());
+                                    $smsTag->appendChild($xmlDoc->createAttribute("TEXT"))->appendChild($child);
+                                } else {
+                                    $message = "allowed below 70 cheracter using unicode, but given:__". strlen($this->getMessage());
+                                    throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
+                                }
+                            }
+                        } else {
+                            $message = "string values only accept";
+                            throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
+                        }
+                    }
+                    //check mobile contents
+                    if ($this->setMobile() && $this->isString($this->getmobile())) {
+                        $result = $this->isValidNumber($this->getmobile());
+                        if ($result['value'] == true) {
+                            $mobiles     = $result['mobiles'];
+                            for ($k=0; $k <sizeof($mobiles); $k++) {
+                                $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
+                                $childAttr = $xmlDoc->createAttribute("TO");
+                                $childText = $xmlDoc->createTextNode($mobiles[$k]);
+                                $addressTag->appendChild($childAttr)->appendChild($childText);
+                            }
+                        } else {
+                            $message = "this number not the correct:__". $result['mobile'];
+                            throw ParameterException::invalidInput("mobiles", "string", $this->getmobile(), $message);
+                        }
+                    } else {
+                        $message = "string comma seperate values";
+                        throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
                     }
                 }
             }
+        } else {
+            $message = "parameters Missing";
+            throw ParameterException::missinglogic($message);
         }
         header("Content-Type: text/xml");
         //make the output pretty
