@@ -318,6 +318,14 @@ class SmsClass
         return $result;
     }
     /*
+    * Check isvalid afterminutes 
+    */
+    public function isAfterMinutes($value)
+    {
+        $result = Validation::isVaildAfterMinutes($value);
+        return $result;
+    }
+    /*
     *Check vaild Date Time
     */
     public function isVaildDateTime($value)
@@ -469,7 +477,12 @@ class SmsClass
     {
        if ($this->isAfterMinutesKeyExists() && $this->setAfterminutes()) {
             if ($this->isInterger($this->getAfterminutes())) {
-                $buildSmsData += ['afterminutes' => $this->getAfterminutes()];
+                if ($this->isAfterMinutes($this->getAfterminutes()) {
+                    $buildSmsData += ['afterminutes' => $this->getAfterminutes()];
+                } else {
+                    $message = "Allowed between 10 to 20000 mintutes";
+                    throw ParameterException::invalidInput("afterminutes", "int", $this->getAfterminutes(), $message);
+                }
             } else {
                 throw ParameterException::invalidArrtibuteType("afterminutes", "int", $this->getAfterminutes());
             }
