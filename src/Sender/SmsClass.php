@@ -563,8 +563,13 @@ class SmsClass
             throw ParameterException::missinglogic($message);
         }
     }
-    //build xml format
-    public function buildXmlData($xmlData)
+    /*
+    *This function Used to send the SMS XML formated data to Deliver Class
+    *@params $xmlData
+    *
+    *
+    */
+    public function sendXmlSms($xmlData)
     {
         $currentArray = $xmlData;
         //create the xml document
