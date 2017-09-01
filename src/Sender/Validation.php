@@ -69,4 +69,5 @@ class Validation
         $result = filter_var($afterMinutes, FILTER_VALIDATE_INT, $value);
         return (bool) $result;
     }
+
 }
