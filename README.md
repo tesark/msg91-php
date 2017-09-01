@@ -52,26 +52,65 @@ operator supports.
 
 # SMS API
 
-## 1. SendTransactional & SendPromotional
+## 1. SendTransactional & SendPromotional Using GET
+- `GET` Method
 
 ### Input Data
-- `$mobileNumber`
-- `$data`
+- `$mobileNumber` 
+   "919******541,919******728  String 
+   9195********3               Integer
+- `$data`                      Array
 
-### API
+### Sample Input Data
 
 ```sh
+Tips 1:
+$sample = [ 
+    'message'      => 'WELCOME TO TESARK',
+    'sender'       => 'UTOOWE',
+    'country'      => 91,
+    'flash'        => 1,
+    'unicode'      => 1,
+    'schtime'      => "2020-01-01 10:10:00",
+    'response'     => "json",
+    'afterminutes' => 10,
+    'campaign'     => "venkat"
+];
+
+TransactionalSms::sendTransactional("919******541,919******728",$sample);
+PromotionalSms::PromotionalSms("919******541,919******728",$sample);
+
+Tips 2:
+$sample = [ 
+    'message'      => 'WELCOME TO TESARK',
+    'sender'       => 'UTOOWE',
+    'country'      => 91,
+    'flash'        => 1,
+    'unicode'      => 1,
+    'schtime'      => "2020-01-01 10:10:00",
+    'response'     => "json",
+    'afterminutes' => 10,
+    'campaign'     => "venkat"
+];
+
+TransactionalSms::sendTransactional(919******541,$sample);
+PromotionalSms::PromotionalSms(919******541,$sample);
+
+```
+### API
+```sh
 use Sender\TransactionalSms;
-sendTransactional($mobileNumber, $data)
+TransactionalSms::sendTransactional($mobileNumber, $data);
 ```
 ```sh
 use Sender\PromotionalSms;
-sendPromotional($mobileNumber, $data)
+PromotionalSms::sendPromotional($mobileNumber, $data);
 ```
-## 2. SendBulkSms
+## 2. SendBulkSms SendTransactional & SendPromotional Using POST
+- `POST` Method
 
 ### Input Data
-- `$data`
+- `$data`  Array
 
 ### Sample Input Data
 
@@ -135,7 +174,7 @@ $sample = [
 
 ```sh
 use Sender\PromotionalSms;
-sendBulkSms($data)
+PromotionalSms::sendBulkSms($data);
 ```
 
 # Sample XML
@@ -147,10 +186,13 @@ sendBulkSms($data)
 ```
 >Note : Output will be request Id which is alphanumeric and contains 24 character like mentioned above. With this request id, delivery report can be viewed. If request not sent successfully, you will get the appropriate error message. View error codes
 
-### SEND OTP
-[Msg91 Send OTP](http://api.msg91.com/apidoc/sendotp/send-otp.php)
-- `GET` Method
+# OTP API
 
+[Msg91 Send OTP](http://api.msg91.com/apidoc/sendotp/send-otp.php)
+
+
+## SEND OTP
+- `GET` Method
 ```sh
 GET
 http://api.msg91.com/api/sendotp.php?authkey=YourAuthKey&mobile=919999999990&message=Your%20otp%20is%202786&sender=senderid&otp=2786
@@ -166,12 +208,37 @@ http://api.msg91.com/api/sendotp.php?authkey=YourAuthKey&mobile=919999999990&mes
 |  otp_expiry	|  integer		|  Expiry of OTP to verify, in minutes (default : 1 day, min : 1 minute)
 |  otp_length	|  integer		|  Number of digits in OTP (default : 4, min : 4, max : 9)
 
-# Sample Output
+### Input Data
+ - `authkey` *	   alphanumeric 
+ - `mobile` *	   Integer 
+ - `message`	   varchar  
+ - `sender`		   varchar
+ - `otp` 		   Integer 
+ - `otp_expiry`	   Integer
+ - `otp_length`	   Integer
+
+### Sample Input Data
+```sh
+$data = [
+    'message'       => "Your verification code is ##5421##",
+    'sender'        => "Venkat",
+    'otp'           => 5421,
+    'otp_expiry'    => 20,
+    'otp_length'    => 4
+];
+```
+### API
+
+```sh
+use Sender\OtpSend;
+OtpSend::sendOtp($mobile,$data);
+```
+## Sample Output
 
 ```sh
 {"message":"3763646c3058373530393938","type":"success"}
 ```
-### RESEND OTP
+## RESEND OTP
 - `GET` Method
 ```sh
 http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&retrytype=voice
@@ -182,11 +249,26 @@ http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&re
  | mobile *	 	 | integer 		| 	Keep number in international format (with country code)
  | retrytype	 | varchar 		| 	Method to retry otp : voice or text. Default is voice.
 
+### Input Data
+- `$mobile`   Integer
+- `$retrytype` String
+
+### Sample Input Data
+OtpSend::resendOtp($mobile,"voice")
+OtpSend::resendOtp($mobile,"text")
+OtpSend::resendOtp($mobile)
+### API
+```sh
+use Sender\OtpSend;
+OtpSend::resendOtp($mobile,$retrytype)
+
+```
+
 Sample Output
 ```sh
 {"message":"otp_sent_successfully","type":"success"}
 ```
-### VERIFY OTP
+## VERIFY OTP
 - `GET` Method
 
 ```sh
@@ -197,6 +279,18 @@ http://api.msg91.com/api/verifyRequestOTP.php?authkey=YourAuthKey&mobile=9199999
  | authkey *	 | alphanumeric | 	Login authentication key (this key is unique for every user)
  | mobile *	 	 | integer	 	| Keep number in international format (with country code)
  | otp *	 	 | varchar	 	| OTP to verify
+
+### Input Data
+- `$mobile` Integer
+- `$otp`     string
+
+### Sample Input Data
+OtpSend::verifyOtp(919*******41,5421);
+### API
+```sh
+use Sender\OtpSend;
+OtpSend::verifyOtp($mobile,$otp);
+```
 
 Sample Output
 ```sh
