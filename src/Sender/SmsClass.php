@@ -418,7 +418,7 @@ class SmsClass
         } elseif ($this->isString($this->mobiles)) {
             $result = $this->isValidNumber($this->mobiles);
             if ($result['value'] == true) {
-                $buildSmsData += ['mobile' => $this->mobiles];
+                $buildSmsData += ['mobiles' => $this->mobiles];
             } else {
                 $message = "this number not the correct:__". $result['mobile'];
                 throw ParameterException::invalidInput("mobiles", "string", $this->mobiles, $message);
