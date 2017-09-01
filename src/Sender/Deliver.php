@@ -1,12 +1,11 @@
 <?php
 namespace Sender;
 
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\RequestException;
-use Guzzle\Http\Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\ClientException;
 
 /**
 * This Class for send data using GET and POST method
@@ -18,7 +17,11 @@ class Deliver
     public function __construct()
     {
     }
-    //Send POST method
+    /*
+    *Send POST method
+    *
+    *
+    */
     public static function sendSmsPost($uri, $xml)
     {
         try {
@@ -39,11 +42,16 @@ class Deliver
                 var_dump($result);
                 return $result;
             });
-        } catch (Exception $e) {
-            echo $e;
+        } catch (ClientException $e) {
+            echo Psr7\str($e->getRequest());
+            echo Psr7\str($e->getResponse());
         }
     }
-    //Send GET method
+    /*
+    *Send GET method
+    *
+    *
+    */
     public static function sendOtpGet($uri, $query)
     {
         try {
@@ -69,8 +77,9 @@ class Deliver
                 var_dump($result);
                 return $result;
             });
-        } catch (Exception $e) {
-            echo $e;
+        } catch (ClientException $e) {
+            echo Psr7\str($e->getRequest());
+            echo Psr7\str($e->getResponse());
         }
     }
 }
