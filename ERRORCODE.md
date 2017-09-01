@@ -1,4 +1,4 @@
-# MSG91 SERVICE ERROR CODE 
+# [MSG91 SERVICE ERROR CODE](http://control.msg91.com/apidoc/errorCode/errorCodes.php) 
 
 ### SEND SMS
  [Msg91 Send SMS](http://api.msg91.com/apidoc/textsms/send-sms.php) 
