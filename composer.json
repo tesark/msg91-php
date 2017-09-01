@@ -6,7 +6,8 @@
     "license": "UNLICENSED",
     "require": {
         "guzzlehttp/guzzle": "^6.2",
-        "propaganistas/laravel-phone": "dev-master"
+        "propaganistas/laravel-phone": "dev-master",
+        "monolog/monolog": "^2.0@dev"
     },
     "authors": [{
     	"name": "VenkaSkpi",
