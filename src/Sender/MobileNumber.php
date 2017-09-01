@@ -26,7 +26,7 @@ class MobileNumber
                 if ($lenva >9  && $lenva < 15) {
                     if ($i == $len-1) {
                         $data += ["value" => true];
-                        $data += ["Mobiles" => $mobiles];
+                        $data += ["mobile" => $mobiles];
                     }
                 } else {
                     $data += ["value" => false];

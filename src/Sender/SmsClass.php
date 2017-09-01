@@ -418,7 +418,7 @@ class SmsClass
         } elseif ($this->isString($this->mobiles)) {
             $result = $this->isValidNumber($this->mobiles);
             if ($result['value'] == true) {
-                $buildSmsData += ['mobiles' => $this->mobiles];
+                $buildSmsData += ['mobile' => $this->mobiles];
             } else {
                 $message = "this number not the correct:__". $result['mobile'];
                 throw ParameterException::invalidInput("mobiles", "string", $this->mobiles, $message);
@@ -767,7 +767,7 @@ class SmsClass
                     if ($this->setMobile() && $this->isString($this->getmobile())) {
                         $result = $this->isValidNumber($this->getmobile());
                         if ($result['value'] == true) {
-                            $mobiles     = $result['mobiles'];
+                            $mobiles     = $result['mobile'];
                             for ($k=0; $k <sizeof($mobiles); $k++) {
                                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                                 $childAttr = $xmlDoc->createAttribute("TO");
