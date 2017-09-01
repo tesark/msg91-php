@@ -1,7 +1,6 @@
 # MSG91 SMS & OTP Composer Package
 
-
-##Installation
+### Installation
 
 Run the following command.
 
@@ -13,11 +12,11 @@ composer require venkatsamuthiram/deliver
         "venkatsamuthiram/deliver": "dev-master"
         }
 ```
-###Coding Standards
+### Coding Standards
 
 The entire library is intended to be PSR-1, PSR-2 compliant.
 
-###Get in touch
+### Get in touch
 
 If you have any suggestions, feel free to email me at venkatsamuthiram5@gmail.com or ping me on Twitter with @venkatskpi.
 
@@ -25,7 +24,6 @@ If you have any suggestions, feel free to email me at venkatsamuthiram5@gmail.co
  [Msg91 Send SMS](http://api.msg91.com/apidoc/textsms/send-sms.php) 
 - `GET` Method
 - `POST` Method
-
 
 ```sh
  GET
@@ -50,17 +48,17 @@ http://api.msg91.com/api/sendhttp.php?authkey=YourAuthKey&mobiles=919999999990,9
 operator supports.
 
   - route=1 for promotional   
-  - route=4 for transactional SMS
+  - route=4 for transactional
 
-#SMS API
+# SMS API
 
 ## 1. SendTransactional & SendPromotional
 
-###Input Data
+### Input Data
 - `$mobileNumber`
 - `$data`
 
-###API
+### API
 
 ```sh
 use Sender\TransactionalSms;
@@ -72,15 +70,76 @@ sendPromotional($mobileNumber, $data)
 ```
 ## 2. SendBulkSms
 
-###Input Data
+### Input Data
 - `$data`
 
-###API
+### Sample Input Data
+
+```sh
+Tips 1: 
+$sample = [
+    [
+        'authkey' => '170867ARdROqjKklk599a87a1',
+        'sender'  => 'MULSMS',
+        'schtime'=> '2016-03-31 11:17:39',
+        'campaign'=> 'venkat',
+        'country'=> '91',
+        'flash'=> 1,
+        'unicode'=> 1,
+        'content' =>[ 
+           [
+           'message'    => 'welcome multi sms',
+           'mobile' => '91951******1,91880******4,917******972'
+           ],
+           [
+              'message'    => 'tesark world',
+              'mobile' => '9195******41',918******824,917******972'
+           ]
+        ]
+    ]  
+];        
+Tips 2:
+$sample = [
+    [
+       'authkey' => '170867ARdROqjKklk599a87a1',
+       'sender'  => 'MULSMS',
+       'content' =>[ 
+            [
+                'message'    => 'welcome multi sms',
+                'mobile' => '919******541',918******824,917******972'
+            ],
+            [
+                'message'    => 'tesark world',
+                'mobile' => '9195******41,91880******4,9170******72'
+            ]
+        ]
+    ],
+    [
+       'authkey' => '170867ARdROqjKklk599a87a1',
+       'sender'  => 'SUNSMS',
+       'content' =>[ 
+            [
+                'message'    => 'hai how are u',
+                'mobile' => '9195******41,918******824,9******2972'
+            ],
+            [
+                'message'    => 'hai welcome',
+                'mobile' => '9195******41,918******824,9******42972'
+            ]
+        ]
+    ]
+];
+```
+ 
+### API
 
 ```sh
 use Sender\PromotionalSms;
 sendBulkSms($data)
 ```
+
+# Sample XML
+
 
 # Sample Output
 ```sh
