@@ -7,7 +7,7 @@
     "require": {
         "guzzlehttp/guzzle": "^6.2",
         "propaganistas/laravel-phone": "dev-master",
-        "monolog/monolog": "^2.0@dev"
+        "monolog/monolog": "2.0.x-dev"
     },
     "authors": [{
     	"name": "VenkaSkpi",
