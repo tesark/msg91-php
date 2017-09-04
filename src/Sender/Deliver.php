@@ -14,7 +14,7 @@ use GuzzleHttp\Exception\ClientException;
 * @package    Msg91 SMS&OTP package
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
-* @license    
+* @license
 */
 
 class Deliver
@@ -35,13 +35,13 @@ class Deliver
         try {
             $value   =  substr($xml, 0);
             $xmlData =  substr($value, 0, -1);
-            $this->logger->info( "Request:",$xml,$uri);
+            $this->logger->info("Request:", $xml, $uri);
             var_dump($xmlData);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
             $promise = $client->sendAsync($request)->then(function ($response) {
-                $this->logger->info( "Response:",$response->getStatusCode(),$response->getBody());
+                $this->logger->info("Response:", $response->getStatusCode(), $response->getBody());
                 // $responseArray = [];
                 echo $response->getBody();
                 echo $response->getStatusCode();
@@ -75,7 +75,7 @@ class Deliver
                     $paramStr .=  "&" .  $key .'='. urlencode(trim($value));
                 }
             }
-            $this->logger->info( "Request:",$query,$uri);
+            $this->logger->info("Request:", $query, $uri);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
@@ -85,7 +85,7 @@ class Deliver
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 $responseArray += ['body' => json_decode($response->getBody())];
                 $result        =  json_encode($responseArray);
-                $this->logger->info( "Response:",$responseArray);
+                $this->logger->info("Response:", $responseArray);
                 var_dump($result);
                 return $result;
             });

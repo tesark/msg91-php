@@ -10,8 +10,9 @@ use Monolog\Handler\StreamHandler;
 * @package    Msg91 SMS&OTP package
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
-* @license    
+* @license
 */
+
 class Log
 {
     private static $logger;
@@ -28,9 +29,9 @@ class Log
     *  MSG91 Error log "ERROR"
     * @param $error
     */
-
-    public function error(...$error){
-    	$error = array("ERROR" => $error);
+    public function error(...$error)
+    {
+        $error = array("ERROR" => $error);
         $dateTime = date_create('now')->format('Y-m-d');
         // Now add some handlers
         self::$logger->pushHandler(new StreamHandler(self::$path.'/Error_'.$dateTime.'.log', Logger::ERROR));
@@ -41,9 +42,9 @@ class Log
     *  MSG91 Error log "INFO"
     * @param $info
     */
-
-    public function info(...$info){
-    	$info = array('INFO' => $info);
+    public function info(...$info)
+    {
+        $info = array('INFO' => $info);
         $dateTime = date_create('now')->format('Y-m-d');
         // Now add some handlers
         self::$logger->pushHandler(new StreamHandler(self::$path.'/Info_'.$dateTime.'.log', Logger::INFO));

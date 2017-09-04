@@ -12,7 +12,7 @@ use Sender\Exception\ParameterException;
 * @package    Msg91 SMS&OTP package
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
-* @license    
+* @license
 */
 
 class SmsClass

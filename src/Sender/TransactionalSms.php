@@ -2,6 +2,7 @@
 namespace Sender;
 
 use Sender\SmsClass;
+use Sender\Config;
 
 /**
 * This Class provide Transactional SMS APIs
@@ -9,13 +10,17 @@ use Sender\SmsClass;
 * @package    Msg91 SMS&OTP package
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
-* @license    
+* @license
 */
 
 class TransactionalSms
 {
     public function __construct()
     {
+        // Get Envirionment variable
+        $this->container = Config::getContainer();
+        $this->settings  = $this->container->get('settings');
+        var_dump($this->settings);
     }
 
     /**
@@ -29,6 +34,8 @@ class TransactionalSms
     */
     public static function sendTransactional($mobileNumber, $data)
     {
+        var_dump($this->settings);
+        return $this->settings;
         //transactional SMS content
         $sendData = array(
             'authkey'     => "170867ARdROqjKklk599a87a1",

@@ -2,12 +2,12 @@
 namespace Sender\Exception;
 
 /**
-* This class for 
+* This class for
 *
 * @package    Msg91 SMS&OTP package
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
-* @license    
+* @license
 */
 
 class ParameterException extends \Exception

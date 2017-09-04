@@ -12,7 +12,7 @@ use Sender\Exception\ParameterException;
 * @package    Msg91 SMS&OTP package
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
-* @license    
+* @license
 */
 
 class OtpClass
@@ -38,7 +38,7 @@ class OtpClass
     public function hasSendData()
     {
         return isset($this->sendData);
-    }    
+    }
     /*
     * Check the message key existes in array
     */
@@ -236,8 +236,8 @@ class OtpClass
     public function getRetryType()
     {
         return $this->retrytype;
-    }    
-	/*
+    }
+    /*
     * Check integer value 
     */
     public function isInterger($value)
@@ -333,7 +333,7 @@ class OtpClass
     */
     public function addOtpLength($data)
     {
-    	if ($this->isOtpLengthKeyExists() && $this->setOtpLength()) {
+        if ($this->isOtpLengthKeyExists() && $this->setOtpLength()) {
             if ($this->isInterger($this->getOtpLength())) {
                 $value  = array('options' => array('min_range' => 4,'max_range' => 9));
                 $result = filter_var($this->getOtpLength(), FILTER_VALIDATE_INT, $value);
@@ -352,9 +352,9 @@ class OtpClass
     {
         if ($this->isAuthKeyExists() && $this->setAuthkey()) {
             if ($this->isString($this->getAuthkey())) {
-               return true;
+                return true;
             } else {
-               throw ParameterException::invalidArrtibuteType("Authkey", "string", $this->getAuthkey());
+                throw ParameterException::invalidArrtibuteType("Authkey", "string", $this->getAuthkey());
             }
         } else {
             $message = "Parameter Authkey missing";
@@ -368,9 +368,9 @@ class OtpClass
     {
         if ($this->isMobileKeyExists() && $this->setmobile()) {
             if ($this->isInterger($this->getmobile())) {
-               return true;
+                return true;
             } else {
-               throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getmobile());
+                throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getmobile());
             }
         } else {
             $message = "Parameter mobile missing";
@@ -391,7 +391,7 @@ class OtpClass
             if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;
                 //add message on array
-                $data = $this->addMessage($data); 
+                $data = $this->addMessage($data);
                 //add sender on the Array
                 $data = $this->addSender($data);
                 //add otp on the array
@@ -400,7 +400,7 @@ class OtpClass
                 $data = $this->addOtpExpiry($data);
                 //add otp_length on the array
                 $data = $this->addOtpLength($data);
-                var_dump($data);  
+                var_dump($data);
             }
             if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
                 goto end;
@@ -415,8 +415,8 @@ class OtpClass
             var_dump($response);
             return $response;
         } else {
-           $message = "The wrong parameter found";
-           throw ParameterException::missinglogic($message);
+            $message = "The wrong parameter found";
+            throw ParameterException::missinglogic($message);
         }
     }
     /*
@@ -426,9 +426,9 @@ class OtpClass
     {
         if ($this->isRetryTypeExists() && $this->setRetryType()) {
             if ($this->isString($this->getRetryType())) {
-               $data['retrytype'] =  $this->getRetryType() ? $this->getRetryType() : null;
+                $data['retrytype'] =  $this->getRetryType() ? $this->getRetryType() : null;
             } else {
-               throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getRetryType());
+                throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getRetryType());
             }
         } else {
             $message = "Parameter mobile missing";
@@ -454,8 +454,8 @@ class OtpClass
                 var_dump($data);
             }
         } else {
-           $message = "The parameters not found";
-           throw ParameterException::missinglogic($message);
+            $message = "The parameters not found";
+            throw ParameterException::missinglogic($message);
         }
         $uri = 'retryotp.php';
         $delivery = new Deliver();
@@ -482,8 +482,8 @@ class OtpClass
                 var_dump($data);
             }
         } else {
-           $message = "The parameters not found";
-           throw ParameterException::missinglogic($message);
+            $message = "The parameters not found";
+            throw ParameterException::missinglogic($message);
         }
         $uri = "verifyRequestOTP.php";
         $delivery = new Deliver();
