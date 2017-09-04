@@ -5,7 +5,12 @@ use Sender\SmsClass;
 use Sender\ParameterException;
 
 /**
-* this class for testing MSG91 Promotional SMS
+* This Class provide Promotional SMS APIs
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license    
 */
 
 class PromotionalSms

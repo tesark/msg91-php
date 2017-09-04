@@ -5,7 +5,12 @@ use Sender\Deliver;
 use Sender\Exception\ParameterException;
 
 /**
-* This function for send OTP through MSG91 service
+* This Class provide OTP APIs
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license    
 */
 
 class OtpSend

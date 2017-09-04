@@ -7,8 +7,14 @@ use Sender\MobileNumber;
 use Sender\Exception\ParameterException;
 
 /**
+* This Class for Build and send the SMS
 *
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license    
 */
+
 class SmsClass
 {
     /*
