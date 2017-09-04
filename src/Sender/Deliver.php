@@ -9,6 +9,11 @@ use GuzzleHttp\Exception\ClientException;
 
 /**
 * This Class for send data using GET and POST method
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license    
 */
 
 class Deliver

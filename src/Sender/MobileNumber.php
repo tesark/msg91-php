@@ -4,7 +4,12 @@ namespace Sender;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
-* This function for using Mobilenumber Validation
+* This Class for splite mobile number given string
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license    
 */
 
 class MobileNumber

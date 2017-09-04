@@ -4,7 +4,12 @@ namespace Sender;
 use Sender\SmsClass;
 
 /**
-* This class for send MSG91 Transactional SMS
+* This Class provide Transactional SMS APIs
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license    
 */
 
 class TransactionalSms
