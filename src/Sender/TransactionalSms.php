@@ -1,19 +1,26 @@
 <?php
 namespace Sender;
 
-use Sender\Deliver;
 use Sender\SmsClass;
-use Sender\MobileNumber;
-use Sender\Exception\ParameterException;
+use Sender\Config;
 
 /**
-* This class for send MSG91 Transactional SMS
+* This Class provide Transactional SMS APIs
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license
 */
 
 class TransactionalSms
 {
     public function __construct()
     {
+        // Get Envirionment variable
+        $this->container = Config::getContainer();
+        $this->settings  = $this->container->get('settings');
+        var_dump($this->settings);
     }
 
     /**
@@ -25,21 +32,17 @@ class TransactionalSms
     *
     * @throws error missing parameters or return empty
     */
-    public function sendTransactional($mobileNumber, $data)
+    public static function sendTransactional($mobileNumber, $data)
     {
+        var_dump($this->settings);
+        return $this->settings;
         //transactional SMS content
         $sendData = array(
             'authkey'     => "170867ARdROqjKklk599a87a1",
             'route'       => 4,
         );
-        $buildedTransSmsData = SmsClass::buildSmsDataArray($mobileNumber, $data, $sendData);
-        if ((sizeof($data)+3) == sizeof($buildedTransSmsData)) {
-            $uri      = "sendhttp.php";
-            $response = Deliver::sendOtpGet($uri, $buildedTransSmsData);
-            var_dump($response);
-            return $response;
-        } else {
-            throw ParameterException::missinglogic("Check second parameter, correct or wrong");
-        }
+        $sms = new SmsClass();
+        $TransactionOutput = $sms->sendSms($mobileNumber, $data, $sendData);
+        return $TransactionOutput;
     }
 }

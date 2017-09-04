@@ -1,17 +1,35 @@
 # MSG91 SMS & OTP Composer Package
 
+### Installation
+
+Run the following command.
+
+```sh
+composer require venkatsamuthiram/deliver
+```
+```sh
+"require": {
+        "venkatsamuthiram/deliver": "dev-master"
+        }
+```
+### Coding Standards
+
+The entire library is intended to be PSR-1, PSR-2 compliant.
+
+### Get in touch
+
+If you have any suggestions, feel free to email me at venkatsamuthiram5@gmail.com or ping me on Twitter with @venkatskpi.
+
 ### SMS
  [Msg91 Send SMS](http://api.msg91.com/apidoc/textsms/send-sms.php) 
 - `GET` Method
 - `POST` Method
+
 ```sh
  GET
 http://api.msg91.com/api/sendhttp.php?authkey=YourAuthKey&mobiles=919999999990,919999999999&message=message&sender=ABCDEF&route=4&country=0
-````
-```sh
- POST
- https://control.msg91.com/api/sendhttp.php
- ```
+```
+
 | Parameter name | Data type   | Description
 | -------------- | ---------   | -----------
 | authkey *		| alphanumeric	|Login authentication key (this key is unique for every user)
@@ -29,8 +47,138 @@ http://api.msg91.com/api/sendhttp.php?authkey=YourAuthKey&mobiles=919999999990,9
 
 operator supports.
 
-  - route=1 for promotional
-  - route=4 for transactional SMS
+  - route=1 for promotional   
+  - route=4 for transactional
+
+# SMS API
+
+## 1. SendTransactional & SendPromotional Using GET
+- `GET` Method
+
+### Input Data
+- `$mobileNumber` 
+   "919******541,919******728  String 
+   9195********3               Integer
+- `$data`                      Array
+
+### Sample Input Data
+
+```sh
+Tips 1:
+$sample = [ 
+    'message'      => 'WELCOME TO TESARK',
+    'sender'       => 'UTOOWE',
+    'country'      => 91,
+    'flash'        => 1,
+    'unicode'      => 1,
+    'schtime'      => "2020-01-01 10:10:00",
+    'response'     => "json",
+    'afterminutes' => 10,
+    'campaign'     => "venkat"
+];
+
+TransactionalSms::sendTransactional("919******541,919******728",$sample);
+PromotionalSms::PromotionalSms("919******541,919******728",$sample);
+
+Tips 2:
+$sample = [ 
+    'message'      => 'WELCOME TO TESARK',
+    'sender'       => 'UTOOWE',
+    'country'      => 91,
+    'flash'        => 1,
+    'unicode'      => 1,
+    'schtime'      => "2020-01-01 10:10:00",
+    'response'     => "json",
+    'afterminutes' => 10,
+    'campaign'     => "venkat"
+];
+
+TransactionalSms::sendTransactional(919******541,$sample);
+PromotionalSms::PromotionalSms(919******541,$sample);
+
+```
+### API
+```sh
+use Sender\TransactionalSms;
+TransactionalSms::sendTransactional($mobileNumber, $data);
+```
+```sh
+use Sender\PromotionalSms;
+PromotionalSms::sendPromotional($mobileNumber, $data);
+```
+## 2. SendBulkSms SendTransactional & SendPromotional Using POST
+- `POST` Method
+
+### Input Data
+- `$data`  Array
+
+### Sample Input Data
+
+```sh
+Tips 1: 
+$sample = [
+    [
+        'authkey' => '170867ARdROqjKklk599a87a1',
+        'sender'  => 'MULSMS',
+        'schtime'=> '2016-03-31 11:17:39',
+        'campaign'=> 'venkat',
+        'country'=> '91',
+        'flash'=> 1,
+        'unicode'=> 1,
+        'content' =>[ 
+           [
+           'message'    => 'welcome multi sms',
+           'mobile' => '91951******1,91880******4,917******972'
+           ],
+           [
+              'message'    => 'tesark world',
+              'mobile' => '9195******41',918******824,917******972'
+           ]
+        ]
+    ]  
+];        
+Tips 2:
+$sample = [
+    [
+       'authkey' => '170867ARdROqjKklk599a87a1',
+       'sender'  => 'MULSMS',
+       'content' =>[ 
+            [
+                'message'    => 'welcome multi sms',
+                'mobile' => '919******541',918******824,917******972'
+            ],
+            [
+                'message'    => 'tesark world',
+                'mobile' => '9195******41,91880******4,9170******72'
+            ]
+        ]
+    ],
+    [
+       'authkey' => '170867ARdROqjKklk599a87a1',
+       'sender'  => 'SUNSMS',
+       'content' =>[ 
+            [
+                'message'    => 'hai how are u',
+                'mobile' => '9195******41,918******824,9******2972'
+            ],
+            [
+                'message'    => 'hai welcome',
+                'mobile' => '9195******41,918******824,9******42972'
+            ]
+        ]
+    ]
+];
+```
+ 
+### API
+
+```sh
+use Sender\PromotionalSms;
+PromotionalSms::sendBulkSms($data);
+```
+
+# Sample XML
+
 
 # Sample Output
 ```sh
@@ -38,20 +186,18 @@ operator supports.
 ```
 >Note : Output will be request Id which is alphanumeric and contains 24 character like mentioned above. With this request id, delivery report can be viewed. If request not sent successfully, you will get the appropriate error message. View error codes
 
-### SEND OTP
-[Msg91 Send OTP](http://api.msg91.com/apidoc/sendotp/send-otp.php)
-- `GET` Method
-- `POST` Method
+# OTP API
 
+[Msg91 Send OTP](http://api.msg91.com/apidoc/sendotp/send-otp.php)
+
+
+## SEND OTP
+- `GET` Method
 ```sh
 GET
 http://api.msg91.com/api/sendotp.php?authkey=YourAuthKey&mobile=919999999990&message=Your%20otp%20is%202786&sender=senderid&otp=2786
 ```
 
-```sh
-POST
-https://sendotp.msg91.com/api/generateOTP
-```
 |  Parameter name |  	Data type|  	Description|
 |------------- |-----------------|-----------------|
 |  authkey *	|  alphanumeric|  	Login authentication key (this key is unique for every user)
@@ -62,12 +208,37 @@ https://sendotp.msg91.com/api/generateOTP
 |  otp_expiry	|  integer		|  Expiry of OTP to verify, in minutes (default : 1 day, min : 1 minute)
 |  otp_length	|  integer		|  Number of digits in OTP (default : 4, min : 4, max : 9)
 
-# Sample Output
+### Input Data
+ - `authkey` *	   alphanumeric 
+ - `mobile` *	   Integer 
+ - `message`	   varchar  
+ - `sender`		   varchar
+ - `otp` 		   Integer 
+ - `otp_expiry`	   Integer
+ - `otp_length`	   Integer
+
+### Sample Input Data
+```sh
+$data = [
+    'message'       => "Your verification code is ##5421##",
+    'sender'        => "Venkat",
+    'otp'           => 5421,
+    'otp_expiry'    => 20,
+    'otp_length'    => 4
+];
+```
+### API
+
+```sh
+use Sender\OtpSend;
+OtpSend::sendOtp($mobile,$data);
+```
+## Sample Output
 
 ```sh
 {"message":"3763646c3058373530393938","type":"success"}
 ```
-### RESEND OTP
+## RESEND OTP
 - `GET` Method
 ```sh
 http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&retrytype=voice
@@ -78,11 +249,26 @@ http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&re
  | mobile *	 	 | integer 		| 	Keep number in international format (with country code)
  | retrytype	 | varchar 		| 	Method to retry otp : voice or text. Default is voice.
 
+### Input Data
+- `$mobile`   Integer
+- `$retrytype` String
+
+### Sample Input Data
+OtpSend::resendOtp($mobile,"voice")
+OtpSend::resendOtp($mobile,"text")
+OtpSend::resendOtp($mobile)
+### API
+```sh
+use Sender\OtpSend;
+OtpSend::resendOtp($mobile,$retrytype)
+
+```
+
 Sample Output
 ```sh
 {"message":"otp_sent_successfully","type":"success"}
 ```
-### VERIFY OTP
+## VERIFY OTP
 - `GET` Method
 
 ```sh
@@ -94,50 +280,19 @@ http://api.msg91.com/api/verifyRequestOTP.php?authkey=YourAuthKey&mobile=9199999
  | mobile *	 	 | integer	 	| Keep number in international format (with country code)
  | otp *	 	 | varchar	 	| OTP to verify
 
+### Input Data
+- `$mobile` Integer
+- `$otp`     string
+
+### Sample Input Data
+OtpSend::verifyOtp(919*******41,5421);
+### API
+```sh
+use Sender\OtpSend;
+OtpSend::verifyOtp($mobile,$otp);
+```
+
 Sample Output
 ```sh
 {"message":"number_verified_successfully","type":"success"}
 ```
-
-# Error Codes
-### Missing parameters
-| Error code | Description |
-| ---------- | ------------- |
-| 101		 | Missing mobile no.
-| 102		 | Missing message
-| 103	 	 | Missing sender ID
-| 104		 | Missing username
-| 105		 | Missing password
-| 106		 | Missing Authentication Key
-| 107		 | Missing Route
-### Invalid parameters
-| Error code |	Description|
-| ---------- | ------------|
-| 202		 | Invalid mobile number. You must have entered either less than 10 digits or there is an alphabetic character in the mobile number field in API.
-| 203		 | Invalid sender ID. Your sender ID must be 6 characters, alphabetic.
-| 207		 | Invalid authentication key. Crosscheck your authentication key from your account’s API section.
-| 208		 | IP is blacklisted. We are getting SMS submission requests other than your whitelisted IP list.
-### Error codes
-| Error code | 	Description |
-| ---------- | ------------|
-| 205		 | This route is dedicated for high traffic. You should try with minimum 20 mobile numbers in each request
-| 209		 | Default Route for dialplan not found
-| 210		 | Route could not be determined
-| 301		 | Insufficient balance to send SMS
-| 302		 | Expired user account. You need to contact your account manager.
-| 303		 | Banned user account
-| 306		 | This route is currently unavailable. You can send SMS from this route only between 9 AM - 9 PM.
-| 307		 | Incorrect scheduled time
-| 308		 | Campaign name cannot be greater than 32 characters
-| 309		 | Selected group(s) does not belong to you
-| 310		 | SMS is too long. System paused this request automatically.
-| 311		 | Request discarded because same request was generated twice within 10 seconds
-| 418		 | IP is not whitelisted
-| 505		 | Your account is a demo account. Please contact support for details
-| 506		 | Small campaign limit exceeded. (only 20 campaigns of less than 100 SMS in 24 hours can be sent, exceeding it will show the error)
-### System errors
-| Error code| 	Description |
-| ---------- | ------------|
-| 001		 | Unable to connect database
-| 002		 | Unable to select database
-| 601		 | Internal error.Please contact support for details

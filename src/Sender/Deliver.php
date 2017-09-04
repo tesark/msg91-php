@@ -1,34 +1,47 @@
 <?php
 namespace Sender;
 
+use Sender\Log\Log;
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\RequestException;
-use Guzzle\Http\Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\ClientException;
 
 /**
 * This Class for send data using GET and POST method
+*
+* @package    Msg91 SMS&OTP package
+* @author     VenkatS <venkatsamuthiram5@gmail.com>
+* @link       https://github.com/venkatsamuthiram/deliver
+* @license
 */
 
 class Deliver
 {
     protected $client;
+    protected $logger;
     public function __construct()
     {
+        $this->logger = new Log("Req & Res");
     }
-    //Send POST method
-    public static function sendSmsPost($uri, $xml)
+    /*
+    *Send POST method
+    *
+    *
+    */
+    public function sendSmsPost($uri, $xml)
     {
         try {
             $value   =  substr($xml, 0);
             $xmlData =  substr($value, 0, -1);
+            $this->logger->info("Request:", $xml, $uri);
             var_dump($xmlData);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
             $promise = $client->sendAsync($request)->then(function ($response) {
+                $this->logger->info("Response:", $response->getStatusCode(), $response->getBody());
                 // $responseArray = [];
                 echo $response->getBody();
                 echo $response->getStatusCode();
@@ -39,12 +52,17 @@ class Deliver
                 var_dump($result);
                 return $result;
             });
-        } catch (Exception $e) {
-            echo $e;
+        } catch (ClientException $e) {
+            echo Psr7\str($e->getRequest());
+            echo Psr7\str($e->getResponse());
         }
     }
-    //Send GET method
-    public static function sendOtpGet($uri, $query)
+    /*
+    *Send GET method
+    *
+    *
+    */
+    public function sendOtpGet($uri, $query)
     {
         try {
             $paramStr = "";
@@ -57,6 +75,7 @@ class Deliver
                     $paramStr .=  "&" .  $key .'='. urlencode(trim($value));
                 }
             }
+            $this->logger->info("Request:", $query, $uri);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
@@ -66,11 +85,13 @@ class Deliver
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 $responseArray += ['body' => json_decode($response->getBody())];
                 $result        =  json_encode($responseArray);
+                $this->logger->info("Response:", $responseArray);
                 var_dump($result);
                 return $result;
             });
-        } catch (Exception $e) {
-            echo $e;
+        } catch (ClientException $e) {
+            echo Psr7\str($e->getRequest());
+            echo Psr7\str($e->getResponse());
         }
     }
 }
