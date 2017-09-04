@@ -409,7 +409,8 @@ class OtpClass
             }
             end:
             $uri = "sendotp.php";
-            $response = Deliver::sendOtpGet($uri, $data);
+            $delivery = new Deliver();
+            $response = $delivery->sendOtpGet($uri, $data);
             var_dump("----------------");
             var_dump($response);
             return $response;
@@ -457,7 +458,8 @@ class OtpClass
            throw ParameterException::missinglogic($message);
         }
         $uri = 'retryotp.php';
-        $response = Deliver::sendOtpGet($uri, $data);
+        $delivery = new Deliver();
+        $response = $delivery->sendOtpGet($uri, $data);
         var_dump("----------------");
         var_dump($response);
         return $response;
@@ -484,7 +486,8 @@ class OtpClass
            throw ParameterException::missinglogic($message);
         }
         $uri = "verifyRequestOTP.php";
-        $response = Deliver::sendOtpGet($uri, $data);
+        $delivery = new Deliver();
+        $response = $delivery->sendOtpGet($uri, $data);
         var_dump("----------------");
         var_dump($response);
         return $response;

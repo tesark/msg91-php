@@ -624,7 +624,8 @@ class SmsClass
             }
             if ((sizeof($data)+3) == sizeof($buildSmsData)) {
                 $uri      = "sendhttp.php";
-                $response = Deliver::sendOtpGet($uri, $buildSmsData);
+                $delivery = new Deliver();
+                $response = $delivery->sendOtpGet($uri, $buildSmsData);
                 var_dump($response);
                 return $response;
             } else {
@@ -799,7 +800,8 @@ class SmsClass
         $xmlDoc->formatOutput = true;
         $xmlData  = $xmlDoc->saveXML();
         $uri      = "postsms.php";
-        $response = Deliver::sendSmsPost($uri, $xmlData);
+        $delivery = new Deliver();
+        $response = $delivery->sendSmsPost($uri, $xmlData);
         return $response;
     }
 }

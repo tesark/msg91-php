@@ -1,6 +1,7 @@
 <?php
 namespace Sender;
 
+use Sender\Log\Log;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -19,24 +20,28 @@ use GuzzleHttp\Exception\ClientException;
 class Deliver
 {
     protected $client;
+    protected $logger;
     public function __construct()
     {
+        $this->logger = new Log("Req & Res");
     }
     /*
     *Send POST method
     *
     *
     */
-    public static function sendSmsPost($uri, $xml)
+    public function sendSmsPost($uri, $xml)
     {
         try {
             $value   =  substr($xml, 0);
             $xmlData =  substr($value, 0, -1);
+            $this->logger->info( "Request:",$xml,$uri);
             var_dump($xmlData);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
             $promise = $client->sendAsync($request)->then(function ($response) {
+                $this->logger->info( "Response:",$response->getStatusCode(),$response->getBody());
                 // $responseArray = [];
                 echo $response->getBody();
                 echo $response->getStatusCode();
@@ -57,7 +62,7 @@ class Deliver
     *
     *
     */
-    public static function sendOtpGet($uri, $query)
+    public function sendOtpGet($uri, $query)
     {
         try {
             $paramStr = "";
@@ -70,6 +75,7 @@ class Deliver
                     $paramStr .=  "&" .  $key .'='. urlencode(trim($value));
                 }
             }
+            $this->logger->info( "Request:",$query,$uri);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
@@ -79,6 +85,7 @@ class Deliver
                 $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
                 $responseArray += ['body' => json_decode($response->getBody())];
                 $result        =  json_encode($responseArray);
+                $this->logger->info( "Response:",$responseArray);
                 var_dump($result);
                 return $result;
             });

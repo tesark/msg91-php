@@ -22,7 +22,7 @@ class PromotionalSms
     /**
     *  Send promotional SMS MSG91 Service
     * @param  $mobileNumber  string 954845**54
-    * @param  $data          array
+    * @param  $data array
     *
     * @return array(Json format)
     *
@@ -42,7 +42,7 @@ class PromotionalSms
     /**
     *  Send Bulk promotional SMS MSG91 Service
     *
-    * @param  $data    string
+    * @param $data string
     *
     * @return
     *
