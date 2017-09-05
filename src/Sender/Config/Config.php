@@ -64,8 +64,8 @@ class MyConfig extends AbstractConfig // class testing pending
             ],
             'otp' => [
                 'sender'     => getenv('SENDER')    ? (string) getenv('SENDER')    : $this->checkKey('sender', $this->otp),
-                'otp_length' => getenv('OTPLENGTH') ? ( int ) getenv('OTPLENGTH')  : $this->checkKey('otp_length', $this->otp), // Length min 4 max 9
-                'otp_expiry' => getenv('OTPEXPIRY') ? ( int ) getenv('OTPEXPIRY')  : $this->checkKey('otp_expiry', $this->otp), // Minutes default 1 day
+                'otp_length' => getenv('OTPLENGTH') ? (int) getenv('OTPLENGTH')    : (int) $this->checkKey('otp_length', $this->otp), // Length min 4 max 9
+                'otp_expiry' => getenv('OTPEXPIRY') ? (int) getenv('OTPEXPIRY')    : (int) $this->checkKey('otp_expiry', $this->otp), // Minutes default 1 day
             ]
         );
     }
