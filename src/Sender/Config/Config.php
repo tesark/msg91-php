@@ -1,7 +1,6 @@
 <?php
 namespace Sender\Config;
 
-use Dotenv\Dotenv;
 use Noodlehaus\Config;
 use Noodlehaus\AbstractConfig;
 
@@ -14,13 +13,10 @@ use Noodlehaus\AbstractConfig;
 * @license
 */
 
-class MyConfig extends AbstractConfig
+class MyConfig extends AbstractConfig // class tesing pending
 {
     public function __construct()
     {
-        //Add Env file
-        $dotenv = new Dotenv($_SERVER['DOCUMENT_ROOT']);
-        $dotenv->load();
     }
     /*
     *This function return Default and Env file Values
