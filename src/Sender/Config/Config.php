@@ -43,13 +43,18 @@ class MyConfig extends AbstractConfig // class testing pending
     *
     */
     protected function getDefaults()
-    {
+    {   
+        //Check Config file variable present 
+        $hasCountry    = $this->checkKey('country', $this->common);
+        $hasTransAuth  = $this->checkKey('transAuthKey', $this->common);
+        $hasPromoAuth  = $this->checkKey('promoAuthKey', $this->common);
+        $hasOtpAuth    = $this->checkKey('otpAuthKey', $this->common);
         return array(
             'common' => [
-                'country'      => getenv('COUNTRY')      ? (string) getenv('COUNTRY')      : $this->checkKey('country', $this->common),
-                'transAuthKey' => getenv('TRANSAUTHKEY') ? (string) getenv('TRANSAUTHKEY') : $this->checkKey('transAuthKey', $this->common),
-                'promoAuthKey' => getenv('PROMOAUTHKEY') ? (string) getenv('PROMOAUTHKEY') : $this->checkKey('promoAuthKey', $this->common),
-                'otpAuthKey'   => getenv('OTPAUTHKEY')   ? (string) getenv('OTPAUTHKEY')   : $this->checkKey('otpAuthKey', $this->common),
+                'country'      => getenv('COUNTRY')      ? (string) getenv('COUNTRY')      : $hasCountry ,
+                'transAuthKey' => getenv('TRANSAUTHKEY') ? (string) getenv('TRANSAUTHKEY') : $hasTransAuth,
+                'promoAuthKey' => getenv('PROMOAUTHKEY') ? (string) getenv('PROMOAUTHKEY') : $hasPromoAuth,
+                'otpAuthKey'   => getenv('OTPAUTHKEY')   ? (string) getenv('OTPAUTHKEY')   : $hasOtpAuth,
             ],
             'promotionalSms' => [
                 'sender' => getenv('SENDER') ? (string) getenv('SENDER') : $this->checkKey('sender', $this->promotionalSms),
@@ -68,7 +73,7 @@ class MyConfig extends AbstractConfig // class testing pending
     *this function check key present in aaray
     *
     */
-    protected function checkKey($key,$array)
+    protected function checkKey($key, $array)
     {
         if (isset($key) && $array) {
             if (array_key_exists($key, $array)) {

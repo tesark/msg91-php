@@ -29,7 +29,7 @@ class PromotionalSms extends MyConfig
     * @throws error missing parameters or return empty
     */
     public static function sendPromotional($mobileNumber, $data)
-    {   
+    {
         // Get Envirionment variable and config file values
         $Config    = new MyConfig();
         $container = $Config->getDefaults();
