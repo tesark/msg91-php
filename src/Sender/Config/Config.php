@@ -15,8 +15,10 @@ use Noodlehaus\AbstractConfig;
 
 class MyConfig extends AbstractConfig // class testing pending
 {
+    protected $config;
     public function __construct()
     {
+        $config = new Config($_SERVER["DOCUMENT_ROOT"]. '/../config');
     }
     /*
     *This function return Default and Env file Values
