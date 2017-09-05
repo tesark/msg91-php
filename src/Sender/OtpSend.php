@@ -2,6 +2,7 @@
 namespace Sender;
 
 use Sender\Deliver;
+use Sender\Config\MyConfig;
 use Sender\Exception\ParameterException;
 
 /**
@@ -13,7 +14,7 @@ use Sender\Exception\ParameterException;
 * @license
 */
 
-class OtpSend
+class OtpSend extends MyConfig
 {
     // public function __construct($authkey, $senderId = null, $otpLength = null)
     // {
@@ -35,10 +36,13 @@ class OtpSend
     public static function sendOtp($mobileNumber, $dataArray)
     {
         $data = [];
-        $data['authkey'] = "170436A8DCExM8m259969531";
+        // Get Envirionment variable and config file values
+        $Config          = new MyConfig();
+        $container       = $Config->getDefaults();
+        $data['authkey'] = $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
-        $otp      = new OtpClass();
-        $response = $otp->sendOtp($dataArray, $data);
+        $otp             = new OtpClass();
+        $response        = $otp->sendOtp($dataArray, $data);
         return $response;
     }
     /**
@@ -54,10 +58,13 @@ class OtpSend
     public static function verifyOtp($mobileNumber, $oneTimePass)
     {
         $data = [];
-        $data += ['authkey' => "170436A8DCExM8m259969531"];
-        $data += ['mobile' => $mobileNumber];
-        $otp      = new OtpClass();
-        $response = $otp->verifyOtp($oneTimePass, $data);
+        // Get Envirionment variable and config file values
+        $Config        = new MyConfig();
+        $container     = $Config->getDefaults();
+        $data         += ['authkey' => $container['common']['otpAuthKey']];
+        $data         += ['mobile' => $mobileNumber];
+        $otp           = new OtpClass();
+        $response      = $otp->verifyOtp($oneTimePass, $data);
         return $response;
     }
     /**
@@ -73,10 +80,13 @@ class OtpSend
     public static function resendOtp($mobileNumber, $retrytype = null)
     {
         $data = [];
-        $data['authkey'] = "170436A8DCExM8m259969531";
-        $data['mobile'] = $mobileNumber;
-        $otp      = new OtpClass();
-        $response = $otp->retryOtp($retrytype, $data);
+        // Get Envirionment variable and config file values
+        $Config          = new MyConfig();
+        $container       = $Config->getDefaults();
+        $data['authkey'] = $container['common']['otpAuthKey'];
+        $data['mobile']  = $mobileNumber;
+        $otp             = new OtpClass();
+        $response        = $otp->retryOtp($retrytype, $data);
         return $response;
     }
 }
