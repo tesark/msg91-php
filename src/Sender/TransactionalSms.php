@@ -2,7 +2,7 @@
 namespace Sender;
 
 use Sender\SmsClass;
-use Sender\Config;
+use Sender\Config\MyConfig;
 
 /**
 * This Class provide Transactional SMS APIs
@@ -13,16 +13,11 @@ use Sender\Config;
 * @license
 */
 
-class TransactionalSms
+class TransactionalSms extends MyConfig
 {
     public function __construct()
     {
-        // Get Envirionment variable
-        $this->container = Config::getContainer();
-        $this->settings  = $this->container->get('settings');
-        var_dump($this->settings);
     }
-
     /**
     *  Send transactional SMS MSG91 Service
     * @param  $mobileNumber  int OR string
@@ -34,11 +29,15 @@ class TransactionalSms
     */
     public static function sendTransactional($mobileNumber, $data)
     {
-        var_dump($this->settings);
-        return $this->settings;
+        // Get Envirionment variable and config file values
+        $Config    = new MyConfig();
+        $container = $Config->getDefaults();
+        var_dump($container['common']['transAuthKey']);
+        var_dump($container['transactionalSms']);
+        return $container;
         //transactional SMS content
         $sendData = array(
-            'authkey'     => "170867ARdROqjKklk599a87a1",
+            'authkey'     => $container['common']['transAuthKey'],
             'route'       => 4,
         );
         $sms = new SmsClass();

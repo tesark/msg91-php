@@ -2,6 +2,7 @@
 namespace Sender;
 
 use Sender\SmsClass;
+use Sender\Config\MyConfig;
 use Sender\ParameterException;
 
 /**
@@ -13,12 +14,11 @@ use Sender\ParameterException;
 * @license
 */
 
-class PromotionalSms
+class PromotionalSms extends MyConfig
 {
     public function __construct()
     {
     }
-
     /**
     *  Send promotional SMS MSG91 Service
     * @param  $mobileNumber  string 954845**54
@@ -29,9 +29,14 @@ class PromotionalSms
     * @throws error missing parameters or return empty
     */
     public static function sendPromotional($mobileNumber, $data)
-    {
+    {   
+        // Get Envirionment variable and config file values
+        $Config    = new MyConfig();
+        $container = $Config->getDefaults();
+        var_dump($container['common']['promoAuthKey']);
+        var_dump($container['promotionalSms']);
         $sendData = array(
-            'authkey'     => "170867ARdROqjKklk599a87a1",
+            'authkey'     => $container['common']['promoAuthKey'],
             'route'       => 1,
         );
         $sms = new SmsClass();
