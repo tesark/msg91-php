@@ -43,8 +43,8 @@ class MyConfig extends AbstractConfig // class testing pending
     *
     */
     protected function getDefaults()
-    {   
-        //Check Config file variable present 
+    {
+        //Check Config file variable present
         $hasCountry    = $this->checkKey('country', $this->common);
         $hasTransAuth  = $this->checkKey('transAuthKey', $this->common);
         $hasPromoAuth  = $this->checkKey('promoAuthKey', $this->common);
