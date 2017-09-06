@@ -13,7 +13,7 @@ use Sender\Config\MyConfig;
 * @license
 */
 
-class TransactionalSms extends MyConfig
+class TransactionalSms
 {
     public function __construct()
     {

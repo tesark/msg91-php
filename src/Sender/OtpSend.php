@@ -14,7 +14,7 @@ use Sender\Exception\ParameterException;
 * @license
 */
 
-class OtpSend extends MyConfig
+class OtpSend
 {
     // public function __construct($authkey, $senderId = null, $otpLength = null)
     // {

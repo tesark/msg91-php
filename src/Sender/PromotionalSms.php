@@ -14,7 +14,7 @@ use Sender\ParameterException;
 * @license
 */
 
-class PromotionalSms extends MyConfig
+class PromotionalSms
 {
     public function __construct()
     {

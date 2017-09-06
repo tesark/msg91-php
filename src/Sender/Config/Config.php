@@ -15,11 +15,11 @@ use Noodlehaus\AbstractConfig;
 
 class MyConfig extends AbstractConfig // class testing pending
 {
-    protected $config;
-    protected $common;
-    protected $promotionalSms;
-    protected $transactionalSms;
-    protected $otp;
+    public $config;
+    public $common;
+    public $promotionalSms;
+    public $transactionalSms;
+    public $otp;
     public function __construct()
     {
         $config = new Config($_SERVER["DOCUMENT_ROOT"]. '/../config');
@@ -42,7 +42,7 @@ class MyConfig extends AbstractConfig // class testing pending
     *This function return Default and Env file Values  
     *
     */
-    protected function getDefaults()
+    public function getDefaults()
     {
         //Check Config file variable present
         $hasCountry    = $this->checkKey('country', $this->common);
