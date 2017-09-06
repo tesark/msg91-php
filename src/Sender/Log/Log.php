@@ -27,7 +27,8 @@ class Log
 
     /**
     *  MSG91 Error log "ERROR"
-    * @param $error
+    * @param error Array
+    *
     */
     public function error(...$error)
     {
@@ -40,7 +41,8 @@ class Log
 
     /**
     *  MSG91 Error log "INFO"
-    * @param $info
+    * @param info array
+    *
     */
     public function info(...$info)
     {

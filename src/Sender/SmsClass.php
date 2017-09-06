@@ -58,113 +58,129 @@ class SmsClass
     */
     protected $afterminutes = null;
 
-    /*
+    /**
     * Check the mobilenumber empty
+    * @return bool
     */
     public function hasMobileNumber()
     {
         return isset($this->mobiles);
     }
-    /*
+    /**
     * Check the data empty
+    * @return bool
     */
     public function hasData()
     {
         return isset($this->inputData);
     }
-    /*
+    /**
     * Check the sendData empty
+    * @return bool
     */
     public function hasSendData()
     {
         return isset($this->sendSmsData);
     }
-    /*
+    /**
     * Check the hasXmlData empty
+    * @return bool
     */
     public function hasXmlData()
     {
         return isset($this->inputData);
     }
-    /*
+    /**
     * Check the Auth key existes in array
+    * @return bool
     */
     public function isAuthKeyExists()
     {
         return array_key_exists("authkey", $this->inputData);
     }
-    /*
+    /**
     * Check the message key existes in array
+    * @return bool
     */
     public function isMessageKeyExists()
     {
         return array_key_exists("message", $this->inputData);
     }
-    /*
+    /***
     * Check the unicode key existes in array
+    * @return bool
     */
     public function isUnicodeKeyExists()
     {
         return array_key_exists("unicode", $this->inputData);
     }
-    /*
+    /**
     * Check the sender key existes in array
+    * @return bool
     */
     public function isSenderKeyExists()
     {
         return array_key_exists("sender", $this->inputData);
     }
-    /*
+    /**
     * Check the country key existes in array
+    * @return bool
     */
     public function isCountryKeyExists()
     {
         return array_key_exists("country", $this->inputData);
     }
-    /*
+    /**
     * Check the flash key existes in array
+    * @return bool
     */
     public function isFlashKeyExists()
     {
         return array_key_exists("flash", $this->inputData);
     }
-    /*
+    /**
     * Check the schtime key existes in array
+    * @return bool
     */
     public function isSchtimeKeyExists()
     {
         return array_key_exists("schtime", $this->inputData);
     }
-    /*
+    /**
     * Check the afterminutes key existes in array
+    * @return bool
     */
     public function isAfterMinutesKeyExists()
     {
         return array_key_exists("afterminutes", $this->inputData);
     }
-    /*
+    /**
     * Check the response key existes in array
+    * @return bool
     */
     public function isResponseKeyExists()
     {
         return array_key_exists("response", $this->inputData);
     }
-    /*
+    /**
     * Check the campaign key existes in array
+    * @return bool
     */
     public function isCampaignKeyExists()
     {
         return array_key_exists("campaign", $this->inputData);
     }
-    /*
+    /**
     * Check the response key existes in array
+    * @return bool
     */
     public function isContentKeyExists()
     {
         return array_key_exists("content", $this->inputData);
     }
-    /*
+    /**
     * set content
+    * @return bool
     */
     public function setContent()
     {
@@ -178,8 +194,9 @@ class SmsClass
     {
         return $this->content;
     }
-     /*
+     /**
     * set mobile
+    * @return bool
     */
     public function setMobile()
     {
@@ -193,8 +210,9 @@ class SmsClass
     {
         return $this->mobile;
     }
-    /*
+    /**
     * set mobiles
+    * @return bool
     */
     public function setMobiles()
     {
@@ -208,8 +226,9 @@ class SmsClass
     {
         return $this->mobiles;
     }
-    /*
+    /**
     * set authkey
+    * @return bool
     */
     public function setAuthKey()
     {
@@ -223,8 +242,9 @@ class SmsClass
     {
         return $this->authkey;
     }
-    /*
+    /**
     * set message
+    * @return bool
     */
     public function setMessage()
     {
@@ -238,8 +258,9 @@ class SmsClass
     {
         return $this->message;
     }
-    /*
+    /**
     * set unicode
+    * @return bool
     */
     public function setUnicode()
     {
@@ -253,8 +274,9 @@ class SmsClass
     {
         return $this->unicode;
     }
-    /*
+    /**
     * set sender
+    * @return bool
     */
     public function setSender()
     {
@@ -268,8 +290,9 @@ class SmsClass
     {
         return $this->sender;
     }
-    /*
+    /**
     * set country
+    * @return bool
     */
     public function setCountry()
     {
@@ -283,8 +306,9 @@ class SmsClass
     {
         return $this->country;
     }
-    /*
+    /**
     * set flash
+    * @return bool
     */
     public function setFlash()
     {
@@ -298,8 +322,9 @@ class SmsClass
     {
         return $this->flash;
     }
-    /*
+    /**
     * set schtime
+    * @return bool
     */
     public function setSchtime()
     {
@@ -313,8 +338,9 @@ class SmsClass
     {
         return $this->schtime;
     }
-    /*
+    /**
     * set afterminutes
+    * @return bool
     */
     public function setAfterminutes()
     {
@@ -328,8 +354,9 @@ class SmsClass
     {
         return $this->afterminutes;
     }
-    /*
+    /**
     * set response
+    * @return bool
     */
     public function setResponse()
     {
@@ -343,8 +370,9 @@ class SmsClass
     {
         return $this->response;
     }
-    /*
+    /**
     * set campaign
+    * @return bool
     */
     public function setCampaign()
     {
@@ -358,24 +386,30 @@ class SmsClass
     {
         return $this->campaign;
     }
-    /*
-    * Check integer value 
+    /**
+    * Check integer value
+    * @param value 
+    * @return bool
     */
     public function isInterger($value)
     {
         $result = Validation::isInteger($value);
         return $result;
     }
-    /*
-    * Check string value 
+    /**
+    * Check string value
+    * @param value 
+    * @return bool
     */
     public function isString($value)
     {
         $result = Validation::isString($value);
         return $result;
     }
-    /*
-    * Check numeric value 
+    /**
+    * Check numeric value
+    * @param value 
+    * @return bool
     */
     public function isNumeric($value)
     {
@@ -398,8 +432,9 @@ class SmsClass
         $result = Validation::isVaildAfterMinutes($value);
         return $result;
     }
-    /*
+    /**
     *Check vaild Date Time
+    * @return bool
     */
     public function isVaildDateTime($value)
     {
@@ -413,8 +448,10 @@ class SmsClass
             return false;
         }
     }
-    /*
+    /**
     *This function for sms array Build with mobilenumbers 
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addMobile($buildSmsData)
@@ -435,9 +472,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
-    *This function for sms array Build with message 
-    *
+    /**
+    *This function for sms array Build with message
+    * @param buildSmsData array
+    * @param buildSmsData array
     */
     public function addMessage($buildSmsData)
     {
@@ -465,8 +503,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array Build with sender
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addSender($buildSmsData)
@@ -485,8 +525,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array build with country
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addCountry($buildSmsData)
@@ -500,8 +542,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array build with flash
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addFlash($buildSmsData)
@@ -513,8 +557,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array build with flash
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addUnicode($buildSmsData)
@@ -526,8 +572,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array build with schtime
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addSchtime($buildSmsData)
@@ -542,8 +590,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
-    *This function for sms array build with 
+    /**
+    *This function for sms array build with
+    * @param buildSmsData array
+    * @param buildSmsData array 
     *
     */
     public function addAfterMinutes($buildSmsData)
@@ -562,8 +612,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array build with Response
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addResponse($buildSmsData)
@@ -580,8 +632,10 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function for sms array build with campaign
+    * @param buildSmsData array
+    * @param buildSmsData array
     *
     */
     public function addCampaign($buildSmsData)
@@ -595,18 +649,19 @@ class SmsClass
         }
         return $buildSmsData;
     }
-    /*
+    /**
     *This function Used to send the SMS data to Deliver Class
-    *@params $mobileNumber, $data, $sendData
+    * @param mobileNumber
+    * @param data
+    * @param sendData
     *
-    *
+    * @return MSG91 SMS json
     */
     public function sendSms($mobileNumber, $data, $sendData)
     {
         $this->mobiles     = $mobileNumber;
         $this->inputData   = $data;
         $this->sendSmsData = $sendData;
-        var_dump("----test----");
         //this condition are check and parameters are added to buildSmsData array
         if ($this->hasMobileNumber() && $this->hasData() && $this->hasSendData()) {
             $buildSmsData = $sendData;
@@ -636,11 +691,11 @@ class SmsClass
             throw ParameterException::missinglogic($message);
         }
     }
-    /*
+    /**
     *This function Used to send the SMS XML formated data to Deliver Class
-    *@params $xmlData
+    * @param $xmlData
     *
-    *
+    * @return MSG91 SMS json
     */
     public function sendXmlSms($xmlData)
     {

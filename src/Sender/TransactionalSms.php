@@ -32,9 +32,6 @@ class TransactionalSms
         // Get Envirionment variable and config file values
         $Config    = new MyConfig();
         $container = $Config->getDefaults();
-        var_dump($container['common']['transAuthKey']);
-        var_dump($container['transactionalSms']);
-        return $container;
         //transactional SMS content
         $sendData = array(
             'authkey'     => $container['common']['transAuthKey'],

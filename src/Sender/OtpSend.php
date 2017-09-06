@@ -16,12 +16,6 @@ use Sender\Exception\ParameterException;
 
 class OtpSend
 {
-    // public function __construct($authkey, $senderId = null, $otpLength = null)
-    // {
-    //     $this->authkey    = $authkey;
-    //     $this->senderId   = $senderId;
-    //     $this->otpLength  = $otpLength;
-    // }
     /**
     *  Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
     *

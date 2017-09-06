@@ -49,7 +49,7 @@ class PromotionalSms
     *
     * @param $data string
     *
-    * @return
+    * @return MSG91 response json
     *
     * @throws error missing parameters or return empty
     */

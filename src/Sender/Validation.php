@@ -14,41 +14,65 @@ use DateTime;
 
 class Validation
 {
-    /*
+    /**
     * Check is String type
+    * @param value
+    *
+    * @return bool
     */
     public static function isString($value)
     {
         return is_string($value);
     }
-    /*
+    /**
     * Check is integer type
+    * @param value
+    *
+    * @return bool
     */
     public static function isInteger($value)
     {
         return is_int($value);
     }
-    /*
+    /**
     * Check is Numeric type
+    * @param value
+    *
+    * @return bool
     */
     public static function isNumeric($value)
     {
         return is_numeric($value);
     }
-    //Check validate date time format
+    /**
+    *Check validate date time format
+    * @param date 
+    *
+    * @return bool
+    */
     public static function isValidDateFirstFormat($date, $format = 'Y-m-d h:i:s')
     {
         $date = trim($date);
         $d    = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
+    /**
+    * @param date 
+    *
+    * @return bool
+    */
     public static function isValidDateSecondFormat($date, $format = 'Y/m/d h:i:s')
     {
         $date = trim($date);
         $d    = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
-    //Test Unix Timestamp
+    /**
+    *Test Unix Timestamp
+    * @param timestamp
+    *
+    * @return bool
+    */
     public static function isValidTimeStamp($timestamp)
     {
         if (is_int($timestamp)) {
@@ -61,7 +85,12 @@ class Validation
             return false;
         }
     }
-    //Check afterminutes limits
+    /**
+    *Check afterminutes limits
+    * @param afterMinutes
+    *
+    * @return bool
+    */
     public static function isVaildAfterMinutes($afterMinutes)
     {
         $value  = array('options' => array('min_range' => 10,'max_range' => 20000));

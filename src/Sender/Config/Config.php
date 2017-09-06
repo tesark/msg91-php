@@ -69,9 +69,13 @@ class MyConfig extends AbstractConfig // class testing pending
             ]
         );
     }
-    /*
+    /**
     *this function check key present in aaray
     *
+    * @param key    string
+    * @param array  array
+    * 
+    * @return null or array value for specific value
     */
     protected function checkKey($key, $array)
     {

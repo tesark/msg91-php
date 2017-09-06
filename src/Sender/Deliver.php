@@ -25,10 +25,12 @@ class Deliver
     {
         $this->logger = new Log("Req & Res");
     }
-    /*
+    /**
     *Send POST method
+    * @param uri string
+    * @param xml XMl string
     *
-    *
+    * @return msg91 response json
     */
     public function sendSmsPost($uri, $xml)
     {
@@ -40,27 +42,20 @@ class Deliver
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
-            $promise = $client->sendAsync($request)->then(function ($response) {
-                $this->logger->info("Response:", $response->getStatusCode(), $response->getBody());
-                // $responseArray = [];
-                echo $response->getBody();
-                echo $response->getStatusCode();
-                // $responseArray += ['statusCode' => $response->getStatusCode()];
-                // $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
-                // $responseArray += ['body' => json_decode($response->getBody())];
-                // $result        = json_encode($responseArray);
-                var_dump($result);
-                return $result;
-            });
+            $response = $client->send($request);
+            return $response->getBody()->getContents();
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());
             echo Psr7\str($e->getResponse());
+            $this->logger->error("Exception:", $e->getResponse(), $e->getRequest());
         }
     }
-    /*
+    /**
     *Send GET method
+    * @param uri   string
+    * @param query array
     *
-    *
+    * @return msg91 response json
     */
     public function sendOtpGet($uri, $query)
     {
@@ -79,19 +74,13 @@ class Deliver
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
-            $promise = $client->sendAsync($request)->then(function ($response) {
-                $responseArray = [];
-                $responseArray += ['statusCode' => $response->getStatusCode()];
-                $responseArray += ['reasonPhrase' => $response->getReasonPhrase()];
-                $responseArray += ['body' => json_decode($response->getBody())];
-                $result        =  json_encode($responseArray);
-                $this->logger->info("Response:", $responseArray);
-                var_dump($result);
-                return $result;
-            });
+            $response = $client->send($request);         
+            // $this->addLogFile("response", $ResponseData);     //issue unable to log Response
+            return $response->getBody()->getContents();
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());
             echo Psr7\str($e->getResponse());
+            $this->logger->error("Exception:", $e->getResponse(), $e->getRequest());
         }
     }
 }

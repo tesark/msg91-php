@@ -20,6 +20,7 @@ class MobileNumber
     *
     * @param mobileNumber string
     * @return array
+    *
     */
     public static function isValidNumber($mobileNumber)
     {
