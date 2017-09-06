@@ -423,7 +423,7 @@ class SmsClass
             $buildSmsData += ['mobiles' => $this->mobiles];
         } elseif ($this->isString($this->mobiles)) {
             $result = $this->isValidNumber($this->mobiles);
-            if ($result['value'] == true) {
+            if ($result && $result['value'] == true) {
                 $buildSmsData += ['mobiles' => $this->mobiles];
             } else {
                 $message = "this number not the correct:__". $result['mobile'];
@@ -773,7 +773,7 @@ class SmsClass
                     //check mobile contents
                     if ($this->setMobile() && $this->isString($this->getmobile())) {
                         $result = $this->isValidNumber($this->getmobile());
-                        if ($result['value'] == true) {
+                        if ($result && $result['value'] == true) {
                             $mobiles     = $result['mobile'];
                             for ($k=0; $k <sizeof($mobiles); $k++) {
                                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));

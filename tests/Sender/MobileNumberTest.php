@@ -19,91 +19,69 @@ class MobileNumberTest extends TestCase
     {
         $this->mobile = null;
     }
-    //-----------------------------------
-    public function testIsvalid()
-    {
-        $result = $this->mobile->isValid(9514028541);
-        $this->assertTrue($result);
-    }
-    public function testIsvalidfalse()
-    {
-        $result = $this->mobile->isValid("9514028541");
-        $this->assertFalse($result);
-    }
-    public function testIsvalidfloat()
-    {
-        $result = $this->mobile->isValid(34567.65456);
-        $this->assertFalse($result);
-    }
-    public function testIsvalidnull()
-    {
-        $result = $this->mobile->isValid('');
-        $this->assertFalse($result);
-    }
-    //----------------------------------------------
-    public function testLengthCheck()
-    {
-        $result = $this->mobile->getLength(9791466728);
-        $this->assertTrue($result);
-    }
-    public function testLengthCheckAbove()
-    {
-        $result = $this->mobile->getLength(979146672823456);
-        $this->assertFalse($result);
-    }
-    public function testLengthCheckBelow()
-    {
-        $result = $this->mobile->getLength(9);
-        $this->assertFalse($result);
-    }
-    public function testLengthCheckNutral()
-    {
-        $result = $this->mobile->getLength(9791466);
-        $this->assertTrue($result);
-    }
-    //-------------------------------------------
-    public function testGetCountryCodeIn()
-    {
-        $expectArray = [
-            "name"=>"India",
-            "dial_code"=>"91",
-            "code"=>"IN"
-        ];
-        $result = $this->mobile->getCountry("IN");
-        $this->assertEquals($expectArray, $result);
-    }
-    public function testGetCountryCodeUs()
-    {
-        $expectArray = [
-            "name"=>"United States",
-            "dial_code"=>"1",
-            "code"=>"US"
-        ];
-        $result = $this->mobile->getCountry("US");
-        $this->assertEquals($expectArray, $result);
-    }
-    public function testGetCountryCodeFalse()
-    {
-        $expectArray = [];
-        $result = $this->mobile->getCountry("44");
-        $this->assertEquals($expectArray, $result);
-    }
     //--------------------------
+    //test string valid numbers
     public function testIsValidNumber()
     {
         $expectArray = [
-            "value"=> true
+            "value"=> true,
+            "mobile"=> ["9514028541","9791466728","8148597834","9514028532"]
         ];
-        $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597837,9514028532");
+        $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597834,9514028532");
         $this->assertEquals($expectArray, $result);
     }
+    // test sting type invalide one phone number
     public function testIsValidNumberFalse()
     {
         $expectArray = [
             "value"=> false ,
             "mobile"=> "951402853"
         ];
-        $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597837,9514028532");
+        $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597834,951402853");
         $this->assertEquals($expectArray, $result);
+    }
+    //send invalid number correct
+    public function testIsInvalideNumberTrue()
+    {
+        $result = $this->mobile->isValidNumber(9514028541);
+        $this->assertFalse($result);
+    }
+    //send invalid number false
+    public function testIsInvalideNumberFalse()
+    {
+        $expectArray = [
+            "value"=> true ,
+            "mobile"=> ["9514028541"]
+        ];
+        $result = $this->mobile->isValidNumber("9514028541");
+        $this->assertEquals($expectArray, $result);
+    }
+    //---------------------------
+    //Add Country code with mobile number
+    public function testAddCountryCode()
+    {   $expectArray = "919514028541";
+        $result = $this->mobile->addCountryCode("9514028541", "IN");
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testAddCountryCodeSecond()
+    {   $expectArray = 919514028541;
+        $result = $this->mobile->addCountryCode(9514028541, "IN");
+        $this->assertEquals($expectArray, $result);
+    }
+    //is vaild country code
+    public function testIsVaildCountryCode()
+    {
+        $result = $this->mobile->isVaildCountryCode("919514028541", "IN");
+        $this->assertTrue($result);
+    }
+    public function testIsVaildCountryCodeTrue()
+    {
+        $result = $this->mobile->isVaildCountryCode(919514028541, "IN");
+        $this->assertTrue($result);
+    }
+    public function testIsVaildCountryCodeSecond()
+    {
+        $result = $this->mobile->isVaildCountryCode(919514028541, "US");
+        $this->assertFalse($result);
     }
 }

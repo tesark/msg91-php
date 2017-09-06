@@ -51,21 +51,15 @@ class Validation
     //Test Unix Timestamp
     public static function isValidTimeStamp($timestamp)
     {
-        $timestamp = trim($timestamp);
         if (is_int($timestamp)) {
-            if (strtotime("-1 minutes") <= $timestamp) {
+            $timestamp = (int) trim($timestamp);
+            $min = strtotime("-1 minutes");
+            if ($min <= $timestamp) {
                 return true;
             }
         } else {
             return false;
         }
-    }
-    //build minutes to datetime string
-    public static function getDateTime($minutes)
-    {
-        $value   = trim($minutes);
-        $minutes = "+".$value."minutes";
-        return date("Y/m/d h:i:s", strtotime($minutes));
     }
     //Check afterminutes limits
     public static function isVaildAfterMinutes($afterMinutes)

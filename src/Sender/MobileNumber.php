@@ -14,10 +14,13 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 
 class MobileNumber
 {
-    // public function __construct($mobileNumber) {
-    // 	$this->mobileNumber = $mobileNumber;
-    // }
-
+    /**
+    *This function provide valid mobile number array
+    *Limittd 10 number only
+    * 
+    * @param mobileNumber string
+    * @return array
+    */
     public static function isValidNumber($mobileNumber)
     {
         if (isset($mobileNumber) && is_string($mobileNumber)) {
@@ -39,6 +42,42 @@ class MobileNumber
                 }
             }
             return $data;
+        } else {
+            return false;
         }
+    }
+    /**
+    *This function Add country code with mobilenumber
+    *
+    * @param  mobileNumber string or numeric
+    * @param  country      string 
+    * @return string       note:mobile With specific CountryCode
+    */
+    public static function addCountryCode($mobileNumber, $country)
+    {
+        if (isset($mobileNumber) && isset($country)) {
+            $mobile = (string) PhoneNumber::make($mobileNumber)->ofCountry($country);
+            $value  = str_replace("+","",$mobile);//remove "+"
+            return $value;
+        } else {
+            return false;
+        }   
+    }
+    /**
+    *This function Check country code correct or not
+    *
+    * @param mobileWithCountryCode string
+    * @param country               string
+    * @return boolean 
+    */
+    public static function isVaildCountryCode($mobileWithCountryCode, $country)
+    {
+        if (isset($mobileWithCountryCode) && isset($country)) {
+            $value = substr_replace($mobileWithCountryCode, "+", 0, 0); //add "+" infront off mobile for validation
+            $isCorrect = PhoneNumber::make($value)->isOfCountry($country);
+            return $isCorrect;
+        } else {
+            return false;
+        }   
     }
 }
