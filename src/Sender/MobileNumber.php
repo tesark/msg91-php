@@ -17,7 +17,7 @@ class MobileNumber
     /**
     *This function provide valid mobile number array
     *Limittd 10 number only
-    * 
+    *
     * @param mobileNumber string
     * @return array
     */
@@ -50,25 +50,25 @@ class MobileNumber
     *This function Add country code with mobilenumber
     *
     * @param  mobileNumber string or numeric
-    * @param  country      string 
+    * @param  country      string
     * @return string       note:mobile With specific CountryCode
     */
     public static function addCountryCode($mobileNumber, $country)
     {
         if (isset($mobileNumber) && isset($country)) {
             $mobile = (string) PhoneNumber::make($mobileNumber)->ofCountry($country);
-            $value  = str_replace("+","",$mobile);//remove "+"
+            $value  = str_replace("+", "", $mobile);//remove "+"
             return $value;
         } else {
             return false;
-        }   
+        }
     }
     /**
     *This function Check country code correct or not
     *
     * @param mobileWithCountryCode string
     * @param country               string
-    * @return boolean 
+    * @return boolean
     */
     public static function isVaildCountryCode($mobileWithCountryCode, $country)
     {
@@ -78,6 +78,6 @@ class MobileNumber
             return $isCorrect;
         } else {
             return false;
-        }   
+        }
     }
 }

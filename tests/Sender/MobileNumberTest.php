@@ -59,12 +59,14 @@ class MobileNumberTest extends TestCase
     //---------------------------
     //Add Country code with mobile number
     public function testAddCountryCode()
-    {   $expectArray = "919514028541";
+    {
+        $expectArray = "919514028541";
         $result = $this->mobile->addCountryCode("9514028541", "IN");
         $this->assertEquals($expectArray, $result);
     }
     public function testAddCountryCodeSecond()
-    {   $expectArray = 919514028541;
+    {
+        $expectArray = 919514028541;
         $result = $this->mobile->addCountryCode(9514028541, "IN");
         $this->assertEquals($expectArray, $result);
     }
