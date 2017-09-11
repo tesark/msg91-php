@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1505108468">
-  <project timestamp="1505108468">
+<coverage generated="1505112824">
+  <project timestamp="1505112824">
     <package name="Sender\Config">
       <file name="/home/tesark/open/deliver/src/Sender/Config/Config.php">
         <class name="MyConfig" namespace="Sender\Config">
@@ -50,7 +50,8 @@
         <line num="69" type="stmt" count="0"/>
         <line num="70" type="stmt" count="0"/>
         <line num="71" type="stmt" count="0"/>
-        <line num="80" type="method" name="checkKey" visibility="protected" complexity="4" crap="20" count="0"/>
+        <line num="79" type="method" name="checkKey" visibility="protected" complexity="4" crap="20" count="0"/>
+        <line num="80" type="stmt" count="0"/>
         <line num="81" type="stmt" count="0"/>
         <line num="82" type="stmt" count="0"/>
         <line num="83" type="stmt" count="0"/>
@@ -61,8 +62,7 @@
         <line num="88" type="stmt" count="0"/>
         <line num="89" type="stmt" count="0"/>
         <line num="90" type="stmt" count="0"/>
-        <line num="91" type="stmt" count="0"/>
-        <metrics loc="92" ncloc="64" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="0" elements="56" coveredelements="0"/>
+        <metrics loc="91" ncloc="64" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="0" elements="56" coveredelements="0"/>
       </file>
     </package>
     <package name="Sender">
@@ -1185,6 +1185,6 @@
         <metrics loc="55" ncloc="31" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="20" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="11" loc="2073" ncloc="1240" classes="11" methods="132" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="978" coveredstatements="39" elements="1110" coveredelements="45"/>
+    <metrics files="11" loc="2072" ncloc="1240" classes="11" methods="132" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="978" coveredstatements="39" elements="1110" coveredelements="45"/>
   </project>
 </coverage>

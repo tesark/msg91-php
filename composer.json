@@ -5,7 +5,7 @@
     "type": "package",
     "license": "UNLICENSED",
     "require": {
-        "guzzlehttp/guzzle": "^6.2",
+        "guzzlehttp/guzzle": "~6.2",
         "propaganistas/laravel-phone": "dev-master",
         "monolog/monolog": "~1.13 ",
         "hassankhan/config": "dev-master"
