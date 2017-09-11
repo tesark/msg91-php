@@ -11,7 +11,7 @@ namespace Sender\Exception;
 */
 
 class ParameterException extends \Exception
-{   
+{
     /**
     * This function throw invalid exceptin without message
     * @param arrName

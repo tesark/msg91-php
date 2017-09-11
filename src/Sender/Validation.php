@@ -46,7 +46,7 @@ class Validation
     }
     /**
     *Check validate date time format
-    * @param date 
+    * @param date
     *
     * @return bool
     */
@@ -57,7 +57,7 @@ class Validation
         return $d && $d->format($format) == $date;
     }
     /**
-    * @param date 
+    * @param date
     *
     * @return bool
     */

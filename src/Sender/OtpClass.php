@@ -258,7 +258,7 @@ class OtpClass
         return $this->retrytype;
     }
     /**
-    * Check integer value 
+    * Check integer value
     * @return bool
     */
     public function isInterger($value)
@@ -267,7 +267,7 @@ class OtpClass
         return $result;
     }
     /**
-    * Check string value 
+    * Check string value
     * @return bool
     */
     public function isString($value)
@@ -380,7 +380,7 @@ class OtpClass
         return $data;
     }
     /**
-    *Check Authkey 
+    *Check Authkey
     *@return bool
     */
     public function checkAuthKey()
@@ -398,7 +398,7 @@ class OtpClass
     }
     /**
     *Check mobile
-    *@return bool 
+    *@return bool
     */
     public function checkMobile()
     {
@@ -414,7 +414,7 @@ class OtpClass
         }
     }
     /**
-    *This function for send OTP 
+    *This function for send OTP
     *
     * @param dataArray array
     * @param data      array
@@ -479,7 +479,7 @@ class OtpClass
         return $data;
     }
     /**
-    *This function for retry OTP 
+    *This function for retry OTP
     * @param retrytype string
     * @param data      array
     *
@@ -507,7 +507,7 @@ class OtpClass
         return $response;
     }
     /**
-    *This function for verify OTP 
+    *This function for verify OTP
     *
     * @param otp int
     * @param data

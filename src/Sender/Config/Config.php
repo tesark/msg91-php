@@ -74,7 +74,6 @@ class MyConfig extends AbstractConfig // class testing pending
     *
     * @param key    string
     * @param array  array
-    * 
     * @return null or array value for specific value
     */
     protected function checkKey($key, $array)

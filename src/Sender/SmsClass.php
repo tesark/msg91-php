@@ -388,7 +388,7 @@ class SmsClass
     }
     /**
     * Check integer value
-    * @param value 
+    * @param value
     * @return bool
     */
     public function isInterger($value)
@@ -398,7 +398,7 @@ class SmsClass
     }
     /**
     * Check string value
-    * @param value 
+    * @param value
     * @return bool
     */
     public function isString($value)
@@ -408,7 +408,7 @@ class SmsClass
     }
     /**
     * Check numeric value
-    * @param value 
+    * @param value
     * @return bool
     */
     public function isNumeric($value)
@@ -449,7 +449,7 @@ class SmsClass
         }
     }
     /**
-    *This function for sms array Build with mobilenumbers 
+    *This function for sms array Build with mobilenumbers
     * @param buildSmsData array
     * @param buildSmsData array
     *
@@ -593,7 +593,7 @@ class SmsClass
     /**
     *This function for sms array build with
     * @param buildSmsData array
-    * @param buildSmsData array 
+    * @param buildSmsData array
     *
     */
     public function addAfterMinutes($buildSmsData)

@@ -74,7 +74,7 @@ class Deliver
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
-            $response = $client->send($request);         
+            $response = $client->send($request);
             // $this->addLogFile("response", $ResponseData);     //issue unable to log Response
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
