@@ -30,8 +30,8 @@ class TransactionalSms
     public static function sendTransactional($mobileNumber, $data)
     {
         // Get Envirionment variable and config file values
-        $Config    = new MyConfig();
-        $container = $Config->getDefaults();
+        $config    = new MyConfig();
+        $container = $config->getDefaults();
         //transactional SMS content
         $sendData = array(
             'authkey'     => $container['common']['transAuthKey'],

@@ -31,8 +31,8 @@ class PromotionalSms
     public static function sendPromotional($mobileNumber, $data)
     {
         // Get Envirionment variable and config file values
-        $Config    = new MyConfig();
-        $container = $Config->getDefaults();
+        $config    = new MyConfig();
+        $container = $config->getDefaults();
         var_dump($container['common']['promoAuthKey']);
         var_dump($container['promotionalSms']);
         $sendData = array(

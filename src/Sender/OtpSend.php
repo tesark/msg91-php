@@ -31,8 +31,8 @@ class OtpSend
     {
         $data = [];
         // Get Envirionment variable and config file values
-        $Config          = new MyConfig();
-        $container       = $Config->getDefaults();
+        $config          = new MyConfig();
+        $container       = $config->getDefaults();
         $data['authkey'] = $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpClass();
@@ -53,8 +53,8 @@ class OtpSend
     {
         $data = [];
         // Get Envirionment variable and config file values
-        $Config        = new MyConfig();
-        $container     = $Config->getDefaults();
+        $config        = new MyConfig();
+        $container     = $config->getDefaults();
         $data         += ['authkey' => $container['common']['otpAuthKey']];
         $data         += ['mobile' => $mobileNumber];
         $otp           = new OtpClass();
@@ -75,8 +75,8 @@ class OtpSend
     {
         $data = [];
         // Get Envirionment variable and config file values
-        $Config          = new MyConfig();
-        $container       = $Config->getDefaults();
+        $config          = new MyConfig();
+        $container       = $config->getDefaults();
         $data['authkey'] = $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpClass();
