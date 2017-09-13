@@ -2,7 +2,7 @@
 namespace Sender;
 
 use Sender\SmsClass;
-use Sender\Config\Config;
+use Sender\Config\Config as ConfigClass;
 use Sender\ParameterException;
 
 /**
@@ -35,7 +35,7 @@ class PromotionalSms
         $checkAuth = Validation::checkAuthKey($this->promoAuthKey);
         if (!$checkAuth) {
            // Get Envirionment variable and config file values
-           $config          = new Config();
+           $config          = new ConfigClass();
            $container       = $config->getDefaults(); 
         }
         $sendData = array(
