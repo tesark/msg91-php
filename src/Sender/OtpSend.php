@@ -3,7 +3,7 @@ namespace Sender;
 
 use Sender\Deliver;
 use Sender\Validation;
-use Sender\Config\MyConfig;
+use Sender\Config\Config;
 use Sender\Exception\ParameterException;
 
 /**
@@ -40,7 +40,7 @@ class OtpSend
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
            // Get Envirionment variable and config file values
-           $config          = new MyConfig();
+           $config          = new Config();
            $container       = $config->getDefaults(); 
         } 
         $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
@@ -66,7 +66,7 @@ class OtpSend
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
            // Get Envirionment variable and config file values
-           $config          = new MyConfig();
+           $config          = new Config();
            $container       = $config->getDefaults(); 
         }
         $data         += ['authkey' => $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey']];
@@ -92,7 +92,7 @@ class OtpSend
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
            // Get Envirionment variable and config file values
-           $config          = new MyConfig();
+           $config          = new Config();
            $container       = $config->getDefaults(); 
         }
         $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];

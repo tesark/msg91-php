@@ -1,7 +1,7 @@
 <?php
 namespace Sender\Config;
 
-use Noodlehaus\Config;
+use Noodlehaus\Config as Nood;
 use Noodlehaus\AbstractConfig;
 
 /**
@@ -13,7 +13,7 @@ use Noodlehaus\AbstractConfig;
 * @license
 */
 
-class MyConfig extends AbstractConfig // class testing pending
+class Config extends AbstractConfig // class testing pending
 {
     public $config;
     public $common;
@@ -22,7 +22,7 @@ class MyConfig extends AbstractConfig // class testing pending
     public $otp;
     public function __construct()
     {
-        $config = new Config($_SERVER["DOCUMENT_ROOT"]. '/../config');
+        $config = new Nood($_SERVER["DOCUMENT_ROOT"]. '/../config');
         if (isset($config['msg91']) && $config['msg91']) {
             if ($this->checkKey('common', $config['msg91'])) {
                 $this->common = $config['msg91']['common'];

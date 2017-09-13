@@ -3,7 +3,7 @@ namespace Sender;
 
 use Sender\SmsClass;
 use Sender\Validation;
-use Sender\Config\MyConfig;
+use Sender\Config\Config;
 
 /**
 * This Class provide Transactional SMS APIs
@@ -35,7 +35,7 @@ class TransactionalSms
         $checkAuth = Validation::checkAuthKey($this->transAuthKey);
         if (!$checkAuth) {
            // Get Envirionment variable and config file values
-           $config          = new MyConfig();
+           $config          = new Config();
            $container       = $config->getDefaults(); 
         }
         //transactional SMS content
