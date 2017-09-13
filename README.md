@@ -1,8 +1,13 @@
 # MSG91 SMS & OTP Composer Package
 
+## Supported FrameWorks
+
+- `Laravel5.3`, `Laravel5.4`, `laravel5.5` we are suggested Laravel frame work
+- `Symfony 3.1`, `Slim 3.8 `, `Zend 3.0`, `Codeigniter 3.1`
+
 ### Installation
 
-Run the following command.
+Run the following command to install the latest applicable version of the package:
 
 ```sh
 composer require venkatsamuthiram/deliver
@@ -16,10 +21,6 @@ composer require venkatsamuthiram/deliver
 
 The entire library is intended to be PSR-1, PSR-2 compliant.
 
-### Get in touch
-
-If you have any suggestions, feel free to email me at venkatsamuthiram5@gmail.com or ping me on Twitter with @venkatskpi.
-
 ### SMS
  [Msg91 Send SMS](http://api.msg91.com/apidoc/textsms/send-sms.php) 
 - `GET` Method
@@ -32,18 +33,18 @@ http://api.msg91.com/api/sendhttp.php?authkey=YourAuthKey&mobiles=919999999990,9
 
 | Parameter name | Data type   | Description
 | -------------- | ---------   | -----------
-| authkey *		| alphanumeric	|Login authentication key (this key is unique for every user)
-| mobiles *		| integer		|	Keep numbers in international format (with country code), multiple numbers should be | separated by comma (,)
-| message *		| varchar		|	Message content to send
-| sender *		| varchar		|	Receiver will see this as sender's ID.
-| route *		| 	varchar		|	If your operator supports multiple routes then give one route name. Eg: route=1 for promotional, route=4 for transactional SMS.
-| country		| 	numeric		|	0 for international,1 for USA, 91 for India.
-| flash			| integer 		|	(0/1)	flash=1 (for flash SMS)
-| unicode		| 	integer 	|		(0/1)	unicode=1 (for unicode SMS)
-| schtime		| date and time	|When you want to schedule the SMS to be sent. Time format could be of your choice you can use Y-m-d h:i:s (2020-01-01 10:10:00) Or Y/m/d h:i:s (2020/01/01 10:10:00) Or you can send unix timestamp (1577873400)
-| afterminutes	| integer		|	Time in minutes after which you want to send sms.
-| response		| 	varchar		|	By default you will get response in string format but you want to receive in other format (json,xml) then set this parameter. for example: &response=json or &response=xml
-| campaign		| varchar		|		Campaign name you wish to create.
+| authkey *   | alphanumeric  |Login authentication key (this key is unique for every user)
+| mobiles *   | integer   | Keep numbers in international format (with country code), multiple numbers should be | separated by comma (,)
+| message *   | varchar   | Message content to send
+| sender *    | varchar   | Receiver will see this as sender's ID.
+| route *   |   varchar   | If your operator supports multiple routes then give one route name. Eg: route=1 for promotional, route=4 for transactional SMS.
+| country   |   numeric   | 0 for international,1 for USA, 91 for India.
+| flash     | integer     | (0/1) flash=1 (for flash SMS)
+| unicode   |   integer   |   (0/1) unicode=1 (for unicode SMS)
+| schtime   | date and time |When you want to schedule the SMS to be sent. Time format could be of your choice you can use Y-m-d h:i:s (2020-01-01 10:10:00) Or Y/m/d h:i:s (2020/01/01 10:10:00) Or you can send unix timestamp (1577873400)
+| afterminutes  | integer   | Time in minutes after which you want to send sms.
+| response    |   varchar   | By default you will get response in string format but you want to receive in other format (json,xml) then set this parameter. for example: &response=json or &response=xml
+| campaign    | varchar   |   Campaign name you wish to create.
 
 operator supports.
 
@@ -57,9 +58,9 @@ operator supports.
 
 ### Input Data
 - `$mobileNumber` 
-   "919******541,919******728  String 
-   9195********3               Integer
-- `$data`                      Array
+   "919******541,919******728"  String 
+   9195********3                Integer
+- `$data`                       Array
 
 ### Sample Input Data
 
@@ -118,7 +119,7 @@ PromotionalSms::sendPromotional($mobileNumber, $data);
 Tips 1: 
 $sample = [
     [
-        'authkey' => '170867ARdROqjKklk599a87a1',
+        'authkey' => '17086************k599a87a1',
         'sender'  => 'MULSMS',
         'schtime'=> '2016-03-31 11:17:39',
         'campaign'=> 'venkat',
@@ -132,7 +133,7 @@ $sample = [
            ],
            [
               'message'    => 'tesark world',
-              'mobile' => '9195******41',918******824,917******972'
+              'mobile' => '9195******41,918******824,917******972'
            ]
         ]
     ]  
@@ -140,12 +141,12 @@ $sample = [
 Tips 2:
 $sample = [
     [
-       'authkey' => '170867ARdROqjKklk599a87a1',
+       'authkey' => '17086************k599a87a1',
        'sender'  => 'MULSMS',
        'content' =>[ 
             [
                 'message'    => 'welcome multi sms',
-                'mobile' => '919******541',918******824,917******972'
+                'mobile' => '919******541,918******824,917******972'
             ],
             [
                 'message'    => 'tesark world',
@@ -154,7 +155,7 @@ $sample = [
         ]
     ],
     [
-       'authkey' => '170867ARdROqjKklk599a87a1',
+       'authkey' => '17086************k599a87a1',
        'sender'  => 'SUNSMS',
        'content' =>[ 
             [
@@ -179,6 +180,19 @@ PromotionalSms::sendBulkSms($data);
 
 # Sample XML
 
+```sh
+<?xml version="1.0"?>
+<MESSAGE>
+  <AUTHKEY>17086************k599a87a1</AUTHKEY>
+  <SENDER>MULSMS</SENDER>
+  <SMS TEXT="welcome multi sms">
+    <ADDRESS TO="919******541"/>
+  </SMS>
+  <SMS TEXT="tesark world">
+    <ADDRESS TO="919******541"/>
+  </SMS>
+</MESSAGE>
+```
 
 # Sample Output
 ```sh
@@ -198,24 +212,24 @@ GET
 http://api.msg91.com/api/sendotp.php?authkey=YourAuthKey&mobile=919999999990&message=Your%20otp%20is%202786&sender=senderid&otp=2786
 ```
 
-|  Parameter name |  	Data type|  	Description|
+|  Parameter name |   Data type|    Description|
 |------------- |-----------------|-----------------|
-|  authkey *	|  alphanumeric|  	Login authentication key (this key is unique for every user)
-|  mobile *		|  integer		|  Keep number in international format (with country code)
-|  message		|  varchar		|  Message content to send. (default : Your verification code is ##OTP##.)
-|  sender		|  varchar		|  Receiver will see this as sender's ID. (default : OTPSMS)
-|  otp 			|  	integer		|  OTP to send and verify. If not sent, OTP will be generated.
-|  otp_expiry	|  integer		|  Expiry of OTP to verify, in minutes (default : 1 day, min : 1 minute)
-|  otp_length	|  integer		|  Number of digits in OTP (default : 4, min : 4, max : 9)
+|  authkey *  |  alphanumeric|    Login authentication key (this key is unique for every user)
+|  mobile *   |  integer    |  Keep number in international format (with country code)
+|  message    |  varchar    |  Message content to send. (default : Your verification code is ##OTP##.)
+|  sender   |  varchar    |  Receiver will see this as sender's ID. (default : OTPSMS)
+|  otp      |   integer   |  OTP to send and verify. If not sent, OTP will be generated.
+|  otp_expiry |  integer    |  Expiry of OTP to verify, in minutes (default : 1 day, min : 1 minute)
+|  otp_length |  integer    |  Number of digits in OTP (default : 4, min : 4, max : 9)
 
 ### Input Data
- - `authkey` *	   alphanumeric 
- - `mobile` *	   Integer 
- - `message`	   varchar  
- - `sender`		   varchar
- - `otp` 		   Integer 
- - `otp_expiry`	   Integer
- - `otp_length`	   Integer
+ - `authkey` *     alphanumeric 
+ - `mobile` *    Integer 
+ - `message`     varchar  
+ - `sender`      varchar
+ - `otp`       Integer 
+ - `otp_expiry`    Integer
+ - `otp_length`    Integer
 
 ### Sample Input Data
 ```sh
@@ -243,11 +257,11 @@ OtpSend::sendOtp($mobile,$data);
 ```sh
 http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&retrytype=voice
 ```
- | Parameter name	 | Data type | 	Description|
+ | Parameter name  | Data type |  Description|
  | --------------    | --------- | ------------|
- | authkey *	 | alphanumeric | 	Login authentication key (this key is unique for every user)
- | mobile *	 	 | integer 		| 	Keep number in international format (with country code)
- | retrytype	 | varchar 		| 	Method to retry otp : voice or text. Default is voice.
+ | authkey *   | alphanumeric |   Login authentication key (this key is unique for every user)
+ | mobile *    | integer    |   Keep number in international format (with country code)
+ | retrytype   | varchar    |   Method to retry otp : voice or text. Default is voice.
 
 ### Input Data
 - `$mobile`   Integer
@@ -274,18 +288,18 @@ Sample Output
 ```sh
 http://api.msg91.com/api/verifyRequestOTP.php?authkey=YourAuthKey&mobile=919999999990&otp=2786
 ```
- | Parameter name |	Data type | Description|
+ | Parameter name | Data type | Description|
  | -------------- | ----------| ------------|
- | authkey *	 | alphanumeric | 	Login authentication key (this key is unique for every user)
- | mobile *	 	 | integer	 	| Keep number in international format (with country code)
- | otp *	 	 | varchar	 	| OTP to verify
+ | authkey *   | alphanumeric |   Login authentication key (this key is unique for every user)
+ | mobile *    | integer    | Keep number in international format (with country code)
+ | otp *     | varchar    | OTP to verify
 
 ### Input Data
 - `$mobile` Integer
 - `$otp`     string
 
 ### Sample Input Data
-OtpSend::verifyOtp(919*******41,5421);
+OtpSend::verifyOtp(919*******41,9195****421);
 ### API
 ```sh
 use Sender\OtpSend;
@@ -296,3 +310,14 @@ Sample Output
 ```sh
 {"message":"number_verified_successfully","type":"success"}
 ```
+
+
+### NOTE:
+
+```sh
+- Mobile number not attached `+` sign like this `+9195*****41`
+```
+
+### Get in touch
+
+If you have any suggestions, feel free to email me at venkatsamuthiram5@gmail.com or ping me on Twitter with @venkatskpi.
