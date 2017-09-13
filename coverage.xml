@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1505112824">
-  <project timestamp="1505112824">
+<coverage generated="1505281582">
+  <project timestamp="1505281582">
     <package name="Sender\Config">
       <file name="/home/tesark/open/deliver/src/Sender/Config/Config.php">
         <class name="MyConfig" namespace="Sender\Config">

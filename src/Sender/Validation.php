@@ -45,6 +45,20 @@ class Validation
         return is_numeric($value);
     }
     /**
+    * This function for check auth key present or not 
+    *
+    * @param authKey string
+    * @return bool
+    */
+    public static function checkAuthKey($authKey)
+    {
+        if (isset($authKey) && is_string($authKey)){
+          return true;
+        } else {
+          return false;
+        }
+    }
+    /**
     *Check validate date time format
     * @param date
     *
