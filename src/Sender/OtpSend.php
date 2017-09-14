@@ -2,7 +2,8 @@
 namespace Sender;
 
 use Sender\Deliver;
-use Sender\Config\MyConfig;
+use Sender\Validation;
+use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -15,7 +16,13 @@ use Sender\ExceptionClass\ParameterException;
 */
 
 class OtpSend
-{
+{   
+    private $otpAuth;
+    public function __construct($authkey = null)
+    {
+       $this->otpAuth = $authkey;
+    }
+
     /**
     *  Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
     *
@@ -27,13 +34,16 @@ class OtpSend
     * @throws error missing parameters or return empty
     */
     //Method for send OTP
-    public static function sendOtp($mobileNumber, $dataArray)
+    public function sendOtp($mobileNumber, $dataArray)
     {
-        $data = [];
-        // Get Envirionment variable and config file values
-        $config          = new MyConfig();
-        $container       = $config->getDefaults();
-        $data['authkey'] = $container['common']['otpAuthKey'];
+        $data      = [];
+        $checkAuth = Validation::checkAuthKey($this->otpAuth);
+        if (!$checkAuth) {
+           // Get Envirionment variable and config file values
+           $config          = new ConfigClass();
+           $container       = $config->getDefaults(); 
+        } 
+        $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpClass();
         $response        = $otp->sendOtp($dataArray, $data);
@@ -49,13 +59,17 @@ class OtpSend
     *
     * @throws error missing parameters or return empty
     */
-    public static function verifyOtp($mobileNumber, $oneTimePass)
+    public function verifyOtp($mobileNumber, $oneTimePass)
     {
-        $data = [];
-        // Get Envirionment variable and config file values
-        $config        = new MyConfig();
-        $container     = $config->getDefaults();
-        $data         += ['authkey' => $container['common']['otpAuthKey']];
+        $checkAuth = '';
+        $data      = [];
+        $checkAuth = Validation::checkAuthKey($this->otpAuth);
+        if (!$checkAuth) {
+           // Get Envirionment variable and config file values
+           $config          = new ConfigClass();
+           $container       = $config->getDefaults(); 
+        }
+        $data         += ['authkey' => $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey']];
         $data         += ['mobile' => $mobileNumber];
         $otp           = new OtpClass();
         $response      = $otp->verifyOtp($oneTimePass, $data);
@@ -71,13 +85,17 @@ class OtpSend
     *
     * @throws error missing parameters or return empty
     */
-    public static function resendOtp($mobileNumber, $retrytype = null)
+    public function resendOtp($mobileNumber, $retrytype = null)
     {
-        $data = [];
-        // Get Envirionment variable and config file values
-        $config          = new MyConfig();
-        $container       = $config->getDefaults();
-        $data['authkey'] = $container['common']['otpAuthKey'];
+        $checkAuth = '';
+        $data      = [];
+        $checkAuth = Validation::checkAuthKey($this->otpAuth);
+        if (!$checkAuth) {
+           // Get Envirionment variable and config file values
+           $config          = new ConfigClass();
+           $container       = $config->getDefaults(); 
+        }
+        $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpClass();
         $response        = $otp->retryOtp($retrytype, $data);

@@ -1,7 +1,7 @@
 <?php
 namespace Sender\Config;
 
-use Noodlehaus\Config;
+use Noodlehaus\Config as Nood;
 use Noodlehaus\AbstractConfig;
 
 /**
@@ -13,29 +13,43 @@ use Noodlehaus\AbstractConfig;
 * @license
 */
 
-class MyConfig extends AbstractConfig // class testing pending
-{
-    public $config;
-    public $common;
-    public $promotionalSms;
-    public $transactionalSms;
-    public $otp;
+class Config extends AbstractConfig // class testing pending
+{   
+    private $config;
+    private $common;
+    private $promotionalSms;
+    private $transactionalSms;
+    private $otp;
+    private $hasCountry;
+    private $hasTransAuth;
+    private $hasPromoAuth;
+    private $hasOtpAuth;
     public function __construct()
     {
-        $config = new Config($_SERVER["DOCUMENT_ROOT"]. '/../config');
-        if (isset($config['msg91']) && $config['msg91']) {
-            if ($this->checkKey('common', $config['msg91'])) {
-                $this->common = $config['msg91']['common'];
+        $file = $_SERVER["DOCUMENT_ROOT"]. '/../config';
+        if (file_exists($file)) {
+            $config = new Nood($file);
+            if (isset($config['msg91']) && $config['msg91']) {
+                if ($this->checkKey('common', $config['msg91'])) {
+                    $this->common = $config['msg91']['common'];
+                    //Check Config file variable present
+                    $this->hasCountry    = $this->checkKey('country', $this->common);
+                    $this->hasTransAuth  = $this->checkKey('transAuthKey', $this->common);
+                    $this->hasPromoAuth  = $this->checkKey('promoAuthKey', $this->common);
+                    $this->hasOtpAuth    = $this->checkKey('otpAuthKey', $this->common);
+                }
+                if ($this->checkKey('promotionalSms', $config['msg91'])) {
+                    $this->promotionalSms   = $config['msg91']['promotionalSms'];
+                }
+                if ($this->checkKey('transactionalSms', $config['msg91'])) {
+                    $this->transactionalSms = $config['msg91']['transactionalSms'];
+                }
+                if ($this->checkKey('otp', $config['msg91'])) {
+                    $this->otp    = $config['msg91']['otp'];
+                }
             }
-            if ($this->checkKey('promotionalSms', $config['msg91'])) {
-                $this->promotionalSms   = $config['msg91']['promotionalSms'];
-            }
-            if ($this->checkKey('transactionalSms', $config['msg91'])) {
-                $this->transactionalSms = $config['msg91']['transactionalSms'];
-            }
-            if ($this->checkKey('otp', $config['msg91'])) {
-                $this->otp    = $config['msg91']['otp'];
-            }
+        } else {
+            return false;
         }
     }
     /*
@@ -44,17 +58,12 @@ class MyConfig extends AbstractConfig // class testing pending
     */
     public function getDefaults()
     {
-        //Check Config file variable present
-        $hasCountry    = $this->checkKey('country', $this->common);
-        $hasTransAuth  = $this->checkKey('transAuthKey', $this->common);
-        $hasPromoAuth  = $this->checkKey('promoAuthKey', $this->common);
-        $hasOtpAuth    = $this->checkKey('otpAuthKey', $this->common);
         return array(
             'common' => [
-                'country'      => getenv('COUNTRY')      ? (string) getenv('COUNTRY')      : $hasCountry ,
-                'transAuthKey' => getenv('TRANSAUTHKEY') ? (string) getenv('TRANSAUTHKEY') : $hasTransAuth,
-                'promoAuthKey' => getenv('PROMOAUTHKEY') ? (string) getenv('PROMOAUTHKEY') : $hasPromoAuth,
-                'otpAuthKey'   => getenv('OTPAUTHKEY')   ? (string) getenv('OTPAUTHKEY')   : $hasOtpAuth,
+                'country'      => getenv('COUNTRY')      ? (string) getenv('COUNTRY')      : $this->hasCountry ,
+                'transAuthKey' => getenv('TRANSAUTHKEY') ? (string) getenv('TRANSAUTHKEY') : $this->hasTransAuth,
+                'promoAuthKey' => getenv('PROMOAUTHKEY') ? (string) getenv('PROMOAUTHKEY') : $this->hasPromoAuth,
+                'otpAuthKey'   => getenv('OTPAUTHKEY')   ? (string) getenv('OTPAUTHKEY')   : $this->hasOtpAuth,
             ],
             'promotionalSms' => [
                 'sender' => getenv('SENDER') ? (string) getenv('SENDER') : $this->checkKey('sender', $this->promotionalSms),
@@ -70,7 +79,7 @@ class MyConfig extends AbstractConfig // class testing pending
         );
     }
     /**
-    *this function check key present in aaray
+    *this function check key present in array
     *
     * @param key    string
     * @param array  array
@@ -78,7 +87,7 @@ class MyConfig extends AbstractConfig // class testing pending
     */
     protected function checkKey($key, $array)
     {
-        if (isset($key) && $array) {
+        if (isset($key)) {
             if (array_key_exists($key, $array)) {
                 return $array[$key];
             } else {

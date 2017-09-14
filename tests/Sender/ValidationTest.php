@@ -131,4 +131,35 @@ class ValidationTest extends TestCase
         $result = $this->validate->isValidTimeStamp("2020-01-01 10:10:00");
         $this->assertFalse($result);
     }
+    //validation authkey
+    public function testCheckAuthKeyAlpha()
+    {
+        $result = $this->validate->checkAuthKey("sgdfafdsjhfahjdfhjas");
+        $this->assertTrue($result);
+    }
+    public function testCheckAuthKeysNumeric()
+    {
+        $result = $this->validate->checkAuthKey("324353456465546456");
+        $this->assertTrue($result);
+    }
+    public function testCheckAuthKeysAlphaNumeric()
+    {
+        $result = $this->validate->checkAuthKey("hsdgyu4r78fydegfg432ew");
+        $this->assertTrue($result);
+    }
+    public function testCheckAuthKeysFalse()
+    {
+        $result = $this->validate->checkAuthKey(3748576346);
+        $this->assertFalse($result);
+    }
+    public function testCheckAuthKeysFalseSecond()
+    {
+        $result = $this->validate->checkAuthKey(374.6);
+        $this->assertFalse($result);
+    }
+    public function testCheckAuthKeysFalseBool()
+    {
+        $result = $this->validate->checkAuthKey(true);
+        $this->assertFalse($result);
+    }
 }

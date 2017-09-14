@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1505112824">
-  <project timestamp="1505112824">
+<coverage generated="1505367844">
+  <project timestamp="1505367844">
     <package name="Sender\Config">
       <file name="/home/tesark/open/deliver/src/Sender/Config/Config.php">
-        <class name="MyConfig" namespace="Sender\Config">
-          <metrics complexity="21" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="0" elements="56" coveredelements="0"/>
+        <class name="Config" namespace="Sender\Config">
+          <metrics complexity="21" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="0" elements="61" coveredelements="0"/>
         </class>
-        <line num="23" type="method" name="__construct" visibility="public" complexity="7" crap="56" count="0"/>
-        <line num="24" type="stmt" count="0"/>
-        <line num="25" type="stmt" count="0"/>
-        <line num="26" type="stmt" count="0"/>
-        <line num="27" type="stmt" count="0"/>
+        <line num="27" type="method" name="__construct" visibility="public" complexity="8" crap="72" count="0"/>
         <line num="28" type="stmt" count="0"/>
         <line num="29" type="stmt" count="0"/>
         <line num="30" type="stmt" count="0"/>
@@ -18,14 +14,18 @@
         <line num="32" type="stmt" count="0"/>
         <line num="33" type="stmt" count="0"/>
         <line num="34" type="stmt" count="0"/>
-        <line num="35" type="stmt" count="0"/>
         <line num="36" type="stmt" count="0"/>
         <line num="37" type="stmt" count="0"/>
         <line num="38" type="stmt" count="0"/>
         <line num="39" type="stmt" count="0"/>
         <line num="40" type="stmt" count="0"/>
-        <line num="45" type="method" name="getDefaults" visibility="public" complexity="10" crap="110" count="0"/>
+        <line num="41" type="stmt" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
         <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
         <line num="48" type="stmt" count="0"/>
         <line num="49" type="stmt" count="0"/>
         <line num="50" type="stmt" count="0"/>
@@ -33,11 +33,7 @@
         <line num="52" type="stmt" count="0"/>
         <line num="53" type="stmt" count="0"/>
         <line num="54" type="stmt" count="0"/>
-        <line num="55" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="57" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
+        <line num="59" type="method" name="getDefaults" visibility="public" complexity="10" crap="110" count="0"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
         <line num="62" type="stmt" count="0"/>
@@ -50,19 +46,28 @@
         <line num="69" type="stmt" count="0"/>
         <line num="70" type="stmt" count="0"/>
         <line num="71" type="stmt" count="0"/>
-        <line num="79" type="method" name="checkKey" visibility="protected" complexity="4" crap="20" count="0"/>
+        <line num="72" type="stmt" count="0"/>
+        <line num="73" type="stmt" count="0"/>
+        <line num="74" type="stmt" count="0"/>
+        <line num="75" type="stmt" count="0"/>
+        <line num="76" type="stmt" count="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="78" type="stmt" count="0"/>
+        <line num="79" type="stmt" count="0"/>
         <line num="80" type="stmt" count="0"/>
-        <line num="81" type="stmt" count="0"/>
-        <line num="82" type="stmt" count="0"/>
-        <line num="83" type="stmt" count="0"/>
-        <line num="84" type="stmt" count="0"/>
-        <line num="85" type="stmt" count="0"/>
-        <line num="86" type="stmt" count="0"/>
-        <line num="87" type="stmt" count="0"/>
-        <line num="88" type="stmt" count="0"/>
+        <line num="88" type="method" name="checkKey" visibility="protected" complexity="3" crap="12" count="0"/>
         <line num="89" type="stmt" count="0"/>
         <line num="90" type="stmt" count="0"/>
-        <metrics loc="91" ncloc="64" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="0" elements="56" coveredelements="0"/>
+        <line num="91" type="stmt" count="0"/>
+        <line num="92" type="stmt" count="0"/>
+        <line num="93" type="stmt" count="0"/>
+        <line num="94" type="stmt" count="0"/>
+        <line num="95" type="stmt" count="0"/>
+        <line num="96" type="stmt" count="0"/>
+        <line num="97" type="stmt" count="0"/>
+        <line num="98" type="stmt" count="0"/>
+        <line num="99" type="stmt" count="0"/>
+        <metrics loc="100" ncloc="73" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="0" elements="61" coveredelements="0"/>
       </file>
     </package>
     <package name="Sender">
@@ -481,56 +486,70 @@
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/OtpSend.php">
         <class name="OtpSend" namespace="Sender">
-          <metrics complexity="3" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="33" coveredelements="0"/>
+          <metrics complexity="10" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="0" elements="48" coveredelements="0"/>
         </class>
-        <line num="30" type="method" name="sendOtp" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="31" type="stmt" count="0"/>
-        <line num="32" type="stmt" count="0"/>
-        <line num="34" type="stmt" count="0"/>
-        <line num="35" type="stmt" count="0"/>
-        <line num="36" type="stmt" count="0"/>
-        <line num="37" type="stmt" count="0"/>
+        <line num="21" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="23" type="stmt" count="0"/>
+        <line num="24" type="stmt" count="0"/>
+        <line num="37" type="method" name="sendOtp" visibility="public" complexity="3" crap="12" count="0"/>
         <line num="38" type="stmt" count="0"/>
         <line num="39" type="stmt" count="0"/>
         <line num="40" type="stmt" count="0"/>
         <line num="41" type="stmt" count="0"/>
-        <line num="52" type="method" name="verifyOtp" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="53" type="stmt" count="0"/>
-        <line num="54" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="57" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
-        <line num="60" type="stmt" count="0"/>
-        <line num="61" type="stmt" count="0"/>
-        <line num="62" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
+        <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="51" type="stmt" count="0"/>
+        <line num="62" type="method" name="verifyOtp" visibility="public" complexity="3" crap="12" count="0"/>
         <line num="63" type="stmt" count="0"/>
-        <line num="74" type="method" name="resendOtp" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="64" type="stmt" count="0"/>
+        <line num="65" type="stmt" count="0"/>
+        <line num="66" type="stmt" count="0"/>
+        <line num="67" type="stmt" count="0"/>
+        <line num="69" type="stmt" count="0"/>
+        <line num="70" type="stmt" count="0"/>
+        <line num="71" type="stmt" count="0"/>
+        <line num="72" type="stmt" count="0"/>
+        <line num="73" type="stmt" count="0"/>
+        <line num="74" type="stmt" count="0"/>
         <line num="75" type="stmt" count="0"/>
         <line num="76" type="stmt" count="0"/>
-        <line num="78" type="stmt" count="0"/>
-        <line num="79" type="stmt" count="0"/>
-        <line num="80" type="stmt" count="0"/>
-        <line num="81" type="stmt" count="0"/>
-        <line num="82" type="stmt" count="0"/>
-        <line num="83" type="stmt" count="0"/>
-        <line num="84" type="stmt" count="0"/>
-        <line num="85" type="stmt" count="0"/>
-        <metrics loc="86" ncloc="40" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="33" coveredelements="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="88" type="method" name="resendOtp" visibility="public" complexity="3" crap="12" count="0"/>
+        <line num="89" type="stmt" count="0"/>
+        <line num="90" type="stmt" count="0"/>
+        <line num="91" type="stmt" count="0"/>
+        <line num="92" type="stmt" count="0"/>
+        <line num="93" type="stmt" count="0"/>
+        <line num="95" type="stmt" count="0"/>
+        <line num="96" type="stmt" count="0"/>
+        <line num="97" type="stmt" count="0"/>
+        <line num="98" type="stmt" count="0"/>
+        <line num="99" type="stmt" count="0"/>
+        <line num="100" type="stmt" count="0"/>
+        <line num="101" type="stmt" count="0"/>
+        <line num="102" type="stmt" count="0"/>
+        <line num="103" type="stmt" count="0"/>
+        <metrics loc="104" ncloc="58" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="0" elements="48" coveredelements="0"/>
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/PromotionalSms.php">
         <class name="PromotionalSms" namespace="Sender">
-          <metrics complexity="7" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="0" elements="41" coveredelements="0"/>
+          <metrics complexity="9" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="0" elements="43" coveredelements="0"/>
         </class>
-        <line num="19" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="20" type="stmt" count="0"/>
+        <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
         <line num="21" type="stmt" count="0"/>
-        <line num="31" type="method" name="sendPromotional" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="32" type="stmt" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="23" type="stmt" count="0"/>
+        <line num="33" type="method" name="sendPromotional" visibility="public" complexity="3" crap="12" count="0"/>
         <line num="34" type="stmt" count="0"/>
         <line num="35" type="stmt" count="0"/>
         <line num="36" type="stmt" count="0"/>
-        <line num="37" type="stmt" count="0"/>
         <line num="38" type="stmt" count="0"/>
         <line num="39" type="stmt" count="0"/>
         <line num="40" type="stmt" count="0"/>
@@ -539,10 +558,10 @@
         <line num="43" type="stmt" count="0"/>
         <line num="44" type="stmt" count="0"/>
         <line num="45" type="stmt" count="0"/>
-        <line num="56" type="method" name="sendBulkSms" visibility="public" complexity="5" crap="30" count="0"/>
-        <line num="57" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
+        <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="59" type="method" name="sendBulkSms" visibility="public" complexity="5" crap="30" count="0"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
         <line num="62" type="stmt" count="0"/>
@@ -563,7 +582,10 @@
         <line num="77" type="stmt" count="0"/>
         <line num="78" type="stmt" count="0"/>
         <line num="79" type="stmt" count="0"/>
-        <metrics loc="80" ncloc="52" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="0" elements="41" coveredelements="0"/>
+        <line num="80" type="stmt" count="0"/>
+        <line num="81" type="stmt" count="0"/>
+        <line num="82" type="stmt" count="0"/>
+        <metrics loc="83" ncloc="55" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="0" elements="43" coveredelements="0"/>
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/SmsClass.php">
         <class name="SmsClass" namespace="Sender">
@@ -1084,28 +1106,32 @@
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/TransactionalSms.php">
         <class name="TransactionalSms" namespace="Sender">
-          <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
+          <metrics complexity="4" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="19" coveredelements="0"/>
         </class>
-        <line num="18" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="19" type="stmt" count="0"/>
-        <line num="20" type="stmt" count="0"/>
-        <line num="30" type="method" name="sendTransactional" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="31" type="stmt" count="0"/>
-        <line num="33" type="stmt" count="0"/>
+        <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="21" type="stmt" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="23" type="stmt" count="0"/>
+        <line num="33" type="method" name="sendTransactional" visibility="public" complexity="3" crap="12" count="0"/>
         <line num="34" type="stmt" count="0"/>
+        <line num="35" type="stmt" count="0"/>
         <line num="36" type="stmt" count="0"/>
-        <line num="37" type="stmt" count="0"/>
         <line num="38" type="stmt" count="0"/>
         <line num="39" type="stmt" count="0"/>
         <line num="40" type="stmt" count="0"/>
-        <line num="41" type="stmt" count="0"/>
         <line num="42" type="stmt" count="0"/>
         <line num="43" type="stmt" count="0"/>
-        <metrics loc="44" ncloc="23" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
+        <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <metrics loc="50" ncloc="29" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="19" coveredelements="0"/>
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/Validation.php">
         <class name="Validation" namespace="Sender">
-          <metrics complexity="11" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="15" elements="26" coveredelements="20"/>
+          <metrics complexity="14" methods="8" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="18" elements="30" coveredelements="24"/>
         </class>
         <line num="23" type="method" name="isString" visibility="public" complexity="1" crap="1" count="4"/>
         <line num="25" type="stmt" count="4"/>
@@ -1113,27 +1139,31 @@
         <line num="35" type="stmt" count="4"/>
         <line num="43" type="method" name="isNumeric" visibility="public" complexity="1" crap="1" count="7"/>
         <line num="45" type="stmt" count="7"/>
-        <line num="53" type="method" name="isValidDateFirstFormat" visibility="public" complexity="2" crap="2" count="2"/>
-        <line num="55" type="stmt" count="2"/>
-        <line num="56" type="stmt" count="2"/>
-        <line num="57" type="stmt" count="2"/>
-        <line num="64" type="method" name="isValidDateSecondFormat" visibility="public" complexity="2" crap="2" count="2"/>
-        <line num="66" type="stmt" count="2"/>
-        <line num="67" type="stmt" count="2"/>
-        <line num="68" type="stmt" count="2"/>
-        <line num="76" type="method" name="isValidTimeStamp" visibility="public" complexity="3" crap="3.03" count="2"/>
-        <line num="78" type="stmt" count="2"/>
-        <line num="79" type="stmt" count="1"/>
-        <line num="80" type="stmt" count="1"/>
-        <line num="81" type="stmt" count="1"/>
-        <line num="82" type="stmt" count="1"/>
-        <line num="85" type="stmt" count="1"/>
-        <line num="87" type="stmt" count="0"/>
-        <line num="94" type="method" name="isVaildAfterMinutes" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="96" type="stmt" count="0"/>
-        <line num="97" type="stmt" count="0"/>
-        <line num="98" type="stmt" count="0"/>
-        <metrics loc="100" ncloc="51" classes="1" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="15" elements="26" coveredelements="20"/>
+        <line num="53" type="method" name="checkAuthKey" visibility="public" complexity="3" crap="3" count="6"/>
+        <line num="55" type="stmt" count="6"/>
+        <line num="56" type="stmt" count="3"/>
+        <line num="58" type="stmt" count="3"/>
+        <line num="67" type="method" name="isValidDateFirstFormat" visibility="public" complexity="2" crap="2" count="2"/>
+        <line num="69" type="stmt" count="2"/>
+        <line num="70" type="stmt" count="2"/>
+        <line num="71" type="stmt" count="2"/>
+        <line num="78" type="method" name="isValidDateSecondFormat" visibility="public" complexity="2" crap="2" count="2"/>
+        <line num="80" type="stmt" count="2"/>
+        <line num="81" type="stmt" count="2"/>
+        <line num="82" type="stmt" count="2"/>
+        <line num="90" type="method" name="isValidTimeStamp" visibility="public" complexity="3" crap="3.03" count="2"/>
+        <line num="92" type="stmt" count="2"/>
+        <line num="93" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="1"/>
+        <line num="95" type="stmt" count="1"/>
+        <line num="96" type="stmt" count="1"/>
+        <line num="99" type="stmt" count="1"/>
+        <line num="101" type="stmt" count="0"/>
+        <line num="108" type="method" name="isVaildAfterMinutes" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="110" type="stmt" count="0"/>
+        <line num="111" type="stmt" count="0"/>
+        <line num="112" type="stmt" count="0"/>
+        <metrics loc="114" ncloc="59" classes="1" methods="8" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="18" elements="30" coveredelements="24"/>
       </file>
     </package>
     <package name="Sender\Exception">
@@ -1185,6 +1215,6 @@
         <metrics loc="55" ncloc="31" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="20" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="11" loc="2072" ncloc="1240" classes="11" methods="132" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="978" coveredstatements="39" elements="1110" coveredelements="45"/>
+    <metrics files="11" loc="2122" ncloc="1284" classes="11" methods="134" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="1006" coveredstatements="42" elements="1140" coveredelements="49"/>
   </project>
 </coverage>

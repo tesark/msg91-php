@@ -2,7 +2,7 @@
 namespace Sender;
 
 use Sender\SmsClass;
-use Sender\Config\MyConfig;
+use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -16,8 +16,10 @@ use Sender\ExceptionClass\ParameterException;
 
 class PromotionalSms
 {
-    public function __construct()
+    private $promoAuthKey;
+    public function __construct($authkey = null)
     {
+       $this->promoAuthKey = $authkey;
     }
     /**
     *  Send promotional SMS MSG91 Service
@@ -30,13 +32,14 @@ class PromotionalSms
     */
     public static function sendPromotional($mobileNumber, $data)
     {
-        // Get Envirionment variable and config file values
-        $config    = new MyConfig();
-        $container = $config->getDefaults();
-        var_dump($container['common']['promoAuthKey']);
-        var_dump($container['promotionalSms']);
+        $checkAuth = Validation::checkAuthKey($this->promoAuthKey);
+        if (!$checkAuth) {
+           // Get Envirionment variable and config file values
+           $config          = new ConfigClass();
+           $container       = $config->getDefaults(); 
+        }
         $sendData = array(
-            'authkey'     => $container['common']['promoAuthKey'],
+            'authkey'     => $checkAuth ? $this->promoAuthKey : $container['common']['otpAuthKey'],
             'route'       => 1,
         );
         $sms = new SmsClass();
