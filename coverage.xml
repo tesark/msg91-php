@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1505295674">
-  <project timestamp="1505295674">
+<coverage generated="1505367844">
+  <project timestamp="1505367844">
     <package name="Sender\Config">
       <file name="/home/tesark/open/deliver/src/Sender/Config/Config.php">
-        <class name="MyConfig" namespace="Sender\Config">
-          <metrics complexity="21" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="0" elements="56" coveredelements="0"/>
+        <class name="Config" namespace="Sender\Config">
+          <metrics complexity="21" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="0" elements="61" coveredelements="0"/>
         </class>
-        <line num="23" type="method" name="__construct" visibility="public" complexity="7" crap="56" count="0"/>
-        <line num="24" type="stmt" count="0"/>
-        <line num="25" type="stmt" count="0"/>
-        <line num="26" type="stmt" count="0"/>
-        <line num="27" type="stmt" count="0"/>
+        <line num="27" type="method" name="__construct" visibility="public" complexity="8" crap="72" count="0"/>
         <line num="28" type="stmt" count="0"/>
         <line num="29" type="stmt" count="0"/>
         <line num="30" type="stmt" count="0"/>
@@ -18,14 +14,18 @@
         <line num="32" type="stmt" count="0"/>
         <line num="33" type="stmt" count="0"/>
         <line num="34" type="stmt" count="0"/>
-        <line num="35" type="stmt" count="0"/>
         <line num="36" type="stmt" count="0"/>
         <line num="37" type="stmt" count="0"/>
         <line num="38" type="stmt" count="0"/>
         <line num="39" type="stmt" count="0"/>
         <line num="40" type="stmt" count="0"/>
-        <line num="45" type="method" name="getDefaults" visibility="public" complexity="10" crap="110" count="0"/>
+        <line num="41" type="stmt" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
         <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
         <line num="48" type="stmt" count="0"/>
         <line num="49" type="stmt" count="0"/>
         <line num="50" type="stmt" count="0"/>
@@ -33,11 +33,7 @@
         <line num="52" type="stmt" count="0"/>
         <line num="53" type="stmt" count="0"/>
         <line num="54" type="stmt" count="0"/>
-        <line num="55" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="57" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
+        <line num="59" type="method" name="getDefaults" visibility="public" complexity="10" crap="110" count="0"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
         <line num="62" type="stmt" count="0"/>
@@ -50,19 +46,28 @@
         <line num="69" type="stmt" count="0"/>
         <line num="70" type="stmt" count="0"/>
         <line num="71" type="stmt" count="0"/>
-        <line num="79" type="method" name="checkKey" visibility="protected" complexity="4" crap="20" count="0"/>
+        <line num="72" type="stmt" count="0"/>
+        <line num="73" type="stmt" count="0"/>
+        <line num="74" type="stmt" count="0"/>
+        <line num="75" type="stmt" count="0"/>
+        <line num="76" type="stmt" count="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="78" type="stmt" count="0"/>
+        <line num="79" type="stmt" count="0"/>
         <line num="80" type="stmt" count="0"/>
-        <line num="81" type="stmt" count="0"/>
-        <line num="82" type="stmt" count="0"/>
-        <line num="83" type="stmt" count="0"/>
-        <line num="84" type="stmt" count="0"/>
-        <line num="85" type="stmt" count="0"/>
-        <line num="86" type="stmt" count="0"/>
-        <line num="87" type="stmt" count="0"/>
-        <line num="88" type="stmt" count="0"/>
+        <line num="88" type="method" name="checkKey" visibility="protected" complexity="3" crap="12" count="0"/>
         <line num="89" type="stmt" count="0"/>
         <line num="90" type="stmt" count="0"/>
-        <metrics loc="91" ncloc="64" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="0" elements="56" coveredelements="0"/>
+        <line num="91" type="stmt" count="0"/>
+        <line num="92" type="stmt" count="0"/>
+        <line num="93" type="stmt" count="0"/>
+        <line num="94" type="stmt" count="0"/>
+        <line num="95" type="stmt" count="0"/>
+        <line num="96" type="stmt" count="0"/>
+        <line num="97" type="stmt" count="0"/>
+        <line num="98" type="stmt" count="0"/>
+        <line num="99" type="stmt" count="0"/>
+        <metrics loc="100" ncloc="73" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="0" elements="61" coveredelements="0"/>
       </file>
     </package>
     <package name="Sender">
@@ -1210,6 +1215,6 @@
         <metrics loc="55" ncloc="31" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="20" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="11" loc="2113" ncloc="1275" classes="11" methods="134" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="1001" coveredstatements="42" elements="1135" coveredelements="49"/>
+    <metrics files="11" loc="2122" ncloc="1284" classes="11" methods="134" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="1006" coveredstatements="42" elements="1140" coveredelements="49"/>
   </project>
 </coverage>

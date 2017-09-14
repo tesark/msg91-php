@@ -4,7 +4,7 @@ namespace Sender;
 use Sender\Deliver;
 use Sender\Validation;
 use Sender\Config\Config as ConfigClass;
-use Sender\Exception\ParameterException;
+use Sender\ExceptionClass\ParameterException;
 
 /**
 * This Class provide OTP APIs
