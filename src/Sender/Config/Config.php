@@ -29,7 +29,7 @@ class Config extends AbstractConfig // class testing pending
         $file = $_SERVER["DOCUMENT_ROOT"]. '/../config';
         if (file_exists($file)) {
             $config = new Nood($file);
-            if (isset($config['msg91']) && $config['msg91']) {
+            if (isset($config['msg91'])) {
                 if ($this->checkKey('common', $config['msg91'])) {
                     $this->common = $config['msg91']['common'];
                     //Check Config file variable present
@@ -72,9 +72,9 @@ class Config extends AbstractConfig // class testing pending
                 'sender' => getenv('SENDER') ? (string) getenv('SENDER') : $this->checkKey('sender', $this->transactionalSms),
             ],
             'otp' => [
-                'sender'     => getenv('SENDER')    ? (string) getenv('SENDER')    : $this->checkKey('sender', $this->otp),
-                'otp_length' => getenv('OTPLENGTH') ? (int) getenv('OTPLENGTH')    : (int) $this->checkKey('otp_length', $this->otp), // Length min 4 max 9
-                'otp_expiry' => getenv('OTPEXPIRY') ? (int) getenv('OTPEXPIRY')    : (int) $this->checkKey('otp_expiry', $this->otp), // Minutes default 1 day
+                'sender'     => getenv('SENDER')    ? (string) getenv('SENDER') : $this->checkKey('sender', $this->otp),
+                'otp_length' => getenv('OTPLENGTH') ? (int) getenv('OTPLENGTH') : (int) $this->checkKey('otp_length', $this->otp), // Length min 4 max 9
+                'otp_expiry' => getenv('OTPEXPIRY') ? (int) getenv('OTPEXPIRY') : (int) $this->checkKey('otp_expiry', $this->otp), // Minutes default 1 day
             ]
         );
     }
@@ -87,7 +87,7 @@ class Config extends AbstractConfig // class testing pending
     */
     protected function checkKey($key, $array)
     {
-        if (isset($key)) {
+        if (isset($key) && is_array($array)) {
             if (array_key_exists($key, $array)) {
                 return $array[$key];
             } else {
