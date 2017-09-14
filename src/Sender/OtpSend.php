@@ -3,7 +3,7 @@ namespace Sender;
 
 use Sender\Deliver;
 use Sender\Config\MyConfig;
-use Sender\Exception\ParameterException;
+use Sender\ExceptionClass\ParameterException;
 
 /**
 * This Class provide OTP APIs

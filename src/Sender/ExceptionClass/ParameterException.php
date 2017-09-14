@@ -1,5 +1,5 @@
 <?php
-namespace Sender\Exception;
+namespace Sender\ExceptionClass;
 
 /**
 * This class for

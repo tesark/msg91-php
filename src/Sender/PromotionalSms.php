@@ -3,7 +3,7 @@ namespace Sender;
 
 use Sender\SmsClass;
 use Sender\Config\MyConfig;
-use Sender\ParameterException;
+use Sender\ExceptionClass\ParameterException;
 
 /**
 * This Class provide Promotional SMS APIs

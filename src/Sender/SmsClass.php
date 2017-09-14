@@ -4,7 +4,7 @@ namespace Sender;
 use Sender\Deliver;
 use Sender\Validation;
 use Sender\MobileNumber;
-use Sender\Exception\ParameterException;
+use Sender\ExceptionClass\ParameterException;
 
 /**
 * This Class for Build and send the SMS
