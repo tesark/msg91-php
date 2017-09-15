@@ -26,7 +26,7 @@ class PromotionalSms
     * @param  $mobileNumber  string 954845**54
     * @param  $data array
     *
-    * @return response array(Json format)
+    * @return array(Json format)
     *
     * @throws error missing parameters or return empty
     */
