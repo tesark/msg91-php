@@ -35,8 +35,6 @@ class Deliver
     public function sendSmsPost($uri, $xml)
     {
         try {
-            $value   =  substr($xml, 0);
-            $xmlData =  substr($value, 0, -1);
             $this->logger->info("Request:", $xml, $uri);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();

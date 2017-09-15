@@ -26,7 +26,7 @@ class PromotionalSms
     * @param  $mobileNumber  string 954845**54
     * @param  $data array
     *
-    * @return array(Json format)
+    * @return response array(Json format)
     *
     * @throws error missing parameters or return empty
     */
@@ -43,8 +43,8 @@ class PromotionalSms
             'route'       => 1,
         );
         $sms = new SmsClass();
-        $promotionalOuput = $sms->sendSms($mobileNumber, $data, $sendData);
-        return $promotionalOuput;
+        $response = $sms->sendSms($mobileNumber, $data, $sendData);
+        return $response;
     }
 
     /**
@@ -64,16 +64,14 @@ class PromotionalSms
                 $currentArray = $data[0];
                 $sms          = new SmsClass();
                 $response     = $sms->sendXmlSms($currentArray);
-                return $response;
             } else {
                 for ($i=0; $i<$arrayLength; $i++) {
-                    $response     = [];
                     $currentArray = $data[$i];
                     $sms          = new SmsClass();
                     $response     = $sms->sendXmlSms($currentArray);
                 }
-                return $response;
             }
+            return $response;
         } else {
             throw ParameterException::missinglogic("Check parameter is must be array.");
         }
