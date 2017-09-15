@@ -466,8 +466,10 @@ class SmsClass
     }
     /**
     *This function for sms array Build with mobilenumbers
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or return empty
+    * @return array $buildSmsData
     *
     */
     public function addMobile($buildSmsData)
@@ -490,8 +492,10 @@ class SmsClass
     }
     /**
     *This function for sms array Build with message
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or return empty
+    * @return array $buildSmsData
     */
     public function addMessage($buildSmsData)
     {
@@ -521,8 +525,10 @@ class SmsClass
     }
     /**
     *This function for sms array Build with sender
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addSender($buildSmsData)
@@ -543,8 +549,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with country
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addCountry($buildSmsData)
@@ -560,8 +568,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with flash
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addFlash($buildSmsData)
@@ -575,8 +585,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with flash
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addUnicode($buildSmsData)
@@ -590,8 +602,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with schtime
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addSchtime($buildSmsData)
@@ -608,8 +622,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addAfterMinutes($buildSmsData)
@@ -630,8 +646,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with Response
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addResponse($buildSmsData)
@@ -650,8 +668,10 @@ class SmsClass
     }
     /**
     *This function for sms array build with campaign
-    * @param buildSmsData array
-    * @param buildSmsData array
+    * @param  array $buildSmsData
+    *
+    * @throws ParameterException missing parameters or tpye error
+    * @return array $buildSmsData
     *
     */
     public function addCampaign($buildSmsData)
@@ -667,11 +687,12 @@ class SmsClass
     }
     /**
     *This function Used to send the SMS data to Deliver Class
-    * @param mobileNumber
-    * @param data
-    * @param sendData
+    * @param string|int $mobileNumber
+    * @param array $data
+    * @param array $sendData
     *
-    * @return response
+    * @throws ParameterException missing parameters or type error
+    * @return string
     */
     public function sendSms($mobileNumber, $data, $sendData)
     {
@@ -708,9 +729,10 @@ class SmsClass
     }
     /**
     *This function Used to send the SMS XML formated data to Deliver Class
-    * @param $xmlData
+    * @param array $xmlData
     *
-    * @return MSG91 SMS json
+    * @throws ParameterException missing parameters or type error
+    * @return string MSG91
     */
     public function sendXmlSms($xmlData)
     {

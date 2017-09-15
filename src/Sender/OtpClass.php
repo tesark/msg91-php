@@ -18,43 +18,43 @@ use Sender\ExceptionClass\ParameterException;
 class OtpClass
 {
     /**
-    * @var null|array|string $inputData
+    * @var array $inputData
     */
     protected $inputData = null;
     /**
-    * @var null|array $sendData
+    * @var array $sendData
     */
     protected $sendData = null;
     /**
-    * @var null|string $message
+    * @var string $message
     */
     protected $message = null;
     /**
-    * @var null|string $sender
+    * @var string $sender
     */
     protected $sender = null;
     /**
-    * @var null|int|string $otp
+    * @var int $otp
     */
     protected $otp = null;
     /**
-    * @var null|int|string $otp_expiry
+    * @var int $otp_expiry
     */
     protected $otp_expiry = null;
     /**
-    * @var null|int|string $otp_length
+    * @var int $otp_length
     */
     protected $otp_length = null;
     /**
-    * @var null|string $authkey
+    * @var string $authkey
     */
     protected $authkey = null;
     /**
-    * @var null|int|string $mobile
+    * @var int $mobile
     */
     protected $mobile = null;
     /**
-    * @var null|string $retrytype
+    * @var string $retrytype
     */
     protected $retrytype = null;
     /**
@@ -311,6 +311,8 @@ class OtpClass
     /**
     * Add otp on the array
     * @param   array $data
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return  array condition correct value add to the $data array
     */
     public function addMessage($data)
@@ -327,6 +329,8 @@ class OtpClass
     /**
     * Add sender on the Array
     * @param   array $data
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return  array condition correct value add to the $data array
     */
     public function addSender($data)
@@ -348,6 +352,8 @@ class OtpClass
     /**
     * Add otp on the array
     * @param   array $data
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return  array condition correct value add to the $data array
     */
     public function addOtp($data)
@@ -364,6 +370,8 @@ class OtpClass
     /**
     * Add otp on the array
     * @param   array $data
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return  array condition correct value add to the $data array
     */
     public function addOneTimePass($data)
@@ -379,7 +387,9 @@ class OtpClass
     }
     /**
     * Add otp_expiry on the array
-    * @param   array $data
+    * @param  array $data
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return  array condition correct value add to the $data array
     */
     public function addOtpExpiry($data)
@@ -396,6 +406,8 @@ class OtpClass
     /**
     * Add otp_length on the array
     * @param   array $data
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return  array condition correct value add to the $data array
     */
     public function addOtpLength($data)
@@ -414,6 +426,8 @@ class OtpClass
     }
     /**
     * Check Authkey
+    *
+    * @throws ParameterException missing parameters or return empty
     * @return bool
     */
     public function checkAuthKey()
@@ -431,6 +445,9 @@ class OtpClass
     }
     /**
     * Check mobile
+    *
+    * @throws ParameterException missing parameters or return empty
+    * @return bool
     */
     public function checkMobile()
     {
@@ -451,6 +468,7 @@ class OtpClass
     * @param array $dataArray
     * @param array $data
     *
+    * @throws ParameterException missing parameters or return empty
     * @return string Msg91 Json response
     */
     public function sendOtp($dataArray, $data)
@@ -491,6 +509,7 @@ class OtpClass
     *
     * @param array $data
     *
+    * @throws ParameterException missing parameters or return empty
     * @return string Msg91 Json response
     */
     public function addRetryType($data)
@@ -512,6 +531,7 @@ class OtpClass
     * @param string $retrytype
     * @param array  $data
     *
+    * @throws ParameterException missing parameters or return empty
     * @return string Msg91 Json response
     */
     public function retryOtp($retrytype, $data)
@@ -539,6 +559,7 @@ class OtpClass
     * @param int $otp
     * @param array $data
     *
+    * @throws ParameterException missing parameters or return empty
     * @return string Msg91 Json response
     */
     public function verifyOtp($otp, $data)
