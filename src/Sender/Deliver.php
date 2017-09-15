@@ -38,7 +38,6 @@ class Deliver
             $value   =  substr($xml, 0);
             $xmlData =  substr($value, 0, -1);
             $this->logger->info("Request:", $xml, $uri);
-            var_dump($xmlData);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);

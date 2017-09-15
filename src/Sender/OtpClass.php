@@ -426,7 +426,6 @@ class OtpClass
         $this->inputData    = $dataArray;
         $this->sendData     = $data;
         if ($this->hasInputData() && $this->hasSendData()) {
-            var_dump("----test----");
             if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;
                 //add message on array
@@ -439,7 +438,6 @@ class OtpClass
                 $data = $this->addOtpExpiry($data);
                 //add otp_length on the array
                 $data = $this->addOtpLength($data);
-                var_dump($data);
             }
             if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
                 goto end;
@@ -450,7 +448,6 @@ class OtpClass
             $uri = "sendotp.php";
             $delivery = new Deliver();
             $response = $delivery->sendOtpGet($uri, $data);
-            var_dump($response);
             return $response;
         } else {
             $message = "The wrong parameter found";
@@ -494,7 +491,6 @@ class OtpClass
                 $data = $this->sendData;
                 //add message on array
                 $data = $this->addRetryType($data);
-                var_dump($data);
             }
         } else {
             $message = "The parameters not found";
@@ -503,7 +499,6 @@ class OtpClass
         $uri = 'retryotp.php';
         $delivery = new Deliver();
         $response = $delivery->sendOtpGet($uri, $data);
-        var_dump($response);
         return $response;
     }
     /**
@@ -531,7 +526,6 @@ class OtpClass
         $uri = "verifyRequestOTP.php";
         $delivery = new Deliver();
         $response = $delivery->sendOtpGet($uri, $data);
-        var_dump($response);
         return $response;
     }
 }

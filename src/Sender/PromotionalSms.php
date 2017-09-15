@@ -64,7 +64,6 @@ class PromotionalSms
                 $currentArray = $data[0];
                 $sms          = new SmsClass();
                 $response     = $sms->sendXmlSms($currentArray);
-                var_dump($response);
                 return $response;
             } else {
                 for ($i=0; $i<$arrayLength; $i++) {
@@ -73,7 +72,6 @@ class PromotionalSms
                     $sms          = new SmsClass();
                     $response     = $sms->sendXmlSms($currentArray);
                 }
-                var_dump($response);
                 return $response;
             }
         } else {

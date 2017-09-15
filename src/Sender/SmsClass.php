@@ -681,7 +681,6 @@ class SmsClass
                 $uri      = "sendhttp.php";
                 $delivery = new Deliver();
                 $response = $delivery->sendOtpGet($uri, $buildSmsData);
-                var_dump($response);
                 return $response;
             } else {
                 throw ParameterException::missinglogic("Check Input parameters, something wrong");
@@ -700,9 +699,7 @@ class SmsClass
     public function sendXmlSms($xmlData)
     {
         $this->inputData = $xmlData;
-        var_dump($this->inputData);
         if ($this->hasXmlData()) {
-            var_dump("---test---");
             //create the xml document
             $xmlDoc = new \DOMDocument();
             //create the root element
