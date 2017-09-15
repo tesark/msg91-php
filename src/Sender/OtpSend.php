@@ -9,40 +9,39 @@ use Sender\ExceptionClass\ParameterException;
 /**
 * This Class provide OTP APIs
 *
-* @package    Msg91 SMS&OTP package
+* @package    Sender\OtpSend
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
 * @license
 */
 
 class OtpSend
-{   
+{
+    /**
+    * @var null|string $otpAuth
+    */
     private $otpAuth;
     public function __construct($authkey = null)
     {
-       $this->otpAuth = $authkey;
+        $this->otpAuth = $authkey;
     }
-
     /**
     *  Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
     *
-    * @param  $mobileNumber Numeric
-    * @param  $dataArray    Array
+    * @param  int|string $mobileNumber
+    * @param  array      $dataArray
     *
-    * @return array(Json format)
-    *
-    * @throws error missing parameters or return empty
+    * @return string MSG91 response
     */
-    //Method for send OTP
     public function sendOtp($mobileNumber, $dataArray)
     {
         $data      = [];
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
-           // Get Envirionment variable and config file values
-           $config          = new ConfigClass();
-           $container       = $config->getDefaults(); 
-        } 
+            // Get Envirionment variable and config file values
+            $config          = new ConfigClass();
+            $container       = $config->getDefaults();
+        }
         $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpClass();
@@ -52,12 +51,10 @@ class OtpSend
     /**
     *  Verify OTP using MSG91 Service, you want to Verify OTP using this "verifyOtp method"
     *
-    * @param  $mobileNumber int
-    * @param  $dataArray    int
+    * @param  int $mobileNumber
+    * @param  int $dataArray
     *
-    * @return array(Json format)
-    *
-    * @throws error missing parameters or return empty
+    * @return string MSG91 response
     */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
@@ -65,9 +62,9 @@ class OtpSend
         $data      = [];
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
-           // Get Envirionment variable and config file values
-           $config          = new ConfigClass();
-           $container       = $config->getDefaults(); 
+            // Get Envirionment variable and config file values
+            $config          = new ConfigClass();
+            $container       = $config->getDefaults();
         }
         $data         += ['authkey' => $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey']];
         $data         += ['mobile' => $mobileNumber];
@@ -78,12 +75,10 @@ class OtpSend
     /**
     *  Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
     *
-    * @param  $mobileNumber int
-    * @param  $retrytype    String
+    * @param  int $mobileNumber
+    * @param  string $retrytype
     *
-    * @return array(Json format)
-    *
-    * @throws error missing parameters or return empty
+    * @return string MSG91 response
     */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
@@ -91,9 +86,9 @@ class OtpSend
         $data      = [];
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
-           // Get Envirionment variable and config file values
-           $config          = new ConfigClass();
-           $container       = $config->getDefaults(); 
+            // Get Envirionment variable and config file values
+            $config          = new ConfigClass();
+            $container       = $config->getDefaults();
         }
         $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;

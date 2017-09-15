@@ -9,7 +9,7 @@ use Sender\ExceptionClass\ParameterException;
 /**
 * This Class for build and send OTP
 *
-* @package    Msg91 SMS&OTP package
+* @package    Sender\OtpClass
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
 * @license
@@ -17,14 +17,46 @@ use Sender\ExceptionClass\ParameterException;
 
 class OtpClass
 {
-    /*
-    *InputData is array type
+    /**
+    * @var null|array|string $inputData
     */
-    protected $inputData   = null;
-    /*
-    *sendData is array type
+    protected $inputData = null;
+    /**
+    * @var null|array $sendData
     */
-    protected $sendData   = null;
+    protected $sendData = null;
+    /**
+    * @var null|string $message
+    */
+    protected $message = null;
+    /**
+    * @var null|string $sender
+    */
+    protected $sender = null;
+    /**
+    * @var null|int|string $otp
+    */
+    protected $otp = null;
+    /**
+    * @var null|int|string $otp_expiry
+    */
+    protected $otp_expiry = null;
+    /**
+    * @var null|int|string $otp_length
+    */
+    protected $otp_length = null;
+    /**
+    * @var null|string $authkey
+    */
+    protected $authkey = null;
+    /**
+    * @var null|int|string $mobile
+    */
+    protected $mobile = null;
+    /**
+    * @var null|string $retrytype
+    */
+    protected $retrytype = null;
     /**
     * Check the data empty
     * @return bool
@@ -268,6 +300,7 @@ class OtpClass
     }
     /**
     * Check string value
+    * @param string|null|int|array $value
     * @return bool
     */
     public function isString($value)
@@ -276,9 +309,9 @@ class OtpClass
         return $result;
     }
     /**
-    *add otp on the array
-    * @param   data array
-    * @return  array
+    * Add otp on the array
+    * @param   array $data
+    * @return  array condition correct value add to the $data array
     */
     public function addMessage($data)
     {
@@ -292,9 +325,9 @@ class OtpClass
         return $data;
     }
     /**
-    *add sender on the Array
-    * @param   data array
-    * @return  array
+    * Add sender on the Array
+    * @param   array $data
+    * @return  array condition correct value add to the $data array
     */
     public function addSender($data)
     {
@@ -313,9 +346,9 @@ class OtpClass
         return $data;
     }
     /**
-    *add otp on the array
-    * @param   data array
-    * @return  array
+    * Add otp on the array
+    * @param   array $data
+    * @return  array condition correct value add to the $data array
     */
     public function addOtp($data)
     {
@@ -329,9 +362,9 @@ class OtpClass
         return $data;
     }
     /**
-    *add otp on the array
-    * @param   data array
-    * @return  array
+    * Add otp on the array
+    * @param   array $data
+    * @return  array condition correct value add to the $data array
     */
     public function addOneTimePass($data)
     {
@@ -345,9 +378,9 @@ class OtpClass
         return $data;
     }
     /**
-    *add otp_expiry on the array
-    * @param   data array
-    * @return  array
+    * Add otp_expiry on the array
+    * @param   array $data
+    * @return  array condition correct value add to the $data array
     */
     public function addOtpExpiry($data)
     {
@@ -361,9 +394,9 @@ class OtpClass
         return $data;
     }
     /**
-    *add otp_length on the array
-    * @param   data array
-    * @return  array
+    * Add otp_length on the array
+    * @param   array $data
+    * @return  array condition correct value add to the $data array
     */
     public function addOtpLength($data)
     {
@@ -380,8 +413,8 @@ class OtpClass
         return $data;
     }
     /**
-    *Check Authkey
-    *@return bool
+    * Check Authkey
+    * @return bool
     */
     public function checkAuthKey()
     {
@@ -397,8 +430,7 @@ class OtpClass
         }
     }
     /**
-    *Check mobile
-    *@return bool
+    * Check mobile
     */
     public function checkMobile()
     {
@@ -414,12 +446,12 @@ class OtpClass
         }
     }
     /**
-    *This function for send OTP
+    * This function for send OTP
     *
-    * @param dataArray array
-    * @param data      array
+    * @param array $dataArray
+    * @param array $data
     *
-    * @return MSG91 response json
+    * @return string Msg91 Json response
     */
     public function sendOtp($dataArray, $data)
     {
@@ -457,9 +489,9 @@ class OtpClass
     /**
     *Add retry type
     *
-    * @param  data array
-    * @return data array
+    * @param array $data
     *
+    * @return string Msg91 Json response
     */
     public function addRetryType($data)
     {
@@ -477,10 +509,10 @@ class OtpClass
     }
     /**
     *This function for retry OTP
-    * @param retrytype string
-    * @param data      array
+    * @param string $retrytype
+    * @param array  $data
     *
-    * @return MSG91 response json
+    * @return string Msg91 Json response
     */
     public function retryOtp($retrytype, $data)
     {
@@ -504,10 +536,10 @@ class OtpClass
     /**
     *This function for verify OTP
     *
-    * @param otp int
-    * @param data
+    * @param int $otp
+    * @param array $data
     *
-    * @return MSG91 response json
+    * @return string Msg91 Json response
     */
     public function verifyOtp($otp, $data)
     {

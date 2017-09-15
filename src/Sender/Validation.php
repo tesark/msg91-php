@@ -16,7 +16,7 @@ class Validation
 {
     /**
     * Check is String type
-    * @param value
+    * @param string $value
     *
     * @return bool
     */
@@ -26,7 +26,7 @@ class Validation
     }
     /**
     * Check is integer type
-    * @param value
+    * @param int $value
     *
     * @return bool
     */
@@ -36,7 +36,7 @@ class Validation
     }
     /**
     * Check is Numeric type
-    * @param value
+    * @param string $value
     *
     * @return bool
     */
@@ -45,22 +45,22 @@ class Validation
         return is_numeric($value);
     }
     /**
-    * This function for check auth key present or not 
+    * This function for check auth key present or not
     *
-    * @param authKey string
+    * @param string $authKey
     * @return bool
     */
     public static function checkAuthKey($authKey)
     {
-        if (isset($authKey) && is_string($authKey)){
-          return true;
+        if (isset($authKey) && is_string($authKey)) {
+            return true;
         } else {
-          return false;
+            return false;
         }
     }
     /**
     *Check validate date time format
-    * @param date
+    * @param string $date
     *
     * @return bool
     */
@@ -71,7 +71,7 @@ class Validation
         return $d && $d->format($format) == $date;
     }
     /**
-    * @param date
+    * @param string $date
     *
     * @return bool
     */
@@ -83,7 +83,7 @@ class Validation
     }
     /**
     *Test Unix Timestamp
-    * @param timestamp
+    * @param string $timestamp
     *
     * @return bool
     */
@@ -101,7 +101,7 @@ class Validation
     }
     /**
     *Check afterminutes limits
-    * @param afterMinutes
+    * @param string $afterMinutes
     *
     * @return bool
     */

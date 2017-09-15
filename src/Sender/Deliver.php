@@ -11,7 +11,7 @@ use GuzzleHttp\Exception\ClientException;
 /**
 * This Class for send data using GET and POST method
 *
-* @package    Msg91 SMS&OTP package
+* @package    Sender\Deliver
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
 * @license
@@ -26,11 +26,11 @@ class Deliver
         $this->logger = new Log("Req & Res");
     }
     /**
-    *Send POST method
-    * @param uri string
-    * @param xml XMl string
+    * Send POST method
+    * @param string $uri MSG91 URI string
+    * @param string $xml String of XML data
     *
-    * @return msg91 response json
+    * @return string MSG91 response
     */
     public function sendSmsPost($uri, $xml)
     {
@@ -48,11 +48,11 @@ class Deliver
         }
     }
     /**
-    *Send GET method
-    * @param uri   string
+    * Send GET method
+    * @param string uri
     * @param query array
     *
-    * @return msg91 response json
+    * @return string MSG91 response
     */
     public function sendOtpGet($uri, $query)
     {

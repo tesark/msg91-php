@@ -6,7 +6,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 /**
 * This Class for splite mobile number given string
 *
-* @package    Msg91 SMS&OTP package
+* @package    Sender\MobileNumber
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
 * @license
@@ -15,12 +15,11 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 class MobileNumber
 {
     /**
-    *This function provide valid mobile number array
-    *Limittd 10 number only
+    * This function provide valid mobile number array
     *
-    * @param mobileNumber string
-    * @return array
+    * @param string $mobileNumber
     *
+    * @return array|boolean Mobile numbers
     */
     public static function isValidNumber($mobileNumber)
     {
@@ -48,11 +47,12 @@ class MobileNumber
         }
     }
     /**
-    *This function Add country code with mobilenumber
+    * This function Add country code with mobilenumber
     *
-    * @param  mobileNumber string or numeric
-    * @param  country      string
-    * @return string       note:mobile With specific CountryCode
+    * @param  string $mobileNumber
+    * @param  string $country
+    *
+    * @return string|boolean Added mobile with country code
     */
     public static function addCountryCode($mobileNumber, $country)
     {
@@ -65,16 +65,17 @@ class MobileNumber
         }
     }
     /**
-    *This function Check country code correct or not
+    * This function Check country code correct or not
     *
-    * @param mobileWithCountryCode string
-    * @param country               string
-    * @return boolean
+    * @param string $mobileWithCountryCode
+    * @param string $country
+    *
+    * @return boolean Checked mobile with country code vaild
     */
     public static function isVaildCountryCode($mobileWithCountryCode, $country)
     {
         if (isset($mobileWithCountryCode) && isset($country)) {
-            $value = substr_replace($mobileWithCountryCode, "+", 0, 0); //add "+" infront off mobile for validation
+            $value = substr_replace($mobileWithCountryCode, "+", 0, 0); //add "+" infront of mobile for validation
             $isCorrect = PhoneNumber::make($value)->isOfCountry($country);
             return $isCorrect;
         } else {

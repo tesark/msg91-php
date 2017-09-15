@@ -16,27 +16,28 @@ use Sender\Config\Config as ConfigClass;
 
 class TransactionalSms
 {
+    /**
+    * @var $transAuthKey Transaction Auth key
+    */
     private $transAuthKey;
     public function __construct($authkey = null)
     {
-       $this->transAuthKey = $authkey;
+        $this->transAuthKey = $authkey;
     }
     /**
     *  Send transactional SMS MSG91 Service
-    * @param  $mobileNumber  int OR string
-    * @param  $data
+    * @param  int|string $mobileNumber
+    * @param  array $data
     *
-    * @return array(Json format)
-    *
-    * @throws error missing parameters or return empty
+    * @return array
     */
     public function sendTransactional($mobileNumber, $data)
     {
         $checkAuth = Validation::checkAuthKey($this->transAuthKey);
         if (!$checkAuth) {
-           // Get Envirionment variable and config file values
-           $config          = new ConfigClass();
-           $container       = $config->getDefaults(); 
+            // Get Envirionment variable and config file values
+            $config          = new ConfigClass();
+            $container       = $config->getDefaults();
         }
         //transactional SMS content
         $sendData = array(

@@ -2,9 +2,9 @@
 namespace Sender\ExceptionClass;
 
 /**
-* This class for
+* This class for Parameter Exception
 *
-* @package    Msg91 SMS&OTP package
+* @package    Sender\ExceptionClass\ParameterException
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
 * @license
@@ -14,22 +14,24 @@ class ParameterException extends \Exception
 {
     /**
     * This function throw invalid exceptin without message
-    * @param arrName
-    * @param arrtype
-    * @param value
+    * @param string $arrName Arrtibute name
+    * @param string $arrtype Arrtibute type
+    * @param string $value   Acually given value
     *
+    * @return string Exception message
     */
     public static function invalidArrtibuteType($arrName, $arrtype, $value)
     {
-        return new static("Invalid Arrtibute expect type:\t".$arrtype."\tgiven:\t". gettype($value)."\tparams:".$arrName);
+        return new static("Invalid Input expect type:\t".$arrtype."\tgiven:\t". gettype($value)."\tparams:".$arrName);
     }
     /**
-    *This function throw invalid exceptin with message
-    * @param arrName
-    * @param arrtype
-    * @param value
-    * @param message
+    * This function throw invalid exceptin with message
+    * @param string $arrName Arrtibute name
+    * @param string $arrtype Arrtibute type
+    * @param string $value   Acually given value
+    * @param string $message Exception message
     *
+    * @return string Exception message
     */
     public static function invalidInput($arrName, $arrtype, $value, $message)
     {
@@ -37,8 +39,10 @@ class ParameterException extends \Exception
         return new static("Invalid Input expect type:\t".$message);
     }
     /**
-    *This function throw message
-    * @param message
+    * This function throw message
+    * @param string $message
+    *
+    * @return string Exception message
     */
     public static function missinglogic($message)
     {

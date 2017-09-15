@@ -5,16 +5,16 @@ use Noodlehaus\Config as Nood;
 use Noodlehaus\AbstractConfig;
 
 /**
-* default Config file
+* Default Config file
 *
-* @package    Msg91 SMS&OTP package
+* @package    Sender\Config\Config
 * @author     VenkatS <venkatsamuthiram5@gmail.com>
 * @link       https://github.com/venkatsamuthiram/deliver
 * @license
 */
 
-class Config extends AbstractConfig // class testing pending
-{   
+class Config extends AbstractConfig// pending
+{
     private $config;
     private $common;
     private $promotionalSms;
@@ -53,7 +53,7 @@ class Config extends AbstractConfig // class testing pending
         }
     }
     /*
-    *This function return Default and Env file Values  
+    * This function return Default and Env file Values
     *
     */
     public function getDefaults()
@@ -79,22 +79,19 @@ class Config extends AbstractConfig // class testing pending
         );
     }
     /**
-    *this function check key present in array
+    * This function check key present in array
     *
-    * @param key    string
-    * @param array  array
-    * @return null or array value for specific value
+    * @param string $key Array key value
+    * @param array  $array Check array
+    *
+    * @return string Return array value
     */
     protected function checkKey($key, $array)
     {
         if (isset($key) && is_array($array)) {
             if (array_key_exists($key, $array)) {
                 return $array[$key];
-            } else {
-                return null;
             }
-        } else {
-            return null;
         }
     }
 }
