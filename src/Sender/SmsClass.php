@@ -18,45 +18,61 @@ use Sender\ExceptionClass\ParameterException;
 class SmsClass
 {
     /*
-    *Mobile number is intger or string type
+    *mobile
     */
-    protected $mobiles     = null;
+    protected $mobile = null;
     /*
-    *InputData is array type
+    *Mobiles
     */
-    protected $inputData   = null;
+    protected $mobiles = null;
     /*
-    *sendData is array type
+    *InputData
+    */
+    protected $inputData = null;
+    /*
+    *authkey
+    */
+    protected $authkey = null;
+    /*
+    *sendData
     */
     protected $sendSmsData = null;
     /*
-    *sendData 
+    *sendData
     */
     protected $message = null;
     /*
-    *unicode 
+    *unicode
     */
     protected $unicode = null;
     /*
-    *sender 
+    *sender
     */
     protected $sender = null;
     /*
-    *country 
+    *country
     */
     protected $country = null;
+     /*
+    *content
+    */
+    protected $content = null;
     /*
-    *flash 
+    *flash
     */
     protected $flash = null;
     /*
-    *schtime 
+    *schtime
     */
     protected $schtime = null;
     /*
-    *afterminutes 
+    *afterminutes
     */
     protected $afterminutes = null;
+    /*
+    *response
+    */
+    protected $response = null;
 
     /**
     * Check the mobilenumber empty
@@ -460,7 +476,7 @@ class SmsClass
             $buildSmsData += ['mobiles' => $this->mobiles];
         } elseif ($this->isString($this->mobiles)) {
             $result = $this->isValidNumber($this->mobiles);
-            if ($result && $result['value'] == true) {
+            if (! empty($result) && $result['value'] == true) {
                 $buildSmsData += ['mobiles' => $this->mobiles];
             } else {
                 $message = "this number not the correct:__". $result['mobile'];
@@ -553,7 +569,7 @@ class SmsClass
         if ($this->isFlashKeyExists() && $this->setFlash()) {
             $responseFormat =  array(0,1);
             $value = in_array($this->getFlash(), $responseFormat)? $this->getFlash() : null;
-            $buildSmsData += ['flash' => $this->getFlash()];
+            $buildSmsData += ['flash' => $value];
         }
         return $buildSmsData;
     }
@@ -568,7 +584,7 @@ class SmsClass
         if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
             $responseFormat =  array(0,1);
             $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
-            $buildSmsData += ['unicode' => $this->getUnicode()];
+            $buildSmsData += ['unicode' => $value];
         }
         return $buildSmsData;
     }
@@ -655,7 +671,7 @@ class SmsClass
     * @param data
     * @param sendData
     *
-    * @return MSG91 SMS json
+    * @return response
     */
     public function sendSms($mobileNumber, $data, $sendData)
     {
