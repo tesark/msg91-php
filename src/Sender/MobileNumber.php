@@ -31,7 +31,7 @@ class MobileNumber
             $len     = sizeof($mobiles);
             for ($i = 0; $i < $len; $i++) {
                 $lenva = strlen($mobiles[$i]);
-                if ($lenva >9  && $lenva < 15) {
+                if ($lenva > 9  && $lenva < 15) {
                     if ($i == $len-1) {
                         $data += ["value" => true];
                         $data += ["mobile" => $mobiles];
@@ -58,7 +58,7 @@ class MobileNumber
     {
         if (isset($mobileNumber) && isset($country)) {
             $mobile = (string) PhoneNumber::make($mobileNumber)->ofCountry($country);
-            $value  = str_replace("+", "", $mobile);//remove "+"
+            $value  = str_replace("+", "", $mobile); //remove "+"
             return $value;
         } else {
             return false;

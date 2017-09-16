@@ -204,7 +204,7 @@ class SmsClass
      */
     public function setContent()
     {
-        $this->content =  $this->inputData['content'];
+        $this->content = $this->inputData['content'];
         return true;
     }
     /*
@@ -220,7 +220,7 @@ class SmsClass
      */
     public function setMobile()
     {
-        $this->mobile =  $this->inputData['mobile'];
+        $this->mobile = $this->inputData['mobile'];
         return true;
     }
     /*
@@ -236,7 +236,7 @@ class SmsClass
      */
     public function setMobiles()
     {
-        $this->mobiles =  $this->mobiles;
+        $this->mobiles = $this->mobiles;
         return true;
     }
     /*
@@ -252,7 +252,7 @@ class SmsClass
      */
     public function setAuthKey()
     {
-        $this->authkey =  $this->inputData['authkey'];
+        $this->authkey = $this->inputData['authkey'];
         return true;
     }
     /*
@@ -268,7 +268,7 @@ class SmsClass
      */
     public function setMessage()
     {
-        $this->message =  $this->inputData['message'];
+        $this->message = $this->inputData['message'];
         return true;
     }
     /*
@@ -284,7 +284,7 @@ class SmsClass
      */
     public function setUnicode()
     {
-        $this->unicode =  $this->inputData['unicode'];
+        $this->unicode = $this->inputData['unicode'];
         return true;
     }
     /*
@@ -300,7 +300,7 @@ class SmsClass
      */
     public function setSender()
     {
-        $this->sender =  $this->inputData['sender'];
+        $this->sender = $this->inputData['sender'];
         return true;
     }
     /*
@@ -316,7 +316,7 @@ class SmsClass
      */
     public function setCountry()
     {
-        $this->country =  $this->inputData['country'];
+        $this->country = $this->inputData['country'];
         return true;
     }
     /*
@@ -332,7 +332,7 @@ class SmsClass
      */
     public function setFlash()
     {
-        $this->flash =  $this->inputData['flash'];
+        $this->flash = $this->inputData['flash'];
         return true;
     }
     /*
@@ -348,7 +348,7 @@ class SmsClass
      */
     public function setSchtime()
     {
-        $this->schtime =  $this->inputData['schtime'];
+        $this->schtime = $this->inputData['schtime'];
         return true;
     }
     /*
@@ -364,7 +364,7 @@ class SmsClass
      */
     public function setAfterminutes()
     {
-        $this->afterminutes =  $this->inputData['afterminutes'];
+        $this->afterminutes = $this->inputData['afterminutes'];
         return true;
     }
     /*
@@ -380,7 +380,7 @@ class SmsClass
      */
     public function setResponse()
     {
-        $this->response =  $this->inputData['response'];
+        $this->response = $this->inputData['response'];
         return true;
     }
     /*
@@ -396,7 +396,7 @@ class SmsClass
      */
     public function setCampaign()
     {
-        $this->campaign =  $this->inputData['campaign'];
+        $this->campaign = $this->inputData['campaign'];
         return true;
     }
     /*
@@ -482,10 +482,10 @@ class SmsClass
             $buildSmsData += ['mobiles' => $this->mobiles];
         } elseif ($this->isString($this->mobiles)) {
             $result = $this->isValidNumber($this->mobiles);
-            if (! empty($result) && $result['value'] == true) {
+            if (!empty($result) && $result['value'] == true) {
                 $buildSmsData += ['mobiles' => $this->mobiles];
             } else {
-                $message = "this number not the correct:__". $result['mobile'];
+                $message = "this number not the correct:__".$result['mobile'];
                 throw ParameterException::invalidInput("mobiles", "string", $this->mobiles, $message);
             }
         } else {
@@ -509,14 +509,14 @@ class SmsClass
                     if (strlen($this->getMessage()) <= 160) {
                         $buildSmsData += ['message' => $this->getMessage()];
                     } else {
-                        $message = "allowed below 160 cheracters,but given length:_". strlen($this->getMessage());
+                        $message = "allowed below 160 cheracters,but given length:_".strlen($this->getMessage());
                         throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
                     }
                 } elseif ($this->isUnicodeKeyExists()) {
                     if (strlen($this->getMessage()) <= 70) {
                         $buildSmsData += ['message' => $this->getMessage()];
                     } else {
-                        $message = "allowed below 70 cheracter using unicode, but given:__". strlen($this->getMessage());
+                        $message = "allowed below 70 cheracter using unicode, but given:__".strlen($this->getMessage());
                         throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
                     }
                 }
@@ -581,8 +581,8 @@ class SmsClass
     public function addFlash($buildSmsData)
     {
         if ($this->isFlashKeyExists() && $this->setFlash()) {
-            $responseFormat =  array(0,1);
-            $value = in_array($this->getFlash(), $responseFormat)? $this->getFlash() : null;
+            $responseFormat =  array(0, 1);
+            $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
             $buildSmsData += ['flash' => $value];
         }
         return $buildSmsData;
@@ -598,7 +598,7 @@ class SmsClass
     public function addUnicode($buildSmsData)
     {
         if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
-            $responseFormat =  array(0,1);
+            $responseFormat =  array(0, 1);
             $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
             $buildSmsData += ['unicode' => $value];
         }
@@ -659,7 +659,7 @@ class SmsClass
     {
         if ($this->isResponseKeyExists() && $this->setResponse()) {
             if ($this->isString($this->getResponse())) {
-                $responseFormat =  array('xml','json');
+                $responseFormat = array('xml', 'json');
                 $responseVal = strtolower($this->getResponse());
                 $value = in_array($responseVal, $responseFormat) ? $responseVal:null;
                 $buildSmsData += ['response' => $value];
@@ -704,17 +704,17 @@ class SmsClass
         //this condition are check and parameters are added to buildSmsData array
         if ($this->hasMobileNumber() && $this->hasData() && $this->hasSendData()) {
             $buildSmsData = $sendData;
-            for ($i = 0; $i<sizeof($this->inputData); $i++) {
-                $buildSmsData =  $this->addMobile($buildSmsData);
-                $buildSmsData =  $this->addMessage($buildSmsData);
-                $buildSmsData =  $this->addSender($buildSmsData);
-                $buildSmsData =  $this->addCountry($buildSmsData);
-                $buildSmsData =  $this->addFlash($buildSmsData);
-                $buildSmsData =  $this->addUnicode($buildSmsData);
-                $buildSmsData =  $this->addSchtime($buildSmsData);
-                $buildSmsData =  $this->addAfterMinutes($buildSmsData);
-                $buildSmsData =  $this->addResponse($buildSmsData);
-                $buildSmsData =  $this->addCampaign($buildSmsData);
+            for ($i = 0; $i < sizeof($this->inputData); $i++) {
+                $buildSmsData = $this->addMobile($buildSmsData);
+                $buildSmsData = $this->addMessage($buildSmsData);
+                $buildSmsData = $this->addSender($buildSmsData);
+                $buildSmsData = $this->addCountry($buildSmsData);
+                $buildSmsData = $this->addFlash($buildSmsData);
+                $buildSmsData = $this->addUnicode($buildSmsData);
+                $buildSmsData = $this->addSchtime($buildSmsData);
+                $buildSmsData = $this->addAfterMinutes($buildSmsData);
+                $buildSmsData = $this->addResponse($buildSmsData);
+                $buildSmsData = $this->addCampaign($buildSmsData);
             }
             if ((sizeof($data)+3) == sizeof($buildSmsData)) {
                 $uri      = "sendhttp.php";
@@ -815,8 +815,8 @@ class SmsClass
              *
              */
             if ($this->isFlashKeyExists() && $this->setFlash()) {
-                $responseFormat =  array(0,1);
-                $value = in_array($this->getFlash(), $responseFormat)? $this->getFlash() : null;
+                $responseFormat = array(0, 1);
+                $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
                 //create a flash element
                 $root->appendChild($xmlDoc->createElement("FLASH", $value));
             }
@@ -825,7 +825,7 @@ class SmsClass
              *
              */
             if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
-                $responseFormat =  array(0,1);
+                $responseFormat =  array(0, 1);
                 $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
                 //create a unicode element
                 $root->appendChild($xmlDoc->createElement("UNICODE", $value));
@@ -833,8 +833,8 @@ class SmsClass
             if ($this->isContentKeyExists() && $this->setContent()) {
                 $bulkSms      = $this->getContent();
                 $lenOfBulkSms = sizeof($bulkSms);
-                for ($j=0; $j< $lenOfBulkSms; $j++) {
-                    $this->inputData =  $bulkSms[$j];
+                for ($j=0; $j < $lenOfBulkSms; $j++) {
+                    $this->inputData = $bulkSms[$j];
                     $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
                     //check message length
                     if ($this->isMessageKeyExists() && $this->setMessage()) {
@@ -845,7 +845,7 @@ class SmsClass
                                     $childText = $xmlDoc->createTextNode($this->getMessage());
                                     $smsTag->appendChild($childAttr)->appendChild($childText);
                                 } else {
-                                    $message = "allowed below 160 cheracters,but given length:_". strlen($this->getMessage());
+                                    $message = "allowed below 160 cheracters,but given length:_".strlen($this->getMessage());
                                     throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
                                 }
                             } elseif ($this->isUnicodeKeyExists()) {
@@ -853,7 +853,7 @@ class SmsClass
                                     $child = $xmlDoc->createTextNode($this->getMessage());
                                     $smsTag->appendChild($xmlDoc->createAttribute("TEXT"))->appendChild($child);
                                 } else {
-                                    $message = "allowed below 70 cheracter using unicode, but given:__". strlen($this->getMessage());
+                                    $message = "allowed below 70 cheracter using unicode, but given:__".strlen($this->getMessage());
                                     throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
                                 }
                             }
@@ -866,15 +866,15 @@ class SmsClass
                     if ($this->setMobile() && $this->isString($this->getmobile())) {
                         $result = $this->isValidNumber($this->getmobile());
                         if ($result && $result['value'] == true) {
-                            $mobiles     = $result['mobile'];
-                            for ($k=0; $k <sizeof($mobiles); $k++) {
+                            $mobiles = $result['mobile'];
+                            for ($k=0; $k < sizeof($mobiles); $k++) {
                                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                                 $childAttr = $xmlDoc->createAttribute("TO");
                                 $childText = $xmlDoc->createTextNode($mobiles[$k]);
                                 $addressTag->appendChild($childAttr)->appendChild($childText);
                             }
                         } else {
-                            $message = "this number not the correct:__". $result['mobile'];
+                            $message = "this number not the correct:__".$result['mobile'];
                             throw ParameterException::invalidInput("mobiles", "string", $this->getmobile(), $message);
                         }
                     } else {

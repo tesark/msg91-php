@@ -151,7 +151,7 @@ class OtpClass
      */
     public function setMessage()
     {
-        $this->message =  $this->inputData['message'];
+        $this->message = $this->inputData['message'];
         return true;
     }
     /*
@@ -167,7 +167,7 @@ class OtpClass
      */
     public function setSender()
     {
-        $this->sender =  $this->inputData['sender'];
+        $this->sender = $this->inputData['sender'];
         return true;
     }
     /*
@@ -183,7 +183,7 @@ class OtpClass
      */
     public function setOtp()
     {
-        $this->otp =  $this->inputData['otp'];
+        $this->otp = $this->inputData['otp'];
         return true;
     }
     /*
@@ -199,7 +199,7 @@ class OtpClass
      */
     public function setOneTimePass()
     {
-        $this->otp =  $this->inputData;
+        $this->otp = $this->inputData;
         return true;
     }
     /*
@@ -215,7 +215,7 @@ class OtpClass
      */
     public function setOtpExpiry()
     {
-        $this->otpExpiry =  $this->inputData['otp_expiry'];
+        $this->otpExpiry = $this->inputData['otp_expiry'];
         return true;
     }
     /*
@@ -231,7 +231,7 @@ class OtpClass
      */
     public function setOtpLength()
     {
-        $this->otpLength =  $this->inputData['otp_length'];
+        $this->otpLength = $this->inputData['otp_length'];
         return true;
     }
     /*
@@ -247,7 +247,7 @@ class OtpClass
      */
     public function setAuthkey()
     {
-        $this->authkey =  $this->sendData['authkey'];
+        $this->authkey = $this->sendData['authkey'];
         return true;
     }
     /*
@@ -263,7 +263,7 @@ class OtpClass
      */
     public function setmobile()
     {
-        $this->mobile =  $this->sendData['mobile'];
+        $this->mobile = $this->sendData['mobile'];
         return true;
     }
     /*
@@ -279,7 +279,7 @@ class OtpClass
      */
     public function setRetryType()
     {
-        $this->retrytype =  $this->inputData;
+        $this->retrytype = $this->inputData;
         return true;
     }
     /*
@@ -414,7 +414,7 @@ class OtpClass
     {
         if ($this->isOtpLengthKeyExists() && $this->setOtpLength()) {
             if ($this->isInterger($this->getOtpLength())) {
-                $value  = array('options' => array('min_range' => 4,'max_range' => 9));
+                $value  = array('options' => array('min_range' => 4, 'max_range' => 9));
                 $result = filter_var($this->getOtpLength(), FILTER_VALIDATE_INT, $value);
                 $data["otp_length"] = $result ? $result : null;
             } else {
@@ -516,7 +516,7 @@ class OtpClass
     {
         if ($this->isRetryTypeExists() && $this->setRetryType()) {
             if ($this->isString($this->getRetryType())) {
-                $data['retrytype'] =  $this->getRetryType() ? $this->getRetryType() : null;
+                $data['retrytype'] = $this->getRetryType() ? $this->getRetryType() : null;
             } else {
                 throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getRetryType());
             }

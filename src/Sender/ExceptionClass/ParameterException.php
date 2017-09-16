@@ -22,7 +22,7 @@ class ParameterException extends \Exception
      */
     public static function invalidArrtibuteType($arrName, $arrtype, $value)
     {
-        return new static("Invalid Input expect type:\t".$arrtype."\tgiven:\t". gettype($value)."\tparams:".$arrName);
+        return new static("Invalid Input expect type:\t".$arrtype."\tgiven:\t".gettype($value)."\tparams:".$arrName);
     }
     /**
      * This function throw invalid exceptin with message

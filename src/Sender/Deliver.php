@@ -63,10 +63,10 @@ class Deliver
             $flag = 1;
             foreach ($query as $key => $value) {
                 if ($flag) {
-                    $paramStr .= '?'.$key .'='. urlencode(trim($value));
+                    $paramStr .= '?'.$key.'='.urlencode(trim($value));
                     $flag = 0;
                 } else {
-                    $paramStr .=  "&" .  $key .'='. urlencode(trim($value));
+                    $paramStr .= "&".$key.'='.urlencode(trim($value));
                 }
             }
             $this->logger->info("Request:", $query, $uri);
@@ -74,7 +74,7 @@ class Deliver
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
             $response = $client->send($request);
-            // $this->addLogFile("response", $ResponseData);     //issue unable to log Response
+            // $this->addLogFile("response", $ResponseData); //issue unable to log Response
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
             echo Psr7\str($e->getRequest());

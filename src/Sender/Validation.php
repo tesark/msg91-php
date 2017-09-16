@@ -107,7 +107,7 @@ class Validation
     */
     public static function isVaildAfterMinutes($afterMinutes)
     {
-        $value  = array('options' => array('min_range' => 10,'max_range' => 20000));
+        $value  = array('options' => array('min_range' => 10, 'max_range' => 20000));
         $result = filter_var($afterMinutes, FILTER_VALIDATE_INT, $value);
         return (bool) $result;
     }
