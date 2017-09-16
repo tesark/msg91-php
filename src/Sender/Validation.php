@@ -15,41 +15,41 @@ use DateTime;
 class Validation
 {
     /**
-    * Check is String type
-    * @param string $value
-    *
-    * @return bool
-    */
+     * Check is String type
+     * @param string $value
+     *
+     * @return bool
+     */
     public static function isString($value)
     {
         return is_string($value);
     }
     /**
-    * Check is integer type
-    * @param int $value
-    *
-    * @return bool
-    */
+     * Check is integer type
+     * @param int $value
+     *
+     * @return bool
+     */
     public static function isInteger($value)
     {
         return is_int($value);
     }
     /**
-    * Check is Numeric type
-    * @param string $value
-    *
-    * @return bool
-    */
+     * Check is Numeric type
+     * @param string $value
+     *
+     * @return bool
+     */
     public static function isNumeric($value)
     {
         return is_numeric($value);
     }
     /**
-    * This function for check auth key present or not
-    *
-    * @param string $authKey
-    * @return bool
-    */
+     * This function for check auth key present or not
+     *
+     * @param string $authKey
+     * @return bool
+     */
     public static function checkAuthKey($authKey)
     {
         if (isset($authKey) && is_string($authKey)) {
@@ -59,11 +59,11 @@ class Validation
         }
     }
     /**
-    *Check validate date time format
-    * @param string $date
-    *
-    * @return bool
-    */
+     * Check validate date time format
+     * @param string $date
+     *
+     * @return bool
+     */
     public static function isValidDateFirstFormat($date, $format = 'Y-m-d h:i:s')
     {
         $date = trim($date);
@@ -71,10 +71,10 @@ class Validation
         return $d && $d->format($format) == $date;
     }
     /**
-    * @param string $date
-    *
-    * @return bool
-    */
+     * @param string $date
+     *
+     * @return bool
+     */
     public static function isValidDateSecondFormat($date, $format = 'Y/m/d h:i:s')
     {
         $date = trim($date);
@@ -82,11 +82,11 @@ class Validation
         return $d && $d->format($format) == $date;
     }
     /**
-    *Test Unix Timestamp
-    * @param string $timestamp
-    *
-    * @return bool
-    */
+     * Test Unix Timestamp
+     * @param string $timestamp
+     *
+     * @return bool
+     */
     public static function isValidTimeStamp($timestamp)
     {
         if (is_int($timestamp)) {
@@ -100,11 +100,11 @@ class Validation
         }
     }
     /**
-    *Check afterminutes limits
-    * @param string $afterMinutes
-    *
-    * @return bool
-    */
+     * Check afterminutes limits
+     * @param string $afterMinutes
+     *
+     * @return bool
+     */
     public static function isVaildAfterMinutes($afterMinutes)
     {
         $value  = array('options' => array('min_range' => 10, 'max_range' => 20000));

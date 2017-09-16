@@ -581,7 +581,7 @@ class SmsClass
     public function addFlash($buildSmsData)
     {
         if ($this->isFlashKeyExists() && $this->setFlash()) {
-            $responseFormat =  array(0, 1);
+            $responseFormat = array(0, 1);
             $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
             $buildSmsData += ['flash' => $value];
         }
@@ -598,7 +598,7 @@ class SmsClass
     public function addUnicode($buildSmsData)
     {
         if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
-            $responseFormat =  array(0, 1);
+            $responseFormat = array(0, 1);
             $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
             $buildSmsData += ['unicode' => $value];
         }
@@ -661,7 +661,7 @@ class SmsClass
             if ($this->isString($this->getResponse())) {
                 $responseFormat = array('xml', 'json');
                 $responseVal = strtolower($this->getResponse());
-                $value = in_array($responseVal, $responseFormat) ? $responseVal:null;
+                $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
                 $buildSmsData += ['response' => $value];
             } else {
                 throw ParameterException::invalidArrtibuteType("response", "string", $this->getResponse());
@@ -825,7 +825,7 @@ class SmsClass
              *
              */
             if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
-                $responseFormat =  array(0, 1);
+                $responseFormat = array(0, 1);
                 $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
                 //create a unicode element
                 $root->appendChild($xmlDoc->createElement("UNICODE", $value));
@@ -833,7 +833,7 @@ class SmsClass
             if ($this->isContentKeyExists() && $this->setContent()) {
                 $bulkSms      = $this->getContent();
                 $lenOfBulkSms = sizeof($bulkSms);
-                for ($j=0; $j < $lenOfBulkSms; $j++) {
+                for ($j = 0; $j < $lenOfBulkSms; $j++) {
                     $this->inputData = $bulkSms[$j];
                     $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
                     //check message length
@@ -867,7 +867,7 @@ class SmsClass
                         $result = $this->isValidNumber($this->getmobile());
                         if ($result && $result['value'] == true) {
                             $mobiles = $result['mobile'];
-                            for ($k=0; $k < sizeof($mobiles); $k++) {
+                            for ($k = 0; $k < sizeof($mobiles); $k++) {
                                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                                 $childAttr = $xmlDoc->createAttribute("TO");
                                 $childText = $xmlDoc->createTextNode($mobiles[$k]);

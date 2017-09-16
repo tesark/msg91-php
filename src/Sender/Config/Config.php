@@ -60,7 +60,7 @@ class Config extends AbstractConfig// pending
     {
         return array(
             'common' => [
-                'country'      => getenv('COUNTRY') ? (string) getenv('COUNTRY') : $this->hasCountry ,
+                'country'      => getenv('COUNTRY') ? (string) getenv('COUNTRY') : $this->hasCountry,
                 'transAuthKey' => getenv('TRANSAUTHKEY') ? (string) getenv('TRANSAUTHKEY') : $this->hasTransAuth,
                 'promoAuthKey' => getenv('PROMOAUTHKEY') ? (string) getenv('PROMOAUTHKEY') : $this->hasPromoAuth,
                 'otpAuthKey'   => getenv('OTPAUTHKEY') ? (string) getenv('OTPAUTHKEY') : $this->hasOtpAuth,
