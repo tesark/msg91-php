@@ -24,8 +24,6 @@ class MobileNumber
     public static function isValidNumber($mobileNumber)
     {
         if (isset($mobileNumber) && is_string($mobileNumber)) {
-            $result  = '';
-            $fail    = '';
             $data    = [];
             $mobiles = explode(",", $mobileNumber);
             $len     = sizeof($mobiles);

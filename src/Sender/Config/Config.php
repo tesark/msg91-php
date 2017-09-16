@@ -15,7 +15,6 @@ use Noodlehaus\AbstractConfig;
 
 class Config extends AbstractConfig// pending
 {
-    private $config;
     private $common;
     private $promotionalSms;
     private $transactionalSms;

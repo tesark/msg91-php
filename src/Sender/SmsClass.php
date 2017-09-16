@@ -704,7 +704,8 @@ class SmsClass
         //this condition are check and parameters are added to buildSmsData array
         if ($this->hasMobileNumber() && $this->hasData() && $this->hasSendData()) {
             $buildSmsData = $sendData;
-            for ($i = 0; $i < sizeof($this->inputData); $i++) {
+            $len     = sizeof($this->inputData);
+            for ($i = 0; $i < $len; $i++) {
                 $buildSmsData = $this->addMobile($buildSmsData);
                 $buildSmsData = $this->addMessage($buildSmsData);
                 $buildSmsData = $this->addSender($buildSmsData);
@@ -716,7 +717,9 @@ class SmsClass
                 $buildSmsData = $this->addResponse($buildSmsData);
                 $buildSmsData = $this->addCampaign($buildSmsData);
             }
-            if ((sizeof($data)+3) == sizeof($buildSmsData)) {
+            $inputDataLen     = sizeof($data);
+            $buildDataLen     = sizeof($buildSmsData);
+            if ($inputDataLen+3 == $buildDataLen) {
                 $uri      = "sendhttp.php";
                 $delivery = new Deliver();
                 $response = $delivery->sendOtpGet($uri, $buildSmsData);
@@ -867,7 +870,8 @@ class SmsClass
                         $result = $this->isValidNumber($this->getmobile());
                         if ($result && $result['value'] == true) {
                             $mobiles = $result['mobile'];
-                            for ($k = 0; $k < sizeof($mobiles); $k++) {
+                            $len = sizeof($mobiles);
+                            for ($k = 0; $k < $len; $k++) {
                                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                                 $childAttr = $xmlDoc->createAttribute("TO");
                                 $childText = $xmlDoc->createTextNode($mobiles[$k]);
