@@ -73,6 +73,10 @@ class SmsClass
     *response
     */
     protected $response = null;
+    /*
+    *campaign
+    */
+    protected $campaign = null;
 
     /**
     * Check the mobilenumber empty
@@ -659,7 +663,7 @@ class SmsClass
                 $responseFormat =  array('xml','json');
                 $responseVal = strtolower($this->getResponse());
                 $value = in_array($responseVal, $responseFormat) ? $responseVal:null;
-                $buildSmsData += ['response' => $this->getResponse()];
+                $buildSmsData += ['response' => $value];
             } else {
                 throw ParameterException::invalidArrtibuteType("response", "string", $this->getResponse());
             }
@@ -749,7 +753,7 @@ class SmsClass
             if ($this->isAuthKeyExists() && $this->setAuthKey()) {
                 if ($this->isString($this->getAuthKey())) {
                     //create a element
-                    $authTag = $root->appendChild($xmlDoc->createElement("AUTHKEY", $this->getAuthKey()));
+                    $root->appendChild($xmlDoc->createElement("AUTHKEY", $this->getAuthKey()));
                 } else {
                     throw ParameterException::invalidArrtibuteType("authkey", "string", $this->getAuthKey());
                 }
@@ -762,7 +766,7 @@ class SmsClass
                 if ($this->isString($this->getSender())) {
                     if (strlen($this->getSender()) == 6) {
                         //create a Sender element
-                        $senderTag = $root->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
+                        $root->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
                     } else {
                         $message = "String length must be 6 characters";
                         throw ParameterException::invalidInput("sender", "string", $this->getSender(), $message);
@@ -778,7 +782,7 @@ class SmsClass
             if ($this->isSchtimeKeyExists() && $this->setSchtime()) {
                 if ($this->isVaildDateTime($this->getSchtime())) {
                     //create a schtime element
-                    $senderTag = $root->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $this->getSchtime()));
+                    $root->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $this->getSchtime()));
                 } else {
                     $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
                     throw ParameterException::invalidInput("schtime", "string", $this->getSchtime(), $message);
@@ -791,7 +795,7 @@ class SmsClass
             if ($this->isCampaignKeyExists() && $this->setCampaign()) {
                 if ($this->isString($this->getCampaign())) {
                     //create a campaign element
-                    $campaignTag = $root->appendChild($xmlDoc->createElement("CAMPAIGN", $this->getCampaign()));
+                    $root->appendChild($xmlDoc->createElement("CAMPAIGN", $this->getCampaign()));
                 } else {
                     throw ParameterException::invalidArrtibuteType("campaign", "string", $this->getCampaign());
                 }
@@ -803,7 +807,7 @@ class SmsClass
             if ($this->isCountryKeyExists() && $this->setCountry()) {
                 if ($this->isNumeric($this->getCountry())) {
                     //create a country element
-                    $countryTag = $root->appendChild($xmlDoc->createElement("COUNTRY", $this->getCountry()));
+                    $root->appendChild($xmlDoc->createElement("COUNTRY", $this->getCountry()));
                 } else {
                     throw ParameterException::invalidArrtibuteType("country", "numeric", $this->getCountry());
                 }
@@ -816,7 +820,7 @@ class SmsClass
                 $responseFormat =  array(0,1);
                 $value = in_array($this->getFlash(), $responseFormat)? $this->getFlash() : null;
                 //create a flash element
-                $flashTag = $root->appendChild($xmlDoc->createElement("FLASH", $value));
+                $root->appendChild($xmlDoc->createElement("FLASH", $value));
             }
             /*
             *Check unicode
@@ -826,7 +830,7 @@ class SmsClass
                 $responseFormat =  array(0,1);
                 $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
                 //create a unicode element
-                $unicodeTag = $root->appendChild($xmlDoc->createElement("UNICODE", $value));
+                $root->appendChild($xmlDoc->createElement("UNICODE", $value));
             }
             if ($this->isContentKeyExists() && $this->setContent()) {
                 $bulkSms      = $this->getContent();

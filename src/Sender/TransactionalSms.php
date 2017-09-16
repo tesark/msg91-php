@@ -29,7 +29,7 @@ class TransactionalSms
     * @param  int|string $mobileNumber
     * @param  array $data
     *
-    * @return array
+    * @return string
     */
     public function sendTransactional($mobileNumber, $data)
     {
