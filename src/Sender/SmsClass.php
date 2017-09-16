@@ -704,7 +704,7 @@ class SmsClass
         //this condition are check and parameters are added to buildSmsData array
         if ($this->hasMobileNumber() && $this->hasData() && $this->hasSendData()) {
             $buildSmsData = $sendData;
-            $len     = sizeof($this->inputData);
+            $len = sizeof($this->inputData);
             for ($i = 0; $i < $len; $i++) {
                 $buildSmsData = $this->addMobile($buildSmsData);
                 $buildSmsData = $this->addMessage($buildSmsData);
