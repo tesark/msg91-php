@@ -18,7 +18,7 @@ use Sender\ExceptionClass\ParameterException;
 class OtpClass
 {
     /**
-    * @var array $inputData
+    * @var array|int|string $inputData
     */
     protected $inputData = null;
     /**
@@ -38,13 +38,13 @@ class OtpClass
     */
     protected $otp = null;
     /**
-    * @var int $otp_expiry
+    * @var int $otpExpiry
     */
-    protected $otp_expiry = null;
+    protected $otpExpiry = null;
     /**
-    * @var int $otp_length
+    * @var int $otpLength
     */
-    protected $otp_length = null;
+    protected $otpLength = null;
     /**
     * @var string $authkey
     */
@@ -300,7 +300,7 @@ class OtpClass
     }
     /**
     * Check string value
-    * @param string|null|int|array $value
+    * @param string $value
     * @return bool
     */
     public function isString($value)
