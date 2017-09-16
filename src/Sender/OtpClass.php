@@ -478,23 +478,24 @@ class OtpClass
         if ($this->hasInputData() && $this->hasSendData()) {
             if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;
-                //add message on array
-                $data = $this->addMessage($data);
                 //add sender on the Array
                 $data = $this->addSender($data);
-                //add otp on the array
-                $data = $this->addOtp($data);
                 //add otp_expiry on the array
                 $data = $this->addOtpExpiry($data);
                 //add otp_length on the array
                 $data = $this->addOtpLength($data);
+                $checkOtp = array_key_exists('otp', $this->inputData);
+                $checkMsg = array_key_exists('message', $this->inputData);
+                if ($checkOtp && $checkMsg) {
+                    //add message on array
+                    $data = $this->addMessage($data);
+                    //add otp on the array
+                    $data = $this->addOtp($data);
+                }
+                if (($checkOtp && !$checkMsg) || (!$checkOtp && $checkMsg)) {
+                    throw ParameterException::missinglogic("When using otp or message, unable to use seperately");
+                }
             }
-            if (array_key_exists('otp', $data) && array_key_exists('message', $data)) {
-                goto end;
-            } else {
-                throw ParameterException::missinglogic("When using otp or message, unable to use seperately");
-            }
-            end:
             $uri = "sendotp.php";
             $delivery = new Deliver();
             $response = $delivery->sendOtpGet($uri, $data);
