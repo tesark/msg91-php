@@ -6,31 +6,31 @@ use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**
-* This Class provide Promotional SMS APIs
-*
-* @package    Sender\PromotionalSms
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This Class provide Promotional SMS APIs
+ *
+ * @package    Sender\PromotionalSms
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class PromotionalSms
 {
     /**
-    * @var null|string $promoAuthKey
-    */
+     * @var null|string $promoAuthKey
+     */
     private $promoAuthKey;
     public function __construct($authkey = null)
     {
         $this->promoAuthKey = $authkey;
     }
     /**
-    *  Send promotional SMS MSG91 Service
-    * @param  string $mobileNumber
-    * @param  array  $data
-    *
-    * @return string
-    */
+     * Send promotional SMS MSG91 Service
+     * @param  string $mobileNumber
+     * @param  array  $data
+     *
+     * @return string
+     */
     public static function sendPromotional($mobileNumber, $data)
     {
         $checkAuth = Validation::checkAuthKey($this->promoAuthKey);
@@ -49,14 +49,14 @@ class PromotionalSms
     }
 
     /**
-    *  Send Bulk promotional SMS MSG91 Service
-    *
-    * @param array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    *
-    * @return string
-    */
+     * Send Bulk promotional SMS MSG91 Service
+     *
+     * @param array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     *
+     * @return string
+     */
     public static function sendBulkSms($data)
     {
         if (is_array($data)) {

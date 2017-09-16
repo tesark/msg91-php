@@ -6,31 +6,31 @@ use Sender\Validation;
 use Sender\Config\Config as ConfigClass;
 
 /**
-* This Class provide Transactional SMS APIs
-*
-* @package    Msg91 SMS&OTP package
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This Class provide Transactional SMS APIs
+ *
+ * @package    Msg91 SMS&OTP package
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class TransactionalSms
 {
     /**
-    * @var $transAuthKey Transaction Auth key
-    */
+     * @var $transAuthKey Transaction Auth key
+     */
     private $transAuthKey;
     public function __construct($authkey = null)
     {
         $this->transAuthKey = $authkey;
     }
     /**
-    *  Send transactional SMS MSG91 Service
-    * @param  int|string $mobileNumber
-    * @param  array $data
-    *
-    * @return string
-    */
+     *  Send transactional SMS MSG91 Service
+     * @param  int|string $mobileNumber
+     * @param  array $data
+     *
+     * @return string
+     */
     public function sendTransactional($mobileNumber, $data)
     {
         $checkAuth = Validation::checkAuthKey($this->transAuthKey);

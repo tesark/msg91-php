@@ -7,314 +7,314 @@ use Sender\MobileNumber;
 use Sender\ExceptionClass\ParameterException;
 
 /**
-* This Class for build and send OTP
-*
-* @package    Sender\OtpClass
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This Class for build and send OTP
+ *
+ * @package    Sender\OtpClass
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class OtpClass
 {
     /**
-    * @var array|int|string $inputData
-    */
+     * @var array|int|string $inputData
+     */
     protected $inputData = null;
     /**
-    * @var array $sendData
-    */
+     * @var array $sendData
+     */
     protected $sendData = null;
     /**
-    * @var string $message
-    */
+     * @var string $message
+     */
     protected $message = null;
     /**
-    * @var string $sender
-    */
+     * @var string $sender
+     */
     protected $sender = null;
     /**
-    * @var int $otp
-    */
+     * @var int $otp
+     */
     protected $otp = null;
     /**
-    * @var int $otpExpiry
-    */
+     * @var int $otpExpiry
+     */
     protected $otpExpiry = null;
     /**
-    * @var int $otpLength
-    */
+     * @var int $otpLength
+     */
     protected $otpLength = null;
     /**
-    * @var string $authkey
-    */
+     * @var string $authkey
+     */
     protected $authkey = null;
     /**
-    * @var int $mobile
-    */
+     * @var int $mobile
+     */
     protected $mobile = null;
     /**
-    * @var string $retrytype
-    */
+     * @var string $retrytype
+     */
     protected $retrytype = null;
     /**
-    * Check the data empty
-    * @return bool
-    */
+     * Check the data empty
+     * @return bool
+     */
     public function hasInputData()
     {
         return isset($this->inputData);
     }
     /**
-    * Check the sendData empty
-    * @return bool
-    */
+     * Check the sendData empty
+     * @return bool
+     */
     public function hasSendData()
     {
         return isset($this->sendData);
     }
     /**
-    * Check the message key existes in array
-    * @return bool
-    */
+     * Check the message key existes in array
+     * @return bool
+     */
     public function isMessageKeyExists()
     {
         return array_key_exists("message", $this->inputData);
     }
     /**
-    * Check the sender key existes in array
-    * @return bool
-    */
+     * Check the sender key existes in array
+     * @return bool
+     */
     public function isSenderKeyExists()
     {
         return array_key_exists("sender", $this->inputData);
     }
     /**
-    * Check the otp key existes in array
-    * @return bool
-    */
+     * Check the otp key existes in array
+     * @return bool
+     */
     public function isOtpKeyExists()
     {
         return array_key_exists("otp", $this->inputData);
     }
     /**
-    * Check the otp key existes in array
-    * @return bool
-    */
+     * Check the otp key existes in array
+     * @return bool
+     */
     public function isOneTimeKeyExists()
     {
         return isset($this->inputData);
     }
     /**
-    * Check the otp_expiry key existes in array
-    * @return bool
-    */
+     * Check the otp_expiry key existes in array
+     * @return bool
+     */
     public function isOtpExpiryKeyExists()
     {
         return array_key_exists("otp_expiry", $this->inputData);
     }
     /**
-    * Check the otp_length key existes in array
-    * @return bool
-    */
+     * Check the otp_length key existes in array
+     * @return bool
+     */
     public function isOtpLengthKeyExists()
     {
         return array_key_exists("otp_length", $this->inputData);
     }
     /**
-    * Check the authkey key existes in array
-    * @return bool
-    */
+     * Check the authkey key existes in array
+     * @return bool
+     */
     public function isAuthKeyExists()
     {
         return isset($this->sendData);
     }
     /**
-    * Check the mobile key existes in array
-    * @return bool
-    */
+     * Check the mobile key existes in array
+     * @return bool
+     */
     public function isMobileKeyExists()
     {
         return array_key_exists("mobile", $this->sendData);
     }
     /**
-    * Check the retrytype key existes in array
-    * @return bool
-    */
+     * Check the retrytype key existes in array
+     * @return bool
+     */
     public function isRetryTypeExists()
     {
         return isset($this->inputData);
     }
     /**
-    * set message
-    * @return bool
-    */
+     * set message
+     * @return bool
+     */
     public function setMessage()
     {
         $this->message =  $this->inputData['message'];
         return true;
     }
     /*
-    * get message
-    */
+     * get message
+     */
     public function getMessage()
     {
         return $this->message;
     }
     /**
-    * set sender
-    * @return bool
-    */
+     * set sender
+     * @return bool
+     */
     public function setSender()
     {
         $this->sender =  $this->inputData['sender'];
         return true;
     }
     /*
-    * get sender
-    */
+     * get sender
+     */
     public function getSender()
     {
         return $this->sender;
     }
     /**
-    * set otp
-    * @return bool
-    */
+     * set otp
+     * @return bool
+     */
     public function setOtp()
     {
         $this->otp =  $this->inputData['otp'];
         return true;
     }
     /*
-    * get otp
-    */
+     * get otp
+     */
     public function getOtp()
     {
         return $this->otp;
     }
     /**
-    * set setonetime
-    * @return bool
-    */
+     * set setonetime
+     * @return bool
+     */
     public function setOneTimePass()
     {
         $this->otp =  $this->inputData;
         return true;
     }
     /*
-    * get setonetime
-    */
+     * get setonetime
+     */
     public function getOneTimePass()
     {
         return $this->otp;
     }
     /**
-    * set otp_expiry
-    * @return bool
-    */
+     * set otp_expiry
+     * @return bool
+     */
     public function setOtpExpiry()
     {
         $this->otpExpiry =  $this->inputData['otp_expiry'];
         return true;
     }
     /*
-    * get otp_expiry
-    */
+     * get otp_expiry
+     */
     public function getOtpExpiry()
     {
         return $this->otpExpiry;
     }
     /**
-    * set otp_length
-    * @return bool
-    */
+     * set otp_length
+     * @return bool
+     */
     public function setOtpLength()
     {
         $this->otpLength =  $this->inputData['otp_length'];
         return true;
     }
     /*
-    * get otp_length
-    */
+     * get otp_length
+     */
     public function getOtpLength()
     {
         return $this->otpLength;
     }
     /**
-    * set authkey
-    * @return bool
-    */
+     * set authkey
+     * @return bool
+     */
     public function setAuthkey()
     {
         $this->authkey =  $this->sendData['authkey'];
         return true;
     }
     /*
-    * get authkey
-    */
+     * get authkey
+     */
     public function getAuthkey()
     {
         return $this->authkey;
     }
     /**
-    * set mobile
-    * @return bool
-    */
+     * set mobile
+     * @return bool
+     */
     public function setmobile()
     {
         $this->mobile =  $this->sendData['mobile'];
         return true;
     }
     /*
-    * get mobile
-    */
+     * get mobile
+     */
     public function getmobile()
     {
         return $this->mobile;
     }
     /**
-    * set retrytype
-    * @return bool
-    */
+     * set retrytype
+     * @return bool
+     */
     public function setRetryType()
     {
         $this->retrytype =  $this->inputData;
         return true;
     }
     /*
-    * get retrytype
-    */
+     * get retrytype
+     */
     public function getRetryType()
     {
         return $this->retrytype;
     }
     /**
-    * Check integer value
-    * @return bool
-    */
+     * Check integer value
+     * @return bool
+     */
     public function isInterger($value)
     {
         $result = Validation::isInteger($value);
         return $result;
     }
     /**
-    * Check string value
-    * @param string $value
-    * @return bool
-    */
+     * Check string value
+     * @param string $value
+     * @return bool
+     */
     public function isString($value)
     {
         $result = Validation::isString($value);
         return $result;
     }
     /**
-    * Add otp on the array
-    * @param   array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return  array condition correct value add to the $data array
-    */
+     * Add otp on the array
+     * @param   array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
     public function addMessage($data)
     {
         if ($this->isMessageKeyExists() && $this->setMessage()) {
@@ -327,12 +327,12 @@ class OtpClass
         return $data;
     }
     /**
-    * Add sender on the Array
-    * @param   array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return  array condition correct value add to the $data array
-    */
+     * Add sender on the Array
+     * @param   array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
     public function addSender($data)
     {
         if ($this->isSenderKeyExists() && $this->setSender()) {
@@ -350,12 +350,12 @@ class OtpClass
         return $data;
     }
     /**
-    * Add otp on the array
-    * @param   array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return  array condition correct value add to the $data array
-    */
+     * Add otp on the array
+     * @param   array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
     public function addOtp($data)
     {
         if ($this->isOtpKeyExists() && $this->setOtp()) {
@@ -368,12 +368,12 @@ class OtpClass
         return $data;
     }
     /**
-    * Add otp on the array
-    * @param   array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return  array condition correct value add to the $data array
-    */
+     * Add otp on the array
+     * @param   array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
     public function addOneTimePass($data)
     {
         if ($this->isOneTimeKeyExists() && $this->setOneTimePass()) {
@@ -386,12 +386,12 @@ class OtpClass
         return $data;
     }
     /**
-    * Add otp_expiry on the array
-    * @param  array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return  array condition correct value add to the $data array
-    */
+     * Add otp_expiry on the array
+     * @param  array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
     public function addOtpExpiry($data)
     {
         if ($this->isOtpExpiryKeyExists() && $this->setOtpExpiry()) {
@@ -404,12 +404,12 @@ class OtpClass
         return $data;
     }
     /**
-    * Add otp_length on the array
-    * @param   array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return  array condition correct value add to the $data array
-    */
+     * Add otp_length on the array
+     * @param   array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
     public function addOtpLength($data)
     {
         if ($this->isOtpLengthKeyExists() && $this->setOtpLength()) {
@@ -425,11 +425,11 @@ class OtpClass
         return $data;
     }
     /**
-    * Check Authkey
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return bool
-    */
+     * Check Authkey
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return bool
+     */
     public function checkAuthKey()
     {
         if ($this->isAuthKeyExists() && $this->setAuthkey()) {
@@ -444,11 +444,11 @@ class OtpClass
         }
     }
     /**
-    * Check mobile
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return bool
-    */
+     * Check mobile
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return bool
+     */
     public function checkMobile()
     {
         if ($this->isMobileKeyExists() && $this->setmobile()) {
@@ -463,14 +463,14 @@ class OtpClass
         }
     }
     /**
-    * This function for send OTP
-    *
-    * @param array $dataArray
-    * @param array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return string Msg91 Json response
-    */
+     * This function for send OTP
+     *
+     * @param array $dataArray
+     * @param array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return string Msg91 Json response
+     */
     public function sendOtp($dataArray, $data)
     {
         $this->inputData    = $dataArray;
@@ -505,13 +505,13 @@ class OtpClass
         }
     }
     /**
-    *Add retry type
-    *
-    * @param array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return string Msg91 Json response
-    */
+     * Add retry type
+     *
+     * @param array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return string Msg91 Json response
+     */
     public function addRetryType($data)
     {
         if ($this->isRetryTypeExists() && $this->setRetryType()) {
@@ -527,13 +527,13 @@ class OtpClass
         return $data;
     }
     /**
-    *This function for retry OTP
-    * @param string $retrytype
-    * @param array  $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return string Msg91 Json response
-    */
+     * This function for retry OTP
+     * @param string $retrytype
+     * @param array  $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return string Msg91 Json response
+     */
     public function retryOtp($retrytype, $data)
     {
         $this->inputData    = $retrytype;
@@ -554,14 +554,14 @@ class OtpClass
         return $response;
     }
     /**
-    *This function for verify OTP
-    *
-    * @param int $otp
-    * @param array $data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return string Msg91 Json response
-    */
+     *This function for verify OTP
+     *
+     * @param int $otp
+     * @param array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return string Msg91 Json response
+     */
     public function verifyOtp($otp, $data)
     {
         $this->inputData    = $otp;

@@ -5,13 +5,13 @@ use Noodlehaus\Config as Nood;
 use Noodlehaus\AbstractConfig;
 
 /**
-* Default Config file
-*
-* @package    Sender\Config\Config
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * Default Config file
+ *
+ * @package    Sender\Config\Config
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class Config extends AbstractConfig// pending
 {
@@ -53,9 +53,9 @@ class Config extends AbstractConfig// pending
         }
     }
     /*
-    * This function return Default and Env file Values
-    *
-    */
+     * This function return Default and Env file Values
+     *
+     */
     public function getDefaults()
     {
         return array(
@@ -79,13 +79,13 @@ class Config extends AbstractConfig// pending
         );
     }
     /**
-    * This function check key present in array
-    *
-    * @param string $key Array key value
-    * @param array  $array Check array
-    *
-    * @return string Return array value
-    */
+     * This function check key present in array
+     *
+     * @param string $key Array key value
+     * @param array  $array Check array
+     *
+     * @return string Return array value
+     */
     protected function checkKey($key, $array)
     {
         if (isset($key) && is_array($array)) {

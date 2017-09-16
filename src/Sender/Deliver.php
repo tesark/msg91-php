@@ -9,13 +9,13 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Exception\ClientException;
 
 /**
-* This Class for send data using GET and POST method
-*
-* @package    Sender\Deliver
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This Class for send data using GET and POST method
+ *
+ * @package    Sender\Deliver
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class Deliver
 {
@@ -26,13 +26,13 @@ class Deliver
         $this->logger = new Log("Req & Res");
     }
     /**
-    * Send POST method
-    * @param string $uri MSG91 URI string
-    * @param string $xml String of XML data
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return string MSG91 response
-    */
+     * Send POST method
+     * @param string $uri MSG91 URI string
+     * @param string $xml String of XML data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return string MSG91 response
+     */
     public function sendSmsPost($uri, $xml)
     {
         try {
@@ -49,13 +49,13 @@ class Deliver
         }
     }
     /**
-    * Send GET method
-    * @param string $uri
-    * @param array  $query 
-    *
-    * @throws ParameterException missing parameters or return empty
-    * @return string MSG91 response
-    */
+     * Send GET method
+     * @param string $uri
+     * @param array  $query
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return string MSG91 response
+     */
     public function sendOtpGet($uri, $query)
     {
         try {

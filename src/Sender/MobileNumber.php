@@ -4,23 +4,23 @@ namespace Sender;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
-* This Class for splite mobile number given string
-*
-* @package    Sender\MobileNumber
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This Class for splite mobile number given string
+ *
+ * @package    Sender\MobileNumber
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class MobileNumber
 {
     /**
-    * This function provide valid mobile number array
-    *
-    * @param string $mobileNumber
-    *
-    * @return array|boolean Mobile numbers
-    */
+     * This function provide valid mobile number array
+     *
+     * @param string $mobileNumber
+     *
+     * @return array|boolean Mobile numbers
+     */
     public static function isValidNumber($mobileNumber)
     {
         if (isset($mobileNumber) && is_string($mobileNumber)) {
@@ -47,13 +47,13 @@ class MobileNumber
         }
     }
     /**
-    * This function Add country code with mobilenumber
-    *
-    * @param  string $mobileNumber
-    * @param  string $country
-    *
-    * @return string|boolean Added mobile with country code
-    */
+     * This function Add country code with mobilenumber
+     *
+     * @param  string $mobileNumber
+     * @param  string $country
+     *
+     * @return string|boolean Added mobile with country code
+     */
     public static function addCountryCode($mobileNumber, $country)
     {
         if (isset($mobileNumber) && isset($country)) {
@@ -65,13 +65,13 @@ class MobileNumber
         }
     }
     /**
-    * This function Check country code correct or not
-    *
-    * @param string $mobileWithCountryCode
-    * @param string $country
-    *
-    * @return boolean Checked mobile with country code vaild
-    */
+     * This function Check country code correct or not
+     *
+     * @param string $mobileWithCountryCode
+     * @param string $country
+     *
+     * @return boolean Checked mobile with country code vaild
+     */
     public static function isVaildCountryCode($mobileWithCountryCode, $country)
     {
         if (isset($mobileWithCountryCode) && isset($country)) {

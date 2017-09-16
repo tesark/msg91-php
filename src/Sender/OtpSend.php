@@ -7,32 +7,32 @@ use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**
-* This Class provide OTP APIs
-*
-* @package    Sender\OtpSend
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This Class provide OTP APIs
+ *
+ * @package    Sender\OtpSend
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class OtpSend
 {
     /**
-    * @var null|string $otpAuth
-    */
+     * @var null|string $otpAuth
+     */
     private $otpAuth;
     public function __construct($authkey = null)
     {
         $this->otpAuth = $authkey;
     }
     /**
-    *  Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
-    *
-    * @param  int|string $mobileNumber
-    * @param  array      $dataArray
-    *
-    * @return string MSG91 response
-    */
+     * Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
+     *
+     * @param  int|string $mobileNumber
+     * @param  array      $dataArray
+     *
+     * @return string MSG91 response
+     */
     public function sendOtp($mobileNumber, $dataArray)
     {
         $data      = [];
@@ -49,13 +49,13 @@ class OtpSend
         return $response;
     }
     /**
-    *  Verify OTP using MSG91 Service, you want to Verify OTP using this "verifyOtp method"
-    *
-    * @param  int $mobileNumber
-    * @param  int $dataArray
-    *
-    * @return string MSG91 response
-    */
+     * Verify OTP using MSG91 Service, you want to Verify OTP using this "verifyOtp method"
+     *
+     * @param  int $mobileNumber
+     * @param  int $dataArray
+     *
+     * @return string MSG91 response
+     */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
         $checkAuth = '';
@@ -73,13 +73,13 @@ class OtpSend
         return $response;
     }
     /**
-    *  Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
-    *
-    * @param  int $mobileNumber
-    * @param  string $retrytype
-    *
-    * @return string MSG91 response
-    */
+     * Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
+     *
+     * @param  int $mobileNumber
+     * @param  string $retrytype
+     *
+     * @return string MSG91 response
+     */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
         $checkAuth = '';
