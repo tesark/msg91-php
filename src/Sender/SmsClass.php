@@ -548,17 +548,22 @@ class SmsClass
     /**
      * This function for sms array Build with sender
      * @param  array $buildSmsData
+     * @param  string $category
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $buildSmsData
      *
      */
-    public function addSender($buildSmsData)
+    protected function addSender($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
         if ($this->isSenderKeyExists() && $this->setSender()) {
             if ($this->isString($this->getSender())) {
                 if (strlen($this->getSender()) == 6) {
-                    $buildSmsData += ['sender' => $this->getSender()];
+                    if ($category === 1) {
+                        $root += ['sender' => $this->getSender()];
+                    } else {
+                        $root->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
+                    }
                 } else {
                     $message = "String length must be 6 characters";
                     throw ParameterException::invalidInput("sender", "string", $this->getSender(), $message);
@@ -567,7 +572,7 @@ class SmsClass
                 throw ParameterException::invalidArrtibuteType("message", "string", $this->getSender());
             }
         }
-        return $buildSmsData;
+        return $root;
     }
     /**
      * This function for sms array build with country
@@ -726,7 +731,7 @@ class SmsClass
             for ($i = 0; $i < $len; $i++) {
                 $buildSmsData = $this->addMobile($buildSmsData);
                 $buildSmsData = $this->addMessage($buildSmsData);
-                $buildSmsData = $this->addSender($buildSmsData);
+                $buildSmsData = $this->addSender($buildSmsData, 1);
                 $buildSmsData = $this->addCountry($buildSmsData);
                 $buildSmsData = $this->addFlash($buildSmsData);
                 $buildSmsData = $this->addUnicode($buildSmsData);
@@ -781,19 +786,7 @@ class SmsClass
              *Check Sender
              *
              */
-            if ($this->isSenderKeyExists() && $this->setSender()) {
-                if ($this->isString($this->getSender())) {
-                    if (strlen($this->getSender()) == 6) {
-                        //create a Sender element
-                        $root->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
-                    } else {
-                        $message = "String length must be 6 characters";
-                        throw ParameterException::invalidInput("sender", "string", $this->getSender(), $message);
-                    }
-                } else {
-                    throw ParameterException::invalidArrtibuteType("message", "string", $this->getSender());
-                }
-            }
+            $root = $this->addSender(null, 2, $xmlDoc, $root);
             /**
              *Check schtime
              *
