@@ -353,7 +353,7 @@ class OtpClass
      */
     public function checkAuthKey()
     {
-        if ($this->isAuthKeyExists() && $this->setAuthkey()) {
+        if ($this->isKeyExists('authkey', $this->sendData) && $this->setAuthkey()) {
             if ($this->isString($this->getAuthkey())) {
                 return true;
             } else {
@@ -397,7 +397,7 @@ class OtpClass
         $this->inputData    = $dataArray;
         $this->sendData     = $data;
         if ($this->hasInputData() && $this->hasSendData()) {
-            if ($this->isKeyExists('authkey', $this->sendData) && $this->checkMobile()) {
+            if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;
                 //add sender on the Array
                 $data = $this->addSender($data);
@@ -473,10 +473,9 @@ class OtpClass
      */
     public function resendVerifyOtp($data, $category)
     {
-        var_dump($data);
         $this->sendData     = $data;
         if ($this->hasSendData()) {
-            if ($this->isKeyExists('authkey', $this->sendData) && $this->checkMobile()) {
+            if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;
                 //add retry type on array
                 $data = $this->addRetryType($data);
