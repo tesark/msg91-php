@@ -111,92 +111,15 @@ class SmsClass
         return isset($this->inputData);
     }
     /**
-     * Check the Auth key existes in array
+     * Check key present in array or not
+     * @param string $key
+     * @param array  $array
+     *
      * @return bool
      */
-    public function isAuthKeyExists()
+    protected function isKeyExists($key, $array)
     {
-        return array_key_exists("authkey", $this->inputData);
-    }
-    /**
-     * Check the message key existes in array
-     * @return bool
-     */
-    public function isMessageKeyExists()
-    {
-        return array_key_exists("message", $this->inputData);
-    }
-    /**
-     * Check the unicode key existes in array
-     * @return bool
-     */
-    public function isUnicodeKeyExists()
-    {
-        return array_key_exists("unicode", $this->inputData);
-    }
-    /**
-     * Check the sender key existes in array
-     * @return bool
-     */
-    public function isSenderKeyExists()
-    {
-        return array_key_exists("sender", $this->inputData);
-    }
-    /**
-     * Check the country key existes in array
-     * @return bool
-     */
-    public function isCountryKeyExists()
-    {
-        return array_key_exists("country", $this->inputData);
-    }
-    /**
-     * Check the flash key existes in array
-     * @return bool
-     */
-    public function isFlashKeyExists()
-    {
-        return array_key_exists("flash", $this->inputData);
-    }
-    /**
-     * Check the schtime key existes in array
-     * @return bool
-     */
-    public function isSchtimeKeyExists()
-    {
-        return array_key_exists("schtime", $this->inputData);
-    }
-    /**
-     * Check the afterminutes key existes in array
-     * @return bool
-     */
-    public function isAfterMinutesKeyExists()
-    {
-        return array_key_exists("afterminutes", $this->inputData);
-    }
-    /**
-     * Check the response key existes in array
-     * @return bool
-     */
-    public function isResponseKeyExists()
-    {
-        return array_key_exists("response", $this->inputData);
-    }
-    /**
-     * Check the campaign key existes in array
-     * @return bool
-     */
-    public function isCampaignKeyExists()
-    {
-        return array_key_exists("campaign", $this->inputData);
-    }
-    /**
-     * Check the response key existes in array
-     * @return bool
-     */
-    public function isContentKeyExists()
-    {
-        return array_key_exists("content", $this->inputData);
+        return array_key_exists($key, $array);
     }
     /**
      * set content
@@ -531,11 +454,11 @@ class SmsClass
      */
     public function addMessage($buildSmsData)
     {
-        if ($this->isMessageKeyExists() && $this->setMessage()) {
+        if ($this->isKeyExists('message', $this->inputData()) && $this->setMessage()) {
             if ($this->isString($this->getMessage())) {
-                if (!$this->isUnicodeKeyExists()) {
+                if (!$this->isKeyExists('unicode', $this->inputData)) {
                     $buildSmsData = $this->checkMessageLength($buildSmsData, 160);
-                } elseif ($this->isUnicodeKeyExists()) {
+                } elseif ($this->isKeyExists('unicode', $this->inputData)) {
                     $buildSmsData = $this->checkMessageLength($buildSmsData, 70);
                 }
             } else {
@@ -556,7 +479,7 @@ class SmsClass
      */
     protected function addSender($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
-        if ($this->isSenderKeyExists() && $this->setSender()) {
+        if ($this->isKeyExists('sender', $this->inputData) && $this->setSender()) {
             if ($this->isString($this->getSender())) {
                 if (strlen($this->getSender()) == 6) {
                     if ($category === 1) {
@@ -584,7 +507,7 @@ class SmsClass
      */
     public function addCountry($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
-        if ($this->isCountryKeyExists() && $this->setCountry()) {
+        if ($this->isKeyExists('country', $this->inputData) && $this->setCountry()) {
             if ($this->isNumeric($this->getCountry())) {
                 if ($category === 1) {
                     $buildSmsData += ['country' => $this->getCountry()];
@@ -609,7 +532,7 @@ class SmsClass
      */
     public function addFlash($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
-        if ($this->isFlashKeyExists() && $this->setFlash()) {
+        if ($this->isKeyExists('flash', $this->inputData) && $this->setFlash()) {
             $responseFormat = array(0, 1);
             $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
             if ($category === 1) {
@@ -635,7 +558,7 @@ class SmsClass
      */
     public function addUnicode($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
-        if ($this->isUnicodeKeyExists() && $this->setUnicode()) {
+        if ($this->isKeyExists('unicode', $this->inputData) && $this->setUnicode()) {
             $responseFormat = array(0, 1);
             $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
             if ($category === 1) {
@@ -662,7 +585,7 @@ class SmsClass
      */
     public function addSchtime($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
-        if ($this->isSchtimeKeyExists() && $this->setSchtime()) {
+        if ($this->isKeyExists('schtime', $this->inputData) && $this->setSchtime()) {
             if ($this->isVaildDateTime($this->getSchtime())) {
                 if ($category === 1) {
                     $buildSmsData += ['schtime' => $this->getSchtime()];
@@ -688,7 +611,7 @@ class SmsClass
      */
     public function addAfterMinutes($buildSmsData)
     {
-        if ($this->isAfterMinutesKeyExists() && $this->setAfterminutes()) {
+        if ($this->isKeyExists('afterminutes', $this->inputData) && $this->setAfterminutes()) {
             if ($this->isInterger($this->getAfterminutes())) {
                 if ($this->isAfterMinutes($this->getAfterminutes())) {
                     $buildSmsData += ['afterminutes' => $this->getAfterminutes()];
@@ -711,7 +634,7 @@ class SmsClass
      */
     public function addResponse($buildSmsData)
     {
-        if ($this->isResponseKeyExists() && $this->setResponse()) {
+        if ($this->isKeyExists('response', $this->inputData) && $this->setResponse()) {
             if ($this->isString($this->getResponse())) {
                 $responseFormat = array('xml', 'json');
                 $responseVal = strtolower($this->getResponse());
@@ -732,7 +655,7 @@ class SmsClass
      */
     public function addCampaign($buildSmsData, $category, $xmlDoc = null, $root = null)
     {
-        if ($this->isCampaignKeyExists() && $this->setCampaign()) {
+        if ($this->isKeyExists('campaign', $this->inputData) && $this->setCampaign()) {
             if ($this->isString($this->getCampaign())) {
                 if ($category === 1) {
                     $buildSmsData += ['campaign' => $this->getCampaign()];
@@ -811,7 +734,7 @@ class SmsClass
              *check Auth
              *
              */
-            if ($this->isAuthKeyExists() && $this->setAuthKey()) {
+            if ($this->isKeyExists('authkey', $this->inputData) && $this->setAuthKey()) {
                 if ($this->isString($this->getAuthKey())) {
                     //create a element
                     $root->appendChild($xmlDoc->createElement("AUTHKEY", $this->getAuthKey()));
@@ -849,16 +772,16 @@ class SmsClass
              *
              */
             $root = $this->addUnicode(null, 2, $xmlDoc, $root);
-            if ($this->isContentKeyExists() && $this->setContent()) {
+            if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
                 $bulkSms      = $this->getContent();
                 $lenOfBulkSms = sizeof($bulkSms);
                 for ($j = 0; $j < $lenOfBulkSms; $j++) {
                     $this->inputData = $bulkSms[$j];
                     $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
                     //check message length
-                    if ($this->isMessageKeyExists() && $this->setMessage()) {
+                    if ($this->isKeyExists('message', $this->inputData) && $this->setMessage()) {
                         if ($this->isString($this->getMessage())) {
-                            if (!$this->isUnicodeKeyExists()) {
+                            if (!$this->isKeyExists('unicode', $this->inputData)) {
                                 if (strlen($this->getMessage()) <= 160) {
                                     $childAttr = $xmlDoc->createAttribute("TEXT");
                                     $childText = $xmlDoc->createTextNode($this->getMessage());
@@ -867,7 +790,7 @@ class SmsClass
                                     $message = "allowed below 160 cheracters,but given length:_".strlen($this->getMessage());
                                     throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
                                 }
-                            } elseif ($this->isUnicodeKeyExists()) {
+                            } elseif ($this->isKeyExists('unicode', $this->inputData)) {
                                 if (strlen($this->getMessage()) <= 70) {
                                     $child = $xmlDoc->createTextNode($this->getMessage());
                                     $smsTag->appendChild($xmlDoc->createAttribute("TEXT"))->appendChild($child);
