@@ -280,7 +280,7 @@ class OtpClass
      */
     public function addMessage($data)
     {
-        if ($this->isKeyExists('message', $this-inputData) && $this->setMessage()) {
+        if ($this->isKeyExists('message', $this->inputData) && $this->setMessage()) {
             if ($this->isString($this->getMessage())) {
                 $data['message'] = $this->getMessage() ? $this->getMessage() : null;
             } else {
@@ -298,7 +298,7 @@ class OtpClass
      */
     public function addSender($data)
     {
-        if ($this->isKeyExists('sender', $this-inputData) && $this->setSender()) {
+        if ($this->isKeyExists('sender', $this->inputData) && $this->setSender()) {
             if ($this->isString($this->getSender())) {
                 if (strlen($this->getSender()) == 6) {
                     $data['sender'] = $this->getSender() ? $this->getSender() : null;
@@ -321,7 +321,7 @@ class OtpClass
      */
     public function addOtp($data)
     {
-        if ($this->isKeyExists('otp', $this-inputData) && $this->setOtp()) {
+        if ($this->isKeyExists('otp', $this->inputData) && $this->setOtp()) {
             if ($this->isInterger($this->getOtp())) {
                 $data['otp'] = $this->getOtp() ? $this->getOtp() : null;
             } else {
@@ -357,7 +357,7 @@ class OtpClass
      */
     public function addOtpExpiry($data)
     {
-        if ($this->isKeyExists('otp_expiry', $this-inputData) && $this->setOtpExpiry()) {
+        if ($this->isKeyExists('otp_expiry', $this->inputData) && $this->setOtpExpiry()) {
             if ($this->isInterger($this->getOtpExpiry())) {
                 $data['otp_expiry'] = $this->getOtpExpiry() ? $this->getOtpExpiry() : null;
             } else {
@@ -375,7 +375,7 @@ class OtpClass
      */
     public function addOtpLength($data)
     {
-        if ($this->isKeyExists('otp_length', $this-inputData) && $this->setOtpLength()) {
+        if ($this->isKeyExists('otp_length', $this->inputData) && $this->setOtpLength()) {
             if ($this->isInterger($this->getOtpLength())) {
                 $value  = array('options' => array('min_range' => 4, 'max_range' => 9));
                 $result = filter_var($this->getOtpLength(), FILTER_VALIDATE_INT, $value);
@@ -414,7 +414,7 @@ class OtpClass
      */
     public function checkMobile()
     {
-        if ($this->isKeyExists('mobile', $this-inputData) && $this->setmobile()) {
+        if ($this->isKeyExists('mobile', $this->inputData) && $this->setmobile()) {
             if ($this->isInterger($this->getmobile())) {
                 return true;
             } else {
@@ -474,7 +474,7 @@ class OtpClass
      * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return string Msg91 Json response
+     * @return array Msg91 Json response
      */
     public function addRetryType($data)
     {

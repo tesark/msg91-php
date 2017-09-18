@@ -520,7 +520,7 @@ class SmsClass
                 throw ParameterException::invalidArrtibuteType("country", "numeric", $this->getCountry());
             }
         }
-        return $buildSmsData;
+        return $root;
     }
     /**
      * This function for sms array build with flash
