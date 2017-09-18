@@ -67,9 +67,10 @@ class OtpSend
             $container       = $config->getDefaults();
         }
         $data         += ['authkey' => $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey']];
-        $data         += ['mobile' => $mobileNumber];
+        $data         += ['mobile'  => $mobileNumber];
+        $data         += ['otp'     => $oneTimePass];
         $otp           = new OtpClass();
-        $response      = $otp->verifyOtp($oneTimePass, $data);
+        $response      = $otp->resendVerifyOtp($data, 1);
         return $response;
     }
     /**
@@ -90,10 +91,11 @@ class OtpSend
             $config          = new ConfigClass();
             $container       = $config->getDefaults();
         }
-        $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
-        $data['mobile']  = $mobileNumber;
-        $otp             = new OtpClass();
-        $response        = $otp->retryOtp($retrytype, $data);
+        $data['authkey']    = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
+        $data['mobile']     = $mobileNumber;
+        $data['retrytype']  = $retrytype;
+        $otp                = new OtpClass();
+        $response           = $otp->resendVerifyOtp($data, 0);
         return $response;
     }
 }

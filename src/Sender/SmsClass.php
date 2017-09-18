@@ -470,7 +470,6 @@ class SmsClass
     }
     /**
      * This function for sms array Build with sender
-     * @param  array $buildSmsData
      * @param  int $category
      *
      * @throws ParameterException missing parameters or tpye error
@@ -499,7 +498,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with country
-     * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
@@ -522,7 +520,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with flash
-     * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
@@ -544,7 +541,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with flash
-     * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $buildSmsData
@@ -566,7 +562,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with schtime
-     * @param  array $buildSmsData
      * @param  int $category
      *
      * @throws ParameterException missing parameters or tpye error
@@ -592,7 +587,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with
-     * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $buildSmsData
@@ -616,7 +610,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with Response
-     * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $buildSmsData
@@ -637,7 +630,6 @@ class SmsClass
     }
     /**
      * This function for sms array build with campaign
-     * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or tpye error
      * @return array $root

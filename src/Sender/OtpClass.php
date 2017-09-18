@@ -85,30 +85,6 @@ class OtpClass
         return array_key_exists($key, $array);
     }
     /**
-     * Check the otp key existes in array
-     * @return bool
-     */
-    public function isOneTimeKeyExists()
-    {
-        return isset($this->inputData);
-    }
-    /**
-     * Check the authkey key existes in array
-     * @return bool
-     */
-    public function isAuthKeyExists()
-    {
-        return isset($this->sendData);
-    }
-    /**
-     * Check the retrytype key existes in array
-     * @return bool
-     */
-    public function isRetryTypeExists()
-    {
-        return isset($this->inputData);
-    }
-    /**
      * set message
      * @return bool
      */
@@ -157,12 +133,12 @@ class OtpClass
         return $this->otp;
     }
     /**
-     * set setonetime
+     * set otp
      * @return bool
      */
     public function setOneTimePass()
     {
-        $this->otp = $this->inputData;
+        $this->otp = $this->sendData['otp'];
         return true;
     }
     /*
@@ -242,7 +218,7 @@ class OtpClass
      */
     public function setRetryType()
     {
-        $this->retrytype = $this->inputData;
+        $this->retrytype = $this->sendData['retrytype'];
         return true;
     }
     /*
@@ -326,24 +302,6 @@ class OtpClass
                 $data['otp'] = $this->getOtp() ? $this->getOtp() : null;
             } else {
                 throw ParameterException::invalidArrtibuteType("otp", "int", $this->getOtp());
-            }
-        }
-        return $data;
-    }
-    /**
-     * Add otp on the array
-     * @param   array $data
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
-     */
-    public function addOneTimePass($data)
-    {
-        if ($this->isOneTimeKeyExists() && $this->setOneTimePass()) {
-            if ($this->isInterger($this->getOneTimePass())) {
-                $data['otp'] = $this->getOneTimePass() ? $this->getOneTimePass() : null;
-            } else {
-                throw ParameterException::invalidArrtibuteType("otp", "int", $this->getOneTimePass());
             }
         }
         return $data;
@@ -439,7 +397,7 @@ class OtpClass
         $this->inputData    = $dataArray;
         $this->sendData     = $data;
         if ($this->hasInputData() && $this->hasSendData()) {
-            if ($this->checkAuthKey() && $this->checkMobile()) {
+            if ($this->isKeyExists('authkey', $this->sendData) && $this->checkMobile()) {
                 $data = $this->sendData;
                 //add sender on the Array
                 $data = $this->addSender($data);
@@ -478,69 +436,62 @@ class OtpClass
      */
     public function addRetryType($data)
     {
-        if ($this->isRetryTypeExists() && $this->setRetryType()) {
+        if ($this->isKeyExists('retrytype', $this->sendData) && $this->setRetryType()) {
             if ($this->isString($this->getRetryType())) {
                 $data['retrytype'] = $this->getRetryType() ? $this->getRetryType() : null;
             } else {
-                throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getRetryType());
+                throw ParameterException::invalidArrtibuteType("retrytype", "string", $this->getRetryType());
             }
-        } else {
-            $message = "Parameter mobile missing";
-            throw ParameterException::missinglogic($message);
         }
         return $data;
     }
     /**
-     * This function for retry OTP
-     * @param string $retrytype
+     * Add otp on the array
+     * @param   array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
+    public function addOneTimePass($data)
+    {
+        if ($this->isKeyExists('otp', $this->sendData) && $this->setOneTimePass()) {
+            if ($this->isInterger($this->getOneTimePass())) {
+                $data['otp'] = $this->getOneTimePass() ? $this->getOneTimePass() : null;
+            } else {
+                throw ParameterException::invalidArrtibuteType("otp", "int", $this->getOneTimePass());
+            }
+        }
+        return $data;
+    }
+    /**
+     * This function for retry and verify OTP
+     * @param int    $category
      * @param array  $data
      *
      * @throws ParameterException missing parameters or return empty
      * @return string Msg91 Json response
      */
-    public function retryOtp($retrytype, $data)
+    public function resendVerifyOtp($data, $category)
     {
-        $this->inputData    = $retrytype;
+        var_dump($data);
         $this->sendData     = $data;
-        if ($this->hasInputData() && $this->hasSendData()) {
-            if ($this->checkAuthKey() && $this->checkMobile()) {
+        if ($this->hasSendData()) {
+            if ($this->isKeyExists('authkey', $this->sendData) && $this->checkMobile()) {
                 $data = $this->sendData;
-                //add message on array
+                //add retry type on array
                 $data = $this->addRetryType($data);
-            }
-        } else {
-            $message = "The parameters not found";
-            throw ParameterException::missinglogic($message);
-        }
-        $uri = 'retryotp.php';
-        $delivery = new Deliver();
-        $response = $delivery->sendOtpGet($uri, $data);
-        return $response;
-    }
-    /**
-     *This function for verify OTP
-     *
-     * @param int $otp
-     * @param array $data
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return string Msg91 Json response
-     */
-    public function verifyOtp($otp, $data)
-    {
-        $this->inputData    = $otp;
-        $this->sendData     = $data;
-        if ($this->hasInputData() && $this->hasSendData()) {
-            if ($this->checkAuthKey() && $this->checkMobile()) {
-                $data = $this->sendData;
-                //add message on array
+                //add otp on array
                 $data = $this->addOneTimePass($data);
             }
         } else {
             $message = "The parameters not found";
             throw ParameterException::missinglogic($message);
         }
-        $uri = "verifyRequestOTP.php";
+        if ($category === 0) {
+            $uri = 'retryotp.php';
+        } else {
+            $uri = "verifyRequestOTP.php";
+        }
         $delivery = new Deliver();
         $response = $delivery->sendOtpGet($uri, $data);
         return $response;
