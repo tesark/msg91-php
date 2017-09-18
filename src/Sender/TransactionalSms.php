@@ -2,8 +2,6 @@
 namespace Sender;
 
 use Sender\SmsClass;
-use Sender\Validation;
-use Sender\Config\Config as ConfigClass;
 
 /**
  * This Class provide Transactional SMS APIs
@@ -17,9 +15,10 @@ use Sender\Config\Config as ConfigClass;
 class TransactionalSms
 {
     /**
-     * @var $transAuthKey Transaction Auth key
+     * Auth key
+     * @var string $transAuthKey Transaction Auth key
      */
-    private $transAuthKey;
+    protected $transAuthKey;
     public function __construct($authkey = null)
     {
         $this->transAuthKey = $authkey;
@@ -32,20 +31,9 @@ class TransactionalSms
      * @return string
      */
     public function sendTransactional($mobileNumber, $data)
-    {
-        $checkAuth = Validation::checkAuthKey($this->transAuthKey);
-        if (!$checkAuth) {
-            // Get Envirionment variable and config file values
-            $config          = new ConfigClass();
-            $container       = $config->getDefaults();
-        }
-        //transactional SMS content
-        $sendData = array(
-            'authkey'     => $checkAuth ? $this->transAuthKey : $container['common']['transAuthKey'],
-            'route'       => 4,
-        );
+    {   
         $sms = new SmsClass();
-        $TransactionOutput = $sms->sendSms($mobileNumber, $data, $sendData);
-        return $TransactionOutput;
+        $response = $sms->smsCategory($mobileNumber, $data, 1, $this->transAuthKey);
+        return $response;
     }
 }

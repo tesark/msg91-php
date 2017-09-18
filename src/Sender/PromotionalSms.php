@@ -17,9 +17,9 @@ use Sender\ExceptionClass\ParameterException;
 class PromotionalSms
 {
     /**
-     * @var null|string $promoAuthKey
+     * @var string $promoAuthKey
      */
-    private $promoAuthKey;
+    protected $promoAuthKey;
     public function __construct($authkey = null)
     {
         $this->promoAuthKey = $authkey;
@@ -33,18 +33,8 @@ class PromotionalSms
      */
     public static function sendPromotional($mobileNumber, $data)
     {
-        $checkAuth = Validation::checkAuthKey($this->promoAuthKey);
-        if (!$checkAuth) {
-            // Get Envirionment variable and config file values
-            $config          = new ConfigClass();
-            $container       = $config->getDefaults();
-        }
-        $sendData = array(
-            'authkey'     => $checkAuth ? $this->promoAuthKey : $container['common']['otpAuthKey'],
-            'route'       => 1,
-        );
         $sms = new SmsClass();
-        $response = $sms->sendSms($mobileNumber, $data, $sendData);
+        $response = $sms->smsCategory($mobileNumber, $data, 0, $this->promoAuthKey);
         return $response;
     }
 

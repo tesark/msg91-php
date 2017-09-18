@@ -4,6 +4,7 @@ namespace Sender;
 use Sender\Deliver;
 use Sender\Validation;
 use Sender\MobileNumber;
+use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -651,6 +652,38 @@ class SmsClass
         return $buildSmsData;
     }
     /**
+     * This function Category to send SMS
+     * @param  int|string $mobileNumber
+     * @param  array $data 
+     * @param  int $category
+     * @param  string $authKey
+     *
+     * @return string 
+     */
+    public function smsCategory($mobileNumber, $data, $category, $authKey)
+    {
+        $checkAuth = Validation::checkAuthKey($authKey);
+        if (!$checkAuth) {
+            // Get Envirionment variable and config file values
+            $config          = new ConfigClass();
+            $container       = $config->getDefaults();
+        }
+        if ($category === 1) {
+            //transactional SMS content
+            $sendData = array(
+                'authkey'     => $checkAuth ? $authKey : $container['common']['transAuthKey'],
+                'route'       => 4,
+            );
+        } else {
+            $sendData = array(
+               'authkey'     => $checkAuth ? $authKey : $container['common']['promoAuthKey'],
+               'route'       => 1,
+            );
+        }
+        $output = $this->sendSms($mobileNumber, $data, $sendData);
+        return $output;
+    }
+    /**
      * This function Used to send the SMS data to Deliver Class
      * @param string|int $mobileNumber
      * @param array $data
@@ -659,7 +692,7 @@ class SmsClass
      * @throws ParameterException missing parameters or type error
      * @return string
      */
-    public function sendSms($mobileNumber, $data, $sendData)
+    protected function sendSms($mobileNumber, $data, $sendData)
     {
         $this->mobiles     = $mobileNumber;
         $this->inputData   = $data;
