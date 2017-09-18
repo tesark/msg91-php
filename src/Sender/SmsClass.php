@@ -26,7 +26,7 @@ class SmsClass
      */
     protected $mobiles = null;
     /**
-     * @var string|int|array $InputData
+     * @var array $inputData
      */
     protected $inputData = null;
     /**
@@ -454,7 +454,7 @@ class SmsClass
      */
     public function addMessage($buildSmsData)
     {
-        if ($this->isKeyExists('message', $this->inputData()) && $this->setMessage()) {
+        if ($this->isKeyExists('message', $this->inputData) && $this->setMessage()) {
             if ($this->isString($this->getMessage())) {
                 if (!$this->isKeyExists('unicode', $this->inputData)) {
                     $buildSmsData = $this->checkMessageLength($buildSmsData, 160);

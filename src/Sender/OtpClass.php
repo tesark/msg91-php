@@ -18,7 +18,7 @@ use Sender\ExceptionClass\ParameterException;
 class OtpClass
 {
     /**
-     * @var array|int|string $inputData
+     * @var array $inputData
      */
     protected $inputData = null;
     /**
@@ -74,28 +74,15 @@ class OtpClass
         return isset($this->sendData);
     }
     /**
-     * Check the message key existes in array
+     * Check key present in array or not
+     * @param string $key
+     * @param array  $array
+     *
      * @return bool
      */
-    public function isMessageKeyExists()
+    protected function isKeyExists($key, $array)
     {
-        return array_key_exists("message", $this->inputData);
-    }
-    /**
-     * Check the sender key existes in array
-     * @return bool
-     */
-    public function isSenderKeyExists()
-    {
-        return array_key_exists("sender", $this->inputData);
-    }
-    /**
-     * Check the otp key existes in array
-     * @return bool
-     */
-    public function isOtpKeyExists()
-    {
-        return array_key_exists("otp", $this->inputData);
+        return array_key_exists($key, $array);
     }
     /**
      * Check the otp key existes in array
@@ -106,36 +93,12 @@ class OtpClass
         return isset($this->inputData);
     }
     /**
-     * Check the otp_expiry key existes in array
-     * @return bool
-     */
-    public function isOtpExpiryKeyExists()
-    {
-        return array_key_exists("otp_expiry", $this->inputData);
-    }
-    /**
-     * Check the otp_length key existes in array
-     * @return bool
-     */
-    public function isOtpLengthKeyExists()
-    {
-        return array_key_exists("otp_length", $this->inputData);
-    }
-    /**
      * Check the authkey key existes in array
      * @return bool
      */
     public function isAuthKeyExists()
     {
         return isset($this->sendData);
-    }
-    /**
-     * Check the mobile key existes in array
-     * @return bool
-     */
-    public function isMobileKeyExists()
-    {
-        return array_key_exists("mobile", $this->sendData);
     }
     /**
      * Check the retrytype key existes in array
@@ -317,7 +280,7 @@ class OtpClass
      */
     public function addMessage($data)
     {
-        if ($this->isMessageKeyExists() && $this->setMessage()) {
+        if ($this->isKeyExists('message', $this-inputData) && $this->setMessage()) {
             if ($this->isString($this->getMessage())) {
                 $data['message'] = $this->getMessage() ? $this->getMessage() : null;
             } else {
@@ -335,7 +298,7 @@ class OtpClass
      */
     public function addSender($data)
     {
-        if ($this->isSenderKeyExists() && $this->setSender()) {
+        if ($this->isKeyExists('sender', $this-inputData) && $this->setSender()) {
             if ($this->isString($this->getSender())) {
                 if (strlen($this->getSender()) == 6) {
                     $data['sender'] = $this->getSender() ? $this->getSender() : null;
@@ -358,7 +321,7 @@ class OtpClass
      */
     public function addOtp($data)
     {
-        if ($this->isOtpKeyExists() && $this->setOtp()) {
+        if ($this->isKeyExists('otp', $this-inputData) && $this->setOtp()) {
             if ($this->isInterger($this->getOtp())) {
                 $data['otp'] = $this->getOtp() ? $this->getOtp() : null;
             } else {
@@ -394,7 +357,7 @@ class OtpClass
      */
     public function addOtpExpiry($data)
     {
-        if ($this->isOtpExpiryKeyExists() && $this->setOtpExpiry()) {
+        if ($this->isKeyExists('otp_expiry', $this-inputData) && $this->setOtpExpiry()) {
             if ($this->isInterger($this->getOtpExpiry())) {
                 $data['otp_expiry'] = $this->getOtpExpiry() ? $this->getOtpExpiry() : null;
             } else {
@@ -412,7 +375,7 @@ class OtpClass
      */
     public function addOtpLength($data)
     {
-        if ($this->isOtpLengthKeyExists() && $this->setOtpLength()) {
+        if ($this->isKeyExists('otp_length', $this-inputData) && $this->setOtpLength()) {
             if ($this->isInterger($this->getOtpLength())) {
                 $value  = array('options' => array('min_range' => 4, 'max_range' => 9));
                 $result = filter_var($this->getOtpLength(), FILTER_VALIDATE_INT, $value);
@@ -451,7 +414,7 @@ class OtpClass
      */
     public function checkMobile()
     {
-        if ($this->isMobileKeyExists() && $this->setmobile()) {
+        if ($this->isKeyExists('mobile', $this-inputData) && $this->setmobile()) {
             if ($this->isInterger($this->getmobile())) {
                 return true;
             } else {
