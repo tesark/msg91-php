@@ -469,6 +469,17 @@ class SmsClass
         }
     }
     /**
+     * This function throw mobile invalid Exception
+     * @param int|string $mobiles
+     * @param string     $result
+     * @throws ParameterException missing parameters or return empty
+     */
+    protected function invalidMobileException($mobiles, $result)
+    {
+        $message = "this number not the correct:__".$result;
+        throw ParameterException::invalidInput("mobiles", "string", $mobiles, $message);
+    }
+    /**
      * This function for sms array Build with mobilenumbers
      * @param  array $buildSmsData
      *
@@ -485,12 +496,29 @@ class SmsClass
             if (!empty($result) && $result['value'] == true) {
                 $buildSmsData += ['mobiles' => $this->mobiles];
             } else {
-                $message = "this number not the correct:__".$result['mobile'];
-                throw ParameterException::invalidInput("mobiles", "string", $this->mobiles, $message);
+                $this->invalidMobileException($this->mobiles, $result['mobile']);
             }
         } else {
             $message = "interger or string comma seperate values";
             throw ParameterException::invalidInput("mobiles", "string or integer", $this->mobiles, $message);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for check message length allowed only 160 char, unicode allowed 70 char
+     * @param array $buildSmsData
+     * @param int $limit
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return array $buildSmsData
+     */
+    protected function checkMessageLength($buildSmsData, $limit)
+    {
+        if (strlen($this->getMessage()) <= $limit) {
+            $buildSmsData += ['message' => $this->getMessage()];
+        } else {
+            $message = "allowed below ".$limit." cheracters,but given length:_".strlen($this->getMessage());
+            throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
         }
         return $buildSmsData;
     }
@@ -506,19 +534,9 @@ class SmsClass
         if ($this->isMessageKeyExists() && $this->setMessage()) {
             if ($this->isString($this->getMessage())) {
                 if (!$this->isUnicodeKeyExists()) {
-                    if (strlen($this->getMessage()) <= 160) {
-                        $buildSmsData += ['message' => $this->getMessage()];
-                    } else {
-                        $message = "allowed below 160 cheracters,but given length:_".strlen($this->getMessage());
-                        throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
-                    }
+                    $buildSmsData = $this->checkMessageLength($buildSmsData, 160);
                 } elseif ($this->isUnicodeKeyExists()) {
-                    if (strlen($this->getMessage()) <= 70) {
-                        $buildSmsData += ['message' => $this->getMessage()];
-                    } else {
-                        $message = "allowed below 70 cheracter using unicode, but given:__".strlen($this->getMessage());
-                        throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
-                    }
+                    $buildSmsData = $this->checkMessageLength($buildSmsData, 70);
                 }
             } else {
                 $message = "string values only accept";
@@ -878,8 +896,7 @@ class SmsClass
                                 $addressTag->appendChild($childAttr)->appendChild($childText);
                             }
                         } else {
-                            $message = "this number not the correct:__".$result['mobile'];
-                            throw ParameterException::invalidInput("mobiles", "string", $this->getmobile(), $message);
+                            $this->invalidMobileException($this->getmobile(), $result['mobile']);
                         }
                     } else {
                         $message = "string comma seperate values";
