@@ -654,11 +654,11 @@ class SmsClass
     /**
      * This function Category to send SMS
      * @param  int|string $mobileNumber
-     * @param  array $data 
+     * @param  array $data
      * @param  int $category
      * @param  string $authKey
      *
-     * @return string 
+     * @return string
      */
     public function smsCategory($mobileNumber, $data, $category, $authKey)
     {

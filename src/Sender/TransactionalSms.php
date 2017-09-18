@@ -31,7 +31,7 @@ class TransactionalSms
      * @return string
      */
     public function sendTransactional($mobileNumber, $data)
-    {   
+    {
         $sms = new SmsClass();
         $response = $sms->smsCategory($mobileNumber, $data, 1, $this->transAuthKey);
         return $response;
