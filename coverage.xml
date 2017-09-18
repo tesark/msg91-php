@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1505569307">
-  <project timestamp="1505569307">
+<coverage generated="1505723960">
+  <project timestamp="1505723960">
     <package name="Sender\Config">
       <file name="/home/tesark/open/deliver/src/Sender/Config/Config.php">
         <class name="Config" namespace="Sender\Config">
@@ -571,7 +571,7 @@
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/SmsClass.php">
         <class name="SmsClass" namespace="Sender">
-          <metrics complexity="143" methods="59" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="453" coveredstatements="0" elements="512" coveredelements="0"/>
+          <metrics complexity="141" methods="61" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="447" coveredstatements="0" elements="508" coveredelements="0"/>
         </class>
         <line num="85" type="method" name="hasMobileNumber" visibility="public" complexity="1" crap="2" count="0"/>
         <line num="86" type="stmt" count="0"/>
@@ -787,36 +787,29 @@
         <line num="468" type="stmt" count="0"/>
         <line num="469" type="stmt" count="0"/>
         <line num="470" type="stmt" count="0"/>
-        <line num="479" type="method" name="addMobile" visibility="public" complexity="5" crap="30" count="0"/>
+        <line num="477" type="method" name="invalidMobileException" visibility="protected" complexity="1" crap="2" count="0"/>
+        <line num="478" type="stmt" count="0"/>
+        <line num="479" type="stmt" count="0"/>
         <line num="480" type="stmt" count="0"/>
         <line num="481" type="stmt" count="0"/>
-        <line num="482" type="stmt" count="0"/>
-        <line num="483" type="stmt" count="0"/>
-        <line num="484" type="stmt" count="0"/>
-        <line num="485" type="stmt" count="0"/>
-        <line num="486" type="stmt" count="0"/>
-        <line num="487" type="stmt" count="0"/>
-        <line num="488" type="stmt" count="0"/>
-        <line num="489" type="stmt" count="0"/>
-        <line num="490" type="stmt" count="0"/>
+        <line num="490" type="method" name="addMobile" visibility="public" complexity="5" crap="30" count="0"/>
         <line num="491" type="stmt" count="0"/>
         <line num="492" type="stmt" count="0"/>
         <line num="493" type="stmt" count="0"/>
         <line num="494" type="stmt" count="0"/>
         <line num="495" type="stmt" count="0"/>
         <line num="496" type="stmt" count="0"/>
-        <line num="504" type="method" name="addMessage" visibility="public" complexity="8" crap="72" count="0"/>
+        <line num="497" type="stmt" count="0"/>
+        <line num="498" type="stmt" count="0"/>
+        <line num="499" type="stmt" count="0"/>
+        <line num="500" type="stmt" count="0"/>
+        <line num="501" type="stmt" count="0"/>
+        <line num="502" type="stmt" count="0"/>
+        <line num="503" type="stmt" count="0"/>
+        <line num="504" type="stmt" count="0"/>
         <line num="505" type="stmt" count="0"/>
         <line num="506" type="stmt" count="0"/>
-        <line num="507" type="stmt" count="0"/>
-        <line num="508" type="stmt" count="0"/>
-        <line num="509" type="stmt" count="0"/>
-        <line num="510" type="stmt" count="0"/>
-        <line num="511" type="stmt" count="0"/>
-        <line num="512" type="stmt" count="0"/>
-        <line num="513" type="stmt" count="0"/>
-        <line num="514" type="stmt" count="0"/>
-        <line num="515" type="stmt" count="0"/>
+        <line num="515" type="method" name="checkMessageLength" visibility="protected" complexity="2" crap="6" count="0"/>
         <line num="516" type="stmt" count="0"/>
         <line num="517" type="stmt" count="0"/>
         <line num="518" type="stmt" count="0"/>
@@ -826,12 +819,13 @@
         <line num="522" type="stmt" count="0"/>
         <line num="523" type="stmt" count="0"/>
         <line num="524" type="stmt" count="0"/>
-        <line num="525" type="stmt" count="0"/>
-        <line num="526" type="stmt" count="0"/>
-        <line num="527" type="stmt" count="0"/>
-        <line num="528" type="stmt" count="0"/>
-        <line num="529" type="stmt" count="0"/>
-        <line num="538" type="method" name="addSender" visibility="public" complexity="5" crap="30" count="0"/>
+        <line num="532" type="method" name="addMessage" visibility="public" complexity="6" crap="42" count="0"/>
+        <line num="533" type="stmt" count="0"/>
+        <line num="534" type="stmt" count="0"/>
+        <line num="535" type="stmt" count="0"/>
+        <line num="536" type="stmt" count="0"/>
+        <line num="537" type="stmt" count="0"/>
+        <line num="538" type="stmt" count="0"/>
         <line num="539" type="stmt" count="0"/>
         <line num="540" type="stmt" count="0"/>
         <line num="541" type="stmt" count="0"/>
@@ -841,13 +835,12 @@
         <line num="545" type="stmt" count="0"/>
         <line num="546" type="stmt" count="0"/>
         <line num="547" type="stmt" count="0"/>
-        <line num="548" type="stmt" count="0"/>
-        <line num="549" type="stmt" count="0"/>
-        <line num="550" type="stmt" count="0"/>
-        <line num="551" type="stmt" count="0"/>
-        <line num="552" type="stmt" count="0"/>
-        <line num="553" type="stmt" count="0"/>
-        <line num="562" type="method" name="addCountry" visibility="public" complexity="4" crap="20" count="0"/>
+        <line num="557" type="method" name="addSender" visibility="protected" complexity="6" crap="42" count="0"/>
+        <line num="558" type="stmt" count="0"/>
+        <line num="559" type="stmt" count="0"/>
+        <line num="560" type="stmt" count="0"/>
+        <line num="561" type="stmt" count="0"/>
+        <line num="562" type="stmt" count="0"/>
         <line num="563" type="stmt" count="0"/>
         <line num="564" type="stmt" count="0"/>
         <line num="565" type="stmt" count="0"/>
@@ -858,40 +851,40 @@
         <line num="570" type="stmt" count="0"/>
         <line num="571" type="stmt" count="0"/>
         <line num="572" type="stmt" count="0"/>
-        <line num="581" type="method" name="addFlash" visibility="public" complexity="4" crap="20" count="0"/>
-        <line num="582" type="stmt" count="0"/>
-        <line num="583" type="stmt" count="0"/>
-        <line num="584" type="stmt" count="0"/>
-        <line num="585" type="stmt" count="0"/>
+        <line num="573" type="stmt" count="0"/>
+        <line num="574" type="stmt" count="0"/>
+        <line num="575" type="stmt" count="0"/>
+        <line num="576" type="stmt" count="0"/>
+        <line num="585" type="method" name="addCountry" visibility="public" complexity="4" crap="20" count="0"/>
         <line num="586" type="stmt" count="0"/>
         <line num="587" type="stmt" count="0"/>
         <line num="588" type="stmt" count="0"/>
         <line num="589" type="stmt" count="0"/>
-        <line num="598" type="method" name="addUnicode" visibility="public" complexity="4" crap="20" count="0"/>
-        <line num="599" type="stmt" count="0"/>
-        <line num="600" type="stmt" count="0"/>
-        <line num="601" type="stmt" count="0"/>
-        <line num="602" type="stmt" count="0"/>
-        <line num="603" type="stmt" count="0"/>
-        <line num="604" type="stmt" count="0"/>
+        <line num="590" type="stmt" count="0"/>
+        <line num="591" type="stmt" count="0"/>
+        <line num="592" type="stmt" count="0"/>
+        <line num="593" type="stmt" count="0"/>
+        <line num="594" type="stmt" count="0"/>
+        <line num="595" type="stmt" count="0"/>
+        <line num="604" type="method" name="addFlash" visibility="public" complexity="4" crap="20" count="0"/>
         <line num="605" type="stmt" count="0"/>
         <line num="606" type="stmt" count="0"/>
-        <line num="615" type="method" name="addSchtime" visibility="public" complexity="4" crap="20" count="0"/>
-        <line num="616" type="stmt" count="0"/>
-        <line num="617" type="stmt" count="0"/>
-        <line num="618" type="stmt" count="0"/>
-        <line num="619" type="stmt" count="0"/>
-        <line num="620" type="stmt" count="0"/>
-        <line num="621" type="stmt" count="0"/>
+        <line num="607" type="stmt" count="0"/>
+        <line num="608" type="stmt" count="0"/>
+        <line num="609" type="stmt" count="0"/>
+        <line num="610" type="stmt" count="0"/>
+        <line num="611" type="stmt" count="0"/>
+        <line num="612" type="stmt" count="0"/>
+        <line num="621" type="method" name="addUnicode" visibility="public" complexity="4" crap="20" count="0"/>
         <line num="622" type="stmt" count="0"/>
         <line num="623" type="stmt" count="0"/>
         <line num="624" type="stmt" count="0"/>
         <line num="625" type="stmt" count="0"/>
         <line num="626" type="stmt" count="0"/>
-        <line num="635" type="method" name="addAfterMinutes" visibility="public" complexity="5" crap="30" count="0"/>
-        <line num="636" type="stmt" count="0"/>
-        <line num="637" type="stmt" count="0"/>
-        <line num="638" type="stmt" count="0"/>
+        <line num="627" type="stmt" count="0"/>
+        <line num="628" type="stmt" count="0"/>
+        <line num="629" type="stmt" count="0"/>
+        <line num="638" type="method" name="addSchtime" visibility="public" complexity="4" crap="20" count="0"/>
         <line num="639" type="stmt" count="0"/>
         <line num="640" type="stmt" count="0"/>
         <line num="641" type="stmt" count="0"/>
@@ -903,8 +896,7 @@
         <line num="647" type="stmt" count="0"/>
         <line num="648" type="stmt" count="0"/>
         <line num="649" type="stmt" count="0"/>
-        <line num="650" type="stmt" count="0"/>
-        <line num="658" type="method" name="addResponse" visibility="public" complexity="5" crap="30" count="0"/>
+        <line num="658" type="method" name="addAfterMinutes" visibility="public" complexity="5" crap="30" count="0"/>
         <line num="659" type="stmt" count="0"/>
         <line num="660" type="stmt" count="0"/>
         <line num="661" type="stmt" count="0"/>
@@ -918,9 +910,9 @@
         <line num="669" type="stmt" count="0"/>
         <line num="670" type="stmt" count="0"/>
         <line num="671" type="stmt" count="0"/>
-        <line num="679" type="method" name="addCampaign" visibility="public" complexity="4" crap="20" count="0"/>
-        <line num="680" type="stmt" count="0"/>
-        <line num="681" type="stmt" count="0"/>
+        <line num="672" type="stmt" count="0"/>
+        <line num="673" type="stmt" count="0"/>
+        <line num="681" type="method" name="addResponse" visibility="public" complexity="5" crap="30" count="0"/>
         <line num="682" type="stmt" count="0"/>
         <line num="683" type="stmt" count="0"/>
         <line num="684" type="stmt" count="0"/>
@@ -929,11 +921,14 @@
         <line num="687" type="stmt" count="0"/>
         <line num="688" type="stmt" count="0"/>
         <line num="689" type="stmt" count="0"/>
-        <line num="699" type="method" name="sendSms" visibility="public" complexity="6" crap="42" count="0"/>
-        <line num="700" type="stmt" count="0"/>
-        <line num="701" type="stmt" count="0"/>
-        <line num="702" type="stmt" count="0"/>
+        <line num="690" type="stmt" count="0"/>
+        <line num="691" type="stmt" count="0"/>
+        <line num="692" type="stmt" count="0"/>
+        <line num="693" type="stmt" count="0"/>
+        <line num="694" type="stmt" count="0"/>
+        <line num="702" type="method" name="addCampaign" visibility="public" complexity="4" crap="20" count="0"/>
         <line num="703" type="stmt" count="0"/>
+        <line num="704" type="stmt" count="0"/>
         <line num="705" type="stmt" count="0"/>
         <line num="706" type="stmt" count="0"/>
         <line num="707" type="stmt" count="0"/>
@@ -942,21 +937,11 @@
         <line num="710" type="stmt" count="0"/>
         <line num="711" type="stmt" count="0"/>
         <line num="712" type="stmt" count="0"/>
-        <line num="713" type="stmt" count="0"/>
-        <line num="714" type="stmt" count="0"/>
-        <line num="715" type="stmt" count="0"/>
-        <line num="716" type="stmt" count="0"/>
-        <line num="717" type="stmt" count="0"/>
-        <line num="718" type="stmt" count="0"/>
-        <line num="719" type="stmt" count="0"/>
-        <line num="720" type="stmt" count="0"/>
-        <line num="721" type="stmt" count="0"/>
-        <line num="722" type="stmt" count="0"/>
+        <line num="722" type="method" name="sendSms" visibility="public" complexity="6" crap="42" count="0"/>
         <line num="723" type="stmt" count="0"/>
         <line num="724" type="stmt" count="0"/>
         <line num="725" type="stmt" count="0"/>
         <line num="726" type="stmt" count="0"/>
-        <line num="727" type="stmt" count="0"/>
         <line num="728" type="stmt" count="0"/>
         <line num="729" type="stmt" count="0"/>
         <line num="730" type="stmt" count="0"/>
@@ -964,71 +949,73 @@
         <line num="732" type="stmt" count="0"/>
         <line num="733" type="stmt" count="0"/>
         <line num="734" type="stmt" count="0"/>
-        <line num="742" type="method" name="sendXmlSms" visibility="public" complexity="39" crap="1560" count="0"/>
+        <line num="735" type="stmt" count="0"/>
+        <line num="736" type="stmt" count="0"/>
+        <line num="737" type="stmt" count="0"/>
+        <line num="738" type="stmt" count="0"/>
+        <line num="739" type="stmt" count="0"/>
+        <line num="740" type="stmt" count="0"/>
+        <line num="741" type="stmt" count="0"/>
+        <line num="742" type="stmt" count="0"/>
         <line num="743" type="stmt" count="0"/>
         <line num="744" type="stmt" count="0"/>
         <line num="745" type="stmt" count="0"/>
+        <line num="746" type="stmt" count="0"/>
         <line num="747" type="stmt" count="0"/>
+        <line num="748" type="stmt" count="0"/>
         <line num="749" type="stmt" count="0"/>
+        <line num="750" type="stmt" count="0"/>
+        <line num="751" type="stmt" count="0"/>
+        <line num="752" type="stmt" count="0"/>
+        <line num="753" type="stmt" count="0"/>
         <line num="754" type="stmt" count="0"/>
         <line num="755" type="stmt" count="0"/>
+        <line num="756" type="stmt" count="0"/>
         <line num="757" type="stmt" count="0"/>
-        <line num="758" type="stmt" count="0"/>
-        <line num="759" type="stmt" count="0"/>
-        <line num="760" type="stmt" count="0"/>
-        <line num="761" type="stmt" count="0"/>
+        <line num="765" type="method" name="sendXmlSms" visibility="public" complexity="35" crap="1260" count="0"/>
         <line num="766" type="stmt" count="0"/>
         <line num="767" type="stmt" count="0"/>
         <line num="768" type="stmt" count="0"/>
         <line num="770" type="stmt" count="0"/>
-        <line num="771" type="stmt" count="0"/>
         <line num="772" type="stmt" count="0"/>
-        <line num="773" type="stmt" count="0"/>
-        <line num="774" type="stmt" count="0"/>
-        <line num="775" type="stmt" count="0"/>
-        <line num="776" type="stmt" count="0"/>
         <line num="777" type="stmt" count="0"/>
         <line num="778" type="stmt" count="0"/>
+        <line num="780" type="stmt" count="0"/>
+        <line num="781" type="stmt" count="0"/>
+        <line num="782" type="stmt" count="0"/>
         <line num="783" type="stmt" count="0"/>
         <line num="784" type="stmt" count="0"/>
-        <line num="786" type="stmt" count="0"/>
-        <line num="787" type="stmt" count="0"/>
-        <line num="788" type="stmt" count="0"/>
         <line num="789" type="stmt" count="0"/>
-        <line num="790" type="stmt" count="0"/>
-        <line num="791" type="stmt" count="0"/>
-        <line num="796" type="stmt" count="0"/>
+        <line num="794" type="stmt" count="0"/>
+        <line num="795" type="stmt" count="0"/>
         <line num="797" type="stmt" count="0"/>
+        <line num="798" type="stmt" count="0"/>
         <line num="799" type="stmt" count="0"/>
         <line num="800" type="stmt" count="0"/>
         <line num="801" type="stmt" count="0"/>
         <line num="802" type="stmt" count="0"/>
-        <line num="803" type="stmt" count="0"/>
+        <line num="807" type="stmt" count="0"/>
         <line num="808" type="stmt" count="0"/>
-        <line num="809" type="stmt" count="0"/>
+        <line num="810" type="stmt" count="0"/>
         <line num="811" type="stmt" count="0"/>
         <line num="812" type="stmt" count="0"/>
         <line num="813" type="stmt" count="0"/>
         <line num="814" type="stmt" count="0"/>
-        <line num="815" type="stmt" count="0"/>
+        <line num="819" type="stmt" count="0"/>
         <line num="820" type="stmt" count="0"/>
-        <line num="821" type="stmt" count="0"/>
         <line num="822" type="stmt" count="0"/>
+        <line num="823" type="stmt" count="0"/>
         <line num="824" type="stmt" count="0"/>
         <line num="825" type="stmt" count="0"/>
-        <line num="830" type="stmt" count="0"/>
+        <line num="826" type="stmt" count="0"/>
         <line num="831" type="stmt" count="0"/>
         <line num="832" type="stmt" count="0"/>
-        <line num="834" type="stmt" count="0"/>
+        <line num="833" type="stmt" count="0"/>
         <line num="835" type="stmt" count="0"/>
         <line num="836" type="stmt" count="0"/>
-        <line num="837" type="stmt" count="0"/>
-        <line num="838" type="stmt" count="0"/>
-        <line num="839" type="stmt" count="0"/>
-        <line num="840" type="stmt" count="0"/>
         <line num="841" type="stmt" count="0"/>
+        <line num="842" type="stmt" count="0"/>
         <line num="843" type="stmt" count="0"/>
-        <line num="844" type="stmt" count="0"/>
         <line num="845" type="stmt" count="0"/>
         <line num="846" type="stmt" count="0"/>
         <line num="847" type="stmt" count="0"/>
@@ -1037,7 +1024,6 @@
         <line num="850" type="stmt" count="0"/>
         <line num="851" type="stmt" count="0"/>
         <line num="852" type="stmt" count="0"/>
-        <line num="853" type="stmt" count="0"/>
         <line num="854" type="stmt" count="0"/>
         <line num="855" type="stmt" count="0"/>
         <line num="856" type="stmt" count="0"/>
@@ -1052,6 +1038,7 @@
         <line num="865" type="stmt" count="0"/>
         <line num="866" type="stmt" count="0"/>
         <line num="867" type="stmt" count="0"/>
+        <line num="868" type="stmt" count="0"/>
         <line num="869" type="stmt" count="0"/>
         <line num="870" type="stmt" count="0"/>
         <line num="871" type="stmt" count="0"/>
@@ -1062,7 +1049,6 @@
         <line num="876" type="stmt" count="0"/>
         <line num="877" type="stmt" count="0"/>
         <line num="878" type="stmt" count="0"/>
-        <line num="879" type="stmt" count="0"/>
         <line num="880" type="stmt" count="0"/>
         <line num="881" type="stmt" count="0"/>
         <line num="882" type="stmt" count="0"/>
@@ -1078,6 +1064,7 @@
         <line num="892" type="stmt" count="0"/>
         <line num="893" type="stmt" count="0"/>
         <line num="894" type="stmt" count="0"/>
+        <line num="895" type="stmt" count="0"/>
         <line num="896" type="stmt" count="0"/>
         <line num="897" type="stmt" count="0"/>
         <line num="898" type="stmt" count="0"/>
@@ -1085,7 +1072,16 @@
         <line num="900" type="stmt" count="0"/>
         <line num="901" type="stmt" count="0"/>
         <line num="902" type="stmt" count="0"/>
-        <metrics loc="903" ncloc="527" classes="1" methods="59" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="453" coveredstatements="0" elements="512" coveredelements="0"/>
+        <line num="903" type="stmt" count="0"/>
+        <line num="904" type="stmt" count="0"/>
+        <line num="906" type="stmt" count="0"/>
+        <line num="907" type="stmt" count="0"/>
+        <line num="908" type="stmt" count="0"/>
+        <line num="909" type="stmt" count="0"/>
+        <line num="910" type="stmt" count="0"/>
+        <line num="911" type="stmt" count="0"/>
+        <line num="912" type="stmt" count="0"/>
+        <metrics loc="913" ncloc="524" classes="1" methods="61" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="447" coveredstatements="0" elements="508" coveredelements="0"/>
       </file>
       <file name="/home/tesark/open/deliver/src/Sender/TransactionalSms.php">
         <class name="TransactionalSms" namespace="Sender">
@@ -1198,6 +1194,6 @@
         <metrics loc="55" ncloc="31" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="20" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="11" loc="2202" ncloc="1279" classes="11" methods="134" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="989" coveredstatements="40" elements="1123" coveredelements="47"/>
+    <metrics files="11" loc="2212" ncloc="1276" classes="11" methods="136" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="983" coveredstatements="40" elements="1119" coveredelements="47"/>
   </project>
 </coverage>
