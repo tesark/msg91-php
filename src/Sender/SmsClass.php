@@ -477,16 +477,15 @@ class SmsClass
      * @return array $root
      *
      */
-    protected function addSender($buildSmsData, $category, $xmlDoc = null, $root = null)
+    protected function addSender($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyExists('sender', $this->inputData) && $this->setSender()) {
             if ($this->isString($this->getSender())) {
                 if (strlen($this->getSender()) == 6) {
                     if ($category === 1) {
                         $buildSmsData += ['sender' => $this->getSender()];
-                        $root = $buildSmsData;
                     } else {
-                        $root->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
+                        $buildSmsData->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
                     }
                 } else {
                     $message = "String length must be 6 characters";
@@ -496,7 +495,7 @@ class SmsClass
                 throw ParameterException::invalidArrtibuteType("message", "string", $this->getSender());
             }
         }
-        return $root;
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with country
@@ -505,22 +504,21 @@ class SmsClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
      */
-    public function addCountry($buildSmsData, $category, $xmlDoc = null, $root = null)
+    public function addCountry($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyExists('country', $this->inputData) && $this->setCountry()) {
             if ($this->isNumeric($this->getCountry())) {
                 if ($category === 1) {
                     $buildSmsData += ['country' => $this->getCountry()];
-                    $root = $buildSmsData;
                 } else {
                     //create a country element
-                    $root->appendChild($xmlDoc->createElement("COUNTRY", $this->getCountry()));
+                    $buildSmsData->appendChild($xmlDoc->createElement("COUNTRY", $this->getCountry()));
                 }
             } else {
                 throw ParameterException::invalidArrtibuteType("country", "numeric", $this->getCountry());
             }
         }
-        return $root;
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with flash
@@ -530,23 +528,19 @@ class SmsClass
      * @return array $root
      *
      */
-    public function addFlash($buildSmsData, $category, $xmlDoc = null, $root = null)
+    public function addFlash($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyExists('flash', $this->inputData) && $this->setFlash()) {
             $responseFormat = array(0, 1);
             $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
             if ($category === 1) {
                 $buildSmsData += ['flash' => $value];
-                $root = $buildSmsData;
             } else {
                 //create a flash element
-                $root->appendChild($xmlDoc->createElement("FLASH", $value));
+                $buildSmsData->appendChild($xmlDoc->createElement("FLASH", $value));
             }
-        } else {
-            $message = "Flash value only o or 1 default null";
-            throw ParameterException::invalidInput("flash", "int", $this->getFlash(), $message);
         }
-        return $root;
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with flash
@@ -556,23 +550,19 @@ class SmsClass
      * @return array $buildSmsData
      *
      */
-    public function addUnicode($buildSmsData, $category, $xmlDoc = null, $root = null)
+    public function addUnicode($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyExists('unicode', $this->inputData) && $this->setUnicode()) {
             $responseFormat = array(0, 1);
             $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
             if ($category === 1) {
                 $buildSmsData += ['unicode' => $value];
-                $root = $buildSmsData;
             } else {
                 //create a unicode element
-                $root->appendChild($xmlDoc->createElement("UNICODE", $value));
+                $buildSmsData->appendChild($xmlDoc->createElement("UNICODE", $value));
             }
-        } else {
-            $message = "Unicode value only o or 1 default null";
-            throw ParameterException::invalidInput("unicode", "int", $this->getUnicode(), $message);
         }
-        return $root;
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with schtime
@@ -583,23 +573,22 @@ class SmsClass
      * @return array $root
      *
      */
-    public function addSchtime($buildSmsData, $category, $xmlDoc = null, $root = null)
+    public function addSchtime($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyExists('schtime', $this->inputData) && $this->setSchtime()) {
             if ($this->isVaildDateTime($this->getSchtime())) {
                 if ($category === 1) {
                     $buildSmsData += ['schtime' => $this->getSchtime()];
-                    $root = $buildSmsData;
                 } else {
                     //create a schtime element
-                    $root->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $this->getSchtime()));
+                    $buildSmsData->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $this->getSchtime()));
                 }
             } else {
                 $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
                 throw ParameterException::invalidInput("schtime", "string", $this->getSchtime(), $message);
             }
         }
-        return $root;
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with
@@ -653,22 +642,21 @@ class SmsClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
      */
-    public function addCampaign($buildSmsData, $category, $xmlDoc = null, $root = null)
+    public function addCampaign($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyExists('campaign', $this->inputData) && $this->setCampaign()) {
             if ($this->isString($this->getCampaign())) {
                 if ($category === 1) {
                     $buildSmsData += ['campaign' => $this->getCampaign()];
-                    $root = $buildSmsData;
                 } else {
                     //create a campaign element
-                    $root->appendChild($xmlDoc->createElement("CAMPAIGN", $this->getCampaign()));
+                    $buildSmsData->appendChild($xmlDoc->createElement("CAMPAIGN", $this->getCampaign()));
                 }
             } else {
                 throw ParameterException::invalidArrtibuteType("campaign", "string", $this->getCampaign());
             }
         }
-        return $root;
+        return $buildSmsData;
     }
     /**
      * This function Used to send the SMS data to Deliver Class
@@ -746,32 +734,32 @@ class SmsClass
              *Check Sender
              *
              */
-            $root = $this->addSender(null, 2, $xmlDoc, $root);
+            $root = $this->addSender($root, 2, $xmlDoc);
             /**
              *Check schtime
              *
              */
-            $root = $this->addSchtime(null, 2, $xmlDoc, $root);
+            $root = $this->addSchtime($root, 2, $xmlDoc);
             /**
              *Check campaign
              *
              */
-            $root = $this->addCampaign(null, 2, $xmlDoc, $root);
+            $root = $this->addCampaign($root, 2, $xmlDoc);
             /**
              *Check country
              *
              */
-            $root = $this->addCountry(null, 2, $xmlDoc, $root);
+            $root = $this->addCountry($root, 2, $xmlDoc);
             /**
              * Check flash
              *
              */
-            $root = $this->addFlash(null, 2, $xmlDoc, $root);
+            $root = $this->addFlash($root, 2, $xmlDoc);
             /**
              * Check unicode
              *
              */
-            $root = $this->addUnicode(null, 2, $xmlDoc, $root);
+            $root = $this->addUnicode($root, 2, $xmlDoc);
             if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
                 $bulkSms      = $this->getContent();
                 $lenOfBulkSms = sizeof($bulkSms);

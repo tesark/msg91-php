@@ -414,7 +414,7 @@ class OtpClass
      */
     public function checkMobile()
     {
-        if ($this->isKeyExists('mobile', $this->inputData) && $this->setmobile()) {
+        if ($this->isKeyExists('mobile', $this->sendData) && $this->setmobile()) {
             if ($this->isInterger($this->getmobile())) {
                 return true;
             } else {
