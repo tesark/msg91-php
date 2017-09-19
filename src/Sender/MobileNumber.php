@@ -49,7 +49,7 @@ class MobileNumber
      *
      * @return array
      */
-    protected static function addData($status, $data)
+    public static function addData($status, $data)
     {
         $arrayData = [];
         $arrayData += ["value" => $status];

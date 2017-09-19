@@ -20,9 +20,11 @@ class PromotionalSms
      * @var string $promoAuthKey
      */
     protected $promoAuthKey;
+    protected $sms;
     public function __construct($authkey = null)
     {
         $this->promoAuthKey = $authkey;
+        $this->sms  = new SmsClass();
     }
     /**
      * Send promotional SMS MSG91 Service
@@ -34,7 +36,8 @@ class PromotionalSms
     public static function sendPromotional($mobileNumber, $data)
     {
         $sms = new SmsClass();
-        $response = $sms->smsCategory($mobileNumber, $data, 0, $this->promoAuthKey);
+        $promoAuthKey = $this->promoAuthKey;
+        $response = $sms->smsCategory($mobileNumber, $data, 0, $promoAuthKey);
         return $response;
     }
 
@@ -53,13 +56,11 @@ class PromotionalSms
             $arrayLength = sizeof($data);
             if (isset($arrayLength) && $arrayLength == 1) {
                 $currentArray = $data[0];
-                $sms          = new SmsClass();
-                $response     = $sms->sendXmlSms($currentArray);
+                $response     = $this->sms->sendXmlSms($currentArray);
             } else {
                 for ($i = 0; $i < $arrayLength; $i++) {
                     $currentArray = $data[$i];
-                    $sms          = new SmsClass();
-                    $response     = $sms->sendXmlSms($currentArray);
+                    $response     = $this->sms->sendXmlSms($currentArray);
                 }
             }
             return $response;

@@ -33,7 +33,8 @@ class TransactionalSms
     public function sendTransactional($mobileNumber, $data)
     {
         $sms = new SmsClass();
-        $response = $sms->smsCategory($mobileNumber, $data, 1, $this->transAuthKey);
+        $transAuthKey = $this->transAuthKey;
+        $response = $sms->smsCategory($mobileNumber, $data, 1, $transAuthKey);
         return $response;
     }
 }

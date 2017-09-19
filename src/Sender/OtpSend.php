@@ -41,10 +41,12 @@ class OtpSend
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
-            $config          = new ConfigClass();
-            $container       = $config->getDefaults();
+            $config      = new ConfigClass();
+            $container   = $config->getDefaults();
+            $common      = $container['common'];
+            $otpAuthKey  = $common['otpAuthKey'];
         }
-        $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
+        $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $data['mobile']  = $mobileNumber;
         $response        = $this->otp->sendOtp($dataArray, $data);
         return $response;

@@ -483,7 +483,7 @@ class OtpClass
             $common     = $container['common'];
             $otpAuthKey = $common['otpAuthKey'];
         }
-        $data['authkey']    = $checkAuth ? $otpAuth : $otpAuthKey;
+        $data['authkey']    = $checkAuth ? $otpAuthKey : $otpAuthKey;
         $data['mobile']     = $mobileNumber;
         if ($apiCategory === 1) {
             $data['otp']  = $value;

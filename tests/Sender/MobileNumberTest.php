@@ -86,4 +86,23 @@ class MobileNumberTest extends TestCase
         $result = $this->mobile->isVaildCountryCode(919514028541, "US");
         $this->assertFalse($result);
     }
+    //validate add data
+    public function testAddData()
+    {
+        $expectArray = [
+            "value"=> true,
+            "mobile"=> "9514028541,9791466728,8148597834,9514028532"
+        ];
+        $result = $this->mobile->addData(true,"9514028541,9791466728,8148597834,9514028532");
+        $this->assertEquals($expectArray, $result);
+    }
+    public function testAddDataTrue()
+    {
+        $expectArray = [
+            "value"=> false,
+            "mobile"=> "9514028541,9791466728,8148597834,9514028532"
+        ];
+        $result = $this->mobile->addData(false,"9514028541,9791466728,8148597834,9514028532");
+        $this->assertEquals($expectArray, $result);
+    }
 }

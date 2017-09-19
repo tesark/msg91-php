@@ -669,7 +669,8 @@ class SmsClass
             $config          = new ConfigClass();
             $container       = $config->getDefaults();
             $commonValue     = $container['common'];
-            $transAuthKey    = $commonValue['transAuthKey'];  
+            $transAuthKey    = $commonValue['transAuthKey'];
+            $promoAuthKey    = $commonValue['promoAuthKey']; 
         }
         if ($category === 1) {
             //transactional SMS content
@@ -679,7 +680,7 @@ class SmsClass
             );
         } else {
             $sendData = array(
-               'authkey'     => $checkAuth ? $authKey : $transAuthKey,
+               'authkey'     => $checkAuth ? $authKey : $promoAuthKey,
                'route'       => 1,
             );
         }
