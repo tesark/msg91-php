@@ -51,10 +51,10 @@ class MobileNumber
      */
     protected static function addData($status, $data)
     {
-       $arrayData = [];
-       $arrayData += ["value" => $status];
-       $arrayData += ["mobile" => $data];
-       return $arrayData;
+        $arrayData = [];
+        $arrayData += ["value" => $status];
+        $arrayData += ["mobile" => $data];
+        return $arrayData;
     }
     /**
      * This function Add country code with mobilenumber

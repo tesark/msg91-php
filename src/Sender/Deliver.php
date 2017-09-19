@@ -45,7 +45,7 @@ class Deliver
         } catch (ClientException $e) {
             $request  = Psr7\str($e->getRequest());
             $response = Psr7\str($e->getResponse());
-            $this->logger->error("Exception:", $request, $response);
+            $this->logger->error(["Exception:"], $request, $response);
         }
     }
     /**
@@ -79,7 +79,7 @@ class Deliver
         } catch (ClientException $e) {
             $request  = Psr7\str($e->getRequest());
             $response = Psr7\str($e->getResponse());
-            $this->logger->error("Exception:", $request, $response);
+            $this->logger->error(["Exception:"], $request, $response);
         }
     }
 }
