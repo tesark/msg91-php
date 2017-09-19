@@ -93,7 +93,7 @@ class MobileNumberTest extends TestCase
             "value"=> true,
             "mobile"=> "9514028541,9791466728,8148597834,9514028532"
         ];
-        $result = $this->mobile->addData(true,"9514028541,9791466728,8148597834,9514028532");
+        $result = $this->mobile->addData(true, "9514028541,9791466728,8148597834,9514028532");
         $this->assertEquals($expectArray, $result);
     }
     public function testAddDataTrue()
@@ -102,7 +102,7 @@ class MobileNumberTest extends TestCase
             "value"=> false,
             "mobile"=> "9514028541,9791466728,8148597834,9514028532"
         ];
-        $result = $this->mobile->addData(false,"9514028541,9791466728,8148597834,9514028532");
+        $result = $this->mobile->addData(false, "9514028541,9791466728,8148597834,9514028532");
         $this->assertEquals($expectArray, $result);
     }
 }

@@ -249,6 +249,124 @@ class OtpClass
         return $result;
     }
     /**
+     * This function check variable Key in input array
+     * @param string $key
+     *
+     * @return bool
+     */
+    protected function isKeyThere($key)
+    {
+        return ($this->isKeyExists($key, $this->inputData) || $this->isKeyExists($key, $this->sendData));
+    }
+    /**
+     * This function add data to array
+     * @param string $key
+     * @param int|string $value
+     * @param array $data
+     *
+     * @return data
+     */
+    protected function addArray($key, $value, $data)
+    {
+        return $data[$key] = $value ? $value : null;
+    }
+    /**
+     * This function used for build OTP atrributes
+     * @param string $key
+     * @param array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array condition correct value add to the $data array
+     */
+    protected function buildOtpDataArrtibutes($key, $data)
+    {
+        if ($this->isKeyThere($key)) {
+            switch ($key) {
+                case 'message':
+                    if ($this->setMessage()) {
+                        $value = $this->getMessage();
+                        if ($this->isString($value)) {
+                            $data = $this->addArray($key, $value, $data);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
+                        }
+                    }
+                    break;
+                case 'sender':
+                    if ($this->setSender()) {
+                        $value = $this->getSender();
+                        if ($this->isString($value)) {
+                            if (strlen($value) == 6) {
+                                $data = $this->addArray($key, $value, $data);
+                            } else {
+                                $message = "String length must be 6 characters";
+                                throw ParameterException::invalidInput($key, "string", $value, $message);
+                            }
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
+                        }
+                    }
+                    break;
+                case 'otp':
+                    if ($this->setOtp()) {
+                        $value = $this->getOtp();
+                        if ($this->isInterger($value)) {
+                            $data = $this->addArray($key, $value, $data);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
+                        }
+                    }
+                    break;
+                case 'otp_expiry':
+                    if ($this->setOtpExpiry()) {
+                        $value = $this->getOtpExpiry();
+                        if ($this->isInterger($value)) {
+                            $data = $this->addArray($key, $value, $data);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
+                        }
+                    }
+                    break;
+                case 'otp_length':
+                    if ($this->setOtpLength()) {
+                        $value = $this->getOtpExpiry();
+                        if ($this->isInterger($value)) {
+                            $data = $this->addArray($key, $value, $data);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
+                        }
+                    }
+                    break;
+                case 'retrytype':
+                    if ($this->setRetryType()) {
+                        $value = $this->getRetryType();
+                        if ($this->isString($value)) {
+                            $data = $this->addArray($key, $value, $data);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
+                        }
+                    }
+                    break;
+                case 'oneTime':
+                    if ($this->setOneTimePass()) {
+                        $key = 'otp';
+                        $value = $this->getOneTimePass();
+                        if ($this->isInterger($value)) {
+                            $data = $this->addArray($key, $value, $data);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
+                        }
+                    }
+                    break;
+                default:
+                    $message = "parameter".$key."Missing";
+                    throw ParameterException::missinglogic($message);
+                    break;
+            }
+        }
+        return $data;
+    }
+    /**
      * Add otp on the array
      * @param   array $data
      *
@@ -257,13 +375,7 @@ class OtpClass
      */
     protected function addMessage($data)
     {
-        if ($this->isKeyExists('message', $this->inputData) && $this->setMessage()) {
-            if ($this->isString($this->getMessage())) {
-                $data['message'] = $this->getMessage() ? $this->getMessage() : null;
-            } else {
-                throw ParameterException::invalidArrtibuteType("message", "string", $this->getMessage());
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('message', $data);
         return $data;
     }
     /**
@@ -275,18 +387,7 @@ class OtpClass
      */
     protected function addSender($data)
     {
-        if ($this->isKeyExists('sender', $this->inputData) && $this->setSender()) {
-            if ($this->isString($this->getSender())) {
-                if (strlen($this->getSender()) == 6) {
-                    $data['sender'] = $this->getSender() ? $this->getSender() : null;
-                } else {
-                    $message = "String length must be 6 characters";
-                    throw ParameterException::invalidInput("sender", "string", $this->getSender(), $message);
-                }
-            } else {
-                throw ParameterException::invalidArrtibuteType("sender", "string", $this->getSender());
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('sender', $data);
         return $data;
     }
     /**
@@ -298,13 +399,7 @@ class OtpClass
      */
     protected function addOtp($data)
     {
-        if ($this->isKeyExists('otp', $this->inputData) && $this->setOtp()) {
-            if ($this->isInterger($this->getOtp())) {
-                $data['otp'] = $this->getOtp() ? $this->getOtp() : null;
-            } else {
-                throw ParameterException::invalidArrtibuteType("otp", "int", $this->getOtp());
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('otp', $data);
         return $data;
     }
     /**
@@ -316,13 +411,7 @@ class OtpClass
      */
     protected function addOtpExpiry($data)
     {
-        if ($this->isKeyExists('otp_expiry', $this->inputData) && $this->setOtpExpiry()) {
-            if ($this->isInterger($this->getOtpExpiry())) {
-                $data['otp_expiry'] = $this->getOtpExpiry() ? $this->getOtpExpiry() : null;
-            } else {
-                throw ParameterException::invalidArrtibuteType("otp_expiry", "int", $this->getOtpExpiry());
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('otp_expiry', $data);
         return $data;
     }
     /**
@@ -334,16 +423,7 @@ class OtpClass
      */
     protected function addOtpLength($data)
     {
-        if ($this->isKeyExists('otp_length', $this->inputData) && $this->setOtpLength()) {
-            if ($this->isInterger($this->getOtpLength())) {
-                $value  = array('options' => array('min_range' => 4, 'max_range' => 9));
-                $result = filter_var($this->getOtpLength(), FILTER_VALIDATE_INT, $value);
-                $data["otp_length"] = $result ? $result : null;
-            } else {
-                $message = "otp_length between 4 to 6 integer";
-                throw ParameterException::invalidInput("otp_length", "int", $this->getOtpLength(), $message);
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('otp_length', $data);
         return $data;
     }
     /**
@@ -355,13 +435,11 @@ class OtpClass
      */
     protected function isParameterPresent($parameter)
     {
-        if ($this->isKeyExists($parameter, $this->sendData))
-        {
+        if ($this->isKeyExists($parameter, $this->sendData)) {
             if ($parameter === 'authkey') {
                 $this->setAuthkey();
                 $value = $this->getAuthkey();
-                if ($this->isString($value))
-                {
+                if ($this->isString($value)) {
                     return true;
                 } else {
                     throw ParameterException::invalidArrtibuteType($parameter, "string", $value);
@@ -369,8 +447,7 @@ class OtpClass
             } else {
                 $this->setmobile();
                 $value = $this->getmobile();
-                if ($this->isInterger($value))
-                {
+                if ($this->isInterger($value)) {
                     return true;
                 } else {
                     throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
@@ -452,13 +529,7 @@ class OtpClass
      */
     protected function addRetryType($data)
     {
-        if ($this->isKeyExists('retrytype', $this->sendData) && $this->setRetryType()) {
-            if ($this->isString($this->getRetryType())) {
-                $data['retrytype'] = $this->getRetryType() ? $this->getRetryType() : null;
-            } else {
-                throw ParameterException::invalidArrtibuteType("retrytype", "string", $this->getRetryType());
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('retrytype', $data);
         return $data;
     }
     /**
@@ -470,13 +541,7 @@ class OtpClass
      */
     protected function addOneTimePass($data)
     {
-        if ($this->isKeyExists('otp', $this->sendData) && $this->setOneTimePass()) {
-            if ($this->isInterger($this->getOneTimePass())) {
-                $data['otp'] = $this->getOneTimePass() ? $this->getOneTimePass() : null;
-            } else {
-                throw ParameterException::invalidArrtibuteType("otp", "int", $this->getOneTimePass());
-            }
-        }
+        $data = $this->buildOtpDataArrtibutes('oneTime', $data);
         return $data;
     }
     /**

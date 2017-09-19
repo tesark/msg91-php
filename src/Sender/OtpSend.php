@@ -21,7 +21,7 @@ class OtpSend
      * @var null|string $otpAuth
      */
     private $otpAuth;
-    public  $otp;
+    public $otp;
     public function __construct($authkey = null)
     {
         $this->otpAuth = $authkey;
@@ -61,7 +61,8 @@ class OtpSend
      * @return string MSG91 response
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
-    {   $verifyAuth = $this->otpAuth;
+    {
+        $verifyAuth = $this->otpAuth;
         $otp        = new OtpClass();
         $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
         return $verifyOtpResponse;
