@@ -57,20 +57,10 @@ class OtpSend
      * @return string MSG91 response
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
-    {
-        $data      = [];
-        $checkAuth = Validation::checkAuthKey($this->otpAuth);
-        if (!$checkAuth) {
-            // Get Envirionment variable and config file values
-            $config          = new ConfigClass();
-            $container       = $config->getDefaults();
-        }
-        $data         += ['authkey' => $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey']];
-        $data         += ['mobile'  => $mobileNumber];
-        $data         += ['otp'     => $oneTimePass];
-        $otp           = new OtpClass();
-        $response      = $otp->resendVerifyOtp($data, 1);
-        return $response;
+    {   $otpAuthKey = $this->otpAuth;
+        $verifyOtp  = new OtpClass();
+        $verifyOtpResponse = $verifyOtp->otpApiCategory($mobileNumber, $oneTimePass, $otpAuthKey, 1);
+        return $verifyOtpResponse;
     }
     /**
      * Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
@@ -82,18 +72,9 @@ class OtpSend
      */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
-        $data      = [];
-        $checkAuth = Validation::checkAuthKey($this->otpAuth);
-        if (!$checkAuth) {
-            // Get Envirionment variable and config file values
-            $config          = new ConfigClass();
-            $container       = $config->getDefaults();
-        }
-        $data['authkey']    = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
-        $data['mobile']     = $mobileNumber;
-        $data['retrytype']  = $retrytype;
-        $otp                = new OtpClass();
-        $response           = $otp->resendVerifyOtp($data, 0);
-        return $response;
+        $otpAuthKey = $this->otpAuth;
+        $resendOtp  = new OtpClass();
+        $verifyOtpResponse = $verifyOtp->otpApiCategory($mobileNumber, $retrytype, $otpAuthKey, 0);
+        return $verifyOtpResponse;
     }
 }

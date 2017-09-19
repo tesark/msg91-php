@@ -31,18 +31,30 @@ class MobileNumber
                 $lenva = strlen($mobiles[$i]);
                 if ($lenva > 9 && $lenva < 15) {
                     if ($i == $len-1) {
-                        $data += ["value" => true];
-                        $data += ["mobile" => $mobiles];
+                        $data = self::addData(true, $mobiles);
                     }
                 } else {
-                    $data += ["value" => false];
-                    $data += ["mobile" => $mobiles[$i]];
+                    $data = self::addData(false, $mobiles[$i]);
                 }
             }
             return $data;
         } else {
             return false;
         }
+    }
+    /**
+     * This function used for build array of true/false content
+     * @param bool  $status
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function addData($status, $data)
+    {
+       $arrayData = [];
+       $arrayData += ["value" => $status];
+       $arrayData += ["mobile" => $data];
+       return $arrayData;
     }
     /**
      * This function Add country code with mobilenumber

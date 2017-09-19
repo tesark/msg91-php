@@ -43,9 +43,9 @@ class Deliver
             $response = $client->send($request);
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
-            echo Psr7\str($e->getRequest());
-            echo Psr7\str($e->getResponse());
-            $this->logger->error("Exception:", $e->getResponse(), $e->getRequest());
+            $request  = Psr7\str($e->getRequest());
+            $response = Psr7\str($e->getResponse());
+            $this->logger->error("Exception:", $request, $response);
         }
     }
     /**
@@ -77,9 +77,9 @@ class Deliver
             // $this->addLogFile("response", $ResponseData); //issue unable to log Response
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
-            echo Psr7\str($e->getRequest());
-            echo Psr7\str($e->getResponse());
-            $this->logger->error("Exception:", $e->getResponse(), $e->getRequest());
+            $request  = Psr7\str($e->getRequest());
+            $response = Psr7\str($e->getResponse());
+            $this->logger->error("Exception:", $request, $response);
         }
     }
 }

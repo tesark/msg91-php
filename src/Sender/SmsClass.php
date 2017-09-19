@@ -661,22 +661,25 @@ class SmsClass
      * @return string
      */
     public function smsCategory($mobileNumber, $data, $category, $authKey)
-    {
+    {   
+        $transAuthKey = null;
         $checkAuth = Validation::checkAuthKey($authKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
             $config          = new ConfigClass();
             $container       = $config->getDefaults();
+            $commonValue     = $container['common'];
+            $transAuthKey    = $commonValue['transAuthKey'];  
         }
         if ($category === 1) {
             //transactional SMS content
             $sendData = array(
-                'authkey'     => $checkAuth ? $authKey : $container['common']['transAuthKey'],
+                'authkey'     => $checkAuth ? $authKey : $transAuthKey,
                 'route'       => 4,
             );
         } else {
             $sendData = array(
-               'authkey'     => $checkAuth ? $authKey : $container['common']['promoAuthKey'],
+               'authkey'     => $checkAuth ? $authKey : $transAuthKey,
                'route'       => 1,
             );
         }
