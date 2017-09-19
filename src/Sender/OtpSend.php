@@ -37,7 +37,8 @@ class OtpSend
      */
     public function sendOtp($mobileNumber, $dataArray)
     {
-        $data      = [];
+        $data       = [];
+        $otpAuthKey = null;
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values

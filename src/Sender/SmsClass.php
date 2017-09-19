@@ -663,6 +663,7 @@ class SmsClass
     public function smsCategory($mobileNumber, $data, $category, $authKey)
     {   
         $transAuthKey = null;
+        $promoAuthKey = null;
         $checkAuth = Validation::checkAuthKey($authKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values

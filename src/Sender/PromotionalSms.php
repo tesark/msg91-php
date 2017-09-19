@@ -31,7 +31,7 @@ class PromotionalSms
      *
      * @return string
      */
-    public static function sendPromotional($mobileNumber, $data)
+    public function sendPromotional($mobileNumber, $data)
     {
         $sms = new SmsClass();
         $promoAuthKey = $this->promoAuthKey;

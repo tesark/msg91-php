@@ -25,7 +25,7 @@ class Config extends AbstractConfig// pending
     private $hasOtpAuth;
     public function __construct()
     {
-        $file = $this->generate('/../config');
+        $file = $_SERVER["DOCUMENT_ROOT"].'/../config';
         if (file_exists($file)) {
             $config = new Nood($file);
             if (isset($config['msg91'])) {
@@ -92,13 +92,5 @@ class Config extends AbstractConfig// pending
                 return $array[$key];
             }
         }
-    }
-    /**
-     * This function used for Generate config root path
-     * 
-     */
-    public function generate($path)
-    {
-        return dirname(__FILE__).$path;
     }
 }

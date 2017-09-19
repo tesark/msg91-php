@@ -1,6 +1,7 @@
 # MSG91 SMS & OTP Composer Package
 
-![image](https://travis-ci.org/venkatsamuthiram/deliver.svg?branch=master)
+[![image](https://travis-ci.org/venkatsamuthiram/deliver.svg?branch=master)](https://travis-ci.org/venkatsamuthiram/deliver)
+[![Build Status](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/build.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/build-status/master)
 
 ## Supported FrameWorks
 

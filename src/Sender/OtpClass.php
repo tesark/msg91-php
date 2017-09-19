@@ -474,7 +474,9 @@ class OtpClass
      * @return string
      */
     public function otpApiCategory($mobileNumber, $value, $otpAuthKey, $apiCategory)
-    {   $data = [];
+    {
+        $data = [];
+        $otpAuthKey = null;
         $checkAuth = Validation::checkAuthKey($otpAuthKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
