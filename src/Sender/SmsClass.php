@@ -498,6 +498,127 @@ class SmsClass
         return $buildSmsData;
     }
     /**
+     * This function used to buils Data Arrtibutes are like
+     * Country,Flash,Unicode,Schtime, campaign
+     * 
+     * @param string $key
+     * @param int|string|array $buildSmsData
+     * @param int $array
+     * @param array $xmlDoc
+     *
+     * @throws ParameterException missing parameters or type error
+     */
+    public function buildDataArrtibutes($key, $buildSmsData, $category, $xmlDoc = null)
+    {   
+        if ($this->isKeyPresent($key)) {
+            switch ($key) {
+                case 'country':
+                    if ($this->setCountry()) {
+                        $value = $this->getCountry();
+                        if ($this->isNumeric($value)) {
+                            $buildSmsData = buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "numeric", $value);
+                        }
+                    }
+                    break;
+                case 'flash':
+                    if ($this->setFlash()) {
+                        $responseFormat = array(0, 1);
+                        $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
+                        $buildSmsData = buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                    }
+                    break;
+                case 'unicode':
+                    if ($this->setUnicode()) {
+                        $responseFormat = array(0, 1);
+                        $value = in_array($this->getUnicode(), $responseFormat) ? $this->getUnicode() : null;
+                        $buildSmsData = buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                    }                  
+                    break; 
+                case 'schtime':
+                    if ($this->setSchtime()) {
+                        $value = $this->getSchtime();
+                        if ($this->isVaildDateTime($value)) {
+                            $buildSmsData = buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                        } else {
+                            $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
+                            throw ParameterException::invalidInput($key, "string", $value, $message);
+                        }
+                    }  
+                    break;
+                case 'campaign':
+                    if ($this->setCampaign()) {
+                        $value = $this->getCampaign();
+                        if ($this->isString($value)) {
+                            $buildSmsData = buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                        } else {
+                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
+                        }
+                    } 
+                    break;
+                default:
+                    $message = "parameter key Missing";
+                    throw ParameterException::missinglogic($message);
+                    break;
+            }
+            return $buildSmsData;
+        } else {
+            $message = "Parameter ".$parameter." missing";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function for buildData
+     *
+     *
+     */
+    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc == null)
+    {
+        if ($category === 1) {
+            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
+        } else {
+            $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function check variable Key in input array
+     * @param string $key
+     *
+     * @return bool
+     */
+    protected function isKeyPresent($key)
+    {
+       return $this->isKeyExists($key, $this->inputData)
+    }
+    /**
+     * This function add data to array
+     * @param string $key
+     * @param int|string $value
+     * @param array $array
+     *
+     * @return array
+     */
+    protected function addArray($key, $value, $array)
+    {
+       return $array += [$key => $value];
+    }
+    /**
+     * This function add data to xml string
+     *
+     */
+    protected function addXml($buildSmsData, $xmlDoc, $key, $value)
+    {
+        if ($key === 'schtime') {
+            $key = 'scheduledatetime';
+        }
+        $key = strtoupper(trim($key));
+        //create a country element
+        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
+        return $buildSmsData;
+    }
+    /**
      * This function for sms array build with country
      *
      * @throws ParameterException missing parameters or tpye error
@@ -505,18 +626,7 @@ class SmsClass
      */
     public function addCountry($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyExists('country', $this->inputData) && $this->setCountry()) {
-            if ($this->isNumeric($this->getCountry())) {
-                if ($category === 1) {
-                    $buildSmsData += ['country' => $this->getCountry()];
-                } else {
-                    //create a country element
-                    $buildSmsData->appendChild($xmlDoc->createElement("COUNTRY", $this->getCountry()));
-                }
-            } else {
-                throw ParameterException::invalidArrtibuteType("country", "numeric", $this->getCountry());
-            }
-        }
+        $buildSmsData = $this->buildDataArrtibutes('country', $buildSmsData, $category, $xmlDoc = null);
         return $buildSmsData;
     }
     /**
@@ -528,16 +638,7 @@ class SmsClass
      */
     public function addFlash($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyExists('flash', $this->inputData) && $this->setFlash()) {
-            $responseFormat = array(0, 1);
-            $value = in_array($this->getFlash(), $responseFormat) ? $this->getFlash() : null;
-            if ($category === 1) {
-                $buildSmsData += ['flash' => $value];
-            } else {
-                //create a flash element
-                $buildSmsData->appendChild($xmlDoc->createElement("FLASH", $value));
-            }
-        }
+        $buildSmsData = $this->buildDataArrtibutes('flash', $buildSmsData, $category, $xmlDoc = null);
         return $buildSmsData;
     }
     /**
@@ -549,16 +650,7 @@ class SmsClass
      */
     public function addUnicode($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyExists('unicode', $this->inputData) && $this->setUnicode()) {
-            $responseFormat = array(0, 1);
-            $value = in_array(strtolower($this->getUnicode()), $responseFormat) ? $this->getUnicode() : null;
-            if ($category === 1) {
-                $buildSmsData += ['unicode' => $value];
-            } else {
-                //create a unicode element
-                $buildSmsData->appendChild($xmlDoc->createElement("UNICODE", $value));
-            }
-        }
+        $buildSmsData = $this->buildDataArrtibutes('unicode', $buildSmsData, $category, $xmlDoc = null);
         return $buildSmsData;
     }
     /**
@@ -571,19 +663,7 @@ class SmsClass
      */
     public function addSchtime($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyExists('schtime', $this->inputData) && $this->setSchtime()) {
-            if ($this->isVaildDateTime($this->getSchtime())) {
-                if ($category === 1) {
-                    $buildSmsData += ['schtime' => $this->getSchtime()];
-                } else {
-                    //create a schtime element
-                    $buildSmsData->appendChild($xmlDoc->createElement("SCHEDULEDATETIME", $this->getSchtime()));
-                }
-            } else {
-                $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
-                throw ParameterException::invalidInput("schtime", "string", $this->getSchtime(), $message);
-            }
-        }
+        $buildSmsData = $this->buildDataArrtibutes('schtime', $buildSmsData, $category, $xmlDoc = null);
         return $buildSmsData;
     }
     /**
@@ -637,18 +717,7 @@ class SmsClass
      */
     public function addCampaign($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyExists('campaign', $this->inputData) && $this->setCampaign()) {
-            if ($this->isString($this->getCampaign())) {
-                if ($category === 1) {
-                    $buildSmsData += ['campaign' => $this->getCampaign()];
-                } else {
-                    //create a campaign element
-                    $buildSmsData->appendChild($xmlDoc->createElement("CAMPAIGN", $this->getCampaign()));
-                }
-            } else {
-                throw ParameterException::invalidArrtibuteType("campaign", "string", $this->getCampaign());
-            }
-        }
+        $buildSmsData = $this->buildDataArrtibutes('campaign', $buildSmsData, $category, $xmlDoc = null);
         return $buildSmsData;
     }
     /**
