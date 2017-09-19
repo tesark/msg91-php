@@ -21,9 +21,11 @@ class OtpSend
      * @var null|string $otpAuth
      */
     private $otpAuth;
+    public  $otp;
     public function __construct($authkey = null)
     {
         $this->otpAuth = $authkey;
+        $this->otp     = new OtpClass();
     }
     /**
      * Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
@@ -44,8 +46,7 @@ class OtpSend
         }
         $data['authkey'] = $checkAuth ? $this->otpAuth : $container['common']['otpAuthKey'];
         $data['mobile']  = $mobileNumber;
-        $otp             = new OtpClass();
-        $response        = $otp->sendOtp($dataArray, $data);
+        $response        = $this->otp->sendOtp($dataArray, $data);
         return $response;
     }
     /**
@@ -58,8 +59,7 @@ class OtpSend
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {   $otpAuthKey = $this->otpAuth;
-        $verifyOtp  = new OtpClass();
-        $verifyOtpResponse = $verifyOtp->otpApiCategory($mobileNumber, $oneTimePass, $otpAuthKey, 1);
+        $verifyOtpResponse = $this->otp->otpApiCategory($mobileNumber, $oneTimePass, $otpAuthKey, 1);
         return $verifyOtpResponse;
     }
     /**
@@ -73,8 +73,7 @@ class OtpSend
     public function resendOtp($mobileNumber, $retrytype = null)
     {
         $otpAuthKey = $this->otpAuth;
-        $resendOtp  = new OtpClass();
-        $verifyOtpResponse = $verifyOtp->otpApiCategory($mobileNumber, $retrytype, $otpAuthKey, 0);
+        $verifyOtpResponse = $this->otp->otpApiCategory($mobileNumber, $retrytype, $otpAuthKey, 0);
         return $verifyOtpResponse;
     }
 }
