@@ -30,7 +30,7 @@ class Deliver
      * @param string $uri MSG91 URI string
      * @param string $xml String of XML data
      *
-     * @throws ParameterException missing parameters or return empty
+     * @throws ClientException missing parameters or return empty
      * @return string MSG91 response
      */
     public function sendSmsPost($uri, $xml)

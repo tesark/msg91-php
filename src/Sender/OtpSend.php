@@ -58,7 +58,6 @@ class OtpSend
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
-        $checkAuth = '';
         $data      = [];
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
@@ -83,7 +82,6 @@ class OtpSend
      */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
-        $checkAuth = '';
         $data      = [];
         $checkAuth = Validation::checkAuthKey($this->otpAuth);
         if (!$checkAuth) {
