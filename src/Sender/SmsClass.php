@@ -573,7 +573,7 @@ class SmsClass
      *
      *
      */
-    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc == null)
+    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
     {
         if ($category === 1) {
             $buildSmsData = $this->addArray($key, $value, $buildSmsData);
