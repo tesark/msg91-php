@@ -362,7 +362,7 @@ class OtpClass
                 $value = $this->getAuthkey();
                 if ($this->isString($authkey))
                 {
-                    return true
+                    return true;
                 } else {
                     throw ParameterException::invalidArrtibuteType($parameter, "string", $value);
                 }
@@ -371,7 +371,7 @@ class OtpClass
                 $value = $this->getmobile();
                 if ($this->isInterger($mobile))
                 {
-                    return true
+                    return true;
                 } else {
                     throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
                 }
