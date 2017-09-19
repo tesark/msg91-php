@@ -561,12 +561,9 @@ class SmsClass
                     $message = "parameter key Missing";
                     throw ParameterException::missinglogic($message);
                     break;
-            }
-            return $buildSmsData;
-        } else {
-            $message = "Parameter ".$key." missing";
-            throw ParameterException::missinglogic($message);
+            }            
         }
+        return $buildSmsData;
     }
     /**
      * This function Check value 0 or 1
