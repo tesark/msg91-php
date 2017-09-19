@@ -51,6 +51,7 @@ class PromotionalSms
     public static function sendBulkSms($data)
     {
         if (is_array($data)) {
+            $response = null;
             $arrayLength = sizeof($data);
             if (isset($arrayLength) && $arrayLength == 1) {
                 $currentArray = $data[0];

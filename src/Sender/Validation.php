@@ -50,7 +50,7 @@ class Validation
      * @param string $authKey
      * @return bool
      */
-    public static function checkAuthKey($authKey)
+    public static function isAuthKey($authKey)
     {
         if (isset($authKey) && is_string($authKey)) {
             return true;

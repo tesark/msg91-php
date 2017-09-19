@@ -347,42 +347,57 @@ class OtpClass
         return $data;
     }
     /**
-     * Check Authkey
+     * Check Authkey and mobile
+     * @param string $parameter
      *
      * @throws ParameterException missing parameters or return empty
      * @return bool
      */
-    protected function checkAuthKey()
+    protected function isParameterPresent($parameter)
     {
-        if ($this->isKeyExists('authkey', $this->sendData) && $this->setAuthkey()) {
-            if ($this->isString($this->getAuthkey())) {
-                return true;
+        if ($this->isKeyExists($parameter, $this->sendData))
+        {  
+            if ($parameter === 'authkey') {
+                $this->setAuthkey();
+                $value = $this->getAuthkey();
+                if ($this->isString($authkey))
+                {
+                    return true
+                } else {
+                    throw ParameterException::invalidArrtibuteType($parameter, "string", $value);
+                }
             } else {
-                throw ParameterException::invalidArrtibuteType("Authkey", "string", $this->getAuthkey());
+                $this->setmobile();
+                $value = $this->getmobile();
+                if ($this->isInterger($mobile))
+                {
+                    return true
+                } else {
+                    throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
+                }
             }
         } else {
-            $message = "Parameter Authkey missing";
+            $message = "Parameter ".$parameter." missing";
             throw ParameterException::missinglogic($message);
         }
     }
     /**
+     * Check Authkey
+     *
+     * @return bool
+     */
+    protected function checkAuthKey()
+    {
+        return $this->isParameterPresent('authkey');
+    }
+    /**
      * Check mobile
      *
-     * @throws ParameterException missing parameters or return empty
      * @return bool
      */
     protected function checkMobile()
     {
-        if ($this->isKeyExists('mobile', $this->sendData) && $this->setmobile()) {
-            if ($this->isInterger($this->getmobile())) {
-                return true;
-            } else {
-                throw ParameterException::invalidArrtibuteType("mobile", "int", $this->getmobile());
-            }
-        } else {
-            $message = "Parameter mobile missing";
-            throw ParameterException::missinglogic($message);
-        }
+        return $this->isParameterPresent('mobile');
     }
     /**
      * This function for send OTP
@@ -477,15 +492,15 @@ class OtpClass
     {
         $data = [];
         $otpAuthKey = null;
-        $checkAuth = Validation::checkAuthKey($otpAuthKey);
+        $checkAuth = Validation::isAuthKey($otpAuthKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
             $config     = new ConfigClass();
             $container  = $config->getDefaults();
             $common     = $container['common'];
-            $otpAuthKey = $common['otpAuthKey'];
+            $otpAuth    = $common['otpAuthKey'];
         }
-        $data['authkey']    = $checkAuth ? $otpAuthKey : $otpAuthKey;
+        $data['authkey']    = $checkAuth ? $otpAuthKey : $otpAuth;
         $data['mobile']     = $mobileNumber;
         if ($apiCategory === 1) {
             $data['otp']  = $value;

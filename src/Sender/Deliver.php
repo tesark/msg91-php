@@ -36,7 +36,7 @@ class Deliver
     public function sendSmsPost($uri, $xml)
     {
         try {
-            $this->logger->info("Request:", $xml, $uri);
+            $this->logger->info(["Request:"], [$xml], [$uri]);
             $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
             $client  = new Client();
             $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
@@ -67,7 +67,7 @@ class Deliver
                     $paramStr .= "&".$key.'='.urlencode(trim($value));
                 }
             }
-            $this->logger->info("Request:", $query, $uri);
+            $this->logger->info(["Request:"], [$query], [$uri]);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
             $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
