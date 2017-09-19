@@ -577,7 +577,7 @@ class SmsClass
     {
         $responseFormat = array(0, 1);
         $value = in_array($value, $responseFormat) ? $value : null;
-        return 
+        return $value;
     }
     /**
      * This function for buildData
