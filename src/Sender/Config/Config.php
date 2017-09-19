@@ -99,6 +99,6 @@ class Config extends AbstractConfig// pending
      */
     public function generate($path)
     {
-        return $_SERVER['DOCUMENT_ROOT'].$path;
+        return dirname(__FILE__).$path;
     }
 }
