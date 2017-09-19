@@ -61,9 +61,9 @@ class OtpSend
      * @return string MSG91 response
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
-    {   $otpAuthKey = $this->otpAuth;
-        $otp             = new OtpClass();
-        $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $otpAuthKey, 1);
+    {   $verifyAuth = $this->otpAuth;
+        $otp        = new OtpClass();
+        $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
         return $verifyOtpResponse;
     }
     /**
@@ -76,9 +76,9 @@ class OtpSend
      */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
-        $otpAuthKey = $this->otpAuth;
-        $otp             = new OtpClass();
-        $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $otpAuthKey, 0);
-        return $verifyOtpResponse;
+        $resendAuth = $this->otpAuth;
+        $otp        = new OtpClass();
+        $resendOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $resendAuth, 0);
+        return $resendOtpResponse;
     }
 }

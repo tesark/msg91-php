@@ -356,11 +356,11 @@ class OtpClass
     protected function isParameterPresent($parameter)
     {
         if ($this->isKeyExists($parameter, $this->sendData))
-        {  
+        {
             if ($parameter === 'authkey') {
                 $this->setAuthkey();
                 $value = $this->getAuthkey();
-                if ($this->isString($authkey))
+                if ($this->isString($value))
                 {
                     return true;
                 } else {
@@ -369,7 +369,7 @@ class OtpClass
             } else {
                 $this->setmobile();
                 $value = $this->getmobile();
-                if ($this->isInterger($mobile))
+                if ($this->isInterger($value))
                 {
                     return true;
                 } else {
@@ -488,19 +488,19 @@ class OtpClass
      *
      * @return string
      */
-    public function otpApiCategory($mobileNumber, $value, $otpAuthKey, $apiCategory)
+    public function otpApiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
     {
         $data = [];
         $otpAuthKey = null;
-        $checkAuth = Validation::isAuthKey($otpAuthKey);
+        $checkAuth = Validation::isAuthKey($AuthKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
-            $config     = new ConfigClass();
-            $container  = $config->getDefaults();
-            $common     = $container['common'];
-            $otpAuth    = $common['otpAuthKey'];
+            $config      = new ConfigClass();
+            $container   = $config->getDefaults();
+            $common      = $container['common'];
+            $otpAuthKey  = $common['otpAuthKey'];
         }
-        $data['authkey']    = $checkAuth ? $otpAuthKey : $otpAuth;
+        $data['authkey']    = $checkAuth ? $AuthKey : $otpAuthKey;
         $data['mobile']     = $mobileNumber;
         if ($apiCategory === 1) {
             $data['otp']  = $value;
