@@ -25,7 +25,6 @@ class OtpSend
     public function __construct($authkey = null)
     {
         $this->otpAuth = $authkey;
-        $this->otp     = new OtpClass();
     }
     /**
      * Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
@@ -37,9 +36,9 @@ class OtpSend
      */
     public function sendOtp($mobileNumber, $dataArray)
     {
-        $data       = [];
+        $data      = [];
         $otpAuthKey = null;
-        $checkAuth = Validation::checkAuthKey($this->otpAuth);
+        $checkAuth = Validation::isAuthKey($this->otpAuth);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
             $config      = new ConfigClass();
@@ -49,7 +48,8 @@ class OtpSend
         }
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $data['mobile']  = $mobileNumber;
-        $response        = $this->otp->sendOtp($dataArray, $data);
+        $otp             = new OtpClass();
+        $response        = $otp->sendOtp($dataArray, $data);
         return $response;
     }
     /**
@@ -62,7 +62,8 @@ class OtpSend
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {   $otpAuthKey = $this->otpAuth;
-        $verifyOtpResponse = $this->otp->otpApiCategory($mobileNumber, $oneTimePass, $otpAuthKey, 1);
+        $otp             = new OtpClass();
+        $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $otpAuthKey, 1);
         return $verifyOtpResponse;
     }
     /**
@@ -76,7 +77,8 @@ class OtpSend
     public function resendOtp($mobileNumber, $retrytype = null)
     {
         $otpAuthKey = $this->otpAuth;
-        $verifyOtpResponse = $this->otp->otpApiCategory($mobileNumber, $retrytype, $otpAuthKey, 0);
+        $otp             = new OtpClass();
+        $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $otpAuthKey, 0);
         return $verifyOtpResponse;
     }
 }

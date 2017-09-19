@@ -664,7 +664,7 @@ class SmsClass
     {   
         $transAuthKey = null;
         $promoAuthKey = null;
-        $checkAuth = Validation::checkAuthKey($authKey);
+        $checkAuth = Validation::isAuthKey($authKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
             $config          = new ConfigClass();

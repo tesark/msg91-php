@@ -134,32 +134,32 @@ class ValidationTest extends TestCase
     //validation authkey
     public function testCheckAuthKeyAlpha()
     {
-        $result = $this->validate->checkAuthKey("sgdfafdsjhfahjdfhjas");
+        $result = $this->validate->isAuthKey("sgdfafdsjhfahjdfhjas");
         $this->assertTrue($result);
     }
     public function testCheckAuthKeysNumeric()
     {
-        $result = $this->validate->checkAuthKey("324353456465546456");
+        $result = $this->validate->isAuthKey("324353456465546456");
         $this->assertTrue($result);
     }
     public function testCheckAuthKeysAlphaNumeric()
     {
-        $result = $this->validate->checkAuthKey("hsdgyu4r78fydegfg432ew");
+        $result = $this->validate->isAuthKey("hsdgyu4r78fydegfg432ew");
         $this->assertTrue($result);
     }
     public function testCheckAuthKeysFalse()
     {
-        $result = $this->validate->checkAuthKey(3748576346);
+        $result = $this->validate->isAuthKey(3748576346);
         $this->assertFalse($result);
     }
     public function testCheckAuthKeysFalseSecond()
     {
-        $result = $this->validate->checkAuthKey(374.6);
+        $result = $this->validate->isAuthKey(374.6);
         $this->assertFalse($result);
     }
     public function testCheckAuthKeysFalseBool()
     {
-        $result = $this->validate->checkAuthKey(true);
+        $result = $this->validate->isAuthKey(true);
         $this->assertFalse($result);
     }
 }
