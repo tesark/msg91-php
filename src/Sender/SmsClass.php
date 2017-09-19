@@ -590,7 +590,7 @@ class SmsClass
      */
     protected function isKeyPresent($key)
     {
-       return $this->isKeyExists($key, $this->inputData)
+       return $this->isKeyExists($key, $this->inputData);
     }
     /**
      * This function add data to array
