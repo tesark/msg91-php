@@ -249,16 +249,6 @@ class OtpClass
         return $result;
     }
     /**
-     * This function check variable Key in input array
-     * @param string $key
-     *
-     * @return bool
-     */
-    protected function isKeyThere($key)
-    {
-        return ($this->isKeyExists($key, $this->inputData) || $this->isKeyExists($key, $this->sendData));
-    }
-    /**
      * This function add data to array
      * @param string $key
      * @param int|string $value
@@ -281,7 +271,7 @@ class OtpClass
      */
     protected function buildOtpDataArrtibutes($key, $data)
     {
-        if ($this->isKeyThere($key)) {
+        if ($this->isKeyExists($key, $data)) {
             switch ($key) {
                 case 'message':
                     if ($this->setMessage()) {
@@ -330,7 +320,7 @@ class OtpClass
                     break;
                 case 'otp_length':
                     if ($this->setOtpLength()) {
-                        $value = $this->getOtpExpiry();
+                        $value = $this->getOtpLength();
                         if ($this->isInterger($value)) {
                             $data = $this->addArray($key, $value, $data);
                         } else {
