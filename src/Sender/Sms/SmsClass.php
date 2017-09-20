@@ -1,5 +1,5 @@
 <?php
-namespace Sender;
+namespace Sender/Sms;
 
 use Sender\Deliver;
 use Sender\Validation;

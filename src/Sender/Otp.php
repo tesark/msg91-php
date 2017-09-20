@@ -2,6 +2,7 @@
 namespace Sender;
 
 use Sender\Deliver;
+use Sender\Otp\OtpClass;
 use Sender\Validation;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
@@ -9,13 +10,13 @@ use Sender\ExceptionClass\ParameterException;
 /**
  * This Class provide OTP APIs
  *
- * @package    Sender\OtpSend
+ * @package    Sender\Otp
  * @author     VenkatS <venkatsamuthiram5@gmail.com>
  * @link       https://github.com/venkatsamuthiram/deliver
  * @license
  */
 
-class OtpSend
+class Otp
 {
     /**
      * @var null|string $otpAuth
