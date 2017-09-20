@@ -3,7 +3,7 @@ namespace Sender\Otp;
 
 use Sender\Deliver;
 use Sender\Validation;
-use Sender\Otp\OtpSend; 
+use Sender\Otp\OtpSend;
 use Sender\MobileNumber;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
@@ -264,10 +264,14 @@ class OtpClass
     }
     /**
      * This function added int value in array
+     * @param string $key
+     * @param int|string $value
+     * @param array $data
+     * @param string $type
      *
-     *
+     * @return array
      */
-    protected function  addDataArray($key, $value, $data, $type)
+    protected function addDataArray($key, $value, $data, $type)
     {
         if ($type === 'int') {
             $test = $this->isInterger($value);
@@ -282,37 +286,154 @@ class OtpClass
         return $data;
     }
     /**
+     * This function used for build Retype data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildRetryType($key, $data)
+    {
+        if ($this->setRetryType()) {
+            $value = $this->getRetryType();
+            $data  = $this->addDataArray($key, $value, $data, 'string');
+        }
+        return $data;
+    }
+    /**
+     * This function used for build Retryp data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildOneTimePass($key, $data)
+    {
+        if ($this->setOneTimePass()) {
+            $key = 'otp';
+            $value = $this->getOneTimePass();
+            $data  = $this->addDataArray($key, $value, $data, 'int');
+        }
+        return $data;
+    }
+    /**
      * This function used for build Resend and Verify Otp Atrributes atrributes
      * @param string $key
      * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array 
+     * @return  array
      */
     protected function buildResendAndVerifyOtpArrtibutes($key, $data)
-    {   
-        if ($this->isKeyExists($key, $data)) {    
+    {
+        if ($this->isKeyExists($key, $data)) {
             switch ($key) {
                 case 'retrytype':
-                    if ($this->setRetryType()) {
-                        $value = $this->getRetryType();
-                        $data  = $this->addDataArray($key, $value, $data, 'string');
-                    }
+                    $data = $this->buildRetryType($key, $data);
                     break;
                 case 'oneTime':
-                    if ($this->setOneTimePass()) {
-                        $key = 'otp';
-                        $value = $this->getOneTimePass();
-                        $data  = $this->addDataArray($key, $value, $data, 'int');  
-                    }
+                    $data = $this->buildOneTimePass($key, $data);
                     break;
                 default:
                     $message = "parameter".$key."Missing";
                     throw ParameterException::missinglogic($message);
                     break;
-            }            
+            }
         }
-        return $data;            
+        return $data;
+    }
+    /**
+     * This function used for build message data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildMessage($key, $data)
+    {
+        if ($this->setMessage()) {
+            $value = $this->getMessage();
+            $data  = $this->addDataArray($key, $value, $data, 'string');
+        }
+        return $data;
+    }
+    /**
+     * This function used for build sender data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildSender($key, $data)
+    {
+        if ($this->setSender()) {
+            $value = $this->getSender();
+            if ($this->isString($value)) {
+                if (strlen($value) == 6) {
+                    $data = $this->addArray($key, $value, $data);
+                } else {
+                    $message = "String length must be 6 characters";
+                    throw ParameterException::invalidInput($key, "string", $value, $message);
+                }
+            } else {
+                throw ParameterException::invalidArrtibuteType($key, "string", $value);
+            }
+        }
+        return $data;
+    }
+    /**
+     * This function used for build otp data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildOtp($key, $data)
+    {
+        if ($this->setOtp()) {
+            $value = $this->getOtp();
+            $data  = $this->addDataArray($key, $value, $data, 'int');
+        }
+        return $data;
+    }
+    /**
+     * This function used for build otpExpiry data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildOtpExpiry($key, $data)
+    {
+        if ($this->setOtpExpiry()) {
+            $value = $this->getOtpExpiry();
+            $data  = $this->addDataArray($key, $value, $data, 'int');
+        }
+        return $data;
+    }
+    /**
+     * This function used for build otpLength data
+     * @param string $key
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function buildOtpLength($key, $data)
+    {
+        if ($this->setOtpLength()) {
+            $value = $this->getOtpLength();
+            if ($this->isInterger($value)) {
+                if ($value >= 4 && $value < 10) {
+                    $data = $this->addArray($key, $value, $data);
+                } else {
+                    $message = "otp length min 4 to max 9. you given $value";
+                    throw ParameterException::invalidInput($key, "int", $value, $message);
+                }
+            } else {
+                throw ParameterException::invalidArrtibuteType($key, "int", $value);
+            }
+        }
+        return $data;
     }
     /**
      * This function used for build sendOTP atrributes
@@ -321,59 +442,26 @@ class OtpClass
      * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array 
+     * @return  array
      */
     protected function buildOtpDataArrtibutes($key, $inputData, $data)
     {
         if ($this->isKeyExists($key, $inputData)) {
             switch ($key) {
                 case 'message':
-                    if ($this->setMessage()) {
-                        $value = $this->getMessage();
-                        $data  = $this->addDataArray($key, $value, $data, 'string');
-                    }
+                    $data = $this->buildMessage($key, $data);
                     break;
                 case 'sender':
-                    if ($this->setSender()) {
-                        $value = $this->getSender();
-                        if ($this->isString($value)) {
-                            if (strlen($value) == 6) {
-                                $data = $this->addArray($key, $value, $data);
-                            } else {
-                                $message = "String length must be 6 characters";
-                                throw ParameterException::invalidInput($key, "string", $value, $message);
-                            }
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
-                        }
-                    }
+                    $data = $this->buildSender($key, $data);
                     break;
                 case 'otp':
-                    if ($this->setOtp()) {
-                        $value = $this->getOtp();
-                        $data  = $this->addDataArray($key, $value, $data, 'int');
-                    }
+                    $data = $this->buildOtp($key, $data);
                     break;
                 case 'otp_expiry':
-                    if ($this->setOtpExpiry()) {
-                        $value = $this->getOtpExpiry();
-                        $data  = $this->addDataArray($key, $value, $data, 'int');
-                    }
+                    $data = $this->buildOtpExpiry($key, $data);
                     break;
                 case 'otp_length':
-                    if ($this->setOtpLength()) {
-                        $value = $this->getOtpLength();
-                        if ($this->isInterger($value)) {
-                            if ($value >= 4 && $value < 10) {
-                                $data = $this->addArray($key, $value, $data);
-                            } else {
-                                $message = "otp length min 4 to max 9. you given $value";
-                                throw ParameterException::invalidInput($key, "int", $value, $message);
-                            }
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
-                        }
-                    }
+                    $data = $this->buildOtpLength($key, $data);
                     break;
                 default:
                     $message = "parameter".$key."Missing";
@@ -449,6 +537,40 @@ class OtpClass
         return $data;
     }
     /**
+     * This function for buils Auth key
+     * @param string $parameter
+     *
+     * @return bool
+     */
+    protected function hasAuthKey($parameter)
+    {
+        if($this->setAuthkey()) {
+            $value = $this->getAuthkey();
+            if ($this->isString($value)) {
+                return true;
+            } else {
+                throw ParameterException::invalidArrtibuteType($parameter, "string", $value);
+            }
+        }
+    }
+    /**
+     * This function for buils Mobile
+     * @param string $parameter
+     *
+     * @return bool
+     */
+    protected function hasMobile($parameter)
+    {
+        if($this->setmobile()) {
+            $value = $this->getmobile();
+            if ($this->isInterger($value)) {
+                return true;
+            } else {
+                throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
+            }
+        }
+    }
+    /**
      * Check Authkey and mobile
      * @param string $parameter
      *
@@ -459,21 +581,9 @@ class OtpClass
     {
         if ($this->isKeyExists($parameter, $this->sendData)) {
             if ($parameter === 'authkey') {
-                $this->setAuthkey();
-                $value = $this->getAuthkey();
-                if ($this->isString($value)) {
-                    return true;
-                } else {
-                    throw ParameterException::invalidArrtibuteType($parameter, "string", $value);
-                }
+                return $this->hasAuthKey($parameter);
             } else {
-                $this->setmobile();
-                $value = $this->getmobile();
-                if ($this->isInterger($value)) {
-                    return true;
-                } else {
-                    throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
-                }
+                return $this->hasMobile($parameter);
             }
         } else {
             $message = "Parameter ".$parameter." missing";

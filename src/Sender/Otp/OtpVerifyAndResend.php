@@ -59,8 +59,7 @@ class OtpVerifyAndResend extends OtpClass
      * @return string Msg91 Json response
      */
     protected function otpFinalVerifyAndResend($data, $category)
-    {   
-        var_dump($this);
+    {
         $this->sendData     = $data;
         if ($this->hasSendData()) {
             if ($this->checkAuthKey() && $this->checkMobile()) {
@@ -79,7 +78,6 @@ class OtpVerifyAndResend extends OtpClass
         } else {
             $uri = "verifyRequestOTP.php";
         }
-        var_dump($this);
         $delivery = new Deliver();
         $response = $delivery->sendOtpGet($uri, $data);
         return $response;

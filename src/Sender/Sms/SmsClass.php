@@ -393,6 +393,26 @@ class SmsClass
         }
     }
     /**
+     * This function get array the size
+     * @param array $value
+     *
+     * return int Size fo the array
+     */
+    protected function getSize($value)
+    {
+       return sizeof($value);
+    }
+    /**
+     * This function return String length
+     * @param String $value
+     *
+     * @return int
+     */
+    protected function getLength($value)
+    {
+        return strlen($value);
+    }
+    /**
      * This function throw mobile invalid Exception
      * @param int|string $mobiles
      * @param string     $result
@@ -402,6 +422,177 @@ class SmsClass
     {
         $message = "this number not the correct:__".$result;
         throw ParameterException::invalidInput("mobiles", "string", $mobiles, $message);
+    }
+    /**
+     * This function for build country
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildCountry($category, $key, $buildSmsData, $xmlDoc)
+    {
+        if ($this->setCountry()) {
+            $value = $this->getCountry();
+            if ($this->isNumeric($value)) {
+                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            } else {
+                throw ParameterException::invalidArrtibuteType($key, "numeric", $value);
+            }
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for build flash
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildFlash($category, $key, $buildSmsData, $xmlDoc)
+    {
+        if ($this->setFlash()) {
+            $value = $this->getFlash();
+            $value = $this->chackArray($value);
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for build Unicode
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildUnicode($category, $key, $buildSmsData, $xmlDoc)
+    {
+        if ($this->setUnicode()) {
+            $value = $this->getUnicode();
+            $value = $this->chackArray($value);
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for build schtime
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildSchtime($category, $key, $buildSmsData, $xmlDoc)
+    {
+        if ($this->setSchtime()) {
+            $value = $this->getSchtime();
+            if ($this->isVaildDateTime($value)) {
+                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            } else {
+                $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
+                throw ParameterException::invalidInput($key, "string", $value, $message);
+            }
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for build campaign
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildCampaign($category, $key, $buildSmsData, $xmlDoc)
+    {
+        if ($this->setCampaign()) {
+            $value = $this->getCampaign();
+            if ($this->isString($value)) {
+                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            } else {
+                throw ParameterException::invalidArrtibuteType($key, "string", $value);
+            }
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function simpliy SMS Sender to Array
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     * @return array
+     */
+    protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
+    {
+        if ($this->isString($value)) {
+            if (strlen($value) == 6) {
+                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            } else {
+                $message = "String length must be 6 characters";
+                throw ParameterException::invalidInput("sender", "string", $value, $message);
+            }
+        } else {
+            throw ParameterException::invalidArrtibuteType($key, "string", $value);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for build sender
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildSmsSender($category, $key, $buildSmsData, $xmlDoc)
+    {
+        if ($this->setSender()) {
+            $value = $this->getSender();
+            $buildSmsData = $this->simplifySender($category, $key, $buildSmsData, $xmlDoc, $value);
+        }
+        return $buildSmsData;
+    }
+    /**
+     *This function for simplify afterminutes
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function simplifyAfterMinutes($category, $key, $buildSmsData, $value)
+    {
+        if ($this->isInterger($value)) {
+            if ($this->isAfterMinutes($value)) {
+                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+            } else {
+                $message = "Allowed between 10 to 20000 mintutes";
+                throw ParameterException::invalidInput("afterminutes", "int", $value, $message);
+            }
+        } else {
+            throw ParameterException::invalidArrtibuteType($key, "int", $value);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for build afterminutes
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * 
+     * @return array
+     */
+    protected function buildAfterMinutes($category, $key, $buildSmsData)
+    {
+        if ($this->setAfterminutes()) {
+            $value = $this->getAfterminutes();
+            $buildSmsData = $this->simplifyAfterMinutes($category, $key, $buildSmsData, $value);
+        }
+        return $buildSmsData;
     }
     /**
      * This function used to buils Data Arrtibutes are like
@@ -419,50 +610,26 @@ class SmsClass
         if ($this->isKeyPresent($key)) {
             switch ($key) {
                 case 'country':
-                    if ($this->setCountry()) {
-                        $value = $this->getCountry();
-                        if ($this->isNumeric($value)) {
-                            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "numeric", $value);
-                        }
-                    }
+                    $buildSmsData = $this->buildCountry($category, $key, $buildSmsData, $xmlDoc);
                     break;
                 case 'flash':
-                    if ($this->setFlash()) {
-                        $value = $this->getFlash();
-                        $value = $this->chackArray($value);
-                        $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-                    }
+                    $buildSmsData = $this->buildFlash($category, $key, $buildSmsData, $xmlDoc);
                     break;
                 case 'unicode':
-                    if ($this->setUnicode()) {
-                        $value = $this->getUnicode();
-                        $value = $this->chackArray($value);
-                        $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-                    }
+                    $buildSmsData = $this->buildUnicode($category, $key, $buildSmsData, $xmlDoc);
                     break;
                 case 'schtime':
-                    if ($this->setSchtime()) {
-                        $value = $this->getSchtime();
-                        if ($this->isVaildDateTime($value)) {
-                            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-                        } else {
-                            $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
-                            throw ParameterException::invalidInput($key, "string", $value, $message);
-                        }
-                    }
+                    $buildSmsData = $this->buildSchtime($category, $key, $buildSmsData, $xmlDoc);
                     break;
                 case 'campaign':
-                    if ($this->setCampaign()) {
-                        $value = $this->getCampaign();
-                        if ($this->isString($value)) {
-                            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
-                        }
-                    }
+                    $buildSmsData = $this->buildCampaign($category, $key, $buildSmsData, $xmlDoc);
                     break;
+                case 'sender':
+                    $buildSmsData = $this->buildSmsSender($category, $key, $buildSmsData, $xmlDoc);
+                    break;
+                case 'afterminutes':
+                    $buildSmsData = $this->buildAfterMinutes($category, $key, $buildSmsData);
+                    break;    
                 default:
                     $message = "parameter".$key."Missing";
                     throw ParameterException::missinglogic($message);
@@ -576,21 +743,32 @@ class SmsClass
         return $buildSmsData;
     }
     /**
+     * Message condition Check
+     * @param array $buildSmsData
+     *
+     * @return $data
+     */
+    protected function messageCondition($buildSmsData)
+    {
+        if (!$this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($buildSmsData, 160);
+        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($buildSmsData, 70);
+        }
+        return $buildSmsData;
+    }
+    /**
      * This function for sms array Build with message
      * @param  array $buildSmsData
      *
      * @throws ParameterException missing parameters or return empty
      * @return array $buildSmsData
      */
-    public function addMessage($buildSmsData)
+    protected function addMessage($buildSmsData)
     {
         if ($this->isKeyExists('message', $this->inputData) && $this->setMessage()) {
             if ($this->isString($this->getMessage())) {
-                if (!$this->isKeyExists('unicode', $this->inputData)) {
-                    $buildSmsData = $this->checkMessageLength($buildSmsData, 160);
-                } elseif ($this->isKeyExists('unicode', $this->inputData)) {
-                    $buildSmsData = $this->checkMessageLength($buildSmsData, 70);
-                }
+                $buildSmsData = $this->messageCondition($buildSmsData);
             } else {
                 $message = "string values only accept";
                 throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
@@ -608,22 +786,7 @@ class SmsClass
      */
     protected function addSender($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyExists('sender', $this->inputData) && $this->setSender()) {
-            if ($this->isString($this->getSender())) {
-                if (strlen($this->getSender()) == 6) {
-                    if ($category === 1) {
-                        $buildSmsData += ['sender' => $this->getSender()];
-                    } else {
-                        $buildSmsData->appendChild($xmlDoc->createElement("SENDER", $this->getSender()));
-                    }
-                } else {
-                    $message = "String length must be 6 characters";
-                    throw ParameterException::invalidInput("sender", "string", $this->getSender(), $message);
-                }
-            } else {
-                throw ParameterException::invalidArrtibuteType("message", "string", $this->getSender());
-            }
-        }
+        $buildSmsData = $this->buildSmsDataArrtibutes('sender', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
     }
     /**
@@ -632,7 +795,7 @@ class SmsClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
      */
-    public function addCountry($buildSmsData, $category, $xmlDoc = null)
+    protected function addCountry($buildSmsData, $category, $xmlDoc = null)
     {
         $buildSmsData = $this->buildSmsDataArrtibutes('country', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
@@ -644,7 +807,7 @@ class SmsClass
      * @return array $root
      *
      */
-    public function addFlash($buildSmsData, $category, $xmlDoc = null)
+    protected function addFlash($buildSmsData, $category, $xmlDoc = null)
     {
         $buildSmsData = $this->buildSmsDataArrtibutes('flash', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
@@ -656,7 +819,7 @@ class SmsClass
      * @return array $buildSmsData
      *
      */
-    public function addUnicode($buildSmsData, $category, $xmlDoc = null)
+    protected function addUnicode($buildSmsData, $category, $xmlDoc = null)
     {
         $buildSmsData = $this->buildSmsDataArrtibutes('unicode', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
@@ -669,7 +832,7 @@ class SmsClass
      * @return array $root
      *
      */
-    public function addSchtime($buildSmsData, $category, $xmlDoc = null)
+    protected function addSchtime($buildSmsData, $category, $xmlDoc = null)
     {
         $buildSmsData = $this->buildSmsDataArrtibutes('schtime', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
@@ -681,20 +844,9 @@ class SmsClass
      * @return array $buildSmsData
      *
      */
-    public function addAfterMinutes($buildSmsData)
+    protected function addAfterMinutes($buildSmsData, $category)
     {
-        if ($this->isKeyExists('afterminutes', $this->inputData) && $this->setAfterminutes()) {
-            if ($this->isInterger($this->getAfterminutes())) {
-                if ($this->isAfterMinutes($this->getAfterminutes())) {
-                    $buildSmsData += ['afterminutes' => $this->getAfterminutes()];
-                } else {
-                    $message = "Allowed between 10 to 20000 mintutes";
-                    throw ParameterException::invalidInput("afterminutes", "int", $this->getAfterminutes(), $message);
-                }
-            } else {
-                throw ParameterException::invalidArrtibuteType("afterminutes", "int", $this->getAfterminutes());
-            }
-        }
+        $buildSmsData = $this->buildSmsDataArrtibutes('afterminutes', $buildSmsData, $category);
         return $buildSmsData;
     }
     /**
@@ -703,7 +855,7 @@ class SmsClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $buildSmsData
      */
-    public function addResponse($buildSmsData)
+    protected function addResponse($buildSmsData)
     {
         if ($this->isKeyExists('response', $this->inputData) && $this->setResponse()) {
             if ($this->isString($this->getResponse())) {
@@ -723,7 +875,7 @@ class SmsClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
      */
-    public function addCampaign($buildSmsData, $category, $xmlDoc = null)
+    protected function addCampaign($buildSmsData, $category, $xmlDoc = null)
     {
         $buildSmsData = $this->buildSmsDataArrtibutes('campaign', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
@@ -782,7 +934,7 @@ class SmsClass
         //this condition are check and parameters are added to buildSmsData array
         if ($this->hasMobileNumber() && $this->hasData() && $this->hasSendData()) {
             $buildSmsData = $sendData;
-            $len = sizeof($this->inputData);
+            $len = $this->getSize($this->inputData);
             for ($i = 0; $i < $len; $i++) {
                 $buildSmsData = $this->addMobile($buildSmsData);
                 $buildSmsData = $this->addMessage($buildSmsData);
@@ -791,12 +943,12 @@ class SmsClass
                 $buildSmsData = $this->addFlash($buildSmsData, 1);
                 $buildSmsData = $this->addUnicode($buildSmsData, 1);
                 $buildSmsData = $this->addSchtime($buildSmsData, 1);
-                $buildSmsData = $this->addAfterMinutes($buildSmsData);
+                $buildSmsData = $this->addAfterMinutes($buildSmsData, 1);
                 $buildSmsData = $this->addResponse($buildSmsData);
                 $buildSmsData = $this->addCampaign($buildSmsData, 1);
             }
-            $inputDataLen     = sizeof($data);
-            $buildDataLen     = sizeof($buildSmsData);
+            $inputDataLen     = $this->getSize($data);
+            $buildDataLen     = $this->getSize($buildSmsData);
             if ($inputDataLen+3 == $buildDataLen) {
                 $uri      = "sendhttp.php";
                 $delivery = new Deliver();
@@ -869,7 +1021,7 @@ class SmsClass
             $root = $this->addUnicode($root, 2, $xmlDoc);
             if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
                 $bulkSms      = $this->getContent();
-                $lenOfBulkSms = sizeof($bulkSms);
+                $lenOfBulkSms = $this->getSize($bulkSms);
                 for ($j = 0; $j < $lenOfBulkSms; $j++) {
                     $this->inputData = $bulkSms[$j];
                     $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
@@ -904,7 +1056,7 @@ class SmsClass
                         $result = $this->isValidNumber($this->getmobile());
                         if ($result && $result['value'] == true) {
                             $mobiles = $result['mobile'];
-                            $len = sizeof($mobiles);
+                            $len = $this->getSize($mobiles);
                             for ($k = 0; $k < $len; $k++) {
                                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                                 $childAttr = $xmlDoc->createAttribute("TO");
