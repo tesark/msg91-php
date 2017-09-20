@@ -3,6 +3,7 @@ namespace Sender\Otp;
 
 use Sender\Deliver;
 use Sender\Validation;
+use Sender\Otp\OtpSend; 
 use Sender\MobileNumber;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
@@ -262,6 +263,25 @@ class OtpClass
         return $data;
     }
     /**
+     * This function added int value in array
+     *
+     *
+     */
+    protected function  addDataArray($key, $value, $data, $type)
+    {
+        if ($type === 'int') {
+            $test = $this->isInterger($value);
+        } else {
+            $test = $this->isString($value);
+        }
+        if ($test) {
+            $data = $this->addArray($key, $value, $data);
+        } else {
+            throw ParameterException::invalidArrtibuteType($key, $type, $value);
+        }
+        return $data;
+    }
+    /**
      * This function used for build OTP atrributes
      * @param string $key
      * @param array $data
@@ -269,18 +289,14 @@ class OtpClass
      * @throws ParameterException missing parameters or return empty
      * @return  array 
      */
-    protected function buildOtpDataArrtibutes($key, $data)
+    protected function buildOtpDataArrtibutes($key, $inputData, $data)
     {
-        if ($this->isKeyExists($key, $data)) {
+        if ($this->isKeyExists($key, $inputData)) {
             switch ($key) {
                 case 'message':
                     if ($this->setMessage()) {
                         $value = $this->getMessage();
-                        if ($this->isString($value)) {
-                            $data = $this->addArray($key, $value, $data);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
-                        }
+                        $data  = $this->addDataArray($key, $value, $data, 'string');
                     }
                     break;
                 case 'sender':
@@ -301,28 +317,25 @@ class OtpClass
                 case 'otp':
                     if ($this->setOtp()) {
                         $value = $this->getOtp();
-                        if ($this->isInterger($value)) {
-                            $data = $this->addArray($key, $value, $data);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
-                        }
+                        $data  = $this->addDataArray($key, $value, $data, 'int');
                     }
                     break;
                 case 'otp_expiry':
                     if ($this->setOtpExpiry()) {
                         $value = $this->getOtpExpiry();
-                        if ($this->isInterger($value)) {
-                            $data = $this->addArray($key, $value, $data);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
-                        }
+                        $data  = $this->addDataArray($key, $value, $data, 'int');
                     }
                     break;
                 case 'otp_length':
                     if ($this->setOtpLength()) {
                         $value = $this->getOtpLength();
                         if ($this->isInterger($value)) {
-                            $data = $this->addArray($key, $value, $data);
+                            if ($value >= 4 && $value < 10) {
+                                $data = $this->addArray($key, $value, $data);
+                            } else {
+                                $message = "otp length min 4 to max 9. you given $value";
+                                throw ParameterException::invalidInput($key, "int", $value, $message);
+                            }
                         } else {
                             throw ParameterException::invalidArrtibuteType($key, "int", $value);
                         }
@@ -331,22 +344,14 @@ class OtpClass
                 case 'retrytype':
                     if ($this->setRetryType()) {
                         $value = $this->getRetryType();
-                        if ($this->isString($value)) {
-                            $data = $this->addArray($key, $value, $data);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "string", $value);
-                        }
+                        $data  = $this->addDataArray($key, $value, $data, 'string');
                     }
                     break;
                 case 'oneTime':
                     if ($this->setOneTimePass()) {
                         $key = 'otp';
                         $value = $this->getOneTimePass();
-                        if ($this->isInterger($value)) {
-                            $data = $this->addArray($key, $value, $data);
-                        } else {
-                            throw ParameterException::invalidArrtibuteType($key, "int", $value);
-                        }
+                        $data  = $this->addDataArray($key, $value, $data, 'int');  
                     }
                     break;
                 default:
@@ -359,62 +364,67 @@ class OtpClass
     }
     /**
      * Add otp on the array
-     * @param   array $data
+     * @param array $inputData
+     * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
+     * @return array condition correct value add to the $data array
      */
-    protected function addMessage($data)
+    protected function addMessage($inputData, $data)
     {
-        $data = $this->buildOtpDataArrtibutes('message', $data);
+        $data = $this->buildOtpDataArrtibutes('message', $inputData, $data);
         return $data;
     }
     /**
      * Add sender on the Array
-     * @param   array $data
+     * @param array $inputData
+     * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
+     * @return array condition correct value add to the $data array
      */
-    protected function addSender($data)
+    protected function addSender($inputData, $data)
     {
-        $data = $this->buildOtpDataArrtibutes('sender', $data);
+        $data = $this->buildOtpDataArrtibutes('sender', $inputData, $data);
         return $data;
     }
     /**
      * Add otp on the array
-     * @param   array $data
+     * @param array $inputData
+     * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
+     * @return array condition correct value add to the $data array
      */
-    protected function addOtp($data)
+    protected function addOtp($inputData, $data)
     {
-        $data = $this->buildOtpDataArrtibutes('otp', $data);
+        $data = $this->buildOtpDataArrtibutes('otp', $inputData, $data);
         return $data;
     }
     /**
      * Add otp_expiry on the array
-     * @param  array $data
+     * @param array $inputData
+     * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
+     * @return array condition correct value add to the $data array
      */
-    protected function addOtpExpiry($data)
+    protected function addOtpExpiry($inputData, $data)
     {
-        $data = $this->buildOtpDataArrtibutes('otp_expiry', $data);
+        $data = $this->buildOtpDataArrtibutes('otp_expiry', $inputData, $data);
         return $data;
     }
     /**
      * Add otp_length on the array
-     * @param   array $data
+     * @param array $inputData
+     * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
+     * @return array condition correct value add to the $data array
      */
-    protected function addOtpLength($data)
+    protected function addOtpLength($inputData, $data)
     {
-        $data = $this->buildOtpDataArrtibutes('otp_length', $data);
+        $data = $this->buildOtpDataArrtibutes('otp_length', $inputData, $data);
         return $data;
     }
     /**
@@ -523,6 +533,18 @@ class OtpClass
             $data['retrytype']  = $value;
             $response   = $this->resendVerifyOtp($data, 0);
         }
+        return $response;
+    }
+    /**
+     * This function call otpFinalSend() function
+     * @param array $dataArray
+     * @param array $data
+     *
+     */
+    public function sendOtp($dataArray, $data)
+    {
+        $otp = new OtpSend();
+        $response = $otp->otpFinalSend($dataArray, $data);
         return $response;
     }
 }

@@ -27,7 +27,7 @@ class OtpSend extends OtpClass
      * @throws ParameterException missing parameters or return empty
      * @return string Msg91 Json response
      */
-    public function sendOtp($dataArray, $data)
+    public function otpFinalSend($dataArray, $data)
     {
         $this->inputData    = $dataArray;
         $this->sendData     = $data;
@@ -35,18 +35,18 @@ class OtpSend extends OtpClass
             if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;
                 //add sender on the Array
-                $data = $this->addSender($data);
+                $data = $this->addSender($this->inputData, $data);
                 //add otp_expiry on the array
-                $data = $this->addOtpExpiry($data);
+                $data = $this->addOtpExpiry($this->inputData, $data);
                 //add otp_length on the array
-                $data = $this->addOtpLength($data);
-                $checkOtp = array_key_exists('otp', $this->inputData);
-                $checkMsg = array_key_exists('message', $this->inputData);
+                $data = $this->addOtpLength($this->inputData, $data);
+                $checkOtp = $this->isKeyExists('otp', $this->inputData);
+                $checkMsg = $this->isKeyExists('message', $this->inputData);
                 if ($checkOtp && $checkMsg) {
                     //add message on array
-                    $data = $this->addMessage($data);
+                    $data = $this->addMessage($this->inputData, $data);
                     //add otp on the array
-                    $data = $this->addOtp($data);
+                    $data = $this->addOtp($this->inputData, $data);
                 }
                 if (($checkOtp && !$checkMsg) || (!$checkOtp && $checkMsg)) {
                     throw ParameterException::missinglogic("When using otp or message, unable to use seperately");
@@ -57,7 +57,7 @@ class OtpSend extends OtpClass
             $response = $delivery->sendOtpGet($uri, $data);
             return $response;
         } else {
-            $message = "The wrong parameter found";
+            $message = "Parameters not found";
             throw ParameterException::missinglogic($message);
         }
     }
