@@ -1,5 +1,5 @@
 <?php
-namespace Sender/Sms;
+namespace Sender\Sms;
 
 use Sender\Deliver;
 use Sender\Validation;
@@ -15,3 +15,7 @@ use Sender\ExceptionClass\ParameterException;
  * @link       https://github.com/venkatsamuthiram/deliver
  * @license
  */
+
+class SmsNormal extends SmsClass
+{
+}

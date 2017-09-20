@@ -18,7 +18,39 @@ use Sender\ExceptionClass\ParameterException;
 
 class OtpVerifyAndResend extends OtpClass
 {
-	/**
+    /**
+     * This function used for verify and resend OTP content
+     * @param int $mobileNumber
+     * @param int|string $value
+     * @param string $otpAuthKey
+     * @param int $apiCategory
+     *
+     * @return string
+     */
+    public function apiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
+    {
+        $data = [];
+        $otpAuthKey = null;
+        $checkAuth = Validation::isAuthKey($AuthKey);
+        if (!$checkAuth) {
+            // Get Envirionment variable and config file values
+            $config      = new ConfigClass();
+            $container   = $config->getDefaults();
+            $common      = $container['common'];
+            $otpAuthKey  = $common['otpAuthKey'];
+        }
+        $data['authkey']    = $checkAuth ? $AuthKey : $otpAuthKey;
+        $data['mobile']     = $mobileNumber;
+        if ($apiCategory === 1) {
+            $data['otp']  = $value;
+            $response     = $this->otpFinalVerifyAndResend($data, 1);
+        } else {
+            $data['retrytype']  = $value;
+            $response   = $this->otpFinalVerifyAndResend($data, 0);
+        }
+        return $response;
+    }
+    /**
      * This function for retry and verify OTP
      * @param int    $category
      * @param array  $data
@@ -26,8 +58,9 @@ class OtpVerifyAndResend extends OtpClass
      * @throws ParameterException missing parameters or return empty
      * @return string Msg91 Json response
      */
-    protected function resendVerifyOtp($data, $category)
-    {
+    protected function otpFinalVerifyAndResend($data, $category)
+    {   
+        var_dump($this);
         $this->sendData     = $data;
         if ($this->hasSendData()) {
             if ($this->checkAuthKey() && $this->checkMobile()) {
@@ -46,6 +79,7 @@ class OtpVerifyAndResend extends OtpClass
         } else {
             $uri = "verifyRequestOTP.php";
         }
+        var_dump($this);
         $delivery = new Deliver();
         $response = $delivery->sendOtpGet($uri, $data);
         return $response;

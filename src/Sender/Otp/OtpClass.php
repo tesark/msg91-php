@@ -282,8 +282,42 @@ class OtpClass
         return $data;
     }
     /**
-     * This function used for build OTP atrributes
+     * This function used for build Resend and Verify Otp Atrributes atrributes
      * @param string $key
+     * @param array $data
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return  array 
+     */
+    protected function buildResendAndVerifyOtpArrtibutes($key, $data)
+    {   
+        if ($this->isKeyExists($key, $data)) {    
+            switch ($key) {
+                case 'retrytype':
+                    if ($this->setRetryType()) {
+                        $value = $this->getRetryType();
+                        $data  = $this->addDataArray($key, $value, $data, 'string');
+                    }
+                    break;
+                case 'oneTime':
+                    if ($this->setOneTimePass()) {
+                        $key = 'otp';
+                        $value = $this->getOneTimePass();
+                        $data  = $this->addDataArray($key, $value, $data, 'int');  
+                    }
+                    break;
+                default:
+                    $message = "parameter".$key."Missing";
+                    throw ParameterException::missinglogic($message);
+                    break;
+            }            
+        }
+        return $data;            
+    }
+    /**
+     * This function used for build sendOTP atrributes
+     * @param string $key
+     * @param array $inputdata
      * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
@@ -339,19 +373,6 @@ class OtpClass
                         } else {
                             throw ParameterException::invalidArrtibuteType($key, "int", $value);
                         }
-                    }
-                    break;
-                case 'retrytype':
-                    if ($this->setRetryType()) {
-                        $value = $this->getRetryType();
-                        $data  = $this->addDataArray($key, $value, $data, 'string');
-                    }
-                    break;
-                case 'oneTime':
-                    if ($this->setOneTimePass()) {
-                        $key = 'otp';
-                        $value = $this->getOneTimePass();
-                        $data  = $this->addDataArray($key, $value, $data, 'int');  
                     }
                     break;
                 default:
@@ -488,7 +509,7 @@ class OtpClass
      */
     protected function addRetryType($data)
     {
-        $data = $this->buildOtpDataArrtibutes('retrytype', $data);
+        $data = $this->buildResendAndVerifyOtpArrtibutes('retrytype', $data);
         return $data;
     }
     /**
@@ -500,40 +521,8 @@ class OtpClass
      */
     protected function addOneTimePass($data)
     {
-        $data = $this->buildOtpDataArrtibutes('oneTime', $data);
+        $data = $this->buildResendAndVerifyOtpArrtibutes('oneTime', $data);
         return $data;
-    }
-    /**
-     * This function used for verify and resend OTP content
-     * @param int $mobileNumber
-     * @param int|string $value
-     * @param string $otpAuthKey
-     * @param int $apiCategory
-     *
-     * @return string
-     */
-    public function otpApiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
-    {
-        $data = [];
-        $otpAuthKey = null;
-        $checkAuth = Validation::isAuthKey($AuthKey);
-        if (!$checkAuth) {
-            // Get Envirionment variable and config file values
-            $config      = new ConfigClass();
-            $container   = $config->getDefaults();
-            $common      = $container['common'];
-            $otpAuthKey  = $common['otpAuthKey'];
-        }
-        $data['authkey']    = $checkAuth ? $AuthKey : $otpAuthKey;
-        $data['mobile']     = $mobileNumber;
-        if ($apiCategory === 1) {
-            $data['otp']  = $value;
-            $response     = $this->resendVerifyOtp($data, 1);
-        } else {
-            $data['retrytype']  = $value;
-            $response   = $this->resendVerifyOtp($data, 0);
-        }
-        return $response;
     }
     /**
      * This function call otpFinalSend() function
@@ -545,6 +534,20 @@ class OtpClass
     {
         $otp = new OtpSend();
         $response = $otp->otpFinalSend($dataArray, $data);
+        return $response;
+    }
+    /**
+     * This function call apiCategory() function
+     * @param int $mobileNumber
+     * @param int|string $value
+     * @param string $otpAuthKey
+     * @param int $apiCategory
+     *
+     */
+    public function otpApiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
+    {
+        $otp = new OtpVerifyAndResend();
+        $response = $otp->apiCategory($mobileNumber, $value, $AuthKey, $apiCategory);
         return $response;
     }
 }
