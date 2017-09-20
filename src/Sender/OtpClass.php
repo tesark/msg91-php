@@ -264,11 +264,12 @@ class OtpClass
      * @param int|string $value
      * @param array $data
      *
-     * @return data
+     * @return array
      */
     protected function addArray($key, $value, $data)
     {
-        return $data[$key] = $value ? $value : null;
+        $data[$key] = $value ? $value : null;
+        return $data;
     }
     /**
      * This function used for build OTP atrributes
@@ -276,7 +277,7 @@ class OtpClass
      * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     * @return  array condition correct value add to the $data array
+     * @return  array 
      */
     protected function buildOtpDataArrtibutes($key, $data)
     {
