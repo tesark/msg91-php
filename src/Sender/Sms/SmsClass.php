@@ -400,7 +400,7 @@ class SmsClass
      */
     protected function getSize($value)
     {
-       return sizeof($value);
+        return sizeof($value);
     }
     /**
      * This function return String length
