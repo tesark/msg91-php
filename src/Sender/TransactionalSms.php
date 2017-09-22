@@ -1,7 +1,7 @@
 <?php
 namespace Sender;
 
-use Sender\SmsClass;
+use Sender\Sms\SmsClass;
 
 /**
  * This Class provide Transactional SMS APIs

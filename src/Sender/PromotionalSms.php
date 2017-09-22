@@ -1,7 +1,7 @@
 <?php
 namespace Sender;
 
-use Sender\SmsClass;
+use Sender\Sms\SmsClass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 

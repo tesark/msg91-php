@@ -80,9 +80,14 @@ $sample = [
     'afterminutes' => 10,
     'campaign'     => "venkat"
 ];
+use Sender\PromotionalSms;
+use Sender\TransactionalSms;
 
-TransactionalSms::sendTransactional("919******541,919******728",$sample);
-PromotionalSms::PromotionalSms("919******541,919******728",$sample);
+$sms = PromotionalSms();
+$sms = TransactionalSms();
+
+$sms->sendTransactional("919******541,919******728",$sample);
+$sms->PromotionalSms("919******541,919******728",$sample);
 
 Tips 2:
 $sample = [ 
@@ -97,18 +102,26 @@ $sample = [
     'campaign'     => "venkat"
 ];
 
-TransactionalSms::sendTransactional(919******541,$sample);
-PromotionalSms::PromotionalSms(919******541,$sample);
+use Sender\PromotionalSms;
+use Sender\TransactionalSms;
+
+$sms = PromotionalSms();
+$sms = TransactionalSms();
+
+$sms->sendTransactional(919******541,$sample);
+$sms->PromotionalSms(919******541,$sample);
 
 ```
 ### API
 ```sh
 use Sender\TransactionalSms;
-TransactionalSms::sendTransactional($mobileNumber, $data);
+$sms = TransactionalSms();
+$sms->sendTransactional($mobileNumber, $data);
 ```
 ```sh
 use Sender\PromotionalSms;
-PromotionalSms::sendPromotional($mobileNumber, $data);
+$sms = PromotionalSms();
+$sms->sendPromotional($mobileNumber, $data);
 ```
 ## 2. SendBulkSms SendTransactional & SendPromotional Using POST
 - `POST` Method
@@ -178,7 +191,8 @@ $sample = [
 
 ```sh
 use Sender\PromotionalSms;
-PromotionalSms::sendBulkSms($data);
+$sms = PromotionalSms();
+$sms->sendBulkSms($data);
 ```
 
 # Sample XML
@@ -247,8 +261,9 @@ $data = [
 ### API
 
 ```sh
-use Sender\OtpSend;
-OtpSend::sendOtp($mobile,$data);
+use Sender\Otp;
+$otp = new Otp();
+$otp->sendOtp($mobile,$data);
 ```
 ## Sample Output
 
@@ -271,9 +286,11 @@ http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&re
 - `$retrytype` String
 
 ### Sample Input Data
-OtpSend::resendOtp($mobile,"voice")
-OtpSend::resendOtp($mobile,"text")
-OtpSend::resendOtp($mobile)
+use Sender\Otp;
+$otp = new Otp();
+$otp->resendOtp($mobile,"voice")
+$otp->resendOtp($mobile,"text")
+$otp->resendOtp($mobile)
 ### API
 ```sh
 use Sender\OtpSend;
@@ -305,8 +322,9 @@ http://api.msg91.com/api/verifyRequestOTP.php?authkey=YourAuthKey&mobile=9199999
 OtpSend::verifyOtp(919*******41,9195****421);
 ### API
 ```sh
-use Sender\OtpSend;
-OtpSend::verifyOtp($mobile,$otp);
+use Sender\Otp;
+$otp = new Otp();
+$otp->verifyOtp($mobile,$otp);
 ```
 
 Sample Output
