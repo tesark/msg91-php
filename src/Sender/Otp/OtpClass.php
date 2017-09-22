@@ -307,7 +307,7 @@ class OtpClass
      *
      * @return array
      */
-    protected function buildOneTimePass($key, $data)
+    protected function buildOneTimePass($data)
     {
         if ($this->setOneTimePass()) {
             $key = 'otp';
@@ -332,7 +332,7 @@ class OtpClass
                     $data = $this->buildRetryType($key, $data);
                     break;
                 case 'oneTime':
-                    $data = $this->buildOneTimePass($key, $data);
+                    $data = $this->buildOneTimePass($data);
                     break;
                 default:
                     $message = "parameter".$key."Missing";

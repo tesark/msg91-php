@@ -658,7 +658,7 @@ class SmsClass
      * Country,Flash,Unicode,Schtime, campaign
      *
      * @param string $key
-     * @param int|string|array $buildSmsData
+     * @param array $buildSmsData
      * @param int $array
      * @param array $xmlDoc
      *
