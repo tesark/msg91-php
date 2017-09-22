@@ -544,7 +544,7 @@ class OtpClass
      */
     protected function hasAuthKey($parameter)
     {
-        if($this->setAuthkey()) {
+        if ($this->setAuthkey()) {
             $value = $this->getAuthkey();
             if ($this->isString($value)) {
                 return true;
@@ -561,7 +561,7 @@ class OtpClass
      */
     protected function hasMobile($parameter)
     {
-        if($this->setmobile()) {
+        if ($this->setmobile()) {
             $value = $this->getmobile();
             if ($this->isInterger($value)) {
                 return true;

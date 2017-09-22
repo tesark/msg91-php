@@ -3,6 +3,7 @@ namespace Sender\Sms;
 
 use Sender\Deliver;
 use Sender\Validation;
+use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
 use Sender\Config\Config as ConfigClass;
@@ -23,10 +24,6 @@ class SmsClass
      * @var int $mobile
      */
     protected $mobile = null;
-    /**
-     * @var string $Mobiles
-     */
-    protected $mobiles = null;
     /**
      * @var array $inputData
      */
@@ -86,7 +83,8 @@ class SmsClass
      */
     public function hasMobileNumber()
     {
-        return isset($this->mobiles);
+        $data = $this->inputData['mobile'];
+        return isset($data);
     }
     /**
      * Check the data empty
@@ -103,14 +101,6 @@ class SmsClass
     public function hasSendData()
     {
         return isset($this->sendSmsData);
-    }
-    /**
-     * Check the hasXmlData empty
-     * @return bool
-     */
-    public function hasXmlData()
-    {
-        return isset($this->inputData);
     }
     /**
      * Check key present in array or not
@@ -154,22 +144,6 @@ class SmsClass
     public function getMobile()
     {
         return $this->mobile;
-    }
-    /**
-     * set mobiles
-     * @return bool
-     */
-    public function setMobiles()
-    {
-        $this->mobiles = $this->mobiles;
-        return true;
-    }
-    /*
-     * get mobiles
-     */
-    public function getMobiles()
-    {
-        return $this->mobiles;
     }
     /**
      * set authkey
@@ -414,17 +388,6 @@ class SmsClass
         return strlen($value);
     }
     /**
-     * This function throw mobile invalid Exception
-     * @param int|string $mobiles
-     * @param string     $result
-     * @throws ParameterException missing parameters or return empty
-     */
-    protected function invalidMobileException($mobiles, $result)
-    {
-        $message = "this number not the correct:__".$result;
-        throw ParameterException::invalidInput("mobiles", "string", $mobiles, $message);
-    }
-    /**
      * This function for build country
      * @param int $category
      * @param string $key
@@ -584,7 +547,7 @@ class SmsClass
      * @param int $category
      * @param string $key
      * @param array $buildSmsData
-     * 
+     *
      * @return array
      */
     protected function buildAfterMinutes($category, $key, $buildSmsData)
@@ -725,7 +688,7 @@ class SmsClass
                     break;
                 case 'authkey':
                     $buildSmsData = $this->buildBulkAuth($category, $key, $buildSmsData, $xmlDoc);
-                    break;    
+                    break;
                 case 'afterminutes':
                     $buildSmsData = $this->buildAfterMinutes($category, $key, $buildSmsData);
                     break;
@@ -734,7 +697,7 @@ class SmsClass
                     break;
                 case 'response':
                     $buildSmsData = $this->buildResponse($category, $key, $buildSmsData);
-                    break;    
+                    break;
                 default:
                     $message = "parameter".$key."Missing";
                     throw ParameterException::missinglogic($message);
@@ -823,7 +786,8 @@ class SmsClass
         if (!empty($result) && $result['value'] == true) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
-            $this->invalidMobileException($value, $result['mobile']);
+            $message = "this number not the correct:_".$result['mobile'];
+            throw ParameterException::invalidInput("mobiles", "string", $this->getmobile(), $message);
         }
         return $buildSmsData;
     }
@@ -835,10 +799,19 @@ class SmsClass
      * @return array $buildSmsData
      *
      */
-    public function addMobile($buildSmsData, $category)
+    public function addMobile($buildSmsData, $category, $smsTag = null)
     {
-        $value = $this->mobiles;
-        $key = 'mobiles';
+        if ($category === 1) {
+            if ($this->setMobile()) {
+                $value = $this->getMobile();
+                $key = 'mobiles';
+            }
+        } else {
+            if ($this->setMobile()) {
+                $value = $this->getMobile();
+                $key = 'mobile';
+            }
+        }
         if ($this->isInterger($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } elseif ($this->isString($value)) {
@@ -873,7 +846,7 @@ class SmsClass
      *
      * @return $data
      */
-    protected function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc) 
+    protected function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
     {
         if (!$this->isKeyExists('unicode', $this->inputData)) {
             $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
@@ -881,6 +854,63 @@ class SmsClass
             $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
         }
         return $buildSmsData;
+    }
+    /**
+     * This function Create Element only
+     * @param array $xmlDoc
+     * @param string $element
+     * @param array $root
+     *
+     * @return array
+     */
+    protected function createElement($xmlDoc, $element, $root = null)
+    {
+        if (is_null($root)) {
+            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
+        } else {
+            $root = $root->appendChild($xmlDoc->createElement($element));
+        }
+        return $root;
+    }
+    protected function addContent($root, $category, $xmlDoc)
+    {
+        if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
+            $bulkSms      = $this->getContent();
+            $lenOfBulkSms = $this->getSize($bulkSms);
+            for ($j = 0; $j < $lenOfBulkSms; $j++) {
+                $this->inputData = $bulkSms[$j];
+                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
+                //check message length
+                $smsTag = $this->buildSmsDataArrtibutes('message', $smsTag, 2, $xmlDoc);
+                //check mobile contents
+                $this->addMobileNumber($xmlDoc, $smsTag);
+            }
+        }
+    }
+    /**
+     * This function for Add mobile number
+     * @param array $xmlDoc
+     * @param array $smsTag
+     *
+     */
+    protected function addMobileNumber($xmlDoc, $smsTag)
+    {
+        if ($this->setMobile() && $this->getMobile()) {
+            $result = $this->isValidNumber($this->getMobile());
+            if ($result && $result['value'] == true) {
+                $mobiles = $result['mobile'];
+                $len = $this->getSize($mobiles);
+                for ($k = 0; $k < $len; $k++) {
+                    $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
+                    $childAttr = $xmlDoc->createAttribute("TO");
+                    $childText = $xmlDoc->createTextNode($mobiles[$k]);
+                    $addressTag->appendChild($childAttr)->appendChild($childText);
+                }
+            } else {
+                $message = "string comma seperate values";
+                throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
+            }
+        }
     }
     /**
      * This function for sms array Build with message
@@ -1017,21 +1047,6 @@ class SmsClass
         return $response;
     }
     /**
-     * This function Create Element only
-     * @param array $xmlDoc
-     * @param string $element
-     *
-     * @return array
-     */
-    protected function createElement($xmlDoc, $element, $root = null)
-    {   
-        if (is_null($root)) {
-
-        }
-        $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
-        return $root;
-    }
-    /**
      * This function Used to send the SMS XML formated data to Deliver Class
      * @param array $xmlData
      *
@@ -1040,67 +1055,8 @@ class SmsClass
      */
     public function sendXmlSms($xmlData)
     {
-        $this->inputData = $xmlData;
-        if ($this->hasXmlData()) {
-            //create the xml document
-            $xmlDoc = new \DOMDocument();
-            //create the root element
-            $root = $this->createElement($xmlDoc, "MESSAGE");
-            //check Auth
-            $root = $this->addAuth($root, 2, $xmlDoc);
-            //Check Sender
-            $root = $this->addSender($root, 2, $xmlDoc);
-            //Check schtime
-            $root = $this->addSchtime($root, 2, $xmlDoc);
-            //Check campaign
-            $root = $this->addCampaign($root, 2, $xmlDoc);
-            //Check country
-            $root = $this->addCountry($root, 2, $xmlDoc);
-            //Check flash
-            $root = $this->addFlash($root, 2, $xmlDoc);
-            //Check unicode
-            $root = $this->addUnicode($root, 2, $xmlDoc);
-
-            if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
-                $bulkSms      = $this->getContent();
-                $lenOfBulkSms = $this->getSize($bulkSms);
-                for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                    $this->inputData += $bulkSms[$j];
-                    $smsTag = $root->appendChild($xmlDoc->createElement("SMS"));
-                    //check message length
-                    $smsTag = $this->buildSmsDataArrtibutes('message', $smsTag, 2, $xmlDoc); 
-                    //check mobile contents
-                    
-                    if ($this->setMobile() && $this->isString($this->getmobile())) {
-                        $result = $this->isValidNumber($this->getmobile());
-                        if ($result && $result['value'] == true) {
-                            $mobiles = $result['mobile'];
-                            $len = $this->getSize($mobiles);
-                            for ($k = 0; $k < $len; $k++) {
-                                $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
-                                $childAttr = $xmlDoc->createAttribute("TO");
-                                $childText = $xmlDoc->createTextNode($mobiles[$k]);
-                                $addressTag->appendChild($childAttr)->appendChild($childText);
-                            }
-                        } else {
-                            $this->invalidMobileException($this->getmobile(), $result['mobile']);
-                        }
-                    } else {
-                        $message = "string comma seperate values";
-                        throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
-                    }
-                }
-            }
-        } else {
-            $message = "parameters Missing";
-            throw ParameterException::missinglogic($message);
-        }
-        //make the output pretty
-        $xmlDoc->formatOutput = true;
-        $xmlData  = $xmlDoc->saveXML();
-        $uri      = "postsms.php";
-        $delivery = new Deliver();
-        $response = $delivery->sendSmsPost($uri, $xmlData);
+        $bulkSms = new SmsBulk();
+        $response  = $bulkSms->buildAndSendXmlSms($xmlData);
         return $response;
     }
 }
