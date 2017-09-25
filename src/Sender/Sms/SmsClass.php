@@ -799,8 +799,10 @@ class SmsClass
      * @return array $buildSmsData
      *
      */
-    public function addMobile($buildSmsData, $category, $smsTag = null)
+    public function addMobile($buildSmsData, $category)
     {
+        $value = '';
+        $key = ''; 
         if ($category === 1) {
             if ($this->setMobile()) {
                 $value = $this->getMobile();
@@ -842,9 +844,12 @@ class SmsClass
     }
     /**
      * Message condition Check
+     * @param int $category
+     * @param string $key
      * @param array $buildSmsData
+     * @param int $value
      *
-     * @return $data
+     * @return array
      */
     protected function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
     {
@@ -881,7 +886,7 @@ class SmsClass
                 $this->inputData = $bulkSms[$j];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
                 //check message length
-                $smsTag = $this->buildSmsDataArrtibutes('message', $smsTag, 2, $xmlDoc);
+                $smsTag = $this->buildSmsDataArrtibutes('message', $smsTag, $category, $xmlDoc);
                 //check mobile contents
                 $this->addMobileNumber($xmlDoc, $smsTag);
             }
