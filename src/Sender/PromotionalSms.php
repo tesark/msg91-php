@@ -36,7 +36,8 @@ class PromotionalSms
     {
         $sms = new SmsNormal();
         $promoAuthKey = $this->promoAuthKey;
-        $response = $sms->smsCategory($mobileNumber, $data, 0, $promoAuthKey);
+        $data['mobile'] = $mobileNumber;
+        $response = $sms->smsCategory($data, 0, $promoAuthKey);
         return $response;
     }
 

@@ -34,7 +34,8 @@ class TransactionalSms
     {
         $sms = new SmsNormal();
         $transAuthKey = $this->transAuthKey;
-        $response = $sms->smsCategory($mobileNumber, $data, 1, $transAuthKey);
+        $data['mobile'] = $mobileNumber;
+        $response = $sms->smsCategory($data, 1, $transAuthKey);
         return $response;
     }
 }
