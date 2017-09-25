@@ -793,13 +793,34 @@ class SmsClass
     }
     /**
      * This function for sms array Build with mobilenumbers
-     * @param  array $buildSmsData
+     * @param string $key
+     * @param array $buildSmsData
+     * @param int $category
      *
      * @throws ParameterException missing parameters or return empty
-     * @return array $buildSmsData
-     *
+     * @return array
      */
-    public function addMobile($buildSmsData, $category)
+    protected function checkIntegerOrString($key, $value, $buildSmsData, $category)
+    {
+        if ($this->isInterger($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+        } elseif ($this->isString($value)) {
+            $buildSmsData = $this->buildMobile($key, $value, $buildSmsData, $category);
+        } else {
+            $message = "interger or string comma seperate values";
+            throw ParameterException::invalidInput($key, "string or integer", $value, $message);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for sms array Build with mobilenumbers
+     * @param array $buildSmsData
+     * @param int $category
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return array
+     */
+    protected function addMobile($buildSmsData, $category)
     {
         $value = '';
         $key = ''; 
@@ -814,14 +835,7 @@ class SmsClass
                 $key = 'mobile';
             }
         }
-        if ($this->isInterger($value)) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-        } elseif ($this->isString($value)) {
-            $buildSmsData = $this->buildMobile($key, $value, $buildSmsData, $category);
-        } else {
-            $message = "interger or string comma seperate values";
-            throw ParameterException::invalidInput($key, "string or integer", $value, $message);
-        }
+        $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
     }
     /**
@@ -893,6 +907,29 @@ class SmsClass
         }
     }
     /**
+     * This function for Add mobile number to XML
+     * @param array $xmlDoc
+     * @param array $smsTag
+     * @param array $result
+     *
+     */
+    protected function addMobileToXml($xmlDoc, $smsTag, $result)
+    {
+        if (!empty($result) && $result['value'] == true) {
+            $mobiles = $result['mobile'];
+            $len = $this->getSize($mobiles);
+            for ($k = 0; $k < $len; $k++) {
+                $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
+                $childAttr = $xmlDoc->createAttribute("TO");
+                $childText = $xmlDoc->createTextNode($mobiles[$k]);
+                $addressTag->appendChild($childAttr)->appendChild($childText);
+            }
+        } else {
+            $message = "string comma seperate values";
+            throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
+        }
+    }
+    /**
      * This function for Add mobile number
      * @param array $xmlDoc
      * @param array $smsTag
@@ -902,19 +939,7 @@ class SmsClass
     {
         if ($this->setMobile() && $this->getMobile()) {
             $result = $this->isValidNumber($this->getMobile());
-            if ($result && $result['value'] == true) {
-                $mobiles = $result['mobile'];
-                $len = $this->getSize($mobiles);
-                for ($k = 0; $k < $len; $k++) {
-                    $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
-                    $childAttr = $xmlDoc->createAttribute("TO");
-                    $childText = $xmlDoc->createTextNode($mobiles[$k]);
-                    $addressTag->appendChild($childAttr)->appendChild($childText);
-                }
-            } else {
-                $message = "string comma seperate values";
-                throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
-            }
+            $this->addMobileToXml($xmlDoc, $smsTag, $result);
         }
     }
     /**
