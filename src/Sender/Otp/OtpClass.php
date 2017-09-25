@@ -386,7 +386,7 @@ class OtpClass
         if ($this->setSender()) {
             $value = $this->getSender();
             if ($this->isString($value)) {
-                $data = $this->checkSenderLength($key, $value, $data)
+                $data = $this->checkSenderLength($key, $value, $data);
             } else {
                 throw ParameterException::invalidArrtibuteType($key, "string", $value);
             }
