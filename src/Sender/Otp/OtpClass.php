@@ -634,30 +634,4 @@ class OtpClass
         $data = $this->buildResendAndVerifyOtpArrtibutes('oneTime', $data);
         return $data;
     }
-    /**
-     * This function call otpFinalSend() function
-     * @param array $dataArray
-     * @param array $data
-     *
-     */
-    public function sendOtp($dataArray, $data)
-    {
-        $otp = new OtpSend();
-        $response = $otp->otpFinalSend($dataArray, $data);
-        return $response;
-    }
-    /**
-     * This function call apiCategory() function
-     * @param int $mobileNumber
-     * @param int|string $value
-     * @param string $otpAuthKey
-     * @param int $apiCategory
-     *
-     */
-    public function otpApiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
-    {
-        $otp = new OtpVerifyAndResend();
-        $response = $otp->apiCategory($mobileNumber, $value, $AuthKey, $apiCategory);
-        return $response;
-    }
 }

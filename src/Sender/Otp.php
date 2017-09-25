@@ -2,8 +2,9 @@
 namespace Sender;
 
 use Sender\Deliver;
-use Sender\Otp\OtpClass;
 use Sender\Validation;
+use Sender\Otp\OtpSend;
+use Sender\Otp\OtpVerifyAndResend;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -22,7 +23,7 @@ class Otp
      * @var null|string $otpAuth
      */
     private $otpAuth;
-    public $otp;
+    public  $otp;
     public function __construct($authkey = null)
     {
         $this->otpAuth = $authkey;
@@ -49,7 +50,7 @@ class Otp
         }
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $data['mobile']  = $mobileNumber;
-        $otp             = new OtpClass();
+        $otp             = new OtpSend();
         $response        = $otp->sendOtp($dataArray, $data);
         return $response;
     }
@@ -64,7 +65,7 @@ class Otp
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
         $verifyAuth = $this->otpAuth;
-        $otp        = new OtpClass();
+        $otp        = new OtpVerifyAndResend();
         $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
         return $verifyOtpResponse;
     }
@@ -79,7 +80,7 @@ class Otp
     public function resendOtp($mobileNumber, $retrytype = null)
     {
         $resendAuth = $this->otpAuth;
-        $otp        = new OtpClass();
+        $otp        = new OtpVerifyAndResend();
         $resendOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $resendAuth, 0);
         return $resendOtpResponse;
     }

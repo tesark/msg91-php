@@ -27,7 +27,7 @@ class OtpSend extends OtpClass
      * @throws ParameterException missing parameters or return empty
      * @return string Msg91 Json response
      */
-    public function otpFinalSend($dataArray, $data)
+    public function sendOtp($dataArray, $data)
     {
         $this->inputData    = $dataArray;
         $this->sendData     = $data;

@@ -27,7 +27,7 @@ class SmsNormal extends SmsClass
      *
      * @return string
      */
-    public function buildSmsTransPromoCategory($mobileNumber, $data, $category, $authKey)
+    public function smsCategory($data, $category, $authKey)
     {
         $transAuthKey = null;
         $promoAuthKey = null;
@@ -52,7 +52,7 @@ class SmsNormal extends SmsClass
                 'route'       => 1,
             );
         }
-        $output = $this->sendSms($mobileNumber, $data, $sendData);
+        $output = $this->sendSms($data, $sendData);
         return $output;
     }
     /**
@@ -64,9 +64,8 @@ class SmsNormal extends SmsClass
      * @throws ParameterException missing parameters or type error
      * @return string
      */
-    protected function sendSms($mobileNumber, $data, $sendData)
+    protected function sendSms($data, $sendData)
     {
-        $this->mobiles     = $mobileNumber;
         $this->inputData   = $data;
         $this->sendSmsData = $sendData;
         //this condition are check and parameters are added to buildSmsData array

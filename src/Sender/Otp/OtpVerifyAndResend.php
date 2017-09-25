@@ -27,7 +27,7 @@ class OtpVerifyAndResend extends OtpClass
      *
      * @return string
      */
-    public function apiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
+    public function otpApiCategory($mobileNumber, $value, $AuthKey, $apiCategory)
     {
         $data = [];
         $otpAuthKey = null;
@@ -43,10 +43,12 @@ class OtpVerifyAndResend extends OtpClass
         $data['mobile']     = $mobileNumber;
         if ($apiCategory === 1) {
             $data['otp']  = $value;
-            $response     = $this->otpFinalVerifyAndResend($data, 1);
+            $uri = "verifyRequestOTP.php";
+            $response     = $this->otpFinalVerifyAndResend($data, $uri);
         } else {
             $data['retrytype']  = $value;
-            $response   = $this->otpFinalVerifyAndResend($data, 0);
+            $uri = 'retryotp.php';
+            $response   = $this->otpFinalVerifyAndResend($data, $uri);
         }
         return $response;
     }
@@ -58,7 +60,7 @@ class OtpVerifyAndResend extends OtpClass
      * @throws ParameterException missing parameters or return empty
      * @return string Msg91 Json response
      */
-    protected function otpFinalVerifyAndResend($data, $category)
+    protected function otpFinalVerifyAndResend($data, $uri)
     {
         $this->sendData     = $data;
         if ($this->hasSendData()) {
@@ -72,11 +74,6 @@ class OtpVerifyAndResend extends OtpClass
         } else {
             $message = "The parameters not found";
             throw ParameterException::missinglogic($message);
-        }
-        if ($category === 0) {
-            $uri = 'retryotp.php';
-        } else {
-            $uri = "verifyRequestOTP.php";
         }
         $delivery = new Deliver();
         $response = $delivery->sendOtpGet($uri, $data);
