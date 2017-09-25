@@ -111,7 +111,7 @@ class SmsNormal extends SmsClass
     {
         $inputDataLen = $this->getSize($data);
         $buildDataLen = $this->getSize($buildSmsData);
-        if ($inputDataLen+3 == $buildDataLen) {
+        if ($inputDataLen+2 == $buildDataLen) {
             $uri      = "sendhttp.php";
             $delivery = new Deliver();
             $response = $delivery->sendOtpGet($uri, $buildSmsData);

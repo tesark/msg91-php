@@ -1,6 +1,7 @@
 <?php
 namespace Sender\Sms;
 
+use DOMDocument;
 use Sender\Deliver;
 use Sender\Validation;
 use Sender\MobileNumber;
@@ -48,7 +49,7 @@ class SmsBulk extends SmsClass
             //Check unicode
             $root = $this->addUnicode($root, 2, $xmlDoc);
             //Check unicode
-            $root = $this->addContent($root, 2, $xmlDoc);
+            $this->addContent($root, 2, $xmlDoc);
         } else {
             $message = "parameters Missing";
             throw ParameterException::missinglogic($message);
