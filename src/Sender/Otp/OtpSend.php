@@ -18,7 +18,7 @@ use Sender\ExceptionClass\ParameterException;
 
 class OtpSend extends OtpClass
 {
-   /**
+    /**
      * This function for send OTP
      *
      * @param array $dataArray

@@ -88,7 +88,7 @@ class SmsNormal extends SmsClass
     protected function addAllParameters($buildSmsData)
     {
         $buildSmsData = $this->addMobile($buildSmsData, 1);
-        $buildSmsData = $this->addMessage($buildSmsData, 1);// no 1 for using GET method
+        $buildSmsData = $this->addMessage($buildSmsData, 1); // no 1 for using GET method
         $buildSmsData = $this->addSender($buildSmsData, 1);
         $buildSmsData = $this->addCountry($buildSmsData, 1);
         $buildSmsData = $this->addFlash($buildSmsData, 1);

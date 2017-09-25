@@ -419,9 +419,21 @@ class SmsClass
     {
         if ($this->setFlash()) {
             $value = $this->getFlash();
-            $value = $this->chackArray($value);
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            $buildSmsData = $this->checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc);
         }
+        return $buildSmsData;
+    }
+    /**
+     * This function used for Array inside present 0 or 1
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
+        $value = $this->chackArray($value);
+        $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
         return $buildSmsData;
     }
     /**
@@ -436,8 +448,7 @@ class SmsClass
     {
         if ($this->setUnicode()) {
             $value = $this->getUnicode();
-            $value = $this->chackArray($value);
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            $buildSmsData = $this->checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc);
         }
         return $buildSmsData;
     }
@@ -463,27 +474,23 @@ class SmsClass
         return $buildSmsData;
     }
     /**
-     * This function for build campaign
+     * This function simply check Sender length to Array
      * @param int $category
      * @param string $key
      * @param array $buildSmsData
      *
-     * @return array
      */
-    protected function buildCampaign($category, $key, $buildSmsData, $xmlDoc)
+    protected function checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value)
     {
-        if ($this->setCampaign()) {
-            $value = $this->getCampaign();
-            if ($this->isString($value)) {
-                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-            } else {
-                throw ParameterException::invalidArrtibuteType($key, "string", $value);
-            }
+        if (strlen($value) == 6) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        } else {
+            $message = "String length must be 6 characters";
+            throw ParameterException::invalidInput("sender", "string", $value, $message);
         }
-        return $buildSmsData;
     }
     /**
-     * This function simpliy SMS Sender to Array
+     * This function simply SMS Sender to Array
      * @param int $category
      * @param string $key
      * @param array $buildSmsData
@@ -493,12 +500,7 @@ class SmsClass
     protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
     {
         if ($this->isString($value)) {
-            if (strlen($value) == 6) {
-                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-            } else {
-                $message = "String length must be 6 characters";
-                throw ParameterException::invalidInput("sender", "string", $value, $message);
-            }
+            $buildSmsData = $this->checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value);
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
@@ -521,7 +523,24 @@ class SmsClass
         return $buildSmsData;
     }
     /**
-     *This function for simplify afterminutes
+     * This function for check afterminutes
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */      
+    protected function checkAfterMinutes($category, $key, $value, $buildSmsData)
+    {
+        if ($this->isAfterMinutes($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+        } else {
+            $message = "Allowed between 10 to 20000 mintutes";
+            throw ParameterException::invalidInput("afterminutes", "int", $value, $message);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for simplify afterminutes
      * @param int $category
      * @param string $key
      * @param array $buildSmsData
@@ -531,12 +550,7 @@ class SmsClass
     protected function simplifyAfterMinutes($category, $key, $buildSmsData, $value)
     {
         if ($this->isInterger($value)) {
-            if ($this->isAfterMinutes($value)) {
-                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-            } else {
-                $message = "Allowed between 10 to 20000 mintutes";
-                throw ParameterException::invalidInput("afterminutes", "int", $value, $message);
-            }
+            $buildSmsData = $this->checkAfterMinutes($category, $key, $value, $buildSmsData);
         } else {
             throw ParameterException::invalidArrtibuteType($key, "int", $value);
         }
@@ -593,13 +607,13 @@ class SmsClass
         return $buildSmsData;
     }
      /**
-     *This function for simplify message
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     * @return array
-     */
+      *This function for simplify message
+      * @param int $category
+      * @param string $key
+      * @param array $buildSmsData
+      *
+      * @return array
+      */
     protected function simplifyResponse($category, $key, $buildSmsData, $value)
     {
         if ($this->isString($value)) {
@@ -625,11 +639,7 @@ class SmsClass
     {
         if ($this->setResponse()) {
             $value = $this->getResponse();
-            if ($this->isString($value)) {
-                $buildSmsData = $this->simplifyResponse($category, $key, $buildSmsData, $value);
-            } else {
-                throw ParameterException::invalidArrtibuteType($key, "string", $value);
-            }
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
         }
         return $buildSmsData;
     }
@@ -645,64 +655,39 @@ class SmsClass
     {
         if ($this->setAuthKey()) {
             $value = $this->getAuthKey();
-            if ($this->isString($value)) {
-                $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-            } else {
-                throw ParameterException::invalidArrtibuteType($key, "string", $value);
-            }
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
         }
         return $buildSmsData;
     }
     /**
-     * This function used to buils Data Arrtibutes are like
-     * Country,Flash,Unicode,Schtime, campaign
-     *
+     * This function for build campaign
+     * @param int $category
      * @param string $key
      * @param array $buildSmsData
-     * @param int $array
-     * @param array $xmlDoc
      *
-     * @throws ParameterException missing parameters or type error
+     * @return array
      */
-    public function buildSmsDataArrtibutes($key, $buildSmsData, $category, $xmlDoc = null)
+    protected function buildCampaign($category, $key, $buildSmsData, $xmlDoc)
     {
-        if ($this->isKeyPresent($key)) {
-            switch ($key) {
-                case 'country':
-                    $buildSmsData = $this->buildCountry($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'flash':
-                    $buildSmsData = $this->buildFlash($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'unicode':
-                    $buildSmsData = $this->buildUnicode($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'schtime':
-                    $buildSmsData = $this->buildSchtime($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'campaign':
-                    $buildSmsData = $this->buildCampaign($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'sender':
-                    $buildSmsData = $this->buildSmsSender($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'authkey':
-                    $buildSmsData = $this->buildBulkAuth($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'afterminutes':
-                    $buildSmsData = $this->buildAfterMinutes($category, $key, $buildSmsData);
-                    break;
-                case 'message':
-                    $buildSmsData = $this->buildMessage($category, $key, $buildSmsData, $xmlDoc);
-                    break;
-                case 'response':
-                    $buildSmsData = $this->buildResponse($category, $key, $buildSmsData);
-                    break;
-                default:
-                    $message = "parameter".$key."Missing";
-                    throw ParameterException::missinglogic($message);
-                    break;
-            }
+        if ($this->setCampaign()) {
+            $value = $this->getCampaign();
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
+        if ($this->isString($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        } else {
+            throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
         return $buildSmsData;
     }
@@ -950,8 +935,10 @@ class SmsClass
      */
     protected function addMessage($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('message', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('message')) {
+            $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }    
     }
     /**
      * This function for sms array Build with Authkey
@@ -963,8 +950,10 @@ class SmsClass
      */
     protected function addAuth($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('authkey', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('authkey')) {
+            $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }
     }
     /**
      * This function for sms array Build with sender
@@ -976,8 +965,10 @@ class SmsClass
      */
     protected function addSender($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('sender', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('sender')) {
+            $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }    
     }
     /**
      * This function for sms array build with country
@@ -987,8 +978,10 @@ class SmsClass
      */
     protected function addCountry($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('country', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('country')) {
+            $buildSmsData = $this->buildCountry($category, 'country', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }       
     }
     /**
      * This function for sms array build with flash
@@ -999,8 +992,10 @@ class SmsClass
      */
     protected function addFlash($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('flash', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('flash')) {
+            $buildSmsData = $this->buildFlash($category, 'flash', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }
     }
     /**
      * This function for sms array build with flash
@@ -1010,9 +1005,11 @@ class SmsClass
      *
      */
     protected function addUnicode($buildSmsData, $category, $xmlDoc = null)
-    {
-        $buildSmsData = $this->buildSmsDataArrtibutes('unicode', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+    {   
+        if ($this->isKeyPresent('unicode')) {
+            $buildSmsData = $this->buildUnicode($category, 'unicode', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }
     }
     /**
      * This function for sms array build with schtime
@@ -1024,8 +1021,10 @@ class SmsClass
      */
     protected function addSchtime($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('schtime', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('schtime')) {
+            $buildSmsData = $this->buildSchtime($category, 'schtime', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }    
     }
     /**
      * This function for sms array build with
@@ -1036,8 +1035,10 @@ class SmsClass
      */
     protected function addAfterMinutes($buildSmsData, $category)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('afterminutes', $buildSmsData, $category);
-        return $buildSmsData;
+        if ($this->isKeyPresent('afterminutes')) {
+            $buildSmsData = $this->buildAfterMinutes($category, 'afterminutes', $buildSmsData);
+            return $buildSmsData;
+        }    
     }
     /**
      * This function for sms array build with Response
@@ -1047,8 +1048,10 @@ class SmsClass
      */
     protected function addResponse($buildSmsData, $category)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('response', $buildSmsData, $category);
-        return $buildSmsData;
+        if ($this->isKeyPresent('response')) {
+            $buildSmsData = $this->buildResponse($category, 'response', $buildSmsData);
+            return $buildSmsData;
+        }
     }
     /**
      * This function for sms array build with campaign
@@ -1058,7 +1061,9 @@ class SmsClass
      */
     protected function addCampaign($buildSmsData, $category, $xmlDoc = null)
     {
-        $buildSmsData = $this->buildSmsDataArrtibutes('campaign', $buildSmsData, $category, $xmlDoc);
-        return $buildSmsData;
+        if ($this->isKeyPresent('campaign')) {
+            $buildSmsData = $this->buildCampaign($category, 'campaign', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        }
     }
 }

@@ -34,21 +34,21 @@ class OtpVerifyAndResend extends OtpClass
         $checkAuth = Validation::isAuthKey($AuthKey);
         if (!$checkAuth) {
             // Get Envirionment variable and config file values
-            $config      = new ConfigClass();
-            $container   = $config->getDefaults();
-            $common      = $container['common'];
-            $otpAuthKey  = $common['otpAuthKey'];
+            $config = new ConfigClass();
+            $container = $config->getDefaults();
+            $common = $container['common'];
+            $otpAuthKey = $common['otpAuthKey'];
         }
-        $data['authkey']    = $checkAuth ? $AuthKey : $otpAuthKey;
-        $data['mobile']     = $mobileNumber;
+        $data['authkey'] = $checkAuth ? $AuthKey : $otpAuthKey;
+        $data['mobile'] = $mobileNumber;
         if ($apiCategory === 1) {
-            $data['otp']  = $value;
+            $data['otp'] = $value;
             $uri = "verifyRequestOTP.php";
-            $response     = $this->otpFinalVerifyAndResend($data, $uri);
+            $response = $this->otpFinalVerifyAndResend($data, $uri);
         } else {
-            $data['retrytype']  = $value;
+            $data['retrytype'] = $value;
             $uri = 'retryotp.php';
-            $response   = $this->otpFinalVerifyAndResend($data, $uri);
+            $response = $this->otpFinalVerifyAndResend($data, $uri);
         }
         return $response;
     }
@@ -62,7 +62,7 @@ class OtpVerifyAndResend extends OtpClass
      */
     protected function otpFinalVerifyAndResend($data, $uri)
     {
-        $this->sendData     = $data;
+        $this->sendData = $data;
         if ($this->hasSendData()) {
             if ($this->checkAuthKey() && $this->checkMobile()) {
                 $data = $this->sendData;

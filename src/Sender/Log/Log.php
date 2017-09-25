@@ -5,13 +5,13 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 /**
-* This class for Log errors and store request and response status
-*
-* @package    Msg91 SMS&OTP package
-* @author     VenkatS <venkatsamuthiram5@gmail.com>
-* @link       https://github.com/venkatsamuthiram/deliver
-* @license
-*/
+ * This class for Log errors and store request and response status
+ *
+ * @package    Msg91 SMS&OTP package
+ * @author     VenkatS <venkatsamuthiram5@gmail.com>
+ * @link       https://github.com/venkatsamuthiram/deliver
+ * @license
+ */
 
 class Log
 {
@@ -26,10 +26,10 @@ class Log
     }
 
     /**
-    *  MSG91 Error log "ERROR"
-    * @param error Array
-    *
-    */
+     *  MSG91 Error log "ERROR"
+     * @param error Array
+     *
+     */
     public function error(...$error)
     {
         $error = array("ERROR" => $error);
@@ -40,10 +40,10 @@ class Log
     }
 
     /**
-    *  MSG91 Error log "INFO"
-    * @param info array
-    *
-    */
+     *  MSG91 Error log "INFO"
+     * @param info array
+     *
+     */
     public function info(...$info)
     {
         $info = array('INFO' => $info);
