@@ -27,7 +27,7 @@ class SmsNormal extends SmsClass
      *
      * @return string
      */
-    public function buildSmsTransPromoCategory($mobileNumber, $data, $category, $authKey)
+    public function smsCategory($mobileNumber, $data, $category, $authKey)
     {
         $transAuthKey = null;
         $promoAuthKey = null;

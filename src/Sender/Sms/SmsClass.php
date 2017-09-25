@@ -1032,31 +1032,4 @@ class SmsClass
         $buildSmsData = $this->buildSmsDataArrtibutes('campaign', $buildSmsData, $category, $xmlDoc);
         return $buildSmsData;
     }
-    /**
-     * This function for Call buildSmsTransPromoCategory() function
-     * @param  int|string $mobileNumber
-     * @param  array $data
-     * @param  int $category
-     * @param  string $authKey
-     *
-     */
-    public function smsCategory($mobileNumber, $data, $category, $authKey)
-    {
-        $normalSms = new SmsNormal();
-        $response  = $normalSms->buildSmsTransPromoCategory($mobileNumber, $data, $category, $authKey);
-        return $response;
-    }
-    /**
-     * This function Used to send the SMS XML formated data to Deliver Class
-     * @param array $xmlData
-     *
-     * @throws ParameterException missing parameters or type error
-     * @return string MSG91
-     */
-    public function sendXmlSms($xmlData)
-    {
-        $bulkSms = new SmsBulk();
-        $response  = $bulkSms->buildAndSendXmlSms($xmlData);
-        return $response;
-    }
 }

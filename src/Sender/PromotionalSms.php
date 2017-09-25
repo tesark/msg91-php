@@ -1,7 +1,8 @@
 <?php
 namespace Sender;
 
-use Sender\Sms\SmsClass;
+use Sender\Sms\SmsBulk;
+use Sender\Sms\SmsNormal;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -33,7 +34,7 @@ class PromotionalSms
      */
     public function sendPromotional($mobileNumber, $data)
     {
-        $sms = new SmsClass();
+        $sms = new SmsNormal();
         $promoAuthKey = $this->promoAuthKey;
         $response = $sms->smsCategory($mobileNumber, $data, 0, $promoAuthKey);
         return $response;
@@ -55,13 +56,13 @@ class PromotionalSms
             $arrayLength = sizeof($data);
             if (isset($arrayLength) && $arrayLength == 1) {
                 $currentArray = $data[0];
-                $sms          = new SmsClass();
-                $response     = $sms->sendXmlSms($currentArray);
+                $sms          = new SmsBulk();
+                $response     = $sms->buildAndSendXmlSms($currentArray);
             } else {
                 for ($i = 0; $i < $arrayLength; $i++) {
                     $currentArray = $data[$i];
-                    $sms          = new SmsClass();
-                    $response     = $sms->sendXmlSms($currentArray);
+                    $sms          = new SmsBulk();
+                    $response     = $sms->buildAndSendXmlSms($currentArray);
                 }
             }
             return $response;

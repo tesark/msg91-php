@@ -1,7 +1,7 @@
 <?php
 namespace Sender;
 
-use Sender\Sms\SmsClass;
+use Sender\Sms\SmsNormal;
 
 /**
  * This Class provide Transactional SMS APIs
@@ -32,7 +32,7 @@ class TransactionalSms
      */
     public function sendTransactional($mobileNumber, $data)
     {
-        $sms = new SmsClass();
+        $sms = new SmsNormal();
         $transAuthKey = $this->transAuthKey;
         $response = $sms->smsCategory($mobileNumber, $data, 1, $transAuthKey);
         return $response;
