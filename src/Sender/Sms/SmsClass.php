@@ -910,7 +910,6 @@ class SmsClass
      * This function for Add mobile number to XML
      * @param array $xmlDoc
      * @param array $smsTag
-     * @param array $result
      *
      */
     protected function addMobileToXml($xmlDoc, $smsTag, $result)

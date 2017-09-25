@@ -373,6 +373,7 @@ class OtpClass
             $message = "String length must be 6 characters";
             throw ParameterException::invalidInput($key, "string", $value, $message);
         }
+        return $data;
     }
     /**
      * This function used for build sender data
@@ -439,6 +440,7 @@ class OtpClass
             $message = "otp length min 4 to max 9. you given $value";
             throw ParameterException::invalidInput($key, "int", $value, $message);
         }
+        return $data;
     }
     /**
      * This function used for build otpLength data
@@ -471,7 +473,7 @@ class OtpClass
     protected function addMessage($inputData, $data)
     {
         if ($this->isKeyExists('message', $inputData)) {
-            $data = $this->buildMessage($key, $data);
+            $data = $this->buildMessage('message', $data);
         }
         return $data;
     }
@@ -486,7 +488,7 @@ class OtpClass
     protected function addSender($inputData, $data)
     {
         if ($this->isKeyExists('sender', $inputData)) {
-            $data = $this->buildSender($key, $data);
+            $data = $this->buildSender('sender', $data);
         }
         return $data;
     }
@@ -501,7 +503,7 @@ class OtpClass
     protected function addOtp($inputData, $data)
     {
         if ($this->isKeyExists('otp', $inputData)) {
-            $data = $this->buildOtp($key, $data);
+            $data = $this->buildOtp('otp', $data);
         }
         return $data;
     }
@@ -516,7 +518,7 @@ class OtpClass
     protected function addOtpExpiry($inputData, $data)
     {
         if ($this->isKeyExists('otp_expiry', $inputData)) {
-            $data = $this->buildOtpExpiry($key, $data);
+            $data = $this->buildOtpExpiry('otp_expiry', $data);
         }
         return $data;
     }
@@ -531,7 +533,7 @@ class OtpClass
     protected function addOtpLength($inputData, $data)
     {
         if ($this->isKeyExists('otp_length', $inputData)) {
-            $data = $this->buildOtpLength($key, $data);
+            $data = $this->buildOtpLength('otp_length', $data);
         }
         return $data;
     }
