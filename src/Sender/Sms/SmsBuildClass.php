@@ -123,7 +123,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
     {
         if ($this->isString($value)) {
-            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc)
+            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
