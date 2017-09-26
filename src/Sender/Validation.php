@@ -111,4 +111,71 @@ class Validation
         $result = filter_var($afterMinutes, FILTER_VALIDATE_INT, $value);
         return (bool) $result;
     }
+    /**
+     * This function Check value 0 or 1
+     *
+     * @return int
+     */
+    public static function chackArray($value)
+    {
+        $responseFormat = array(0, 1);
+        $value = in_array($value, $responseFormat) ? $value : null;
+        return $value;
+    }
+    /**
+     * This function get array the size
+     * @param array $value
+     *
+     * return int Size fo the array
+     */
+    public static function getSize($value)
+    {
+        return sizeof($value);
+    }
+    /**
+     * This function return String length
+     * @param String $value
+     *
+     * @return int
+     */
+    public static function getLength($value)
+    {
+        return strlen($value);
+    }
+    /**
+     * This function check expect value present in array
+     * @param string $value
+     * 
+     */
+    public static function checkResponse($value)
+    {
+        $responseFormat = array('xml', 'json');
+        $responseVal = strtolower($value);
+        $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
+        return $value;
+    }
+    /**
+     * This function for test sender length
+     * @param string $key
+     * @param string $value
+     * @param array $data
+     * @param string $api
+     * @param int $category
+     * @param array $xmlDoc
+     *
+     */
+    public static function validLength($key, $value, $data, $api, $category = null, $xmlDoc = null)
+    {
+        if (strlen($value) == 6) {
+            if ($api === 'otp') {
+                $data = $this->addArray($key, $value, $data);
+            } else {
+                $data = $this->buildData($category, $key, $value, $data, $xmlDoc);
+            }    
+        } else {
+            $message = "String length must be 6 characters";
+            throw ParameterException::invalidInput($key, "string", $value, $message);
+        }
+        return $data;
+    }
 }

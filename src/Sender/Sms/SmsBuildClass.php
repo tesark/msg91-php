@@ -57,17 +57,6 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     * This function Check value 0 or 1
-     *
-     * @return int
-     */
-    protected function chackArray($value)
-    {
-        $responseFormat = array(0, 1);
-        $value = in_array($value, $responseFormat) ? $value : null;
-        return $value;
-    }
-    /**
      * This function used for Array inside present 0 or 1
      * @param int $category
      * @param string $key
@@ -76,7 +65,7 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
     {
-        $value = $this->chackArray($value);
+        $value = Validation::chackArray($value);
         if (!is_null($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
         } else {
@@ -123,23 +112,6 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     * This function simply check Sender length to Array
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
-    protected function checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value)
-    {
-        if (strlen($value) == 6) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        } else {
-            $message = "String length must be 6 characters";
-            throw ParameterException::invalidInput("sender", "string", $value, $message);
-        }
-        return $buildSmsData;
-    }
-    /**
      * This function simply SMS Sender to Array
      * @param int $category
      * @param string $key
@@ -150,7 +122,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
     {
         if ($this->isString($value)) {
-            $buildSmsData = $this->checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value);
+            $buildSmsData = Validation::validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
@@ -267,9 +239,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifyResponse($category, $key, $value, $buildSmsData)
     {
         if ($this->isString($value)) {
-            $responseFormat = array('xml', 'json');
-            $responseVal = strtolower($value);
-            $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
+            $value = Validation::checkResponse($value);
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
             $message = "string values only accept";
@@ -339,62 +309,6 @@ class SmsBuildClass extends SmsDefineClass
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
-        return $buildSmsData;
-    }
-    /**
-     * This function for buildData normal SMS as well bulk SMS
-     *
-     *
-     */
-    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $Atrr = null)
-    {
-        if ($category === 1) {
-            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
-        } else {
-            if ($isElement) {
-                $childAttr = $xmlDoc->createAttribute($Atrr);
-                $childText = $xmlDoc->createTextNode($this->getMessage());
-                $buildSmsData->appendChild($childAttr)->appendChild($childText);
-            } else {
-                $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
-            }
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function check variable Key in input array
-     * @param string $key
-     *
-     * @return bool
-     */
-    protected function isKeyPresent($key)
-    {
-        return $this->isKeyExists($key, $this->inputData);
-    }
-    /**
-     * This function add data to array
-     * @param string $key
-     * @param int|string $value
-     * @param array $array
-     *
-     * @return array
-     */
-    protected function addArray($key, $value, $array)
-    {
-        return $array += [$key => $value];
-    }
-    /**
-     * This function add data to xml string
-     *
-     */
-    protected function addXml($buildSmsData, $xmlDoc, $key, $value)
-    {
-        if ($key === 'schtime') {
-            $key = 'scheduledatetime';
-        }
-        $key = strtoupper(trim($key));
-        //create a country element
-        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
         return $buildSmsData;
     }
     /**
@@ -498,28 +412,11 @@ class SmsBuildClass extends SmsDefineClass
         }
         return $buildSmsData;
     }
-    /**
-     * This function Create Element only
-     * @param array $xmlDoc
-     * @param string $element
-     * @param array $root
-     *
-     * @return array
-     */
-    protected function createElement($xmlDoc, $element, $root = null)
-    {
-        if (is_null($root)) {
-            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
-        } else {
-            $root = $root->appendChild($xmlDoc->createElement($element));
-        }
-        return $root;
-    }
     protected function addContent($root, $category, $xmlDoc)
     {
         if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
             $bulkSms      = $this->getContent();
-            $lenOfBulkSms = $this->getSize($bulkSms);
+            $lenOfBulkSms = Validation::getSize($bulkSms);
             for ($j = 0; $j < $lenOfBulkSms; $j++) {
                 $this->inputData = $bulkSms[$j];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
@@ -540,7 +437,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if (!empty($result) && $result['value'] == true) {
             $mobiles = $result['mobile'];
-            $len = $this->getSize($mobiles);
+            $len = Validation::getSize($mobiles);
             for ($k = 0; $k < $len; $k++) {
                 $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
                 $childAttr = $xmlDoc->createAttribute("TO");
