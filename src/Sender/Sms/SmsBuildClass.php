@@ -121,6 +121,7 @@ class SmsBuildClass extends SmsDefineClass
             $message = "String length must be 6 characters";
             throw ParameterException::invalidInput("sender", "string", $value, $message);
         }
+        return $buildSmsData;
     }
     /**
      * This function simply SMS Sender to Array
@@ -272,7 +273,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->setResponse()) {
             $value = $this->getResponse();
-            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData);
         }
         return $buildSmsData;
     }
@@ -315,7 +316,7 @@ class SmsBuildClass extends SmsDefineClass
      * @param array $buildSmsData
      *
      */
-    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc)
+    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
     {
         if ($this->isString($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
@@ -518,7 +519,7 @@ class SmsBuildClass extends SmsDefineClass
                 $this->inputData = $bulkSms[$j];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
                 //check message length
-                $smsTag = $this->buildSmsDataArrtibutes('message', $smsTag, $category, $xmlDoc);
+                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
                 //check mobile contents
                 $this->addMobileNumber($xmlDoc, $smsTag);
             }
