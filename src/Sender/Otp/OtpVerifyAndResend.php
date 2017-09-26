@@ -16,7 +16,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class OtpVerifyAndResend extends OtpClass
+class OtpVerifyAndResend extends OtpBuildClass
 {
     /**
      * This function used for verify and resend OTP content

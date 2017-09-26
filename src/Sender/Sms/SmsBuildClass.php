@@ -18,375 +18,8 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class SmsClass
+class SmsBuildClass extends SmsDefineClass
 {
-    /**
-     * @var int $mobile
-     */
-    protected $mobile = null;
-    /**
-     * @var array $inputData
-     */
-    protected $inputData = null;
-    /**
-     * @var string $authkey
-     */
-    protected $authkey = null;
-    /**
-     * @var array $sendData
-     */
-    protected $sendSmsData = null;
-    /**
-     * @var string $message
-     */
-    protected $message = null;
-    /**
-     * @var string|int $unicode
-     */
-    protected $unicode = null;
-    /**
-     * @var string $sender
-     */
-    protected $sender = null;
-    /**
-     * @var string|int $country
-     */
-    protected $country = null;
-    /**
-     * @var string $content
-     */
-    protected $content = null;
-    /**
-     * @var string|int $flash
-     */
-    protected $flash = null;
-    /**
-     * @var string $schtime
-     */
-    protected $schtime = null;
-    /**
-     * @var string $afterminutes
-     */
-    protected $afterminutes = null;
-    /**
-     * @var string $response
-     */
-    protected $response = null;
-    /**
-     * @var string $campaign
-     */
-    protected $campaign = null;
-
-    /**
-     * Check the mobilenumber empty
-     * @return bool
-     */
-    public function hasMobileNumber()
-    {
-        $data = $this->inputData['mobile'];
-        return isset($data);
-    }
-    /**
-     * Check the data empty
-     * @return bool
-     */
-    public function hasData()
-    {
-        return isset($this->inputData);
-    }
-    /**
-     * Check the sendData empty
-     * @return bool
-     */
-    public function hasSendData()
-    {
-        return isset($this->sendSmsData);
-    }
-    /**
-     * Check key present in array or not
-     * @param string $key
-     * @param array  $array
-     *
-     * @return bool
-     */
-    protected function isKeyExists($key, $array)
-    {
-        return array_key_exists($key, $array);
-    }
-    /**
-     * set content
-     * @return bool
-     */
-    public function setContent()
-    {
-        $this->content = $this->inputData['content'];
-        return true;
-    }
-    /*
-     * get content
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-    /**
-     * set mobile
-     * @return bool
-     */
-    public function setMobile()
-    {
-        $this->mobile = $this->inputData['mobile'];
-        return true;
-    }
-    /*
-     * get mobile
-     */
-    public function getMobile()
-    {
-        return $this->mobile;
-    }
-    /**
-     * set authkey
-     * @return bool
-     */
-    public function setAuthKey()
-    {
-        $this->authkey = $this->inputData['authkey'];
-        return true;
-    }
-    /*
-     * get authkey
-     */
-    public function getAuthKey()
-    {
-        return $this->authkey;
-    }
-    /**
-     * set message
-     * @return bool
-     */
-    public function setMessage()
-    {
-        $this->message = $this->inputData['message'];
-        return true;
-    }
-    /*
-     * get message
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-    /**
-     * set unicode
-     * @return bool
-     */
-    public function setUnicode()
-    {
-        $this->unicode = $this->inputData['unicode'];
-        return true;
-    }
-    /*
-     * get unicode
-     */
-    public function getUnicode()
-    {
-        return $this->unicode;
-    }
-    /**
-     * set sender
-     * @return bool
-     */
-    public function setSender()
-    {
-        $this->sender = $this->inputData['sender'];
-        return true;
-    }
-    /*
-     * get sender
-     */
-    public function getSender()
-    {
-        return $this->sender;
-    }
-    /**
-     * set country
-     * @return bool
-     */
-    public function setCountry()
-    {
-        $this->country = $this->inputData['country'];
-        return true;
-    }
-    /*
-     * get country
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-    /**
-     * set flash
-     * @return bool
-     */
-    public function setFlash()
-    {
-        $this->flash = $this->inputData['flash'];
-        return true;
-    }
-    /*
-     * get flash
-     */
-    public function getFlash()
-    {
-        return $this->flash;
-    }
-    /**
-     * set schtime
-     * @return bool
-     */
-    public function setSchtime()
-    {
-        $this->schtime = $this->inputData['schtime'];
-        return true;
-    }
-    /*
-     * get schtime
-     */
-    public function getSchtime()
-    {
-        return $this->schtime;
-    }
-    /**
-     * set afterminutes
-     * @return bool
-     */
-    public function setAfterminutes()
-    {
-        $this->afterminutes = $this->inputData['afterminutes'];
-        return true;
-    }
-    /*
-     * get afterminutes
-     */
-    public function getAfterminutes()
-    {
-        return $this->afterminutes;
-    }
-    /**
-     * set response
-     * @return bool
-     */
-    public function setResponse()
-    {
-        $this->response = $this->inputData['response'];
-        return true;
-    }
-    /*
-     * get response
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-    /**
-     * set campaign
-     * @return bool
-     */
-    public function setCampaign()
-    {
-        $this->campaign = $this->inputData['campaign'];
-        return true;
-    }
-    /*
-     * get campaign
-     */
-    public function getCampaign()
-    {
-        return $this->campaign;
-    }
-    /**
-     * Check integer value
-     * @param value
-     * @return bool
-     */
-    public function isInterger($value)
-    {
-        $result = Validation::isInteger($value);
-        return $result;
-    }
-    /**
-     * Check string value
-     * @param value
-     * @return bool
-     */
-    public function isString($value)
-    {
-        $result = Validation::isString($value);
-        return $result;
-    }
-    /**
-     * Check numeric value
-     * @param value
-     * @return bool
-     */
-    public function isNumeric($value)
-    {
-        $result = Validation::isNumeric($value);
-        return $result;
-    }
-    /*
-     * Check isvalid mobile number 
-     */
-    public function isValidNumber($value)
-    {
-        $result = MobileNumber::isValidNumber($value);
-        return $result;
-    }
-    /*
-     * Check isvalid afterminutes 
-     */
-    public function isAfterMinutes($value)
-    {
-        $result = Validation::isVaildAfterMinutes($value);
-        return $result;
-    }
-    /**
-     * Check vaild Date Time
-     * @return bool
-     */
-    public function isVaildDateTime($value)
-    {
-        if (Validation::isValidDateFirstFormat($value)) {
-            return true;
-        } elseif (Validation::isValidDateSecondFormat($value)) {
-            return true;
-        } elseif (Validation::isValidTimeStamp($value)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    /**
-     * This function get array the size
-     * @param array $value
-     *
-     * return int Size fo the array
-     */
-    protected function getSize($value)
-    {
-        return sizeof($value);
-    }
-    /**
-     * This function return String length
-     * @param String $value
-     *
-     * @return int
-     */
-    protected function getLength($value)
-    {
-        return strlen($value);
-    }
     /**
      * This function for build country
      * @param int $category
@@ -424,6 +57,17 @@ class SmsClass
         return $buildSmsData;
     }
     /**
+     * This function Check value 0 or 1
+     *
+     * @return int
+     */
+    protected function chackArray($value)
+    {
+        $responseFormat = array(0, 1);
+        $value = in_array($value, $responseFormat) ? $value : null;
+        return $value;
+    }
+    /**
      * This function used for Array inside present 0 or 1
      * @param int $category
      * @param string $key
@@ -433,7 +77,12 @@ class SmsClass
     protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         $value = $this->chackArray($value);
-        $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        if (!is_null($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        } else {
+            $message = "Allowed only 0 or 1";
+            throw ParameterException::invalidInput($key, "int", $value, $message);
+        }
         return $buildSmsData;
     }
     /**
@@ -488,6 +137,7 @@ class SmsClass
             $message = "String length must be 6 characters";
             throw ParameterException::invalidInput("sender", "string", $value, $message);
         }
+        return $buildSmsData;
     }
     /**
      * This function simply SMS Sender to Array
@@ -614,7 +264,7 @@ class SmsClass
       *
       * @return array
       */
-    protected function simplifyResponse($category, $key, $buildSmsData, $value)
+    protected function simplifyResponse($category, $key, $value, $buildSmsData)
     {
         if ($this->isString($value)) {
             $responseFormat = array('xml', 'json');
@@ -639,7 +289,7 @@ class SmsClass
     {
         if ($this->setResponse()) {
             $value = $this->getResponse();
-            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            $buildSmsData = $this->simplifyResponse($category, $key, $value, $buildSmsData);
         }
         return $buildSmsData;
     }
@@ -682,7 +332,7 @@ class SmsClass
      * @param array $buildSmsData
      *
      */
-    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc)
+    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
     {
         if ($this->isString($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
@@ -690,17 +340,6 @@ class SmsClass
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
         return $buildSmsData;
-    }
-    /**
-     * This function Check value 0 or 1
-     *
-     * @return int
-     */
-    protected function chackArray($value)
-    {
-        $responseFormat = array(0, 1);
-        $value = in_array($value, $responseFormat) ? $value : null;
-        return $value;
     }
     /**
      * This function for buildData normal SMS as well bulk SMS
@@ -885,7 +524,7 @@ class SmsClass
                 $this->inputData = $bulkSms[$j];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
                 //check message length
-                $smsTag = $this->buildSmsDataArrtibutes('message', $smsTag, $category, $xmlDoc);
+                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
                 //check mobile contents
                 $this->addMobileNumber($xmlDoc, $smsTag);
             }
@@ -937,8 +576,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('message')) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array Build with Authkey
@@ -952,8 +591,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('authkey')) {
             $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array Build with sender
@@ -967,8 +606,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('sender')) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with country
@@ -980,8 +619,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('country')) {
             $buildSmsData = $this->buildCountry($category, 'country', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }       
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with flash
@@ -994,8 +633,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('flash')) {
             $buildSmsData = $this->buildFlash($category, 'flash', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with flash
@@ -1008,8 +647,8 @@ class SmsClass
     {   
         if ($this->isKeyPresent('unicode')) {
             $buildSmsData = $this->buildUnicode($category, 'unicode', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with schtime
@@ -1023,8 +662,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('schtime')) {
             $buildSmsData = $this->buildSchtime($category, 'schtime', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with
@@ -1037,8 +676,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('afterminutes')) {
             $buildSmsData = $this->buildAfterMinutes($category, 'afterminutes', $buildSmsData);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with Response
@@ -1050,8 +689,8 @@ class SmsClass
     {
         if ($this->isKeyPresent('response')) {
             $buildSmsData = $this->buildResponse($category, 'response', $buildSmsData);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with campaign
@@ -1063,7 +702,7 @@ class SmsClass
     {
         if ($this->isKeyPresent('campaign')) {
             $buildSmsData = $this->buildCampaign($category, 'campaign', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
 }

@@ -22,8 +22,11 @@ class Otp
     /**
      * @var null|string $otpAuth
      */
-    private $otpAuth;
-    public  $otp;
+    protected $otpAuth;
+    /**
+     * @var null|int $otp
+     */
+    public $otp;
     public function __construct($authkey = null)
     {
         $this->otpAuth = $authkey;
@@ -31,8 +34,8 @@ class Otp
     /**
      * Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
      *
-     * @param  int|string $mobileNumber
-     * @param  array      $dataArray
+     * @param int|string $mobileNumber
+     * @param array $dataArray
      *
      * @return string MSG91 response
      */
@@ -57,8 +60,8 @@ class Otp
     /**
      * Verify OTP using MSG91 Service, you want to Verify OTP using this "verifyOtp method"
      *
-     * @param  int $mobileNumber
-     * @param  int $dataArray
+     * @param int $mobileNumber
+     * @param int $dataArray
      *
      * @return string MSG91 response
      */
@@ -72,8 +75,8 @@ class Otp
     /**
      * Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
      *
-     * @param  int $mobileNumber
-     * @param  string $retrytype
+     * @param int $mobileNumber
+     * @param string $retrytype
      *
      * @return string MSG91 response
      */

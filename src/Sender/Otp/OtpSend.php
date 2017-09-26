@@ -16,7 +16,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class OtpSend extends OtpClass
+class OtpSend extends OtpBuildClass
 {
     /**
      * This function for send OTP
