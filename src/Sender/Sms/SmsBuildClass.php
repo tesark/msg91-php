@@ -576,8 +576,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('message')) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array Build with Authkey
@@ -591,8 +591,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('authkey')) {
             $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array Build with sender
@@ -606,8 +606,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('sender')) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with country
@@ -619,8 +619,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('country')) {
             $buildSmsData = $this->buildCountry($category, 'country', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }       
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with flash
@@ -633,8 +633,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('flash')) {
             $buildSmsData = $this->buildFlash($category, 'flash', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with flash
@@ -647,8 +647,8 @@ class SmsBuildClass extends SmsDefineClass
     {   
         if ($this->isKeyPresent('unicode')) {
             $buildSmsData = $this->buildUnicode($category, 'unicode', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with schtime
@@ -662,8 +662,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('schtime')) {
             $buildSmsData = $this->buildSchtime($category, 'schtime', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with
@@ -676,8 +676,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('afterminutes')) {
             $buildSmsData = $this->buildAfterMinutes($category, 'afterminutes', $buildSmsData);
-            return $buildSmsData;
-        }    
+        }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with Response
@@ -689,8 +689,8 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('response')) {
             $buildSmsData = $this->buildResponse($category, 'response', $buildSmsData);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
     /**
      * This function for sms array build with campaign
@@ -702,7 +702,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('campaign')) {
             $buildSmsData = $this->buildCampaign($category, 'campaign', $buildSmsData, $xmlDoc);
-            return $buildSmsData;
         }
+        return $buildSmsData;
     }
 }
