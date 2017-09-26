@@ -123,7 +123,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
     {
         if ($this->isString($value)) {
-            $buildSmsData = $this->checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value);
+            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc)
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
@@ -240,9 +240,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifyResponse($category, $key, $value, $buildSmsData)
     {
         if ($this->isString($value)) {
-            $responseFormat = array('xml', 'json');
-            $responseVal = strtolower($value);
-            $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
+            $value = $this->checkResponse($value);
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
             $message = "string values only accept";
