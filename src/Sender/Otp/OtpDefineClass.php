@@ -18,7 +18,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class OtpDefineClass
+class OtpDefineClass extends SmsOtpCommonclass
 {
     /**
      * @var array $inputData

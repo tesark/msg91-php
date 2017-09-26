@@ -19,7 +19,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class SmsDefineClass
+class SmsDefineClass extends SmsOtpCommonclass
 {
     /**
      * @var int $mobile
