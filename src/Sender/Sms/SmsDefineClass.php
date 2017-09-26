@@ -6,6 +6,7 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
+use Sender\SmsOtpCommonclass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -341,14 +342,6 @@ class SmsDefineClass
     public function isValidNumber($value)
     {
         $result = MobileNumber::isValidNumber($value);
-        return $result;
-    }
-    /*
-     * Check isvalid afterminutes 
-     */
-    public function isAfterMinutes($value)
-    {
-        $result = Validation::isVaildAfterMinutes($value);
         return $result;
     }
     /**

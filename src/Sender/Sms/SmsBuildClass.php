@@ -6,6 +6,7 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
+use Sender\SmsOtpCommonclass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -57,17 +58,6 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     * This function Check value 0 or 1
-     *
-     * @return int
-     */
-    protected function chackArray($value)
-    {
-        $responseFormat = array(0, 1);
-        $value = in_array($value, $responseFormat) ? $value : null;
-        return $value;
-    }
-    /**
      * This function used for Array inside present 0 or 1
      * @param int $category
      * @param string $key
@@ -76,7 +66,7 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
     {
-        $value = $this->chackArray($value);
+        $value = $this->checkArray($value);
         if (!is_null($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
         } else {
@@ -123,23 +113,6 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     * This function simply check Sender length to Array
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
-    protected function checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value)
-    {
-        if (strlen($value) == 6) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        } else {
-            $message = "String length must be 6 characters";
-            throw ParameterException::invalidInput("sender", "string", $value, $message);
-        }
-        return $buildSmsData;
-    }
-    /**
      * This function simply SMS Sender to Array
      * @param int $category
      * @param string $key
@@ -150,7 +123,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
     {
         if ($this->isString($value)) {
-            $buildSmsData = $this->checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value);
+            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc)
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
@@ -181,7 +154,7 @@ class SmsBuildClass extends SmsDefineClass
      */      
     protected function checkAfterMinutes($category, $key, $value, $buildSmsData)
     {
-        if ($this->isAfterMinutes($value)) {
+        if ($this->isVaildAfterMinutes($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
             $message = "Allowed between 10 to 20000 mintutes";
@@ -267,9 +240,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifyResponse($category, $key, $value, $buildSmsData)
     {
         if ($this->isString($value)) {
-            $responseFormat = array('xml', 'json');
-            $responseVal = strtolower($value);
-            $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
+            $value = $this->checkResponse($value);
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
             $message = "string values only accept";

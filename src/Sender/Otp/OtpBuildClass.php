@@ -5,6 +5,7 @@ use Sender\Deliver;
 use Sender\Validation;
 use Sender\Otp\OtpSend;
 use Sender\MobileNumber;
+use Sender\SmsOtpCommonclass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -128,24 +129,6 @@ class OtpBuildClass extends OtpDefineClass
         return $data;
     }
     /**
-     ** This function used for build sender data
-     * @param string $key
-     * @param string $value
-     * @param array $data
-     *
-     * @return array
-     */
-    protected function checkSenderLength($key, $value, $data)
-    {
-        if (strlen($value) == 6) {
-            $data = $this->addArray($key, $value, $data);
-        } else {
-            $message = "String length must be 6 characters";
-            throw ParameterException::invalidInput($key, "string", $value, $message);
-        }
-        return $data;
-    }
-    /**
      * This function used for build sender data
      * @param string $key
      * @param array $data
@@ -157,7 +140,7 @@ class OtpBuildClass extends OtpDefineClass
         if ($this->setSender()) {
             $value = $this->getSender();
             if ($this->isString($value)) {
-                $data = $this->checkSenderLength($key, $value, $data);
+                $data = $this->validLength($key, $value, $data, 'otp');
             } else {
                 throw ParameterException::invalidArrtibuteType($key, "string", $value);
             }

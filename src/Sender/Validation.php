@@ -100,15 +100,23 @@ class Validation
         }
     }
     /**
-     * Check afterminutes limits
-     * @param string $afterMinutes
+     * This function get array the size
+     * @param array $value
      *
-     * @return bool
+     * return int Size fo the array
      */
-    public static function isVaildAfterMinutes($afterMinutes)
+    public static function getSize($value)
     {
-        $value  = array('options' => array('min_range' => 10, 'max_range' => 20000));
-        $result = filter_var($afterMinutes, FILTER_VALIDATE_INT, $value);
-        return (bool) $result;
+        return sizeof($value);
+    }
+    /**
+     * This function return String length
+     * @param String $value
+     *
+     * @return int
+     */
+    public static function getLength($value)
+    {
+        return strlen($value);
     }
 }
