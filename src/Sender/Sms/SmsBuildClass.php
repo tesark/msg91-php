@@ -113,23 +113,6 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     * This function simply SMS Sender to Array
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     * @return array
-     */
-    protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
-    {
-        if ($this->isString($value)) {
-            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
-        } else {
-            throw ParameterException::invalidArrtibuteType($key, "string", $value);
-        }
-        return $buildSmsData;
-    }
-    /**
      * This function for build sender
      * @param int $category
      * @param string $key
@@ -141,7 +124,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->setSender()) {
             $value = $this->getSender();
-            $buildSmsData = $this->simplifySender($category, $key, $buildSmsData, $xmlDoc, $value);
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
         }
         return $buildSmsData;
     }
@@ -196,24 +179,6 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     *This function for simplify message
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     * @return array
-     */
-    protected function simplifyMessage($category, $key, $buildSmsData, $value, $xmlDoc)
-    {
-        if ($this->isString($value)) {
-            $buildSmsData = $this->messageCondition($category, $key, $buildSmsData, $value, $xmlDoc);
-        } else {
-            $message = "string values only accept";
-            throw ParameterException::invalidInput($key, "string", $value, $message);
-        }
-        return $buildSmsData;
-    }
-    /**
      * This function for build Message
      * @param int $category
      * @param string $key
@@ -225,26 +190,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->setMessage()) {
             $value = $this->getMessage();
-            $buildSmsData = $this->simplifyMessage($category, $key, $buildSmsData, $value, $xmlDoc);
-        }
-        return $buildSmsData;
-    }
-     /**
-      *This function for simplify message
-      * @param int $category
-      * @param string $key
-      * @param array $buildSmsData
-      *
-      * @return array
-      */
-    protected function simplifyResponse($category, $key, $value, $buildSmsData)
-    {
-        if ($this->isString($value)) {
-            $value = $this->checkResponse($value);
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-        } else {
-            $message = "string values only accept";
-            throw ParameterException::invalidInput($key, "string", $value, $message);
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
         }
         return $buildSmsData;
     }
@@ -260,7 +206,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->setResponse()) {
             $value = $this->getResponse();
-            $buildSmsData = $this->simplifyResponse($category, $key, $value, $buildSmsData);
+            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData);
         }
         return $buildSmsData;
     }
@@ -293,22 +239,6 @@ class SmsBuildClass extends SmsDefineClass
         if ($this->setCampaign()) {
             $value = $this->getCampaign();
             $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function for Check String Type
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
-    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
-    {
-        if ($this->isString($value)) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        } else {
-            throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
         return $buildSmsData;
     }

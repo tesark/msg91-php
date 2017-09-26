@@ -77,5 +77,45 @@ class SmsOtpCommonclass
         $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
         return $value;
     }
-
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
+    {
+        if ($this->isString($value)) {
+            $buildSmsData = $this->buildStringData($category, $key, $value, $buildSmsData, $xmlDoc);    
+        } else {
+            $message = "string values only accept";
+            throw ParameterException::invalidInput($key, "string", $value, $message);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function buildStringData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
+        if ($key === 'authkey' || $key === 'campaign') {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        }
+        if ($key === 'sender') {
+            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
+        }
+        if ($key === 'message') {
+            $buildSmsData = $this->messageCondition($category, $key, $buildSmsData, $value, $xmlDoc);
+        }
+        if ($key === 'response') {
+            $value = $this->checkResponse($value);
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+        }
+        return $buildSmsData;
+    }
 }
