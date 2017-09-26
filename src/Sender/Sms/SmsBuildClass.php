@@ -57,6 +57,17 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
+     * This function Check value 0 or 1
+     *
+     * @return int
+     */
+    protected function chackArray($value)
+    {
+        $responseFormat = array(0, 1);
+        $value = in_array($value, $responseFormat) ? $value : null;
+        return $value;
+    }
+    /**
      * This function used for Array inside present 0 or 1
      * @param int $category
      * @param string $key
@@ -66,7 +77,12 @@ class SmsBuildClass extends SmsDefineClass
     protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         $value = $this->chackArray($value);
-        $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        if (!is_null($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+        } else {
+            $message = "Allowed only 0 or 1";
+            throw ParameterException::invalidInput($key, "int", $value, $message);
+        }
         return $buildSmsData;
     }
     /**
@@ -248,7 +264,7 @@ class SmsBuildClass extends SmsDefineClass
       *
       * @return array
       */
-    protected function simplifyResponse($category, $key, $buildSmsData, $value)
+    protected function simplifyResponse($category, $key, $value, $buildSmsData)
     {
         if ($this->isString($value)) {
             $responseFormat = array('xml', 'json');
@@ -273,7 +289,7 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->setResponse()) {
             $value = $this->getResponse();
-            $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData);
+            $buildSmsData = $this->simplifyResponse($category, $key, $value, $buildSmsData);
         }
         return $buildSmsData;
     }
@@ -324,17 +340,6 @@ class SmsBuildClass extends SmsDefineClass
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
         return $buildSmsData;
-    }
-    /**
-     * This function Check value 0 or 1
-     *
-     * @return int
-     */
-    protected function chackArray($value)
-    {
-        $responseFormat = array(0, 1);
-        $value = in_array($value, $responseFormat) ? $value : null;
-        return $value;
     }
     /**
      * This function for buildData normal SMS as well bulk SMS
