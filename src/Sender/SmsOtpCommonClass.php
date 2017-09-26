@@ -5,6 +5,10 @@ use DOMDocument;
 use Sender\Deliver;
 use Sender\Validation;
 use Sender\MobileNumber;
+use Sender\Sms\SmsBuildClass;
+use Sender\Otp\OtpBuildClass;
+use Sender\Sms\SmsDefineClass;
+use Sender\Otp\OtpDefineClass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -103,15 +107,63 @@ class SmsOtpCommonclass
      */
     protected function buildStringData($category, $key, $value, $buildSmsData, $xmlDoc)
     {
+        $buildSmsData = $this->CheckAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc);
+        $buildSmsData = $this->CheckSenderData($category, $key, $value, $buildSmsData, $xmlDoc);
+        $buildSmsData = $this->CheckMessageData($category, $key, $value, $buildSmsData, $xmlDoc);
+        $buildSmsData = $this->CheckResponseData($category, $key, $value, $buildSmsData);        
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function CheckAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
         if ($key === 'authkey' || $key === 'campaign') {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
         }
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function CheckSenderData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
         if ($key === 'sender') {
             $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
         }
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function CheckMessageData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
         if ($key === 'message') {
             $buildSmsData = $this->messageCondition($category, $key, $buildSmsData, $value, $xmlDoc);
         }
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    protected function CheckResponseData($category, $key, $value, $buildSmsData)
+    {
         if ($key === 'response') {
             $value = $this->checkResponse($value);
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
