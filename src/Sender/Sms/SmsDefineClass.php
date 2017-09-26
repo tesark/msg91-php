@@ -6,6 +6,7 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
+use Sender\SmsOtpCommonclass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -18,7 +19,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class SmsDefineClass
+class SmsDefineClass extends SmsOtpCommonclass
 {
     /**
      * @var int $mobile
@@ -112,6 +113,16 @@ class SmsDefineClass
     protected function isKeyExists($key, $array)
     {
         return array_key_exists($key, $array);
+    }
+    /**
+     * This function check variable Key in input array
+     * @param string $key
+     *
+     * @return bool
+     */
+    protected function isKeyPresent($key)
+    {
+        return $this->isKeyExists($key, $this->inputData);
     }
     /**
      * set content
@@ -343,14 +354,6 @@ class SmsDefineClass
         $result = MobileNumber::isValidNumber($value);
         return $result;
     }
-    /*
-     * Check isvalid afterminutes 
-     */
-    public function isAfterMinutes($value)
-    {
-        $result = Validation::isVaildAfterMinutes($value);
-        return $result;
-    }
     /**
      * Check vaild Date Time
      * @return bool
@@ -368,23 +371,66 @@ class SmsDefineClass
         }
     }
     /**
-     * This function get array the size
-     * @param array $value
+     * This function add data to array
+     * @param string $key
+     * @param int|string $value
+     * @param array $array
      *
-     * return int Size fo the array
+     * @return array
      */
-    protected function getSize($value)
+    protected function addArray($key, $value, $array)
     {
-        return sizeof($value);
+        return $array += [$key => $value];
     }
     /**
-     * This function return String length
-     * @param String $value
+     * This function Create Element only
+     * @param array $xmlDoc
+     * @param string $element
+     * @param array $root
      *
-     * @return int
+     * @return array
      */
-    protected function getLength($value)
+    protected function createElement($xmlDoc, $element, $root = null)
     {
-        return strlen($value);
+        if (is_null($root)) {
+            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
+        } else {
+            $root = $root->appendChild($xmlDoc->createElement($element));
+        }
+        return $root;
+    }
+    /**
+     * This function for buildData normal SMS as well bulk SMS
+     *
+     *
+     */
+    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $Atrr = null)
+    {
+        if ($category === 1) {
+            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
+        } else {
+            if ($isElement) {
+                $childAttr = $xmlDoc->createAttribute($Atrr);
+                $childText = $xmlDoc->createTextNode($this->getMessage());
+                $buildSmsData->appendChild($childAttr)->appendChild($childText);
+            } else {
+                $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
+            }
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function add data to xml string
+     *
+     */
+    protected function addXml($buildSmsData, $xmlDoc, $key, $value)
+    {
+        if ($key === 'schtime') {
+            $key = 'scheduledatetime';
+        }
+        $key = strtoupper(trim($key));
+        //create a country element
+        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
+        return $buildSmsData;
     }
 }
