@@ -5,6 +5,7 @@ use Sender\Deliver;
 use Sender\Validation;
 use Sender\Otp\OtpSend;
 use Sender\MobileNumber;
+use Sender\SmsOtpCommonclass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -139,7 +140,7 @@ class OtpBuildClass extends OtpDefineClass
         if ($this->setSender()) {
             $value = $this->getSender();
             if ($this->isString($value)) {
-                $data = Validation::validLength($key, $value, $data, 'otp');
+                $data = $this->validLength($key, $value, $data, 'otp');
             } else {
                 throw ParameterException::invalidArrtibuteType($key, "string", $value);
             }

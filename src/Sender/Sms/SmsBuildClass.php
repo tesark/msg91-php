@@ -6,6 +6,7 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
+use Sender\SmsOtpCommonclass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -65,7 +66,7 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
     {
-        $value = Validation::chackArray($value);
+        $value = $this->checkArray($value);
         if (!is_null($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
         } else {
@@ -122,7 +123,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifySender($category, $key, $buildSmsData, $xmlDoc, $value)
     {
         if ($this->isString($value)) {
-            $buildSmsData = Validation::validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
+            $buildSmsData = $this->checkSenderlength($category, $key, $buildSmsData, $xmlDoc, $value);
         } else {
             throw ParameterException::invalidArrtibuteType($key, "string", $value);
         }
@@ -153,7 +154,7 @@ class SmsBuildClass extends SmsDefineClass
      */      
     protected function checkAfterMinutes($category, $key, $value, $buildSmsData)
     {
-        if ($this->isAfterMinutes($value)) {
+        if ($this->isVaildAfterMinutes($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
             $message = "Allowed between 10 to 20000 mintutes";
@@ -239,7 +240,9 @@ class SmsBuildClass extends SmsDefineClass
     protected function simplifyResponse($category, $key, $value, $buildSmsData)
     {
         if ($this->isString($value)) {
-            $value = Validation::checkResponse($value);
+            $responseFormat = array('xml', 'json');
+            $responseVal = strtolower($value);
+            $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         } else {
             $message = "string values only accept";
