@@ -17,7 +17,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class SmsBulk extends SmsClass
+class SmsBulk extends SmsBuildClass
 {
     /**
      * This function Used to send the SMS XML formated data to Deliver Class

@@ -16,7 +16,7 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class SmsNormal extends SmsClass
+class SmsNormal extends SmsBuildClass
 {
     /**
      * This function Category to send SMS

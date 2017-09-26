@@ -528,7 +528,7 @@ class SmsClass
      * @param string $key
      * @param array $buildSmsData
      *
-     */      
+     */
     protected function checkAfterMinutes($category, $key, $value, $buildSmsData)
     {
         if ($this->isAfterMinutes($value)) {
@@ -707,13 +707,13 @@ class SmsClass
      *
      *
      */
-    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $Atrr = null)
+    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $Attr = null)
     {
         if ($category === 1) {
             $buildSmsData = $this->addArray($key, $value, $buildSmsData);
         } else {
             if ($isElement) {
-                $childAttr = $xmlDoc->createAttribute($Atrr);
+                $childAttr = $xmlDoc->createAttribute($Attr);
                 $childText = $xmlDoc->createTextNode($this->getMessage());
                 $buildSmsData->appendChild($childAttr)->appendChild($childText);
             } else {
@@ -808,7 +808,7 @@ class SmsClass
     protected function addMobile($buildSmsData, $category)
     {
         $value = '';
-        $key = ''; 
+        $key = '';
         if ($category === 1) {
             if ($this->setMobile()) {
                 $value = $this->getMobile();
@@ -938,7 +938,7 @@ class SmsClass
         if ($this->isKeyPresent('message')) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        }    
+        }
     }
     /**
      * This function for sms array Build with Authkey
@@ -968,7 +968,7 @@ class SmsClass
         if ($this->isKeyPresent('sender')) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        }    
+        }
     }
     /**
      * This function for sms array build with country
@@ -981,7 +981,7 @@ class SmsClass
         if ($this->isKeyPresent('country')) {
             $buildSmsData = $this->buildCountry($category, 'country', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        }       
+        }
     }
     /**
      * This function for sms array build with flash
@@ -1005,7 +1005,7 @@ class SmsClass
      *
      */
     protected function addUnicode($buildSmsData, $category, $xmlDoc = null)
-    {   
+    {
         if ($this->isKeyPresent('unicode')) {
             $buildSmsData = $this->buildUnicode($category, 'unicode', $buildSmsData, $xmlDoc);
             return $buildSmsData;
@@ -1024,7 +1024,7 @@ class SmsClass
         if ($this->isKeyPresent('schtime')) {
             $buildSmsData = $this->buildSchtime($category, 'schtime', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        }    
+        }
     }
     /**
      * This function for sms array build with
@@ -1038,7 +1038,7 @@ class SmsClass
         if ($this->isKeyPresent('afterminutes')) {
             $buildSmsData = $this->buildAfterMinutes($category, 'afterminutes', $buildSmsData);
             return $buildSmsData;
-        }    
+        }
     }
     /**
      * This function for sms array build with Response
