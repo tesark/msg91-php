@@ -6,8 +6,9 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
-use Sender\Traits\SmsTrait;
+use Sender\Traits\SmsBuildTrait;
 use Sender\Traits\SmsOtpCommonTrait;
+use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -22,8 +23,9 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsDefineClass
 {
-    use SmsTrait;
+    use SmsBuildTrait;
     use SmsOtpCommonTrait;
+    use SmsBuildSupportTrait;
 
     /**
      * @var int $mobile
@@ -341,5 +343,48 @@ class SmsDefineClass
             $root = $root->appendChild($xmlDoc->createElement($element));
         }
         return $root;
+    }
+    /**
+     * This function for buildData normal SMS as well bulk SMS
+     * @param int $category
+     * @param string $key
+     * @param int|string $value
+     * @param array $buildSmsData
+     * @param bool $isElement
+     * @param string $attr
+     *
+     */
+    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $attr = null)
+    {
+        if ($category === 1) {
+            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
+        } else {
+            if ($isElement) {
+                $childAttr = $xmlDoc->createAttribute($attr);
+                $childText = $xmlDoc->createTextNode($this->getMessage());
+                $buildSmsData->appendChild($childAttr)->appendChild($childText);
+            } else {
+                $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
+            }
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for check message length allowed only 160 char, unicode allowed 70 char
+     * @param array $buildSmsData
+     * @param int $limit
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return array $buildSmsData
+     */
+    protected function checkMessageLength($key, $buildSmsData, $limit, $value, $category, $xmlDoc)
+    {
+        if (strlen($this->getMessage()) <= $limit) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc, true, "TEXT");
+        } else {
+            $message = "allowed below ".$limit." cheracters,but given length:_".strlen($this->getMessage());
+            throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
+        }
+        return $buildSmsData;
     }
 }
