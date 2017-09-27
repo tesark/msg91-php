@@ -104,17 +104,6 @@ class SmsDefineClass extends SmsOtpCommonclass
         return isset($this->sendSmsData);
     }
     /**
-     * Check key present in array or not
-     * @param string $key
-     * @param array  $array
-     *
-     * @return bool
-     */
-    protected function isKeyExists($key, $array)
-    {
-        return array_key_exists($key, $array);
-    }
-    /**
      * This function check variable Key in input array
      * @param string $key
      *
@@ -327,16 +316,6 @@ class SmsDefineClass extends SmsOtpCommonclass
         return $result;
     }
     /**
-     * Check string value
-     * @param value
-     * @return bool
-     */
-    public function isString($value)
-    {
-        $result = Validation::isString($value);
-        return $result;
-    }
-    /**
      * Check numeric value
      * @param value
      * @return bool
@@ -371,18 +350,6 @@ class SmsDefineClass extends SmsOtpCommonclass
         }
     }
     /**
-     * This function add data to array
-     * @param string $key
-     * @param int|string $value
-     * @param array $array
-     *
-     * @return array
-     */
-    protected function addArray($key, $value, $array)
-    {
-        return $array += [$key => $value];
-    }
-    /**
      * This function Create Element only
      * @param array $xmlDoc
      * @param string $element
@@ -398,39 +365,5 @@ class SmsDefineClass extends SmsOtpCommonclass
             $root = $root->appendChild($xmlDoc->createElement($element));
         }
         return $root;
-    }
-    /**
-     * This function for buildData normal SMS as well bulk SMS
-     *
-     *
-     */
-    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $Atrr = null)
-    {
-        if ($category === 1) {
-            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
-        } else {
-            if ($isElement) {
-                $childAttr = $xmlDoc->createAttribute($Atrr);
-                $childText = $xmlDoc->createTextNode($this->getMessage());
-                $buildSmsData->appendChild($childAttr)->appendChild($childText);
-            } else {
-                $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
-            }
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function add data to xml string
-     *
-     */
-    protected function addXml($buildSmsData, $xmlDoc, $key, $value)
-    {
-        if ($key === 'schtime') {
-            $key = 'scheduledatetime';
-        }
-        $key = strtoupper(trim($key));
-        //create a country element
-        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
-        return $buildSmsData;
     }
 }

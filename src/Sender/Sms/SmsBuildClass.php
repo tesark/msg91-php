@@ -325,24 +325,6 @@ class SmsBuildClass extends SmsDefineClass
         }
         return $buildSmsData;
     }
-    /**
-     * Message condition Check
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     * @param int $value
-     *
-     * @return array
-     */
-    protected function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
-    {
-        if (!$this->isKeyExists('unicode', $this->inputData)) {
-            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
-        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
-            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
-        }
-        return $buildSmsData;
-    }
     protected function addContent($root, $category, $xmlDoc)
     {
         if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {

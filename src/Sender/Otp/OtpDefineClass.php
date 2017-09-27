@@ -77,17 +77,6 @@ class OtpDefineClass extends SmsOtpCommonclass
         return isset($this->sendData);
     }
     /**
-     * Check key present in array or not
-     * @param string $key
-     * @param array  $array
-     *
-     * @return bool
-     */
-    protected function isKeyExists($key, $array)
-    {
-        return array_key_exists($key, $array);
-    }
-    /**
      * set message
      * @return bool
      */
@@ -238,16 +227,6 @@ class OtpDefineClass extends SmsOtpCommonclass
     protected function isInterger($value)
     {
         $result = Validation::isInteger($value);
-        return $result;
-    }
-    /**
-     * Check string value
-     * @param string $value
-     * @return bool
-     */
-    protected function isString($value)
-    {
-        $result = Validation::isString($value);
         return $result;
     }
 }
