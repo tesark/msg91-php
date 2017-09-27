@@ -7,6 +7,9 @@ use Sender\Otp\OtpBuildClass;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
 use Sender\Otp\OtpDefineClass;
+use Sender\Sms\SmsDefineClass;
+use Sender\Otp\OtpBuildClass;
+use Sender\Sms\SmsBuildClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**

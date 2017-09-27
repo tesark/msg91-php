@@ -3,10 +3,16 @@
 [![image](https://travis-ci.org/venkatsamuthiram/deliver.svg?branch=master)](https://travis-ci.org/venkatsamuthiram/deliver)
 [![Build Status](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/build.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/build-status/master)
 
-## Supported FrameWorks
-
-- `Laravel5.3`, `Laravel5.4`, `laravel5.5` we are suggested Laravel frame work
-- `Symfony 3.1`, `Slim 3.8 `, `Zend 3.0`, `Codeigniter 3.1`
+- [Installation](#installation)
+    - [Supported Framework](#supportedframeWorks)
+- [Config Setup](#configsetup)
+- [ SMS API](#sms)
+    - [SendTransactional & SendPromotional](#SendTransactionalSendPromotional)
+    - [SendBulkSms](#sendbulksms)
+- [ OTP API](#otpapi)
+    - [OTP Send](#sendotp)
+    - [OTP Resend](#resendotp)
+    - [OTP Verify](#verifyotp)
 
 ### Installation
 
@@ -20,6 +26,42 @@ composer require venkatsamuthiram/deliver
         "venkatsamuthiram/deliver": "dev-master"
         }
 ```
+## Supported FrameWorks
+
+- `Laravel5.3`, `Laravel5.4`, `laravel5.5` we are suggested Laravel frame work
+- `Symfony 3.1`, `Slim 3.8 `, `Zend 3.0`, `Codeigniter 3.1`
+
+## Congig file setup
+
+- Config file Now, using only for send Authkey. comming soon added all features  
+
+`Three ways send Authkey`
+
+Tips 1: `Using Config`
+
+```sh
+'msg91' => [
+    'common' => [
+        'transAuthKey' =>  "17086...........9a87a1",
+        'promoAuthKey' =>  "17086...........9a87a1",
+        'otpAuthKey'   =>  "17043...........59969531",
+    ],
+]
+``` 
+Tips 2: `Using Class parameter`
+
+```sh
+use Sender\PromotionalSms;
+use Sender\TransactionalSms;
+
+$sms = new PromotionalSms("17043...........59969531");
+$sms->PromotionalSms("919******541,919******728",$sample);
+
+$sms = new TransactionalSms("17043...........59969531");
+$sms->sendTransactional("919******541,919******728",$sample);
+
+``
+
 ### Coding Standards
 
 The entire library is intended to be PSR-1, PSR-2 compliant.
@@ -83,11 +125,11 @@ $sample = [
 use Sender\PromotionalSms;
 use Sender\TransactionalSms;
 
-$sms = PromotionalSms();
-$sms = TransactionalSms();
-
-$sms->sendTransactional("919******541,919******728",$sample);
+$sms = new PromotionalSms();
 $sms->PromotionalSms("919******541,919******728",$sample);
+
+$sms = new TransactionalSms();
+$sms->sendTransactional("919******541,919******728",$sample);
 
 Tips 2:
 $sample = [ 
@@ -105,8 +147,8 @@ $sample = [
 use Sender\PromotionalSms;
 use Sender\TransactionalSms;
 
-$sms = PromotionalSms();
-$sms = TransactionalSms();
+$sms = new PromotionalSms();
+$sms = new TransactionalSms();
 
 $sms->sendTransactional(919******541,$sample);
 $sms->PromotionalSms(919******541,$sample);
@@ -115,12 +157,12 @@ $sms->PromotionalSms(919******541,$sample);
 ### API
 ```sh
 use Sender\TransactionalSms;
-$sms = TransactionalSms();
+$sms = new TransactionalSms();
 $sms->sendTransactional($mobileNumber, $data);
 ```
 ```sh
 use Sender\PromotionalSms;
-$sms = PromotionalSms();
+$sms = new PromotionalSms();
 $sms->sendPromotional($mobileNumber, $data);
 ```
 ## 2. SendBulkSms SendTransactional & SendPromotional Using POST
@@ -191,7 +233,7 @@ $sample = [
 
 ```sh
 use Sender\PromotionalSms;
-$sms = PromotionalSms();
+$sms = new PromotionalSms();
 $sms->sendBulkSms($data);
 ```
 
@@ -262,6 +304,7 @@ $data = [
 
 ```sh
 use Sender\Otp;
+
 $otp = new Otp();
 $otp->sendOtp($mobile,$data);
 ```
@@ -293,8 +336,10 @@ $otp->resendOtp($mobile,"text")
 $otp->resendOtp($mobile)
 ### API
 ```sh
-use Sender\OtpSend;
-OtpSend::resendOtp($mobile,$retrytype)
+use Sender\Otp;
+
+$otp = new Otp();
+$otp->resendOtp($mobile,$retrytype)
 
 ```
 
@@ -323,6 +368,7 @@ OtpSend::verifyOtp(919*******41,9195****421);
 ### API
 ```sh
 use Sender\Otp;
+
 $otp = new Otp();
 $otp->verifyOtp($mobile,$otp);
 ```
