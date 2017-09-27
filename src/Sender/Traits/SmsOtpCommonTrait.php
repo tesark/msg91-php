@@ -2,6 +2,7 @@
 namespace Sender\Traits;
 
 use Sender\Validation;
+use Sender\MobileNumber;
 use Sender\ExceptionClass\ParameterException;
 
 /**
