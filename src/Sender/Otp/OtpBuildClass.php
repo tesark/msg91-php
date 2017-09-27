@@ -21,19 +21,6 @@ use Sender\ExceptionClass\ParameterException;
 class OtpBuildClass extends OtpDefineClass
 {
     /**
-     * This function add data to array
-     * @param string $key
-     * @param int|string $value
-     * @param array $data
-     *
-     * @return array
-     */
-    protected function addArray($key, $value, $data)
-    {
-        $data[$key] = $value ? $value : null;
-        return $data;
-    }
-    /**
      * This function added int value in array
      * @param string $key
      * @param int|string $value

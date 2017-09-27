@@ -23,6 +23,53 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsOtpCommonclass
 {
+    /**
+     * This function add data to array
+     * @param string $key
+     * @param int|string $value
+     * @param array $array
+     *
+     * @return array
+     */
+    protected function addArray($key, $value, $array)
+    {
+        $result = !is_null($value) ? $value : null; 
+        return $array += [$key => $result];
+    }
+    /**
+     * This function add data to xml string
+     *
+     */
+    protected function addXml($buildSmsData, $xmlDoc, $key, $value)
+    {
+        if ($key === 'schtime') {
+            $key = 'scheduledatetime';
+        }
+        $key = strtoupper(trim($key));
+        //create a country element
+        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
+        return $buildSmsData;
+    }
+    /**
+     * This function for buildData normal SMS as well bulk SMS
+     *
+     *
+     */
+    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $Atrr = null)
+    {
+        if ($category === 1) {
+            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
+        } else {
+            if ($isElement) {
+                $childAttr = $xmlDoc->createAttribute($Atrr);
+                $childText = $xmlDoc->createTextNode($this->getMessage());
+                $buildSmsData->appendChild($childAttr)->appendChild($childText);
+            } else {
+                $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
+            }
+        }
+        return $buildSmsData;
+    }
 	/**
      * This function for test sender length
      * @param string $key
@@ -82,6 +129,16 @@ class SmsOtpCommonclass
         return $value;
     }
     /**
+     * Check string value
+     * @param string $value
+     * @return bool
+     */
+    protected function isString($value)
+    {
+        $result = Validation::isString($value);
+        return $result;
+    }
+    /**
      * This function for Check String Type
      * @param int $category
      * @param string $key
@@ -138,6 +195,35 @@ class SmsOtpCommonclass
     {
         if ($key === 'sender') {
             $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * Check key present in array or not
+     * @param string $key
+     * @param array  $array
+     *
+     * @return bool
+     */
+    protected function isKeyExists($key, $array)
+    {
+        return array_key_exists($key, $array);
+    }
+    /**
+     * Message condition Check
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * @param int $value
+     *
+     * @return array
+     */
+    protected function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
+    {
+        if (!$this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
+        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
         }
         return $buildSmsData;
     }
