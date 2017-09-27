@@ -22,27 +22,22 @@ class OtpBuildClass extends OtpDefineClass
 {
     use SmsOtpCommonTrait;
     /**
-     * This function added int value in array
+     * Message condition Check
+     * @param int $category
      * @param string $key
-     * @param int|string $value
-     * @param array $data
-     * @param string $type
+     * @param array $buildSmsData
+     * @param int $value
      *
      * @return array
      */
-    protected function addDataArray($key, $value, $data, $type)
+    public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
     {
-        if ($type === 'int') {
-            $test = $this->isInterger($value);
-        } else {
-            $test = $this->isString($value);
+        if (!$this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
+        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
         }
-        if ($test) {
-            $data = $this->addArray($key, $value, $data);
-        } else {
-            throw ParameterException::invalidArrtibuteType($key, $type, $value);
-        }
-        return $data;
+        return $buildSmsData;
     }
     /**
      * This function used for build Retype data

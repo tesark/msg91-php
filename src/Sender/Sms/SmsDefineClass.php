@@ -354,7 +354,7 @@ class SmsDefineClass
      * @param string $attr
      *
      */
-    protected function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $attr = null)
+    public function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $attr = null)
     {
         if ($category === 1) {
             $buildSmsData = $this->addArray($key, $value, $buildSmsData);
