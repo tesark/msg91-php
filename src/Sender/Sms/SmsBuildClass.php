@@ -6,8 +6,9 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
-use Sender\Traits\SmsTrait;
+use Sender\Traits\SmsBuildTrait;
 use Sender\Traits\SmsOtpCommonTrait;
+use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -22,8 +23,22 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsBuildClass extends SmsDefineClass
 {
+    use SmsBuildTrait;
     use SmsOtpCommonTrait;
-    use SmsTrait;
+    use SmsBuildSupportTrait;
+    /**
+     * This function for Add mobile number
+     * @param array $xmlDoc
+     * @param array $smsTag
+     *
+     */
+    protected function addMobileNumber($xmlDoc, $smsTag)
+    {
+        if ($this->setMobile() && $this->getMobile()) {
+            $result = $this->isValidNumber($this->getMobile());
+            $this->addMobileToXml($xmlDoc, $smsTag, $result);
+        }
+    }
     /**
      * This function for build country
      * @param int $category
@@ -213,27 +228,6 @@ class SmsBuildClass extends SmsDefineClass
     }
     /**
      * This function for sms array Build with mobilenumbers
-     * @param string $key
-     * @param array $buildSmsData
-     * @param int $category
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return array
-     */
-    protected function checkIntegerOrString($key, $value, $buildSmsData, $category)
-    {
-        if ($this->isInterger($value)) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-        } elseif ($this->isString($value)) {
-            $buildSmsData = $this->buildMobile($key, $value, $buildSmsData, $category);
-        } else {
-            $message = "interger or string comma seperate values";
-            throw ParameterException::invalidInput($key, "string or integer", $value, $message);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function for sms array Build with mobilenumbers
      * @param array $buildSmsData
      * @param int $category
      *
@@ -243,7 +237,7 @@ class SmsBuildClass extends SmsDefineClass
     protected function addMobile($buildSmsData, $category)
     {
         $value = '';
-        $key = ''; 
+        $key = '';
         if ($category === 1) {
             if ($this->setMobile()) {
                 $value = $this->getMobile();
@@ -352,7 +346,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      */
     protected function addUnicode($buildSmsData, $category, $xmlDoc = null)
-    {   
+    {
         if ($this->isKeyPresent('unicode')) {
             $buildSmsData = $this->buildUnicode($category, 'unicode', $buildSmsData, $xmlDoc);
         }

@@ -4,7 +4,8 @@ namespace Sender\Otp;
 use Sender\Deliver;
 use Sender\Validation;
 use Sender\MobileNumber;
-use Sender\SmsOtpCommonclass;
+use Sender\Otp\OtpDefineClass;
+use Sender\Otp\OtpBuildClass;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 

@@ -3,6 +3,10 @@ namespace Sender\Traits;
 
 use Sender\Validation;
 use Sender\MobileNumber;
+use Sender\Otp\OtpBuildClass;
+use Sender\Sms\SmsDefineClass;
+use Sender\Sms\SmsBuildClass;
+use Sender\Otp\OtpDefineClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -26,10 +30,10 @@ trait SmsOtpCommonTrait
      */
     protected function addArray($key, $value, $array)
     {
-        $result = !is_null($value) ? $value : null; 
+        $result = !is_null($value) ? $value : null;
         return $array += [$key => $result];
     }
-	/**
+    /**
      * This function for test sender length
      * @param string $key
      * @param string $value
@@ -46,7 +50,7 @@ trait SmsOtpCommonTrait
                 $data = $this->addArray($key, $value, $data);
             } else {
                 $data = $this->buildData($category, $key, $value, $data, $xmlDoc);
-            }    
+            }
         } else {
             $message = "String length must be 6 characters";
             throw ParameterException::invalidInput($key, "string", $value, $message);
