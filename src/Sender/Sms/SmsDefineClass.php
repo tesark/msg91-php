@@ -344,47 +344,4 @@ class SmsDefineClass
         }
         return $root;
     }
-    /**
-     * This function for buildData normal SMS as well bulk SMS
-     * @param int $category
-     * @param string $key
-     * @param int|string $value
-     * @param array $buildSmsData
-     * @param bool $isElement
-     * @param string $attr
-     *
-     */
-    public function buildData($category, $key, $value, $buildSmsData, $xmlDoc = null, $isElement = null, $attr = null)
-    {
-        if ($category === 1) {
-            $buildSmsData = $this->addArray($key, $value, $buildSmsData);
-        } else {
-            if ($isElement) {
-                $childAttr = $xmlDoc->createAttribute($attr);
-                $childText = $xmlDoc->createTextNode($this->getMessage());
-                $buildSmsData->appendChild($childAttr)->appendChild($childText);
-            } else {
-                $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
-            }
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function for check message length allowed only 160 char, unicode allowed 70 char
-     * @param array $buildSmsData
-     * @param int $limit
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return array $buildSmsData
-     */
-    protected function checkMessageLength($key, $buildSmsData, $limit, $value, $category, $xmlDoc)
-    {
-        if (strlen($this->getMessage()) <= $limit) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc, true, "TEXT");
-        } else {
-            $message = "allowed below ".$limit." cheracters,but given length:_".strlen($this->getMessage());
-            throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
-        }
-        return $buildSmsData;
-    }
 }

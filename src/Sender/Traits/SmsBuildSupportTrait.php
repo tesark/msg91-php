@@ -129,27 +129,4 @@ trait SmsBuildSupportTrait
         }
         return $buildSmsData;
     }
-    /**
-     * This function added int value in array
-     * @param string $key
-     * @param int|string $value
-     * @param array $data
-     * @param string $type
-     *
-     * @return array
-     */
-    protected function addDataArray($key, $value, $data, $type)
-    {
-        if ($type === 'int') {
-            $test = $this->isInterger($value);
-        } else {
-            $test = $this->isString($value);
-        }
-        if ($test) {
-            $data = $this->addArray($key, $value, $data);
-        } else {
-            throw ParameterException::invalidArrtibuteType($key, $type, $value);
-        }
-        return $data;
-    }
 }    
