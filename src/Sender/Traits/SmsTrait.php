@@ -1,6 +1,9 @@
 <?php
 namespace Sender\Traits;
 
+use Sender\Validation;
+use Sender\ExceptionClass\ParameterException;
+
 /**
  * This trait for SMS OTP FUNCTIONS
  *
