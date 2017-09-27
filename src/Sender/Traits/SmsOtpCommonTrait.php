@@ -28,7 +28,7 @@ trait SmsOtpCommonTrait
      *
      * @return array
      */
-    protected function addArray($key, $value, $array)
+    public function addArray($key, $value, $array)
     {
         $result = !is_null($value) ? $value : null;
         return $array += [$key => $result];
@@ -43,7 +43,7 @@ trait SmsOtpCommonTrait
      * @param array $xmlDoc
      *
      */
-    protected function validLength($key, $value, $data, $api, $category = null, $xmlDoc = null)
+    public function validLength($key, $value, $data, $api, $category = null, $xmlDoc = null)
     {
         if (strlen($value) == 6) {
             if ($api === 'otp') {
@@ -62,7 +62,7 @@ trait SmsOtpCommonTrait
      * @param string $value
      * @return bool
      */
-    protected function isString($value)
+    public function isString($value)
     {
         $result = Validation::isString($value);
         return $result;
@@ -102,7 +102,7 @@ trait SmsOtpCommonTrait
      *
      * @return bool
      */
-    protected function isKeyExists($key, $array)
+    public function isKeyExists($key, $array)
     {
         return array_key_exists($key, $array);
     }

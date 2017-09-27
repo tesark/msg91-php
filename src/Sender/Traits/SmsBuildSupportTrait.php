@@ -26,7 +26,7 @@ trait SmsBuildSupportTrait
      *
      * @return bool
      */
-    protected function isVaildAfterMinutes($afterMinutes)
+    public function isVaildAfterMinutes($afterMinutes)
     {
         $value  = array('options' => array('min_range' => 10, 'max_range' => 20000));
         $result = filter_var($afterMinutes, FILTER_VALIDATE_INT, $value);
@@ -37,7 +37,7 @@ trait SmsBuildSupportTrait
      *
      * @return int
      */
-    protected function checkArray($value)
+    public function checkArray($value)
     {
         $responseFormat = array(0, 1);
         $value = in_array($value, $responseFormat) ? $value : null;
@@ -48,7 +48,7 @@ trait SmsBuildSupportTrait
      * @param string $value
      *
      */
-    protected function checkResponse($value)
+    public function checkResponse($value)
     {
         $responseFormat = array('xml', 'json');
         $responseVal = strtolower($value);
@@ -59,7 +59,7 @@ trait SmsBuildSupportTrait
      * This function add data to xml string
      *
      */
-    protected function addXml($buildSmsData, $xmlDoc, $key, $value)
+    public function addXml($buildSmsData, $xmlDoc, $key, $value)
     {
         if ($key === 'schtime') {
             $key = 'scheduledatetime';
@@ -78,7 +78,7 @@ trait SmsBuildSupportTrait
      *
      * @return array
      */
-    protected function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
+    public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
     {
         if (!$this->isKeyExists('unicode', $this->inputData)) {
             $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
@@ -95,7 +95,7 @@ trait SmsBuildSupportTrait
      *
      * @return array
      */
-    protected function simplifyAfterMinutes($category, $key, $buildSmsData, $value)
+    public function simplifyAfterMinutes($category, $key, $buildSmsData, $value)
     {
         if ($this->isInterger($value)) {
             $buildSmsData = $this->checkAfterMinutes($category, $key, $value, $buildSmsData);
@@ -110,7 +110,7 @@ trait SmsBuildSupportTrait
      * @param array $smsTag
      *
      */
-    protected function addMobileToXml($xmlDoc, $smsTag, $result)
+    public function addMobileToXml($xmlDoc, $smsTag, $result)
     {
         if (!empty($result) && $result['value'] == true) {
             $mobiles = $result['mobile'];
@@ -135,7 +135,7 @@ trait SmsBuildSupportTrait
      * @throws ParameterException missing parameters or return empty
      * @return array
      */
-    protected function checkIntegerOrString($key, $value, $buildSmsData, $category)
+    public function checkIntegerOrString($key, $value, $buildSmsData, $category)
     {
         if ($this->isInterger($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);

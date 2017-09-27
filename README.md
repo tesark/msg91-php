@@ -4,15 +4,15 @@
 [![Build Status](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/build.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/build-status/master)
 
 - [Installation](#installation)
-    - [Supported Framework](#supported FrameWorks)
-- [Config Setup](#Config file setup)
-- [ SMS API](#SMS)
-    - [SendTransactional & SendPromotional](#1. SendTransactional & SendPromotional Using GET)
-    - [SendBulkSms](#2. SendBulkSms Using POST)
-- [ OTP API](#OTP)
-    - [OTP Send](#SEND OTP)
-    - [OTP Resend](#RESEND OTP)
-    - [OTP Verify](#VERIFY OTP)
+    - [Supported Framework](#supportedframeworks)
+- [Config file setup](#configfilesetup)
+- [ SMS API](#smsapi)
+    - [SendTransactional & SendPromotional](#1.sendTransactionalsendPromotionalusingget)
+    - [SendBulkSms](#2.sendbulksmsusingpost)
+- [ OTP API](#otpapi)
+    - [SEND OTP](#sendotp)
+    - [RESEND OTP](#resendotp)
+    - [VERIFY OTP](#verifyotp)
 
 ### Installation
 

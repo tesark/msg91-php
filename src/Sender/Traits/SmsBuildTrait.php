@@ -27,7 +27,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function checkMessageData($category, $key, $value, $buildSmsData, $xmlDoc)
+    public function checkMessageData($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         if ($key === 'message') {
             $buildSmsData = $this->messageCondition($category, $key, $buildSmsData, $value, $xmlDoc);
@@ -41,7 +41,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc)
+    public function checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         if ($key === 'sender') {
             $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
@@ -55,7 +55,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function checkResponseData($category, $key, $value, $buildSmsData)
+    public function checkResponseData($category, $key, $value, $buildSmsData)
     {
         if ($key === 'response') {
             $value = $this->checkResponse($value);
@@ -70,7 +70,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
+    public function stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc = null)
     {
         if ($this->isString($value)) {
             $buildSmsData = $this->buildStringData($category, $key, $value, $buildSmsData, $xmlDoc);
@@ -87,7 +87,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function buildStringData($category, $key, $value, $buildSmsData, $xmlDoc)
+    public function buildStringData($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         $buildSmsData = $this->checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc);
         $buildSmsData = $this->checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc);
@@ -102,7 +102,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc)
+    public function checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         if ($key === 'authkey' || $key === 'campaign') {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
@@ -116,7 +116,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
+    public function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
     {
         $value = $this->checkArray($value);
         if (!is_null($value)) {
@@ -134,7 +134,7 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    protected function checkAfterMinutes($category, $key, $value, $buildSmsData)
+    public function checkAfterMinutes($category, $key, $value, $buildSmsData)
     {
         if ($this->isVaildAfterMinutes($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
