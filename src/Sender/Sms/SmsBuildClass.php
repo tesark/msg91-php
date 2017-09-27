@@ -6,7 +6,8 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
-use Sender\SmsOtpCommonclass;
+use Sender\Traits\SmsTrait;
+use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -21,6 +22,8 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsBuildClass extends SmsDefineClass
 {
+    use SmsOtpCommonTrait;
+    use SmsTrait;
     /**
      * This function for build country
      * @param int $category
@@ -54,24 +57,6 @@ class SmsBuildClass extends SmsDefineClass
         if ($this->setFlash()) {
             $value = $this->getFlash();
             $buildSmsData = $this->checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function used for Array inside present 0 or 1
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
-    protected function checkArrayValue($category, $key, $value, $buildSmsData, $xmlDoc)
-    {
-        $value = $this->checkArray($value);
-        if (!is_null($value)) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        } else {
-            $message = "Allowed only 0 or 1";
-            throw ParameterException::invalidInput($key, "int", $value, $message);
         }
         return $buildSmsData;
     }
@@ -125,40 +110,6 @@ class SmsBuildClass extends SmsDefineClass
         if ($this->setSender()) {
             $value = $this->getSender();
             $buildSmsData = $this->stringTypeCheckAndBuildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function for check afterminutes
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */      
-    protected function checkAfterMinutes($category, $key, $value, $buildSmsData)
-    {
-        if ($this->isVaildAfterMinutes($value)) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-        } else {
-            $message = "Allowed between 10 to 20000 mintutes";
-            throw ParameterException::invalidInput("afterminutes", "int", $value, $message);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function for simplify afterminutes
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     * @return array
-     */
-    protected function simplifyAfterMinutes($category, $key, $buildSmsData, $value)
-    {
-        if ($this->isInterger($value)) {
-            $buildSmsData = $this->checkAfterMinutes($category, $key, $value, $buildSmsData);
-        } else {
-            throw ParameterException::invalidArrtibuteType($key, "int", $value);
         }
         return $buildSmsData;
     }
@@ -307,24 +258,6 @@ class SmsBuildClass extends SmsDefineClass
         $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
     }
-    /**
-     * This function for check message length allowed only 160 char, unicode allowed 70 char
-     * @param array $buildSmsData
-     * @param int $limit
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return array $buildSmsData
-     */
-    protected function checkMessageLength($key, $buildSmsData, $limit, $value, $category, $xmlDoc)
-    {
-        if (strlen($this->getMessage()) <= $limit) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc, true, "TEXT");
-        } else {
-            $message = "allowed below ".$limit." cheracters,but given length:_".strlen($this->getMessage());
-            throw ParameterException::invalidInput("message", "string", $this->getMessage(), $message);
-        }
-        return $buildSmsData;
-    }
     protected function addContent($root, $category, $xmlDoc)
     {
         if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
@@ -338,41 +271,6 @@ class SmsBuildClass extends SmsDefineClass
                 //check mobile contents
                 $this->addMobileNumber($xmlDoc, $smsTag);
             }
-        }
-    }
-    /**
-     * This function for Add mobile number to XML
-     * @param array $xmlDoc
-     * @param array $smsTag
-     *
-     */
-    protected function addMobileToXml($xmlDoc, $smsTag, $result)
-    {
-        if (!empty($result) && $result['value'] == true) {
-            $mobiles = $result['mobile'];
-            $len = Validation::getSize($mobiles);
-            for ($k = 0; $k < $len; $k++) {
-                $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
-                $childAttr = $xmlDoc->createAttribute("TO");
-                $childText = $xmlDoc->createTextNode($mobiles[$k]);
-                $addressTag->appendChild($childAttr)->appendChild($childText);
-            }
-        } else {
-            $message = "string comma seperate values";
-            throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
-        }
-    }
-    /**
-     * This function for Add mobile number
-     * @param array $xmlDoc
-     * @param array $smsTag
-     *
-     */
-    protected function addMobileNumber($xmlDoc, $smsTag)
-    {
-        if ($this->setMobile() && $this->getMobile()) {
-            $result = $this->isValidNumber($this->getMobile());
-            $this->addMobileToXml($xmlDoc, $smsTag, $result);
         }
     }
     /**

@@ -5,7 +5,8 @@ use Sender\Deliver;
 use Sender\Validation;
 use Sender\Otp\OtpSend;
 use Sender\MobileNumber;
-use Sender\SmsOtpCommonclass;
+use Sender\Traits\SmsTrait;
+use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -20,6 +21,8 @@ use Sender\ExceptionClass\ParameterException;
 
 class OtpBuildClass extends OtpDefineClass
 {
+    use SmsTrait;
+    use SmsOtpCommonTrait;
     /**
      * This function added int value in array
      * @param string $key
