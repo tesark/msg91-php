@@ -7,8 +7,6 @@ use Sender\Otp\OtpBuildClass;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
 use Sender\Otp\OtpDefineClass;
-use Sender\Traits\SmsBuildTrait;
-use Sender\Traits\SmsOtpCommonTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -22,8 +20,6 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildSupportTrait
 {
-    use SmsBuildTrait;
-    use SmsOtpCommonTrait;
     /**
      * Check afterminutes limits
      * @param string $afterMinutes

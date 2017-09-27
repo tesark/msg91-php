@@ -7,7 +7,6 @@ use Sender\Otp\OtpBuildClass;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
 use Sender\Otp\OtpDefineClass;
-use Sender\Traits\SmsOtpCommonTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -21,7 +20,6 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildTrait
 {
-    use SmsOtpCommonTrait;
     /**
      * This function for Check String Type
      * @param int $category
