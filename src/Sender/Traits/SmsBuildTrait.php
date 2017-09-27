@@ -21,6 +21,24 @@ use Sender\ExceptionClass\ParameterException;
 trait SmsBuildTrait
 {
     /**
+     * Message condition Check
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * @param int $value
+     *
+     * @return array
+     */
+    public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
+    {
+        if (!$this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
+        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
      * This function for Check String Type
      * @param int $category
      * @param string $key
