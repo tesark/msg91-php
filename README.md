@@ -4,15 +4,15 @@
 [![Build Status](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/build.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/build-status/master)
 
 - [Installation](#installation)
-    - [Supported Framework](#supportedframeWorks)
-- [Config Setup](#configsetup)
-- [ SMS API](#sms)
-    - [SendTransactional & SendPromotional](#SendTransactionalSendPromotional)
-    - [SendBulkSms](#sendbulksms)
-- [ OTP API](#otpapi)
-    - [OTP Send](#sendotp)
-    - [OTP Resend](#resendotp)
-    - [OTP Verify](#verifyotp)
+    - [Supported Framework](#supported FrameWorks)
+- [Config Setup](#Config file setup)
+- [ SMS API](#SMS)
+    - [SendTransactional & SendPromotional](#1. SendTransactional & SendPromotional Using GET)
+    - [SendBulkSms](#2. SendBulkSms Using POST)
+- [ OTP API](#OTP)
+    - [OTP Send](#SEND OTP)
+    - [OTP Resend](#RESEND OTP)
+    - [OTP Verify](#VERIFY OTP)
 
 ### Installation
 
@@ -31,7 +31,7 @@ composer require venkatsamuthiram/deliver
 - `Laravel5.3`, `Laravel5.4`, `laravel5.5` we are suggested Laravel frame work
 - `Symfony 3.1`, `Slim 3.8 `, `Zend 3.0`, `Codeigniter 3.1`
 
-## Congig file setup
+## Config file setup
 
 - Config file Now, using only for send Authkey. comming soon added all features  
 
@@ -60,7 +60,7 @@ $sms->PromotionalSms("919******541,919******728",$sample);
 $sms = new TransactionalSms("17043...........59969531");
 $sms->sendTransactional("919******541,919******728",$sample);
 
-``
+```
 
 ### Coding Standards
 
@@ -165,7 +165,7 @@ use Sender\PromotionalSms;
 $sms = new PromotionalSms();
 $sms->sendPromotional($mobileNumber, $data);
 ```
-## 2. SendBulkSms SendTransactional & SendPromotional Using POST
+## 2. SendBulkSms Using POST
 - `POST` Method
 
 ### Input Data
@@ -329,18 +329,22 @@ http://api.msg91.com/api/retryotp.php?authkey=YourAuthKey&mobile=919999999990&re
 - `$retrytype` String
 
 ### Sample Input Data
+```sh
 use Sender\Otp;
+
 $otp = new Otp();
+
 $otp->resendOtp($mobile,"voice")
 $otp->resendOtp($mobile,"text")
 $otp->resendOtp($mobile)
+```
+
 ### API
 ```sh
 use Sender\Otp;
 
 $otp = new Otp();
 $otp->resendOtp($mobile,$retrytype)
-
 ```
 
 Sample Output
@@ -365,6 +369,7 @@ http://api.msg91.com/api/verifyRequestOTP.php?authkey=YourAuthKey&mobile=9199999
 
 ### Sample Input Data
 OtpSend::verifyOtp(919*******41,9195****421);
+
 ### API
 ```sh
 use Sender\Otp;
