@@ -5,7 +5,8 @@ use Sender\Deliver;
 use Sender\Validation;
 use Sender\Otp\OtpSend;
 use Sender\MobileNumber;
-use Sender\SmsOtpCommonclass;
+use Sender\Traits\SmsTrait;
+use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -18,8 +19,10 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class OtpDefineClass extends SmsOtpCommonclass
+class OtpDefineClass
 {
+    use SmsTrait;
+    use SmsOtpCommonTrait;
     /**
      * @var array $inputData
      */
@@ -219,14 +222,5 @@ class OtpDefineClass extends SmsOtpCommonclass
     protected function getRetryType()
     {
         return $this->retrytype;
-    }
-    /**
-     * Check integer value
-     * @return bool
-     */
-    protected function isInterger($value)
-    {
-        $result = Validation::isInteger($value);
-        return $result;
     }
 }

@@ -6,7 +6,8 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
-use Sender\SmsOtpCommonclass;
+use Sender\Traits\SmsTrait;
+use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -19,8 +20,11 @@ use Sender\ExceptionClass\ParameterException;
  * @license
  */
 
-class SmsDefineClass extends SmsOtpCommonclass
+class SmsDefineClass
 {
+    use SmsTrait;
+    use SmsOtpCommonTrait;
+
     /**
      * @var int $mobile
      */
@@ -304,34 +308,6 @@ class SmsDefineClass extends SmsOtpCommonclass
     public function getCampaign()
     {
         return $this->campaign;
-    }
-    /**
-     * Check integer value
-     * @param value
-     * @return bool
-     */
-    public function isInterger($value)
-    {
-        $result = Validation::isInteger($value);
-        return $result;
-    }
-    /**
-     * Check numeric value
-     * @param value
-     * @return bool
-     */
-    public function isNumeric($value)
-    {
-        $result = Validation::isNumeric($value);
-        return $result;
-    }
-    /*
-     * Check isvalid mobile number 
-     */
-    public function isValidNumber($value)
-    {
-        $result = MobileNumber::isValidNumber($value);
-        return $result;
     }
     /**
      * Check vaild Date Time
