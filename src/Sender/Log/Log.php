@@ -62,8 +62,6 @@ class Log
         if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 $filelastmodified = filemtime($path."/".$file);
-                var_dump($filelastmodified);
-                var_dump((time() - $filelastmodified));
                 //24 hours in a day * 3600 seconds per hour 10 days older files deleted
                 if((time() - $filelastmodified) > 240*3600)
                 {
