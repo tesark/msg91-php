@@ -91,9 +91,12 @@ class Validation
     {
         if (is_int($timestamp)) {
             $timestamp = (int) trim($timestamp);
-            $min = strtotime("-1 minutes");
-            if ($min <= $timestamp) {
+            $max = strtotime("+1 minutes");
+            $min = strtotime("-15 minutes");
+            if ($min < $timestamp && $max > $timestamp) {
                 return true;
+            } else {
+                return false;
             }
         } else {
             return false;
@@ -107,16 +110,10 @@ class Validation
      */
     public static function getSize($value)
     {
-        return sizeof($value);
-    }
-    /**
-     * This function return String length
-     * @param String $value
-     *
-     * @return int
-     */
-    public static function getLength($value)
-    {
-        return strlen($value);
+        if (is_array($value)) {
+            return sizeof($value);
+        } else {
+            return false;
+        }
     }
 }

@@ -29,6 +29,12 @@ class MobileNumberTest extends TestCase
         ];
         $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597834,9514028532");
         $this->assertEquals($expectArray, $result);
+        $expectArray = [
+            "value"=> true,
+            "mobile"=> ["9514028541"]
+        ];
+        $result = $this->mobile->isValidNumber("9514028541");
+        $this->assertEquals($expectArray, $result);
     }
     // test sting type invalide one phone number
     public function testIsValidNumberFalse()
