@@ -52,4 +52,25 @@ class Log
         self::$logger->pushHandler(new StreamHandler(self::$path.'/Info_'.$dateTime.'.log', Logger::INFO));
         self::$logger->info("\r\n \n TRACE:", $info);
     }
+    /**
+     * This function for Delete automatially with in 10 days old files
+     *
+     */
+    public function deleteOldFiles()
+    {
+        $path = self::$path;
+        if ($handle = opendir($path)) {
+            while (false !== ($file = readdir($handle))) {
+                $filelastmodified = filemtime($path."/".$file);
+                var_dump($filelastmodified);
+                var_dump((time() - $filelastmodified));
+                //24 hours in a day * 3600 seconds per hour 10 days older files deleted
+                if((time() - $filelastmodified) > 240*3600)
+                {
+                   unlink($path."/".$file);
+                }
+            }
+            closedir($handle);
+        }
+    }
 }

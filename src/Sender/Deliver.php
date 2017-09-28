@@ -44,6 +44,8 @@ class Deliver
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
             $this->throwLog($e);
+        } finally {
+            $this->logger->deleteOldFiles();
         }
     }
     /**
@@ -76,6 +78,8 @@ class Deliver
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
             $this->throwLog($e);
+        } finally {
+            $this->logger->deleteOldFiles();
         }
     }
     /**
