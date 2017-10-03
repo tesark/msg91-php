@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="tests/bootstrap.php" colors="true">
+<phpunit bootstrap="tests/bootstrap.php" colors="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    >
     <testsuites>
         <testsuite name="sender Test Suite">
-            <directory>tests/Sender/</directory>
+            <directory>tests/Sender</directory>
         </testsuite>
     </testsuites>
 

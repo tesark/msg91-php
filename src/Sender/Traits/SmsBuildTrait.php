@@ -92,11 +92,11 @@ trait SmsBuildTrait
     {
         if ($this->isString($value)) {
             $buildSmsData = $this->buildStringData($category, $key, $value, $buildSmsData, $xmlDoc);
+            return $buildSmsData;
         } else {
             $message = "string values only accept";
             throw ParameterException::invalidInput($key, "string", $value, $message);
         }
-        return $buildSmsData;
     }
     /**
      * This function for Check String Type
@@ -139,11 +139,11 @@ trait SmsBuildTrait
         $value = $this->checkArray($value);
         if (!is_null($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+            return $buildSmsData;
         } else {
             $message = "Allowed only 0 or 1";
             throw ParameterException::invalidInput($key, "int", $value, $message);
         }
-        return $buildSmsData;
     }
     /**
      * This function for check afterminutes
@@ -156,10 +156,10 @@ trait SmsBuildTrait
     {
         if ($this->isVaildAfterMinutes($value)) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+            return $buildSmsData;
         } else {
             $message = "Allowed between 10 to 20000 mintutes";
             throw ParameterException::invalidInput("afterminutes", "int", $value, $message);
         }
-        return $buildSmsData;
     }
 }

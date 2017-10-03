@@ -196,6 +196,5 @@ class ValidationTest extends TestCase
         $this->assertFalse($result);
         $result = $this->validate->getSize(374.6);
         $this->assertFalse($result);
-
     }
 }

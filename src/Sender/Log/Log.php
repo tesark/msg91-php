@@ -20,7 +20,6 @@ class Log
     public function __construct($logIdentifier)
     {
         $log = isset($logIdentifier) ? $logIdentifier : 'PackageLog';
-        // Create the logger
         self::$logger = new Logger($log);
         self::$path   = __DIR__;
     }
@@ -34,7 +33,6 @@ class Log
     {
         $error = array("ERROR" => $error);
         $dateTime = date_create('now')->format('Y-m-d');
-        // Now add some handlers
         self::$logger->pushHandler(new StreamHandler(self::$path.'/Error_'.$dateTime.'.log', Logger::ERROR));
         self::$logger->error("\r\n \n TRACE:", $error);
     }
@@ -48,7 +46,6 @@ class Log
     {
         $info = array('INFO' => $info);
         $dateTime = date_create('now')->format('Y-m-d');
-        // Now add some handlers
         self::$logger->pushHandler(new StreamHandler(self::$path.'/Info_'.$dateTime.'.log', Logger::INFO));
         self::$logger->info("\r\n \n TRACE:", $info);
     }
@@ -62,10 +59,9 @@ class Log
         if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 $filelastmodified = filemtime($path."/".$file);
-                //24 hours in a day * 3600 seconds per hour 10 days older files deleted
-                if((time() - $filelastmodified) > 240*3600)
-                {
-                   unlink($path."/".$file);
+                //10 days older files deleted
+                if ((time() - $filelastmodified) > 240*3600) {
+                    unlink($path."/".$file);
                 }
             }
             closedir($handle);
