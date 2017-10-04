@@ -278,8 +278,11 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('message')) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        } else {
+            $message = "Message Must be present";
+            throw ParameterException::missinglogic($message);
         }
-        return $buildSmsData;
     }
     /**
      * This function for sms array Build with Authkey
