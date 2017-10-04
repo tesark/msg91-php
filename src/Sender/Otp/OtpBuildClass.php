@@ -128,6 +128,21 @@ class OtpBuildClass extends OtpDefineClass
         return $data;
     }
     /**
+     * Check OtpExpiry limit
+     * @param string $key
+     * @param int $value
+     *
+     */
+    protected function validOtpExpiry($key, $value)
+    {
+        if ($value >= 1) {
+            return $value;
+        } else {
+            $message = "otp expiry min 1 mintues default 1 day. you given $value";
+            throw ParameterException::invalidInput($key, "int", $value, $message);
+        }
+    }
+    /**
      * This function used for build otpExpiry data
      * @param string $key
      * @param array $data
@@ -138,6 +153,7 @@ class OtpBuildClass extends OtpDefineClass
     {
         if ($this->setOtpExpiry()) {
             $value = $this->getOtpExpiry();
+            $value = $this->validOtpExpiry($key, $value);
             $data  = $this->addDataArray($key, $value, $data, 'int');
         }
         return $data;
@@ -154,11 +170,11 @@ class OtpBuildClass extends OtpDefineClass
     {
         if ($value >= 4 && $value < 10) {
             $data = $this->addArray($key, $value, $data);
+            return $data;
         } else {
             $message = "otp length min 4 to max 9. you given $value";
             throw ParameterException::invalidInput($key, "int", $value, $message);
         }
-        return $data;
     }
     /**
      * This function used for build otpLength data
@@ -174,11 +190,11 @@ class OtpBuildClass extends OtpDefineClass
             $value = $this->getOtpLength();
             if ($this->isInterger($value)) {
                 $data = $this->checkOtpLength($key, $value, $data);
+                return $data;
             } else {
                 throw ParameterException::invalidArrtibuteType($key, "int", $value);
             }
         }
-        return $data;
     }
     /**
      * Add otp on the array

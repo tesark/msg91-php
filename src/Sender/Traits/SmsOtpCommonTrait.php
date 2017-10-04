@@ -118,11 +118,11 @@ trait SmsOtpCommonTrait
     {
         if (strlen($value) <= $limit) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc, true, "TEXT");
+            return $buildSmsData;
         } else {
             $message = "allowed below ".$limit." cheracters,but given length:_".strlen($value);
             throw ParameterException::invalidInput("message", "string", $value, $message);
         }
-        return $buildSmsData;
     }
     /**
      * This function for buildData normal SMS as well bulk SMS

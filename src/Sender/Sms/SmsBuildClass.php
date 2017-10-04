@@ -53,11 +53,11 @@ class SmsBuildClass extends SmsDefineClass
             $value = $this->getCountry();
             if ($this->isNumeric($value)) {
                 $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                return $buildSmsData;
             } else {
                 throw ParameterException::invalidArrtibuteType($key, "numeric", $value);
             }
         }
-        return $buildSmsData;
     }
     /**
      * This function for build flash
@@ -105,12 +105,12 @@ class SmsBuildClass extends SmsDefineClass
             $value = $this->getSchtime();
             if ($this->isVaildDateTime($value)) {
                 $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
+                return $buildSmsData;
             } else {
                 $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
                 throw ParameterException::invalidInput($key, "string", $value, $message);
             }
         }
-        return $buildSmsData;
     }
     /**
      * This function for build sender
@@ -220,11 +220,11 @@ class SmsBuildClass extends SmsDefineClass
         $result = $this->isValidNumber($value);
         if (!empty($result) && $result['value'] == true) {
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+            return $buildSmsData;
         } else {
             $message = "this number not the correct:_".$result['mobile'];
             throw ParameterException::invalidInput("mobiles", "string", $this->getmobile(), $message);
         }
-        return $buildSmsData;
     }
     /**
      * This function for sms array Build with mobilenumbers
