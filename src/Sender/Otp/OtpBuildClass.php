@@ -136,7 +136,7 @@ class OtpBuildClass extends OtpDefineClass
     protected function validOtpExpiry($key, $value)
     {
         if ($value >= 1) {
-           return $value;
+            return $value;
         } else {
             $message = "otp expiry min 1 mintues default 1 day. you given $value";
             throw ParameterException::invalidInput($key, "int", $value, $message);
