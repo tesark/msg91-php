@@ -59,16 +59,7 @@ class Deliver
     public function sendOtpGet($uri, $query)
     {
         try {
-            $paramStr = "";
-            $flag = 1;
-            foreach ($query as $key => $value) {
-                if ($flag) {
-                    $paramStr .= '?'.$key.'='.urlencode(trim($value));
-                    $flag = 0;
-                } else {
-                    $paramStr .= "&".$key.'='.urlencode(trim($value));
-                }
-            }
+            $paramStr = $this->buildQueryString($query);
             return $paramStr;
             $this->logger->info(["Request:"], [$query], [$uri]);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
@@ -84,7 +75,27 @@ class Deliver
         }
     }
     /**
+     * This function for Build the query string
+     * @param array $query
      *
+     * @return string
+     */
+    protected function buildQueryString($query)
+    {
+        $paramStr = "";
+        $flag = 1;  
+        foreach ($query as $key => $value) {
+            if ($flag) {
+                $paramStr .= '?'.$key.'='.urlencode(trim($value));
+                $flag = 0;
+            } else {
+                $paramStr .= "&".$key.'='.urlencode(trim($value));
+            }
+        }
+        return $paramStr;
+    }
+    /**
+     * This function for get the network Guzzle Error
      *
      */
     protected function throwLog($e)
