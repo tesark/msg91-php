@@ -21,44 +21,82 @@ class TransactionalSmsTest extends TestCase
         $this->TransactionSms = null;
     }
     //------------Send TransactionSms----------
+    public function testTransactionalSmsMandatoryFieldsMissingMessage()
+    {
+        $sendArray = [
+           'sender'   => 'UTOOWE',
+        ];
+        // "919514028541,919791466728,918807158824,917010942972"
+        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        var_dump($verifyResponse);
+    }
+    public function testTransactionalSmsMandatoryFieldsMissingSender()
+    {
+        $sendArray = [
+           'message'  => 'WELCOME TO TESARK',
+        ];
+        // "919514028541,919791466728,918807158824,917010942972"
+        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        var_dump($verifyResponse);
+    }
+    public function testTransactionalSmsMandatoryFieldsMissing()
+    {
+        $sendArray = [];
+        // "919514028541,919791466728,918807158824,917010942972"
+        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        var_dump($verifyResponse);
+    }
+    public function testTransactionalSmsMandatoryFields()
+    {
+        $sendArray = [
+           'message'  => 'WELCOME TO TESARK',
+           'sender'   => 'UTOOWE',
+        ];
+        // "919514028541,919791466728,918807158824,917010942972"
+        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        var_dump($verifyResponse);
+    }
+    
     public function testTransactionalSmsWithCountryCode()
     {
-        $sendArray = [ 
-           'message'      => 'WELCOME TO TESARK',
-           'sender'       => 'UTOOWE',
-           'country'      => 91,
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+           'country'   => 91,
         ];
         // "919514028541,919791466728,918807158824,917010942972"
-        $verifyResponse   = $traObject->sendTransactional(9514028541,$sendArray);
+        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
         var_dump($verifyResponse);
     }
-    public function testTransactionalSmsMessageOnly()
-    {
-        $sendArray = [ 
-           'message'      => 'WELCOME TO TESARK',
-        ];
-        // "919514028541,919791466728,918807158824,917010942972"
-        $verifyResponse   = $traObject->sendTransactional(919514028541,$sendArray);
-        var_dump($verifyResponse);
-    }
-    public function testTransactionalSmsWithoutCountryCode()
-    {
-        $sendArray = [ 
-           'sender'       => 'UTOOWE',
-        ];
-        // "919514028541,919791466728,918807158824,917010942972"
-        $verifyResponse   = $traObject->sendTransactional(9514028541,$sendArray);
-        var_dump($verifyResponse);
-    }
-    public function testTransactionalSmsCountryCodeOnly()
-    {
-        $sendArray = [ 
-           'country'      => 91,
-        ];
-        // "919514028541,919791466728,918807158824,917010942972"
-        $verifyResponse   = $traObject->sendTransactional(9514028541,$sendArray);
-        var_dump($verifyResponse);
-    }
+    // public function testTransactionalSmsMessageOnly()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //     ];
+    //     // "919514028541,919791466728,918807158824,917010942972"
+    //     $verifyResponse   = $traObject->sendTransactional(919514028541,$sendArray);
+    //     var_dump($verifyResponse);
+    // }
+    // public function testTransactionalSmsWithoutCountryCode()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'sender'       => 'UTOOWE',
+    //     ];
+    //     // "919514028541,919791466728,918807158824,917010942972"
+    //     $verifyResponse   = $traObject->sendTransactional(9514028541,$sendArray);
+    //     var_dump($verifyResponse);
+    // }
+    // public function testTransactionalSmsCountryCodeOnly()
+    // {
+    //     $sendArray = [ 
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'country'      => 91,
+    //     ];
+    //     // "919514028541,919791466728,918807158824,917010942972"
+    //     $verifyResponse   = $traObject->sendTransactional(9514028541,$sendArray);
+    //     var_dump($verifyResponse);
+    // }
     // public function testTransactionalSmsWithoutCountryCode()
     // {
     //      $sendArray = [ 
@@ -73,9 +111,9 @@ class TransactionalSmsTest extends TestCase
     //        'campaign'     => "venkat"
     //     ];
     //     // "919514028541,919791466728,918807158824,917010942972"
-    //     $verifyResponse   = $traObject->sendTransactional(9514028541,$sendArray);
+    //     $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
     //     var_dump($verifyResponse);
-    
+    // }    
     // public function testTransactionalSmsWithoutCountryCode()
     // {
     //      $sendArray = [ 

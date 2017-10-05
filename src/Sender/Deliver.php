@@ -69,6 +69,7 @@ class Deliver
                     $paramStr .= "&".$key.'='.urlencode(trim($value));
                 }
             }
+            return $paramStr;
             $this->logger->info(["Request:"], [$query], [$uri]);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();

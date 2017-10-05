@@ -227,6 +227,22 @@ class SmsBuildClass extends SmsDefineClass
         }
     }
     /**
+     * This function get Category wise mobile Number
+     * @param int $category 
+     * 
+     */
+    protected function categoryWiseAddedMobile($category)
+    {
+        $value = '';
+        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
+            $value = $this->getMobile();
+            return $value;
+        } else {
+            $message = "Missing mobile key ";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
      * This function for sms array Build with mobilenumbers
      * @param array $buildSmsData
      * @param int $category
@@ -235,20 +251,14 @@ class SmsBuildClass extends SmsDefineClass
      * @return array
      */
     protected function addMobile($buildSmsData, $category)
-    {
-        $value = '';
-        $key = '';
+    {   
+        $key = ''; 
         if ($category === 1) {
-            if ($this->setMobile()) {
-                $value = $this->getMobile();
-                $key = 'mobiles';
-            }
+            $key = 'mobiles';
         } else {
-            if ($this->setMobile()) {
-                $value = $this->getMobile();
-                $key = 'mobile';
-            }
+            $key = 'mobile';
         }
+        $value = $this->categoryWiseAddedMobile($category);
         $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
     }
@@ -296,8 +306,12 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('authkey')) {
             $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        } else {
+            $message = "Missing authkey";
+            throw ParameterException::missinglogic($message);
         }
-        return $buildSmsData;
+        
     }
     /**
      * This function for sms array Build with sender
@@ -311,8 +325,11 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->isKeyPresent('sender')) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
+            return $buildSmsData;
+        } else {
+            $message = "Missing sender";
+            throw ParameterException::missinglogic($message);
         }
-        return $buildSmsData;
     }
     /**
      * This function for sms array build with country
