@@ -231,9 +231,8 @@ class SmsBuildClass extends SmsDefineClass
      * @param int $category
      *
      */
-    protected function categoryWiseAddedMobile($category)
+    protected function categoryWiseAddedMobile()
     {
-        $value = '';
         if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
             $value = $this->getMobile();
             return $value;
@@ -258,7 +257,7 @@ class SmsBuildClass extends SmsDefineClass
         } else {
             $key = 'mobile';
         }
-        $value = $this->categoryWiseAddedMobile($category);
+        $value = $this->categoryWiseAddedMobile();
         $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
     }

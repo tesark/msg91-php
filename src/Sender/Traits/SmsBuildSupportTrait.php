@@ -130,21 +130,6 @@ trait SmsBuildSupportTrait
         return $buildSmsData;
     }
     /**
-     * Check key present
-     * @param string $key
-     *
-     * @return bool
-     */
-    protected function keyPresent($key)
-    {
-        if ($this->isKeyPresent($key)) {
-            return true;
-        } else {
-            $message = $key."Must be present";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
      * This function check the content length
      *
      *
@@ -179,5 +164,22 @@ trait SmsBuildSupportTrait
             $message = "Missing mobile key ";
             throw ParameterException::missinglogic($message);
         }
+    }
+    /**
+     * This function Create Element only
+     * @param array $xmlDoc
+     * @param string $element
+     * @param array $root
+     *
+     * @return array
+     */
+    protected function createElement($xmlDoc, $element, $root = null)
+    {
+        if (is_null($root)) {
+            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
+        } else {
+            $root = $root->appendChild($xmlDoc->createElement($element));
+        }
+        return $root;
     }
 }
