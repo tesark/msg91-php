@@ -8,6 +8,7 @@ use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
 use Sender\Traits\SmsBuildTrait;
 use Sender\Traits\SmsOtpCommonTrait;
+use Sender\Traits\SmsBuildSecondTrait;
 use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
@@ -25,7 +26,23 @@ class SmsBuildClass extends SmsDefineClass
 {
     use SmsBuildTrait;
     use SmsOtpCommonTrait;
+    use SmsBuildSecondTrait;
     use SmsBuildSupportTrait;
+    /**
+     * This function get Category wise mobile Number
+     * @param int $category
+     *
+     */
+    public function categoryWiseAddedMobile()
+    {
+        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
+            $value = $this->getMobile();
+            return $value;
+        } else {
+            $message = "Missing mobile key ";
+            throw ParameterException::missinglogic($message);
+        }
+    }
     /**
      * This function for Add mobile number
      * @param array $xmlDoc
@@ -238,47 +255,6 @@ class SmsBuildClass extends SmsDefineClass
             return $value;
         } else {
             $message = "Missing mobile key ";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
-     * This function for sms array Build with mobilenumbers
-     * @param array $buildSmsData
-     * @param int $category
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return array
-     */
-    public function addMobile($buildSmsData, $category)
-    {
-        $key = '';
-        if ($category === 1) {
-            $key = 'mobiles';
-        } else {
-            $key = 'mobile';
-        }
-        $value = $this->categoryWiseAddedMobile();
-        $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
-        return $buildSmsData;
-    }
-    /**
-     * This function check the content length
-     *
-     *
-     */
-    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
-    {
-        if ($lenOfBulkSms != 0) {
-            for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                $this->inputData = $bulkSms[$j];
-                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
-                //check message length
-                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
-                //check mobile contents
-                $this->addMobileNumber($xmlDoc, $smsTag);
-            }
-        } else {
-            $message = "content Empty";
             throw ParameterException::missinglogic($message);
         }
     }
