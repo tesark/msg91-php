@@ -135,9 +135,9 @@ trait SmsBuildSupportTrait
      *
      * @return bool
      */
-    protected function isKeyPresent($key)
+    protected function keyPresent($key)
     {
-       if ($this->isKeyPresent($key)) {
+        if ($this->isKeyPresent($key)) {
             return true;
         } else {
             $message = $key."Must be present";
