@@ -328,20 +328,18 @@ class SmsDefineClass
         }
     }
     /**
-     * This function Create Element only
-     * @param array $xmlDoc
-     * @param string $element
-     * @param array $root
+     * Check key present
+     * @param string $key
      *
-     * @return array
+     * @return bool
      */
-    protected function createElement($xmlDoc, $element, $root = null)
+    protected function keyPresent($key)
     {
-        if (is_null($root)) {
-            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
+        if ($this->isKeyPresent($key)) {
+            return true;
         } else {
-            $root = $root->appendChild($xmlDoc->createElement($element));
+            $message = $key."Must be present";
+            throw ParameterException::missinglogic($message);
         }
-        return $root;
     }
 }
