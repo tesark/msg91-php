@@ -5,6 +5,9 @@ use Sender\Validation;
 use Sender\MobileNumber;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
+use Sender\Traits\SmsBuildTrait;
+use Sender\Traits\SmsOtpCommonTrait;
+use Sender\Traits\SmsBuildSupportTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -18,6 +21,48 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildSecondTrait
 {
+    use SmsBuildTrait;
+    use SmsOtpCommonTrait;
+    use SmsBuildSupportTrait;
+    /**
+     * Message condition Check
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     * @param int $value
+     *
+     * @return array
+     */
+    public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
+    {
+        if (!$this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
+        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
+            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for sms array Build with mobilenumbers
+     * @param string $key
+     * @param array $buildSmsData
+     * @param int $category
+     *
+     * @throws ParameterException missing parameters or return empty
+     * @return array
+     */
+    public function checkIntegerOrString($key, $value, $buildSmsData, $category)
+    {
+        if ($this->isInterger($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+        } elseif ($this->isString($value)) {
+            $buildSmsData = $this->buildMobile($key, $value, $buildSmsData, $category);
+        } else {
+            $message = "interger or string comma seperate values";
+            throw ParameterException::invalidInput($key, "string or integer", $value, $message);
+        }
+        return $buildSmsData;
+    }
     /**
      * This function add data to xml string
      *

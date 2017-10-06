@@ -5,6 +5,9 @@ use Sender\Validation;
 use Sender\MobileNumber;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
+use Sender\Traits\SmsOtpCommonTrait;
+use Sender\Traits\SmsBuildSecondTrait;
+use Sender\Traits\SmsBuildSupportTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -18,21 +21,50 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildTrait
 {
+    use SmsOtpCommonTrait;
+    use SmsBuildSecondTrait;
+    use SmsBuildSupportTrait;
+
     /**
-     * Message condition Check
+     * This function for Check String Type
      * @param int $category
      * @param string $key
      * @param array $buildSmsData
-     * @param int $value
      *
-     * @return array
      */
-    public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
+    public function buildStringData($category, $key, $value, $buildSmsData, $xmlDoc)
     {
-        if (!$this->isKeyExists('unicode', $this->inputData)) {
-            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
-        } elseif ($this->isKeyExists('unicode', $this->inputData)) {
-            $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 70, $value, $category, $xmlDoc);
+        $buildSmsData = $this->checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc);
+        $buildSmsData = $this->checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc);
+        $buildSmsData = $this->checkMessageData($category, $key, $value, $buildSmsData, $xmlDoc);
+        $buildSmsData = $this->checkResponseData($category, $key, $value, $buildSmsData);
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    public function checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
+        if ($key === 'sender') {
+            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
+        }
+        return $buildSmsData;
+    }
+    /**
+     * This function for Check String Type
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
+     *
+     */
+    public function checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc)
+    {
+        if ($key === 'authkey' || $key === 'campaign') {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
         }
         return $buildSmsData;
     }
@@ -57,20 +89,6 @@ trait SmsBuildTrait
      * @param array $buildSmsData
      *
      */
-    public function checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc)
-    {
-        if ($key === 'sender') {
-            $buildSmsData = $this->validLength($key, $value, $buildSmsData, 'sms', $category, $xmlDoc);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function for Check String Type
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
     public function checkResponseData($category, $key, $value, $buildSmsData)
     {
         if ($key === 'response') {
@@ -78,6 +96,44 @@ trait SmsBuildTrait
             $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
         }
         return $buildSmsData;
+    }
+    /**
+     * This function check the content length
+     *
+     *
+     */
+    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
+    {
+        if ($lenOfBulkSms != 0) {
+            for ($j = 0; $j < $lenOfBulkSms; $j++) {
+                $this->inputData = $bulkSms[$j];
+                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
+                //check message length
+                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
+                //check mobile contents
+                $this->addMobileNumber($xmlDoc, $smsTag);
+            }
+        } else {
+            $message = "content Empty";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function Create Element only
+     * @param array $xmlDoc
+     * @param string $element
+     * @param array $root
+     *
+     * @return array
+     */
+    public function createElement($xmlDoc, $element, $root = null)
+    {
+        if (is_null($root)) {
+            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
+        } else {
+            $root = $root->appendChild($xmlDoc->createElement($element));
+        }
+        return $root;
     }
     /**
      * This function for Check String Type
@@ -95,35 +151,6 @@ trait SmsBuildTrait
             $message = "string values only accept";
             throw ParameterException::invalidInput($key, "string", $value, $message);
         }
-    }
-    /**
-     * This function for Check String Type
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
-    public function buildStringData($category, $key, $value, $buildSmsData, $xmlDoc)
-    {
-        $buildSmsData = $this->checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc);
-        $buildSmsData = $this->checkSenderData($category, $key, $value, $buildSmsData, $xmlDoc);
-        $buildSmsData = $this->checkMessageData($category, $key, $value, $buildSmsData, $xmlDoc);
-        $buildSmsData = $this->checkResponseData($category, $key, $value, $buildSmsData);
-        return $buildSmsData;
-    }
-    /**
-     * This function for Check String Type
-     * @param int $category
-     * @param string $key
-     * @param array $buildSmsData
-     *
-     */
-    public function checkAuthCampaignData($category, $key, $value, $buildSmsData, $xmlDoc)
-    {
-        if ($key === 'authkey' || $key === 'campaign') {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
-        }
-        return $buildSmsData;
     }
     /**
      * This function used for Array inside present 0 or 1

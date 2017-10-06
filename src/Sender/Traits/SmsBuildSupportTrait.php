@@ -5,6 +5,9 @@ use Sender\Validation;
 use Sender\MobileNumber;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
+use Sender\Traits\SmsBuildTrait;
+use Sender\Traits\SmsOtpCommonTrait;
+use Sender\Traits\SmsBuildSecondTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -18,6 +21,9 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildSupportTrait
 {
+    use SmsBuildTrait;
+    use SmsOtpCommonTrait;
+    use SmsBuildSecondTrait;
     /**
      * Check vaild Date Time
      * @return bool
@@ -83,64 +89,5 @@ trait SmsBuildSupportTrait
         $responseVal = strtolower($value);
         $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
         return $value;
-    }
-    /**
-     * This function for sms array Build with mobilenumbers
-     * @param string $key
-     * @param array $buildSmsData
-     * @param int $category
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return array
-     */
-    public function checkIntegerOrString($key, $value, $buildSmsData, $category)
-    {
-        if ($this->isInterger($value)) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-        } elseif ($this->isString($value)) {
-            $buildSmsData = $this->buildMobile($key, $value, $buildSmsData, $category);
-        } else {
-            $message = "interger or string comma seperate values";
-            throw ParameterException::invalidInput($key, "string or integer", $value, $message);
-        }
-        return $buildSmsData;
-    }
-    /**
-     * This function check the content length
-     *
-     *
-     */
-    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
-    {
-        if ($lenOfBulkSms != 0) {
-            for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                $this->inputData = $bulkSms[$j];
-                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
-                //check message length
-                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
-                //check mobile contents
-                $this->addMobileNumber($xmlDoc, $smsTag);
-            }
-        } else {
-            $message = "content Empty";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
-     * This function Create Element only
-     * @param array $xmlDoc
-     * @param string $element
-     * @param array $root
-     *
-     * @return array
-     */
-    public function createElement($xmlDoc, $element, $root = null)
-    {
-        if (is_null($root)) {
-            $root = $xmlDoc->appendChild($xmlDoc->createElement($element));
-        } else {
-            $root = $root->appendChild($xmlDoc->createElement($element));
-        }
-        return $root;
     }
 }
