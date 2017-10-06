@@ -3,10 +3,8 @@ namespace Sender\Traits;
 
 use Sender\Validation;
 use Sender\MobileNumber;
-use Sender\Otp\OtpBuildClass;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
-use Sender\Otp\OtpDefineClass;
 use Sender\ExceptionClass\ParameterException;
 
 /**

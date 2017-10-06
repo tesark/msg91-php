@@ -5,6 +5,7 @@ use Sender\Deliver;
 use Sender\Validation;
 use Sender\Otp\OtpSend;
 use Sender\MobileNumber;
+use Sender\Traits\OtpBuildTrait;
 use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
@@ -21,6 +22,7 @@ use Sender\ExceptionClass\ParameterException;
 class OtpBuildClass extends OtpDefineClass
 {
     use SmsOtpCommonTrait;
+    use OtpBuildTrait;
     /**
      * This function used for build Retype data
      * @param string $key
@@ -304,46 +306,7 @@ class OtpBuildClass extends OtpDefineClass
                 throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
             }
         }
-    }
-    /**
-     * Check Authkey and mobile
-     * @param string $parameter
-     *
-     * @throws ParameterException missing parameters or return empty
-     * @return bool
-     */
-    public function isParameterPresent($parameter)
-    {
-        if ($this->isKeyExists($parameter, $this->sendData)) {
-            if ($parameter === 'authkey') {
-                return $this->hasAuthKey($parameter);
-            } else {
-                return $this->hasMobile($parameter);
-            }
-        } else {
-            $message = "Parameter ".$parameter." missing";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
-     * Check Authkey
-     *
-     * @return bool
-     */
-    public function checkAuthKey()
-    {
-        return $this->isParameterPresent('authkey');
-    }
-    /**
-     * Check mobile
-     *
-     * @return bool
-     */
-    public function checkMobile()
-    {
-        return $this->isParameterPresent('mobile');
-    }
-    
+    }   
     /**
      * Add retry type
      *

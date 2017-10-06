@@ -7,6 +7,7 @@ use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
 use Sender\Traits\SmsBuildTrait;
+use Sender\Traits\SmsBuildSecondTrait;
 use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
@@ -25,6 +26,7 @@ class SmsDefineClass
 {
     use SmsBuildTrait;
     use SmsOtpCommonTrait;
+    use SmsBuildSecondTrait;
     use SmsBuildSupportTrait;
 
     /**
@@ -310,51 +312,5 @@ class SmsDefineClass
     protected function getCampaign()
     {
         return $this->campaign;
-    }
-    /**
-     * Check vaild Date Time
-     * @return bool
-     */
-    public function isVaildDateTime($value)
-    {
-        if (Validation::isValidDateFirstFormat($value)) {
-            return true;
-        } elseif (Validation::isValidDateSecondFormat($value)) {
-            return true;
-        } elseif (Validation::isValidTimeStamp($value)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    /**
-     * Check key present
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function keyPresent($key)
-    {
-        if ($this->isKeyPresent($key)) {
-            return true;
-        } else {
-            $message = $key."Must be present";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
-     * This function get Category wise mobile Number
-     * @param int $category
-     *
-     */
-    public function categoryWiseAddedMobile()
-    {
-        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
-            $value = $this->getMobile();
-            return $value;
-        } else {
-            $message = "Missing mobile key ";
-            throw ParameterException::missinglogic($message);
-        }
     }
 }
