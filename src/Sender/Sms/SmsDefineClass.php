@@ -6,9 +6,6 @@ use Sender\Validation;
 use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
-use Sender\Traits\SmsBuildTrait;
-use Sender\Traits\SmsOtpCommonTrait;
-use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
 
@@ -23,10 +20,6 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsDefineClass
 {
-    use SmsBuildTrait;
-    use SmsOtpCommonTrait;
-    use SmsBuildSupportTrait;
-
     /**
      * @var int $mobile
      */
