@@ -324,7 +324,7 @@ class TransactionalSmsTest extends TestCase
         ];
         $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
     }
-    /*
+    /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
     public function testTransactionalSmsSenderBoolean()
