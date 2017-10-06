@@ -203,7 +203,8 @@ class TransactionalSmsTest extends TestCase
            'response'     => "json",
         ];
         $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
+        $array = json_decode($result);
+        $this->assertObjectHasAttribute("type", $array);
     }
     //------------------------ Afterminutes-----------------
     public function testTransactionalSmsWithoutCountryCode()

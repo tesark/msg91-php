@@ -35,18 +35,10 @@ class Deliver
      */
     public function sendSmsPost($uri, $xml)
     {
-        try {
-            $this->logger->info(["Request:"], [$xml], [$uri]);
-            $headers = ['Content-Type' => 'text/xml; charset=UTF8'];
-            $client  = new Client();
-            $request = new Request('POST', 'http://api.msg91.com/api/'.$uri, $headers, $xml);
-            $response = $client->send($request);
-            return $response->getBody()->getContents();
-        } catch (ClientException $e) {
-            $this->throwLog($e);
-        } finally {
-            $this->logger->deleteOldFiles();
-        }
+        $contentType = 'text/xml; charset=UTF8';
+        $response = $this->send('POST', $uri, $contentType, $xml);
+        // $this->addLogFile("response", $ResponseData); //issue unable to log Response
+        return $response;
     }
     /**
      * Send GET method
@@ -58,14 +50,27 @@ class Deliver
      */
     public function sendOtpGet($uri, $query)
     {
+        $paramStr = $this->buildQueryString($query);
+        $contentType = 'application/json; charset=UTF8';
+        $url = $uri.$paramStr;
+        $response = $this->send('GET', $url, $contentType, null);
+        // $this->addLogFile("response", $ResponseData); //issue unable to log Response
+        return $response;
+    }
+    /**
+     * This function send the parameters
+     * @param string $method
+     * @param string $uri
+     *
+     */
+    protected function send($method, $uri, $contentType, $xml = null)
+    {
         try {
-            $paramStr = $this->buildQueryString($query);
-            $this->logger->info(["Request:"], [$query], [$uri]);
-            $headers = ['Content-Type' => 'application/json; charset=UTF8'];
+            $this->logger->info(["Request:"], [$uri], [$xml]);
+            $headers = ['Content-Type' => $contentType];
             $client  = new Client();
-            $request = new Request('GET', 'http://api.msg91.com/api/'.$uri.$paramStr, $headers);
+            $request = new Request($method, 'http://api.msg91.com/api/'.$uri, $headers, $xml);
             $response = $client->send($request);
-            // $this->addLogFile("response", $ResponseData); //issue unable to log Response
             return $response->getBody()->getContents();
         } catch (ClientException $e) {
             $this->throwLog($e);
