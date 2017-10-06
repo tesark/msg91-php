@@ -115,7 +115,7 @@ trait SmsBuildTrait
      *
      *
      */
-    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
+    public function checkContent($lenOfBulkSms, $bulkSms, $root, $category, $xmlDoc)
     {
         if ($lenOfBulkSms != 0) {
             for ($j = 0; $j < $lenOfBulkSms; $j++) {
@@ -293,26 +293,5 @@ trait SmsBuildTrait
         $value = $this->categoryWiseAddedMobile();
         $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
-    }
-    /**
-     * This function check the content length
-     *
-     *
-     */
-    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
-    {
-        if ($lenOfBulkSms != 0) {
-            for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                $this->inputData = $bulkSms[$j];
-                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
-                //check message length
-                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
-                //check mobile contents
-                $this->addMobileNumber($xmlDoc, $smsTag);
-            }
-        } else {
-            $message = "content Empty";
-            throw ParameterException::missinglogic($message);
-        }
     }
 }
