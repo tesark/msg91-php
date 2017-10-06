@@ -19,7 +19,7 @@ class MobileNumberTest extends TestCase
     {
         $this->mobile = null;
     }
-    //--------------------------
+    //-------------------------
     //test string valid numbers
     public function testIsValidNumber()
     {
@@ -40,7 +40,7 @@ class MobileNumberTest extends TestCase
     public function testIsValidNumberFalse()
     {
         $expectArray = [
-            "value"=> false ,
+            "value"=> false,
             "mobile"=> "951402853"
         ];
         $result = $this->mobile->isValidNumber("9514028541,9791466728,8148597834,951402853");
@@ -56,7 +56,7 @@ class MobileNumberTest extends TestCase
     public function testIsInvalideNumberFalse()
     {
         $expectArray = [
-            "value"=> true ,
+            "value"=> true,
             "mobile"=> ["9514028541"]
         ];
         $result = $this->mobile->isValidNumber("9514028541");

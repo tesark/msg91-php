@@ -231,61 +231,61 @@ class OtpTest extends TestCase
     //----------Retry Otp ---------
     public function testRetryOtpTextformat()
     {
-      $response   = $this->otp->resendOtp(919514028541,"text");
-      $array = json_decode($response);
-      $this->assertObjectHasAttribute("type", $array);
+        $response   = $this->otp->resendOtp(919514028541, "text");
+        $array = json_decode($response);
+        $this->assertObjectHasAttribute("type", $array);
     }
     public function testRetryOtpVoiceformat()
     {
-      $response   = $this->otp->resendOtp(919514028541,"voice");
-      $array = json_decode($response);
-      $this->assertObjectHasAttribute("type", $array);
+        $response   = $this->otp->resendOtp(919514028541, "voice");
+        $array = json_decode($response);
+        $this->assertObjectHasAttribute("type", $array);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
     public function testRetryOtpMissingFirstParameterformat()
     {
-      $response   = $this->otp->resendOtp("text");
+        $response   = $this->otp->resendOtp("text");
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
     public function testRetryOtpMissingSecondParameterformat()
     {
-      $response   = $this->otp->resendOtp(919514028541);
+        $response   = $this->otp->resendOtp(919514028541);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
     public function testRetryOtpMissingSecondParameterIsNumberformat()
     {
-      $response   = $this->otp->resendOtp(919514028541, 4565);
+        $response   = $this->otp->resendOtp(919514028541, 4565);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
     public function testRetryOtpMissingSecondParameterIsFloatformat()
     {
-      $response   = $this->otp->resendOtp(919514028541, 45.65);
+        $response   = $this->otp->resendOtp(919514028541, 45.65);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
     public function testRetryOtpMissingSecondParameterIsBooleanformat()
     {
-      $response   = $this->otp->resendOtp(919514028541, true);
+        $response   = $this->otp->resendOtp(919514028541, true);
     }
     //----------- Verify OTP --------
     public function testVerifyOtp()
     {
-        $verifyResponse   = $this->otp->verifyOtp(919514028541,5421);
+        $verifyResponse   = $this->otp->verifyOtp(919514028541, 5421);
         $array = json_decode($verifyResponse);
         $this->assertObjectHasAttribute("type", $array);
     }
     public function testVerifyOtpIsString()
     {
-        $verifyResponse   = $this->otp->verifyOtp(919514028541,"5421");
+        $verifyResponse   = $this->otp->verifyOtp(919514028541, "5421");
         $array = json_decode($verifyResponse);
         $this->assertObjectHasAttribute("type", $array);
     }
