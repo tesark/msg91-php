@@ -2,156 +2,156 @@
 namespace Sender;
 
 use PHPUnit\Framework\TestCase;
-use Sender\TransactionalSms;
+use Sender\PromotionalSms;
 use Sender\ExceptionClass\ParameterException;
 
 /**
-* This test class for testing TransactionSms class
+* This test class for testing PromotionalSmsTest class
 */
 
-class TransactionalSmsTest extends TestCase
+class PromotionalSmsTest extends TestCase
 {
-    public $TransactionSms;
+    public $PromotionalSms;
     public function setUp()
     {
-        $this->TransactionSms = new TransactionalSms("170867ARdROqjKklk599a87a1");
+        $this->PromotionalSms = new PromotionalSms("170867ARdROqjKklk599a87a1");
     }
     public function tearDown()
     {
-        $this->TransactionSms = null;
+        $this->PromotionalSms = null;
     }
-    //-----------------------Send TransactionSms------------------------
+    //-----------------------Send PromotionalSmsTest------------------------
     //------Test mandatory fields with integer type mobile numbers------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMandatoryFieldsMissingMessageIntegerMobile()
+    public function testPromotionalSmsMandatoryFieldsMissingMessageIntegerMobile()
     {
         $sendArray = [
            'sender'   => 'UTOOWE',
         ];
-        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $verifyResponse   = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMandatoryFieldsMissingSenderIntegerMobile()
+    public function testPromotionalSmsMandatoryFieldsMissingSenderIntegerMobile()
     {
         $sendArray = [
            'message'  => 'WELCOME TO TESARK',
         ];
-        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $verifyResponse   = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMandatoryFieldsMissingIntegerMobile()
+    public function testPromotionalSmsMandatoryFieldsMissingIntegerMobile()
     {
         $sendArray = [];
-        $verifyResponse   = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $verifyResponse   = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
-    //------------------------Send TransactionSms---------------------------
+    //------------------------Send PromotionalSms---------------------------
     //----------Test mandatory fields with String type mobile numbers-------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMandatoryFieldsMissingMessageStringMobile()
+    public function testPromotionalSmsMandatoryFieldsMissingMessageStringMobile()
     {
         $sendArray = [
            'sender'   => 'UTOOWE',
         ];
-        $verifyResponse   = $this->TransactionSms->sendTransactional("919514028541,919791466728",$sendArray);
+        $verifyResponse   = $this->PromotionalSms->sendPromotional("919514028541,919791466728",$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMandatoryFieldsMissingSenderStringMobile()
+    public function testPromotionalSmsMandatoryFieldsMissingSenderStringMobile()
     {
         $sendArray = [
            'message'  => 'WELCOME TO TESARK',
         ];
-        $verifyResponse   = $this->TransactionSms->sendTransactional("919514028541,919791466728",$sendArray);
+        $verifyResponse   = $this->PromotionalSms->sendPromotional("919514028541,919791466728",$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMandatoryFieldsMissingStringMobile()
+    public function testPromotionalSmsMandatoryFieldsMissingStringMobile()
     {
         $sendArray = [];
-        $verifyResponse   = $this->TransactionSms->sendTransactional("919514028541,919791466728",$sendArray);
+        $verifyResponse   = $this->PromotionalSms->sendPromotional("919514028541,919791466728",$sendArray);
     }
     //--------------------- Correct format No Error---------------------
     //-----------------------------Country Code------------------------- 
-    public function testTransactionalSmsWithCountryCodeInteger()
+    public function testPromotionalSmsWithCountryCodeInteger()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
         $this->assertEquals(24, strlen($result)); 
     }
-    public function testTransactionalSmsWithOutCountryCodeInteger()
+    public function testPromotionalSmsWithOutCountryCodeInteger()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    public function testTransactionalSmsWithCountryCodeNumericString()
+    public function testPromotionalSmsWithCountryCodeNumericString()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
            'country'   => "91",
         ];
-        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728",$sendArray);
+        $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728",$sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    public function testTransactionalSmsWithCountryCodeStringMobile()
+    public function testPromotionalSmsWithCountryCodeStringMobile()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728",$sendArray);
+        $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728",$sendArray);
         $this->assertEquals(24, strlen($result)); 
     }
-    public function testTransactionalSmsWithOutCountryCodeString()
+    public function testPromotionalSmsWithOutCountryCodeString()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
         ];
-        $result = $this->TransactionSms->sendTransactional("919514028541,919791466728",$sendArray);
+        $result = $this->PromotionalSms->sendPromotional("919514028541,919791466728",$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //------------------------------Flash only -----------------
-    public function testTransactionalSmsFlash()
+    public function testPromotionalSmsFlash()
     {
         $sendArray = [
            'message' => 'WELCOME TO TESARK',
            'sender' => 'UTOOWE',
            'flash' => 1,
         ];
-        $result   = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result   = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    public function testTransactionalSmsFlashZero()
+    public function testPromotionalSmsFlashZero()
     {
         $sendArray = [
            'message' => 'WELCOME TO TESARK',
            'sender' => 'UTOOWE',
            'flash' => 0,
         ];
-        $result   = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result   = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    public function testTransactionalSmsFlashCountryCode()
+    public function testPromotionalSmsFlashCountryCode()
     {
         $sendArray = [
            'message' => 'WELCOME TO TESARK',
@@ -159,54 +159,54 @@ class TransactionalSmsTest extends TestCase
            'flash' => 1,
            'country' => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Unicode ------------------------
-    public function testTransactionalSmsUnicode()
+    public function testPromotionalSmsUnicode()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'unicode'      => 1,
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //---------------------- Schtime -------------------------
-    public function testTransactionalSmsSchtimedashFormat()
+    public function testPromotionalSmsSchtimedashFormat()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "2020-01-01 10:10:00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    public function testTransactionalSmsSchtimeFrontslashFormat()
+    public function testPromotionalSmsSchtimeFrontslashFormat()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "2020/01/01 10:10:00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Response-----------------------
-    public function testTransactionalSmsResponseJson()
+    public function testPromotionalSmsResponseJson()
     {
         $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'response'     => "json",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //------------------------ Afterminutes-----------------
-    public function testTransactionalSmsWithoutCountryCode()
+    public function testPromotionalSmsWithoutCountryCode()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
@@ -214,18 +214,18 @@ class TransactionalSmsTest extends TestCase
            'country'      => 91,
            'afterminutes' => 10
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Campaign ---------------------
-    public function testTransactionalSmsCampaign()
+    public function testPromotionalSmsCampaign()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'campaign'     => "venkat"
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
         $this->assertEquals(24, strlen($result));
     }
     //--------------- Wrong format with Error Exception -------
@@ -233,345 +233,345 @@ class TransactionalSmsTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMessageInteger()
+    public function testPromotionalSmsMessageInteger()
     {
         $sendArray = [
            'message'   => 452124555555,
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMessageDouble()
+    public function testPromotionalSmsMessageDouble()
     {
         $sendArray = [
            'message'   => 4521.24555555,
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMessageBoolean()
+    public function testPromotionalSmsMessageBoolean()
     {
         $sendArray = [
            'message'   => true,
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsMessageMax()
+    public function testPromotionalSmsMessageMax()
     {
         $sendArray = [
            'message'   => "WELCOME TO TESARK fgsdhjfsgdjhgfjsdghsffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffj",
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
-        $result = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     //---------------------- Sender ---------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSenderMin()
+    public function testPromotionalSmsSenderMin()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOO',
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSenderMax()
+    public function testPromotionalSmsSenderMax()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWESSSS',
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSenderInteger()
+    public function testPromotionalSmsSenderInteger()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 564654,
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSenderDouble()
+    public function testPromotionalSmsSenderDouble()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 56.4654,
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSenderBoolean()
+    public function testPromotionalSmsSenderBoolean()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => true,
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     //------------------------ Country Code ----------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsWithCountryCodeBoolean()
+    public function testPromotionalSmsWithCountryCodeBoolean()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
            'country'   => true,
         ];
-        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728",$sendArray);
+        $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728",$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsWithCountryCodeString()
+    public function testPromotionalSmsWithCountryCodeString()
     {
         $sendArray = [
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
            'country'   => "IND",
         ];
-        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728",$sendArray);
+        $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728",$sendArray);
     }
     //-------------------------Flash only ------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsFlashNull()
+    public function testPromotionalSmsFlashNull()
     {
         $sendArray = [
            'message' => 'WELCOME TO TESARK',
            'sender' => 'UTOOWE',
            'flash' => null,
         ];
-        $result   = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result   = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsFlashDefaultNull()
+    public function testPromotionalSmsFlashDefaultNull()
     {
         $sendArray = [
            'message' => 'WELCOME TO TESARK',
            'sender' => 'UTOOWE',
            'flash' => 7,
         ];
-        $result   = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result   = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     //----------------------- Unicode -------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsUnicodeNull()
+    public function testPromotionalSmsUnicodeNull()
     {
         $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'unicode'      => null,
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsUnicodeOneMessageLimit()
+    public function testPromotionalSmsUnicodeOneMessageLimit()
     {
         $sendArray = [
            'message'      => 'WELCOME TO TESARK sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',
            'sender'       => 'UTOOWE',
            'unicode'      => 1,
         ];
-        $result = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     //---------------------- Schtime --------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongOne()
+    public function testPromotionalSmsSchtimeFormatWrongOne()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "2020-01/01 10:10:00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongTwo()
+    public function testPromotionalSmsSchtimeFormatWrongTwo()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "2020-01/01",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongThree()
+    public function testPromotionalSmsSchtimeFormatWrongThree()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "2020-01/01 10-10-00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongFour()
+    public function testPromotionalSmsSchtimeFormatWrongFour()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "10:10:00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongFive()
+    public function testPromotionalSmsSchtimeFormatWrongFive()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "2020/01/01 10-10-00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongSix()
+    public function testPromotionalSmsSchtimeFormatWrongSix()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "10-10-00",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongSeven()
+    public function testPromotionalSmsSchtimeFormatWrongSeven()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => 30,
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongEight()
+    public function testPromotionalSmsSchtimeFormatWrongEight()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => "1Days",
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongNine()
+    public function testPromotionalSmsSchtimeFormatWrongNine()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => true,
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsSchtimeFormatWrongTen()
+    public function testPromotionalSmsSchtimeFormatWrongTen()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'schtime'      => 7845.637,
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     //----------------------- Response-------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsResponseBoolean()
+    public function testPromotionalSmsResponseBoolean()
     {
         $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'response'     => true,
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsResponseInteger()
+    public function testPromotionalSmsResponseInteger()
     {
         $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'response'     => 4545,
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsResponseDouble()
+    public function testPromotionalSmsResponseDouble()
     {
         $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'response'     => 43.435434,
         ];
-        $result  = $this->TransactionSms->sendTransactional(919514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(919514028541,$sendArray);
     }
     //------------------------ Afterminutes--------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsAfterminutesMin()
+    public function testPromotionalSmsAfterminutesMin()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
@@ -579,12 +579,12 @@ class TransactionalSmsTest extends TestCase
            'country'      => 91,
            'afterminutes' => 9
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsAfterminutesMax()
+    public function testPromotionalSmsAfterminutesMax()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
@@ -592,12 +592,12 @@ class TransactionalSmsTest extends TestCase
            'country'      => 91,
            'afterminutes' => 20001
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsAfterminuteBoolean()
+    public function testPromotionalSmsAfterminuteBoolean()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
@@ -605,12 +605,12 @@ class TransactionalSmsTest extends TestCase
            'country'      => 91,
            'afterminutes' => true
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsAfterminutesString()
+    public function testPromotionalSmsAfterminutesString()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
@@ -618,31 +618,31 @@ class TransactionalSmsTest extends TestCase
            'country'      => 91,
            'afterminutes' => "20001"
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     //----------------------- Campaign ----------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsCampaignBoolean()
+    public function testPromotionalSmsCampaignBoolean()
     {
          $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'campaign'     =>  true
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testTransactionalSmsCampaignInteger()
+    public function testPromotionalSmsCampaignInteger()
     {
          $sendArray = [ 
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'campaign'     =>  4334
         ];
-        $result  = $this->TransactionSms->sendTransactional(9514028541,$sendArray);
+        $result  = $this->PromotionalSms->sendPromotional(9514028541,$sendArray);
     }
 }
