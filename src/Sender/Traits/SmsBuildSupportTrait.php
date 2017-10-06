@@ -19,69 +19,79 @@ use Sender\ExceptionClass\ParameterException;
 trait SmsBuildSupportTrait
 {
     /**
-     * Check vaild Date Time
-     * @return bool
-     */
-    public function isVaildDateTime($value)
-    {
-        if (Validation::isValidDateFirstFormat($value)) {
-            return true;
-        } elseif (Validation::isValidDateSecondFormat($value)) {
-            return true;
-        } elseif (Validation::isValidTimeStamp($value)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    /**
-     * Check key present
+     * This function for check afterminutes
+     * @param int $category
      * @param string $key
+     * @param array $buildSmsData
      *
-     * @return bool
      */
-    public function keyPresent($key)
+    public function checkAfterMinutes($category, $key, $value, $buildSmsData)
     {
-        if ($this->isKeyPresent($key)) {
-            return true;
+        if ($this->isVaildAfterMinutes($value)) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+            return $buildSmsData;
         } else {
-            $message = $key."Must be present";
-            throw ParameterException::missinglogic($message);
+            $message = "Allowed between 10 to 20000 mintutes";
+            throw ParameterException::invalidInput("afterminutes", "int", $value, $message);
         }
     }
     /**
-     * Check afterminutes limits
-     * @param string $afterMinutes
+     * This function for simplify afterminutes
+     * @param int $category
+     * @param string $key
+     * @param array $buildSmsData
      *
-     * @return bool
+     * @return array
      */
-    public function isVaildAfterMinutes($afterMinutes)
+    public function simplifyAfterMinutes($category, $key, $buildSmsData, $value)
     {
-        $value  = array('options' => array('min_range' => 10, 'max_range' => 20000));
-        $result = filter_var($afterMinutes, FILTER_VALIDATE_INT, $value);
-        return (bool) $result;
+        if ($this->isInterger($value)) {
+            $buildSmsData = $this->checkAfterMinutes($category, $key, $value, $buildSmsData);
+        } else {
+            throw ParameterException::invalidArrtibuteType($key, "int", $value);
+        }
+        return $buildSmsData;
     }
     /**
-     * This function Check value 0 or 1
+     * This function for Add mobile number to XML
+     * @param array $xmlDoc
+     * @param array $smsTag
      *
-     * @return int
      */
-    public function checkArray($value)
+    public function addMobileToXml($xmlDoc, $smsTag, $result)
     {
-        $responseFormat = array(0, 1);
-        $value = in_array($value, $responseFormat) ? $value : null;
-        return $value;
-    }
+        if (!empty($result) && $result['value'] == true) {
+            $mobiles = $result['mobile'];
+            $len = Validation::getSize($mobiles);
+            for ($k = 0; $k < $len; $k++) {
+                $addressTag = $smsTag->appendChild($xmlDoc->createElement("ADDRESS"));
+                $childAttr = $xmlDoc->createAttribute("TO");
+                $childText = $xmlDoc->createTextNode($mobiles[$k]);
+                $addressTag->appendChild($childAttr)->appendChild($childText);
+            }
+        } else {
+            $message = "string comma seperate values";
+            throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
+        }
+    } 
     /**
-     * This function check expect value present in array
-     * @param string $value
+     * This function for sms array Build with mobilenumbers
+     * @param array $buildSmsData
+     * @param int $category
      *
+     * @throws ParameterException missing parameters or return empty
+     * @return array
      */
-    public function checkResponse($value)
+    public function addMobile($buildSmsData, $category)
     {
-        $responseFormat = array('xml', 'json');
-        $responseVal = strtolower($value);
-        $value = in_array($responseVal, $responseFormat) ? $responseVal : null;
-        return $value;
+        $key = '';
+        if ($category === 1) {
+            $key = 'mobiles';
+        } else {
+            $key = 'mobile';
+        }
+        $value = $this->categoryWiseAddedMobile();
+        $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
+        return $buildSmsData;
     }
 }
