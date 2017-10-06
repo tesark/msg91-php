@@ -88,7 +88,7 @@ class SmsDefineClass
      * Check the mobilenumber empty
      * @return bool
      */
-    public function hasMobileNumber()
+    protected function hasMobileNumber()
     {
         $data = $this->inputData['mobile'];
         return isset($data);
@@ -97,7 +97,7 @@ class SmsDefineClass
      * Check the data empty
      * @return bool
      */
-    public function hasData()
+    protected function hasData()
     {
         return isset($this->inputData);
     }
@@ -105,7 +105,7 @@ class SmsDefineClass
      * Check the sendData empty
      * @return bool
      */
-    public function hasSendData()
+    protected function hasSendData()
     {
         return isset($this->sendSmsData);
     }
@@ -123,7 +123,7 @@ class SmsDefineClass
      * set content
      * @return bool
      */
-    public function setContent()
+    protected function setContent()
     {
         $this->content = $this->inputData['content'];
         return true;
@@ -131,7 +131,7 @@ class SmsDefineClass
     /*
      * get content
      */
-    public function getContent()
+    protected function getContent()
     {
         return $this->content;
     }
@@ -139,7 +139,7 @@ class SmsDefineClass
      * set mobile
      * @return bool
      */
-    public function setMobile()
+    protected function setMobile()
     {
         $this->mobile = $this->inputData['mobile'];
         return true;
@@ -147,7 +147,7 @@ class SmsDefineClass
     /*
      * get mobile
      */
-    public function getMobile()
+    protected function getMobile()
     {
         return $this->mobile;
     }
@@ -155,7 +155,7 @@ class SmsDefineClass
      * set authkey
      * @return bool
      */
-    public function setAuthKey()
+    protected function setAuthKey()
     {
         $this->authkey = $this->inputData['authkey'];
         return true;
@@ -163,7 +163,7 @@ class SmsDefineClass
     /*
      * get authkey
      */
-    public function getAuthKey()
+    protected function getAuthKey()
     {
         return $this->authkey;
     }
@@ -171,7 +171,7 @@ class SmsDefineClass
      * set message
      * @return bool
      */
-    public function setMessage()
+    protected function setMessage()
     {
         $this->message = $this->inputData['message'];
         return true;
@@ -179,7 +179,7 @@ class SmsDefineClass
     /*
      * get message
      */
-    public function getMessage()
+    protected function getMessage()
     {
         return $this->message;
     }
@@ -187,7 +187,7 @@ class SmsDefineClass
      * set unicode
      * @return bool
      */
-    public function setUnicode()
+    protected function setUnicode()
     {
         $this->unicode = $this->inputData['unicode'];
         return true;
@@ -195,7 +195,7 @@ class SmsDefineClass
     /*
      * get unicode
      */
-    public function getUnicode()
+    protected function getUnicode()
     {
         return $this->unicode;
     }
@@ -203,7 +203,7 @@ class SmsDefineClass
      * set sender
      * @return bool
      */
-    public function setSender()
+    protected function setSender()
     {
         $this->sender = $this->inputData['sender'];
         return true;
@@ -211,7 +211,7 @@ class SmsDefineClass
     /*
      * get sender
      */
-    public function getSender()
+    protected function getSender()
     {
         return $this->sender;
     }
@@ -219,7 +219,7 @@ class SmsDefineClass
      * set country
      * @return bool
      */
-    public function setCountry()
+    protected function setCountry()
     {
         $this->country = $this->inputData['country'];
         return true;
@@ -227,7 +227,7 @@ class SmsDefineClass
     /*
      * get country
      */
-    public function getCountry()
+    protected function getCountry()
     {
         return $this->country;
     }
@@ -235,7 +235,7 @@ class SmsDefineClass
      * set flash
      * @return bool
      */
-    public function setFlash()
+    protected function setFlash()
     {
         $this->flash = $this->inputData['flash'];
         return true;
@@ -243,7 +243,7 @@ class SmsDefineClass
     /*
      * get flash
      */
-    public function getFlash()
+    protected function getFlash()
     {
         return $this->flash;
     }
@@ -251,7 +251,7 @@ class SmsDefineClass
      * set schtime
      * @return bool
      */
-    public function setSchtime()
+    protected function setSchtime()
     {
         $this->schtime = $this->inputData['schtime'];
         return true;
@@ -259,7 +259,7 @@ class SmsDefineClass
     /*
      * get schtime
      */
-    public function getSchtime()
+    protected function getSchtime()
     {
         return $this->schtime;
     }
@@ -267,7 +267,7 @@ class SmsDefineClass
      * set afterminutes
      * @return bool
      */
-    public function setAfterminutes()
+    protected function setAfterminutes()
     {
         $this->afterminutes = $this->inputData['afterminutes'];
         return true;
@@ -275,7 +275,7 @@ class SmsDefineClass
     /*
      * get afterminutes
      */
-    public function getAfterminutes()
+    protected function getAfterminutes()
     {
         return $this->afterminutes;
     }
@@ -283,7 +283,7 @@ class SmsDefineClass
      * set response
      * @return bool
      */
-    public function setResponse()
+    protected function setResponse()
     {
         $this->response = $this->inputData['response'];
         return true;
@@ -291,7 +291,7 @@ class SmsDefineClass
     /*
      * get response
      */
-    public function getResponse()
+    protected function getResponse()
     {
         return $this->response;
     }
@@ -299,7 +299,7 @@ class SmsDefineClass
      * set campaign
      * @return bool
      */
-    public function setCampaign()
+    protected function setCampaign()
     {
         $this->campaign = $this->inputData['campaign'];
         return true;
@@ -307,7 +307,7 @@ class SmsDefineClass
     /*
      * get campaign
      */
-    public function getCampaign()
+    protected function getCampaign()
     {
         return $this->campaign;
     }
@@ -333,12 +333,27 @@ class SmsDefineClass
      *
      * @return bool
      */
-    protected function keyPresent($key)
+    public function keyPresent($key)
     {
         if ($this->isKeyPresent($key)) {
             return true;
         } else {
             $message = $key."Must be present";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function get Category wise mobile Number
+     * @param int $category
+     *
+     */
+    public function categoryWiseAddedMobile()
+    {
+        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
+            $value = $this->getMobile();
+            return $value;
+        } else {
+            $message = "Missing mobile key ";
             throw ParameterException::missinglogic($message);
         }
     }

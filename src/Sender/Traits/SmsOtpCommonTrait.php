@@ -158,7 +158,7 @@ trait SmsOtpCommonTrait
      *
      * @return array
      */
-    protected function addDataArray($key, $value, $data, $type)
+    public function addDataArray($key, $value, $data, $type)
     {
         if ($type === 'int') {
             $test = $this->isInterger($value);

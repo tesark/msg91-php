@@ -32,7 +32,7 @@ class SmsBuildClass extends SmsDefineClass
      * @param array $smsTag
      *
      */
-    protected function addMobileNumber($xmlDoc, $smsTag)
+    public function addMobileNumber($xmlDoc, $smsTag)
     {
         if ($this->setMobile() && $this->getMobile()) {
             $result = $this->isValidNumber($this->getMobile());
@@ -47,7 +47,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildCountry($category, $key, $buildSmsData, $xmlDoc)
+    public function buildCountry($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setCountry()) {
             $value = $this->getCountry();
@@ -67,7 +67,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildFlash($category, $key, $buildSmsData, $xmlDoc)
+    public function buildFlash($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setFlash()) {
             $value = $this->getFlash();
@@ -83,7 +83,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildUnicode($category, $key, $buildSmsData, $xmlDoc)
+    public function buildUnicode($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setUnicode()) {
             $value = $this->getUnicode();
@@ -99,7 +99,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildSchtime($category, $key, $buildSmsData, $xmlDoc)
+    public function buildSchtime($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setSchtime()) {
             $value = $this->getSchtime();
@@ -120,7 +120,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildSmsSender($category, $key, $buildSmsData, $xmlDoc)
+    public function buildSmsSender($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setSender()) {
             $value = $this->getSender();
@@ -136,7 +136,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildAfterMinutes($category, $key, $buildSmsData)
+    public function buildAfterMinutes($category, $key, $buildSmsData)
     {
         if ($this->setAfterminutes()) {
             $value = $this->getAfterminutes();
@@ -152,7 +152,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildMessage($category, $key, $buildSmsData, $xmlDoc)
+    public function buildMessage($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setMessage()) {
             $value = $this->getMessage();
@@ -168,7 +168,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildResponse($category, $key, $buildSmsData)
+    public function buildResponse($category, $key, $buildSmsData)
     {
         if ($this->setResponse()) {
             $value = $this->getResponse();
@@ -184,7 +184,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildBulkAuth($category, $key, $buildSmsData, $xmlDoc)
+    public function buildBulkAuth($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setAuthKey()) {
             $value = $this->getAuthKey();
@@ -200,7 +200,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildCampaign($category, $key, $buildSmsData, $xmlDoc)
+    public function buildCampaign($category, $key, $buildSmsData, $xmlDoc)
     {
         if ($this->setCampaign()) {
             $value = $this->getCampaign();
@@ -215,7 +215,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      * @return array
      */
-    protected function buildMobile($key, $value, $buildSmsData, $category)
+    public function buildMobile($key, $value, $buildSmsData, $category)
     {
         $result = $this->isValidNumber($value);
         if (!empty($result) && $result['value'] == true) {
@@ -231,7 +231,7 @@ class SmsBuildClass extends SmsDefineClass
      * @param int $category
      *
      */
-    protected function categoryWiseAddedMobile()
+    public function categoryWiseAddedMobile()
     {
         if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
             $value = $this->getMobile();
@@ -249,7 +249,7 @@ class SmsBuildClass extends SmsDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array
      */
-    protected function addMobile($buildSmsData, $category)
+    public function addMobile($buildSmsData, $category)
     {
         $key = '';
         if ($category === 1) {
@@ -266,7 +266,7 @@ class SmsBuildClass extends SmsDefineClass
      *
      *
      */
-    protected function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
+    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
     {
         if ($lenOfBulkSms != 0) {
             for ($j = 0; $j < $lenOfBulkSms; $j++) {
@@ -287,7 +287,7 @@ class SmsBuildClass extends SmsDefineClass
      * 
      *
      */
-    protected function addContent($root, $category, $xmlDoc)
+    public function addContent($root, $category, $xmlDoc)
     {
         if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
             $bulkSms      = $this->getContent();
@@ -305,7 +305,7 @@ class SmsBuildClass extends SmsDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array $buildSmsData
      */
-    protected function addMessage($buildSmsData, $category, $xmlDoc = null)
+    public function addMessage($buildSmsData, $category, $xmlDoc = null)
     {
         $result = $this->keyPresent('message');
         if ($result) {
@@ -324,7 +324,7 @@ class SmsBuildClass extends SmsDefineClass
      * @return array $root
      *
      */
-    protected function addAuth($buildSmsData, $category, $xmlDoc = null)
+    public function addAuth($buildSmsData, $category, $xmlDoc = null)
     {
         $result = $this->keyPresent('authkey');
         if ($result) {
@@ -343,7 +343,7 @@ class SmsBuildClass extends SmsDefineClass
      * @return array $root
      *
      */
-    protected function addSender($buildSmsData, $category, $xmlDoc = null)
+    public function addSender($buildSmsData, $category, $xmlDoc = null)
     {
         $result = $this->isKeyPresent('sender');
         if ($result) {
@@ -360,7 +360,7 @@ class SmsBuildClass extends SmsDefineClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
      */
-    protected function addCountry($buildSmsData, $category, $xmlDoc = null)
+    public function addCountry($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyPresent('country')) {
             $buildSmsData = $this->buildCountry($category, 'country', $buildSmsData, $xmlDoc);
@@ -374,7 +374,7 @@ class SmsBuildClass extends SmsDefineClass
      * @return array $root
      *
      */
-    protected function addFlash($buildSmsData, $category, $xmlDoc = null)
+    public function addFlash($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyPresent('flash')) {
             $buildSmsData = $this->buildFlash($category, 'flash', $buildSmsData, $xmlDoc);
@@ -388,7 +388,7 @@ class SmsBuildClass extends SmsDefineClass
      * @return array $buildSmsData
      *
      */
-    protected function addUnicode($buildSmsData, $category, $xmlDoc = null)
+    public function addUnicode($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyPresent('unicode')) {
             $buildSmsData = $this->buildUnicode($category, 'unicode', $buildSmsData, $xmlDoc);
@@ -403,7 +403,7 @@ class SmsBuildClass extends SmsDefineClass
      * @return array $root
      *
      */
-    protected function addSchtime($buildSmsData, $category, $xmlDoc = null)
+    public function addSchtime($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyPresent('schtime')) {
             $buildSmsData = $this->buildSchtime($category, 'schtime', $buildSmsData, $xmlDoc);
@@ -417,7 +417,7 @@ class SmsBuildClass extends SmsDefineClass
      * @return array $buildSmsData
      *
      */
-    protected function addAfterMinutes($buildSmsData, $category)
+    public function addAfterMinutes($buildSmsData, $category)
     {
         if ($this->isKeyPresent('afterminutes')) {
             $buildSmsData = $this->buildAfterMinutes($category, 'afterminutes', $buildSmsData);
@@ -430,7 +430,7 @@ class SmsBuildClass extends SmsDefineClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $buildSmsData
      */
-    protected function addResponse($buildSmsData, $category)
+    public function addResponse($buildSmsData, $category)
     {
         if ($this->isKeyPresent('response')) {
             $buildSmsData = $this->buildResponse($category, 'response', $buildSmsData);
@@ -443,7 +443,7 @@ class SmsBuildClass extends SmsDefineClass
      * @throws ParameterException missing parameters or tpye error
      * @return array $root
      */
-    protected function addCampaign($buildSmsData, $category, $xmlDoc = null)
+    public function addCampaign($buildSmsData, $category, $xmlDoc = null)
     {
         if ($this->isKeyPresent('campaign')) {
             $buildSmsData = $this->buildCampaign($category, 'campaign', $buildSmsData, $xmlDoc);

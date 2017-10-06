@@ -134,7 +134,7 @@ trait SmsBuildSupportTrait
      *
      *
      */
-    protected function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
+    public function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
     {
         if ($lenOfBulkSms != 0) {
             for ($j = 0; $j < $lenOfBulkSms; $j++) {
@@ -151,21 +151,6 @@ trait SmsBuildSupportTrait
         }
     }
     /**
-     * This function get Category wise mobile Number
-     * @param int $category
-     *
-     */
-    protected function categoryWiseAddedMobile()
-    {
-        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
-            $value = $this->getMobile();
-            return $value;
-        } else {
-            $message = "Missing mobile key ";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
      * This function Create Element only
      * @param array $xmlDoc
      * @param string $element
@@ -173,7 +158,7 @@ trait SmsBuildSupportTrait
      *
      * @return array
      */
-    protected function createElement($xmlDoc, $element, $root = null)
+    public function createElement($xmlDoc, $element, $root = null)
     {
         if (is_null($root)) {
             $root = $xmlDoc->appendChild($xmlDoc->createElement($element));

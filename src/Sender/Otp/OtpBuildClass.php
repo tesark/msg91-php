@@ -28,7 +28,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildRetryType($key, $data)
+    public function buildRetryType($key, $data)
     {
         if ($this->setRetryType()) {
             $value = $this->getRetryType();
@@ -43,7 +43,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildOneTimePass($data)
+    public function buildOneTimePass($data)
     {
         if ($this->setOneTimePass()) {
             $key = 'otp';
@@ -60,7 +60,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return  array
      */
-    protected function buildResendAndVerifyOtpArrtibutes($key, $data)
+    public function buildResendAndVerifyOtpArrtibutes($key, $data)
     {
         if ($this->isKeyExists($key, $data)) {
             switch ($key) {
@@ -85,7 +85,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildMessage($key, $data)
+    public function buildMessage($key, $data)
     {
         if ($this->setMessage()) {
             $value = $this->getMessage();
@@ -100,7 +100,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildSender($key, $data)
+    public function buildSender($key, $data)
     {
         if ($this->setSender()) {
             $value = $this->getSender();
@@ -119,7 +119,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildOtp($key, $data)
+    public function buildOtp($key, $data)
     {
         if ($this->setOtp()) {
             $value = $this->getOtp();
@@ -133,7 +133,7 @@ class OtpBuildClass extends OtpDefineClass
      * @param int $value
      *
      */
-    protected function validOtpExpiry($key, $value)
+    public function validOtpExpiry($key, $value)
     {
         if ($value >= 1) {
             return $value;
@@ -149,7 +149,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildOtpExpiry($key, $data)
+    public function buildOtpExpiry($key, $data)
     {
         if ($this->setOtpExpiry()) {
             $value = $this->getOtpExpiry();
@@ -166,7 +166,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function checkOtpLength($key, $value, $data)
+    public function checkOtpLength($key, $value, $data)
     {
         if ($value >= 4 && $value < 10) {
             $data = $this->addArray($key, $value, $data);
@@ -184,7 +184,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return array
      */
-    protected function buildOtpLength($key, $data)
+    public function buildOtpLength($key, $data)
     {
         if ($this->setOtpLength()) {
             $value = $this->getOtpLength();
@@ -204,7 +204,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array condition correct value add to the $data array
      */
-    protected function addMessage($inputData, $data)
+    public function addMessage($inputData, $data)
     {
         if ($this->isKeyExists('message', $inputData)) {
             $data = $this->buildMessage('message', $data);
@@ -219,7 +219,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array condition correct value add to the $data array
      */
-    protected function addSender($inputData, $data)
+    public function addSender($inputData, $data)
     {
         if ($this->isKeyExists('sender', $inputData)) {
             $data = $this->buildSender('sender', $data);
@@ -234,7 +234,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array condition correct value add to the $data array
      */
-    protected function addOtp($inputData, $data)
+    public function addOtp($inputData, $data)
     {
         if ($this->isKeyExists('otp', $inputData)) {
             $data = $this->buildOtp('otp', $data);
@@ -249,7 +249,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array condition correct value add to the $data array
      */
-    protected function addOtpExpiry($inputData, $data)
+    public function addOtpExpiry($inputData, $data)
     {
         if ($this->isKeyExists('otp_expiry', $inputData)) {
             $data = $this->buildOtpExpiry('otp_expiry', $data);
@@ -264,7 +264,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array condition correct value add to the $data array
      */
-    protected function addOtpLength($inputData, $data)
+    public function addOtpLength($inputData, $data)
     {
         if ($this->isKeyExists('otp_length', $inputData)) {
             $data = $this->buildOtpLength('otp_length', $data);
@@ -277,7 +277,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return bool
      */
-    protected function hasAuthKey($parameter)
+    public function hasAuthKey($parameter)
     {
         if ($this->setAuthkey()) {
             $value = $this->getAuthkey();
@@ -294,7 +294,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return bool
      */
-    protected function hasMobile($parameter)
+    public function hasMobile($parameter)
     {
         if ($this->setmobile()) {
             $value = $this->getmobile();
@@ -312,7 +312,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return bool
      */
-    protected function isParameterPresent($parameter)
+    public function isParameterPresent($parameter)
     {
         if ($this->isKeyExists($parameter, $this->sendData)) {
             if ($parameter === 'authkey') {
@@ -330,7 +330,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return bool
      */
-    protected function checkAuthKey()
+    public function checkAuthKey()
     {
         return $this->isParameterPresent('authkey');
     }
@@ -339,7 +339,7 @@ class OtpBuildClass extends OtpDefineClass
      *
      * @return bool
      */
-    protected function checkMobile()
+    public function checkMobile()
     {
         return $this->isParameterPresent('mobile');
     }
@@ -352,7 +352,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return array Msg91 Json response
      */
-    protected function addRetryType($data)
+    public function addRetryType($data)
     {
         $data = $this->buildResendAndVerifyOtpArrtibutes('retrytype', $data);
         return $data;
@@ -364,7 +364,7 @@ class OtpBuildClass extends OtpDefineClass
      * @throws ParameterException missing parameters or return empty
      * @return  array condition correct value add to the $data array
      */
-    protected function addOneTimePass($data)
+    public function addOneTimePass($data)
     {
         $data = $this->buildResendAndVerifyOtpArrtibutes('oneTime', $data);
         return $data;

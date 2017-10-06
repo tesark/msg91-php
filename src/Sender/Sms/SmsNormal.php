@@ -64,7 +64,7 @@ class SmsNormal extends SmsBuildClass
      * @throws ParameterException missing parameters or type error
      * @return string
      */
-    protected function sendSms($data, $sendData)
+    public function sendSms($data, $sendData)
     {
         $this->inputData   = $data;
         $this->sendSmsData = $sendData;
@@ -85,7 +85,7 @@ class SmsNormal extends SmsBuildClass
      *
      * @return array
      */
-    protected function addAllParameters($buildSmsData)
+    public function addAllParameters($buildSmsData)
     {
         $buildSmsData = $this->addMobile($buildSmsData, 1);
         $buildSmsData = $this->addMessage($buildSmsData, 1); // no 1 for using GET method
@@ -107,7 +107,7 @@ class SmsNormal extends SmsBuildClass
      * @throws ParameterException missing parameters or type error
      * @return string
      */
-    protected function send($data, $buildSmsData)
+    public function send($data, $buildSmsData)
     {
         $inputDataLen = Validation::getSize($data);
         $buildDataLen = Validation::getSize($buildSmsData);
