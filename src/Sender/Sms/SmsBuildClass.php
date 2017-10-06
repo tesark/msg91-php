@@ -244,21 +244,6 @@ class SmsBuildClass extends SmsDefineClass
         }
     }
     /**
-     * This function get Category wise mobile Number
-     * @param int $category
-     *
-     */
-    public function categoryWiseAddedMobile()
-    {
-        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
-            $value = $this->getMobile();
-            return $value;
-        } else {
-            $message = "Missing mobile key ";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
      * Add Content
      * 
      *
