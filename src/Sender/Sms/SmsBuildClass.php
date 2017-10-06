@@ -8,7 +8,6 @@ use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
 use Sender\Traits\SmsBuildTrait;
 use Sender\Traits\SmsOtpCommonTrait;
-use Sender\Traits\SmsBuildSecondTrait;
 use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
 use Sender\ExceptionClass\ParameterException;
@@ -26,7 +25,6 @@ class SmsBuildClass extends SmsDefineClass
 {
     use SmsBuildTrait;
     use SmsOtpCommonTrait;
-    use SmsBuildSecondTrait;
     use SmsBuildSupportTrait;
     /**
      * This function get Category wise mobile Number

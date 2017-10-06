@@ -7,7 +7,6 @@ use Sender\Sms\SmsBulk;
 use Sender\Sms\SmsNormal;
 use Sender\MobileNumber;
 use Sender\Traits\SmsBuildTrait;
-use Sender\Traits\SmsBuildSecondTrait;
 use Sender\Traits\SmsOtpCommonTrait;
 use Sender\Traits\SmsBuildSupportTrait;
 use Sender\Config\Config as ConfigClass;
@@ -26,7 +25,6 @@ class SmsDefineClass
 {
     use SmsBuildTrait;
     use SmsOtpCommonTrait;
-    use SmsBuildSecondTrait;
     use SmsBuildSupportTrait;
 
     /**
