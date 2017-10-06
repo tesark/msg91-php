@@ -83,7 +83,7 @@ class Deliver
     protected function buildQueryString($query)
     {
         $paramStr = "";
-        $flag = 1;  
+        $flag = 1;
         foreach ($query as $key => $value) {
             if ($flag) {
                 $paramStr .= '?'.$key.'='.urlencode(trim($value));

@@ -228,8 +228,8 @@ class SmsBuildClass extends SmsDefineClass
     }
     /**
      * This function get Category wise mobile Number
-     * @param int $category 
-     * 
+     * @param int $category
+     *
      */
     protected function categoryWiseAddedMobile($category)
     {
@@ -251,8 +251,8 @@ class SmsBuildClass extends SmsDefineClass
      * @return array
      */
     protected function addMobile($buildSmsData, $category)
-    {   
-        $key = ''; 
+    {
+        $key = '';
         if ($category === 1) {
             $key = 'mobiles';
         } else {
@@ -311,7 +311,6 @@ class SmsBuildClass extends SmsDefineClass
             $message = "Missing authkey";
             throw ParameterException::missinglogic($message);
         }
-        
     }
     /**
      * This function for sms array Build with sender
