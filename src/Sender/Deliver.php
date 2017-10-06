@@ -35,9 +35,8 @@ class Deliver
      */
     public function sendSmsPost($uri, $xml)
     {
-        $paramStr = $this->buildQueryString($query);
         $contentType = 'text/xml; charset=UTF8';
-        $response = send('POST', $uri, $contentType, $xml);
+        $response = $this->send('POST', $uri, $contentType, $xml);
         // $this->addLogFile("response", $ResponseData); //issue unable to log Response
         return $response;
     }
@@ -62,7 +61,6 @@ class Deliver
      * This function send the parameters
      * @param string $method
      * @param string $uri
-     *
      *
      */
     protected function send($method, $uri, $contentType, $xml = null)

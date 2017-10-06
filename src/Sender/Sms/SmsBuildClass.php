@@ -262,11 +262,14 @@ class SmsBuildClass extends SmsDefineClass
         $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
     }
-    protected function addContent($root, $category, $xmlDoc)
+    /**
+     * This function check the content length
+     *
+     *
+     */
+    protected function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
     {
-        if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
-            $bulkSms      = $this->getContent();
-            $lenOfBulkSms = Validation::getSize($bulkSms);
+        if ($lenOfBulkSms != 0) {
             for ($j = 0; $j < $lenOfBulkSms; $j++) {
                 $this->inputData = $bulkSms[$j];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
@@ -275,6 +278,25 @@ class SmsBuildClass extends SmsDefineClass
                 //check mobile contents
                 $this->addMobileNumber($xmlDoc, $smsTag);
             }
+        } else {
+            $message = "content Empty";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * Add Content
+     * 
+     *
+     */
+    protected function addContent($root, $category, $xmlDoc)
+    {
+        if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
+            $bulkSms      = $this->getContent();
+            $lenOfBulkSms = Validation::getSize($bulkSms);
+            $this->checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc);            
+        } else {
+            $message = "content Must be present";
+            throw ParameterException::missinglogic($message);
         }
     }
     /**
