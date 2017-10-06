@@ -5,7 +5,6 @@ use Sender\Validation;
 use Sender\MobileNumber;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
-use Sender\Traits\SmsOtpCommonTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -19,7 +18,6 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildTrait
 {
-    use SmsOtpCommonTrait;
     /**
      * This function for Check String Type
      * @param int $category
