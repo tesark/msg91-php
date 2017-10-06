@@ -5,9 +5,6 @@ use Sender\Validation;
 use Sender\MobileNumber;
 use Sender\Sms\SmsDefineClass;
 use Sender\Sms\SmsBuildClass;
-use Sender\Traits\SmsBuildTrait;
-use Sender\Traits\SmsOtpCommonTrait;
-use Sender\Traits\SmsBuildSecondTrait;
 use Sender\ExceptionClass\ParameterException;
 
 /**
@@ -21,9 +18,6 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildSupportTrait
 {
-    use SmsBuildTrait;
-    use SmsOtpCommonTrait;
-    use SmsBuildSecondTrait;
     /**
      * Check vaild Date Time
      * @return bool
