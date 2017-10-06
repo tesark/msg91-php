@@ -308,7 +308,8 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function addMessage($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyPresent('message')) {
+        $result = $this->keyPresent('message');
+        if ($result) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
             return $buildSmsData;
         } else {
@@ -326,7 +327,8 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function addAuth($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyPresent('authkey')) {
+        $result = $this->keyPresent('authkey');
+        if ($result) {
             $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
             return $buildSmsData;
         } else {
@@ -344,7 +346,8 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function addSender($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyPresent('sender')) {
+        $result = $this->isKeyPresent('sender');
+        if ($result) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
             return $buildSmsData;
         } else {

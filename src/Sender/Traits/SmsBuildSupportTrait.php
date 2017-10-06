@@ -129,4 +129,55 @@ trait SmsBuildSupportTrait
         }
         return $buildSmsData;
     }
+    /**
+     * Check key present
+     * @param string $key
+     *
+     * @return bool
+     */
+    protected function keyPresent($key)
+    {
+        if ($this->isKeyPresent($key)) {
+            return true;
+        } else {
+            $message = $key."Must be present";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function check the content length
+     *
+     *
+     */
+    protected function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
+    {
+        if ($lenOfBulkSms != 0) {
+            for ($j = 0; $j < $lenOfBulkSms; $j++) {
+                $this->inputData = $bulkSms[$j];
+                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
+                //check message length
+                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
+                //check mobile contents
+                $this->addMobileNumber($xmlDoc, $smsTag);
+            }
+        } else {
+            $message = "content Empty";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function get Category wise mobile Number
+     * @param int $category
+     *
+     */
+    protected function categoryWiseAddedMobile()
+    {
+        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
+            $value = $this->getMobile();
+            return $value;
+        } else {
+            $message = "Missing mobile key ";
+            throw ParameterException::missinglogic($message);
+        }
+    }
 }
