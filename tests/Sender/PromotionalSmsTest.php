@@ -80,8 +80,8 @@ class PromotionalSmsTest extends TestCase
         $sendArray = [];
         $verifyResponse = $this->PromotionalSms->sendPromotional("919514028541,919791466728", $sendArray);
     }
-    --------------------- Correct format No Error---------------------
-    -----------------------------Country Code-------------------------
+    //--------------------- Correct format No Error---------------------
+    //-----------------------------Country Code-------------------------
     // public function testPromotionalSmsWithCountryCodeInteger()
     // {
     //     $sendArray = [
