@@ -60,7 +60,6 @@ class Deliver
     {
         try {
             $paramStr = $this->buildQueryString($query);
-            return $paramStr;
             $this->logger->info(["Request:"], [$query], [$uri]);
             $headers = ['Content-Type' => 'application/json; charset=UTF8'];
             $client  = new Client();
