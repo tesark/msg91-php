@@ -227,22 +227,6 @@ class SmsBuildClass extends SmsDefineClass
         }
     }
     /**
-     * This function get Category wise mobile Number
-     * @param int $category
-     *
-     */
-    protected function categoryWiseAddedMobile($category)
-    {
-        $value = '';
-        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
-            $value = $this->getMobile();
-            return $value;
-        } else {
-            $message = "Missing mobile key ";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
      * This function for sms array Build with mobilenumbers
      * @param array $buildSmsData
      * @param int $category
@@ -258,30 +242,9 @@ class SmsBuildClass extends SmsDefineClass
         } else {
             $key = 'mobile';
         }
-        $value = $this->categoryWiseAddedMobile($category);
+        $value = $this->categoryWiseAddedMobile();
         $buildSmsData = $this->checkIntegerOrString($key, $value, $buildSmsData, $category);
         return $buildSmsData;
-    }
-    /**
-     * This function check the content length
-     *
-     *
-     */
-    protected function checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc)
-    {
-        if ($lenOfBulkSms != 0) {
-            for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                $this->inputData = $bulkSms[$j];
-                $smsTag = $this->createElement($xmlDoc, "SMS", $root);
-                //check message length
-                $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
-                //check mobile contents
-                $this->addMobileNumber($xmlDoc, $smsTag);
-            }
-        } else {
-            $message = "content Empty";
-            throw ParameterException::missinglogic($message);
-        }
     }
     /**
      * Add Content
@@ -308,12 +271,10 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function addMessage($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyPresent('message')) {
+        $result = $this->isKeyPresent('message');
+        if ($result) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        } else {
-            $message = "Message Must be present";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
@@ -326,12 +287,10 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function addAuth($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyPresent('authkey')) {
+        $result = $this->isKeyPresent('authkey');
+        if ($result) {
             $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        } else {
-            $message = "Missing authkey";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
@@ -344,12 +303,10 @@ class SmsBuildClass extends SmsDefineClass
      */
     protected function addSender($buildSmsData, $category, $xmlDoc = null)
     {
-        if ($this->isKeyPresent('sender')) {
+        $result = $this->isKeyPresent('sender');
+        if ($result) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        } else {
-            $message = "Missing sender";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
