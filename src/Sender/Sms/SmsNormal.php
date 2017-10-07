@@ -18,6 +18,8 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsNormal extends SmsBuildClass
 {
+    protected $inputData;
+    protected $sendSmsData;
     /**
      * This function Category to send SMS
      * @param  int|string $mobileNumber

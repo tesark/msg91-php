@@ -131,7 +131,6 @@ trait SmsBuildTrait
     }
     /**
      * This function Create Element only
-     * @param array $xmlDoc
      * @param string $element
      * @param array $root
      *

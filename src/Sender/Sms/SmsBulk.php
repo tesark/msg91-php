@@ -20,6 +20,7 @@ use Sender\ExceptionClass\ParameterException;
 
 class SmsBulk extends SmsBuildClass
 {
+    protected $inputData;
     /**
      * This function Used to send the SMS XML formated data to Deliver Class
      * @param array $xmlData
