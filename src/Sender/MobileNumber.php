@@ -28,7 +28,7 @@ class MobileNumber
             $mobiles = explode(",", $mobileNumber);
             $len     = sizeof($mobiles);
             for ($i = 0; $i < $len; $i++) {
-                $lenva = strlen($mobiles[$i]);                
+                $lenva = strlen($mobiles[$i]);
                 if (is_numeric($mobiles[$i]) && $lenva >= 8 && $lenva < 15) {
                     if ($i == $len-1) {
                         $data += ["value" => true];

@@ -73,7 +73,7 @@ trait SmsBuildSupportTrait
             $message = "string comma seperate values";
             throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
         }
-    } 
+    }
     /**
      * This function for sms array Build with mobilenumbers
      * @param array $buildSmsData

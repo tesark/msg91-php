@@ -306,7 +306,7 @@ class OtpBuildClass extends OtpDefineClass
                 throw ParameterException::invalidArrtibuteType($parameter, "int", $value);
             }
         }
-    }   
+    }
     /**
      * Add retry type
      *
