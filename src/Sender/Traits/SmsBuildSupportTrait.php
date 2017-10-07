@@ -70,8 +70,8 @@ trait SmsBuildSupportTrait
                 $addressTag->appendChild($childAttr)->appendChild($childText);
             }
         } else {
-            $message = "string comma seperate values";
-            throw ParameterException::invalidInput("mobiles", "string or integer", $this->getmobile(), $message);
+            $message = "string comma seperate values you given:".$result['mobile'];
+            throw ParameterException::invalidInput("mobiles", "string", $result['mobile'], $message);
         }
     }
     /**
