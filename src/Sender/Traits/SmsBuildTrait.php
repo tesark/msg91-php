@@ -18,6 +18,7 @@ use Sender\ExceptionClass\ParameterException;
 
 trait SmsBuildTrait
 {
+    protected $inputData;
     /**
      * This function for Check String Type
      * @param int $category
@@ -86,7 +87,6 @@ trait SmsBuildTrait
      */
     public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
     {
-        var_dump($this);
         if (!$this->isKeyExists('unicode', $this->inputData)) {
             $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
         } elseif ($this->isKeyExists('unicode', $this->inputData)) {
@@ -204,5 +204,23 @@ trait SmsBuildTrait
             throw ParameterException::invalidInput($key, "string or integer", $value, $message);
         }
         return $buildSmsData;
+    }
+    /**
+     * This function for sms array Build with mobilenumbers
+     * @param  array $buildSmsData
+     *
+     *
+     * @return array
+     */
+    public function buildMobile($key, $value, $buildSmsData, $category)
+    {
+        $result = $this->isValidNumber($value);
+        if (!empty($result) && $result['value'] == true) {
+            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
+            return $buildSmsData;
+        } else {
+            $message = "this number not the correct:_".$result['mobile'];
+            throw ParameterException::invalidInput("mobiles", "string", $value, $message);
+        }
     }
 }

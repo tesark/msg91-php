@@ -27,6 +27,19 @@ class SmsBuildClass extends SmsDefineClass
     use SmsOtpCommonTrait;
     use SmsBuildSupportTrait;
     /**
+     * This function for Add mobile number
+     * @param array $xmlDoc
+     * @param array $smsTag
+     *
+     */
+    public function addMobileNumber($xmlDoc, $smsTag)
+    {
+        if ($this->setMobile() && $this->getMobile()) {
+            $result = $this->isValidNumber($this->getMobile());
+            $this->addMobileToXml($xmlDoc, $smsTag, $result);
+        }
+    }
+    /**
      * This function for build country
      * @param int $category
      * @param string $key
@@ -196,26 +209,8 @@ class SmsBuildClass extends SmsDefineClass
         return $buildSmsData;
     }
     /**
-     * This function for sms array Build with mobilenumbers
-     * @param  array $buildSmsData
-     *
-     *
-     * @return array
-     */
-    public function buildMobile($key, $value, $buildSmsData, $category)
-    {
-        $result = $this->isValidNumber($value);
-        if (!empty($result) && $result['value'] == true) {
-            $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData);
-            return $buildSmsData;
-        } else {
-            $message = "this number not the correct:_".$result['mobile'];
-            throw ParameterException::invalidInput("mobiles", "string", $this->getmobile(), $message);
-        }
-    }
-    /**
      * Add Content
-     * 
+     *
      *
      */
     public function addContent($root, $category, $xmlDoc)
@@ -223,7 +218,7 @@ class SmsBuildClass extends SmsDefineClass
         if ($this->isKeyExists('content', $this->inputData) && $this->setContent()) {
             $bulkSms      = $this->getContent();
             $lenOfBulkSms = Validation::getSize($bulkSms);
-            $this->checkContent($lenOfBulkSms,$bulkSms, $root, $category, $xmlDoc);            
+            $this->checkContent($lenOfBulkSms, $bulkSms, $root, $category, $xmlDoc);
         } else {
             $message = "content Must be present";
             throw ParameterException::missinglogic($message);

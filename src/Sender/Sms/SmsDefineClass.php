@@ -340,17 +340,4 @@ class SmsDefineClass
             throw ParameterException::missinglogic($message);
         }
     }
-    /**
-     * This function for Add mobile number
-     * @param array $xmlDoc
-     * @param array $smsTag
-     *
-     */
-    public function addMobileNumber($xmlDoc, $smsTag)
-    {
-        if ($this->setMobile() && $this->getMobile()) {
-            $result = $this->isValidNumber($this->getMobile());
-            $this->addMobileToXml($xmlDoc, $smsTag, $result);
-        }
-    }
 }

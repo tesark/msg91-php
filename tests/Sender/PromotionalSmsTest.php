@@ -797,7 +797,7 @@ class PromotionalSmsTest extends TestCase
                 'unicode' => 1,
                 'content' =>[
                   [
-                    'message' => 'welcome multi sms',
+                    'message' => 'welcome multi smsyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyrrrrrrrrrrrrrr',
                     'mobile' => '919514028541,919791466728'
                   ],
                 ]
@@ -805,43 +805,45 @@ class PromotionalSmsTest extends TestCase
         ];
         $result = $this->PromotionalSms->sendBulkSms($sendArray);
     }
-    // public function testBulkMessageSenderInteger()
-    // {
-    //     $sendArray = [
-    //         [
-    //             'authkey' => '170867ARdROqjKklk599a87a1',
-    //             'sender' => "VENKAT",
-    //             'country' => '91',
-    //             'flash' => 1,
-    //             'unicode' => 1,
-    //             'content' =>[
-    //               [
-    //                 'message' => 'welcome multi sms',
-    //                 'mobile' => '9514028541,9791466728'
-    //               ],
-    //             ]
-    //         ]
-    //     ];
-    //     $result = $this->PromotionalSms->sendBulkSms($sendArray);
-    // }
-    // public function testBulkMessageSenderInteger()
-    // {
-    //     $sendArray = [
-    //         [
-    //             'authkey' => '170867ARdROqjKklk599a87a1',
-    //             'sender' => 564654,
-    //             'campaign' => 'venkat',
-    //             'country' => '91',
-    //             'flash' => 1,
-    //             'unicode' => 1,
-    //             'content' =>[
-    //               [
-    //                 'message' => 'welcome multi sms',
-    //                 'mobile' => '919514028541,919791466728'
-    //               ],
-    //             ]
-    //         ]
-    //     ];
-    //     $result = $this->PromotionalSms->sendBulkSms($sendArray);
-    // }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSenderMaxNotUnicode()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => '91',
+                'content' =>[
+                  [
+                    'message' => 'welcome reeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrmulti eeeeeeeeeeeeeeeeeeeeeeesms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSenderInteger()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'campaign' => 'venkat',
+                'country' => '91',
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                    'mobile' => 97914.66728
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
 }
