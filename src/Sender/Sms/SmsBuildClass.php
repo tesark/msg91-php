@@ -27,34 +27,6 @@ class SmsBuildClass extends SmsDefineClass
     use SmsOtpCommonTrait;
     use SmsBuildSupportTrait;
     /**
-     * This function get Category wise mobile Number
-     * @param int $category
-     *
-     */
-    public function categoryWiseAddedMobile()
-    {
-        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
-            $value = $this->getMobile();
-            return $value;
-        } else {
-            $message = "Missing mobile key ";
-            throw ParameterException::missinglogic($message);
-        }
-    }
-    /**
-     * This function for Add mobile number
-     * @param array $xmlDoc
-     * @param array $smsTag
-     *
-     */
-    public function addMobileNumber($xmlDoc, $smsTag)
-    {
-        if ($this->setMobile() && $this->getMobile()) {
-            $result = $this->isValidNumber($this->getMobile());
-            $this->addMobileToXml($xmlDoc, $smsTag, $result);
-        }
-    }
-    /**
      * This function for build country
      * @param int $category
      * @param string $key
@@ -270,9 +242,6 @@ class SmsBuildClass extends SmsDefineClass
         if ($result) {
             $buildSmsData = $this->buildMessage($category, 'message', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        } else {
-            $message = "Message Must be present";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
@@ -289,9 +258,6 @@ class SmsBuildClass extends SmsDefineClass
         if ($result) {
             $buildSmsData = $this->buildBulkAuth($category, 'authkey', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        } else {
-            $message = "Missing authkey";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
@@ -304,13 +270,10 @@ class SmsBuildClass extends SmsDefineClass
      */
     public function addSender($buildSmsData, $category, $xmlDoc = null)
     {
-        $result = $this->isKeyPresent('sender');
+        $result = $this->keyPresent('sender');
         if ($result) {
             $buildSmsData = $this->buildSmsSender($category, 'sender', $buildSmsData, $xmlDoc);
             return $buildSmsData;
-        } else {
-            $message = "Missing sender";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**

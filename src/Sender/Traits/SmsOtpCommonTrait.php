@@ -141,12 +141,26 @@ trait SmsOtpCommonTrait
         } else {
             if ($isElement) {
                 $childAttr = $xmlDoc->createAttribute($attr);
-                $childText = $xmlDoc->createTextNode($this->getMessage());
+                $childText = $xmlDoc->createTextNode($value);
                 $buildSmsData->appendChild($childAttr)->appendChild($childText);
             } else {
                 $buildSmsData = $this->addXml($buildSmsData, $xmlDoc, $key, $value);
             }
         }
+        return $buildSmsData;
+    }
+    /**
+     * This function add data to xml string
+     *
+     */
+    public function addXml($buildSmsData, $xmlDoc, $key, $value)
+    {
+        if ($key === 'schtime') {
+            $key = 'scheduledatetime';
+        }
+        $key = strtoupper(trim($key));
+        //create a country element
+        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
         return $buildSmsData;
     }
     /**
@@ -186,21 +200,6 @@ trait SmsOtpCommonTrait
             return true;
         } else {
             return false;
-        }
-    }
-    /**
-     * Check key present
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function keyPresent($key)
-    {
-        if ($this->isKeyPresent($key)) {
-            return true;
-        } else {
-            $message = $key."Must be present";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
