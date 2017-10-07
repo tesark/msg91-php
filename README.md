@@ -3,7 +3,7 @@
 [![image](https://travis-ci.org/venkatsamuthiram/deliver.svg?branch=master)](https://travis-ci.org/venkatsamuthiram/deliver)
 [![Build Status](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/build.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/?branch=master)
-
+[![Code Coverage](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/?branch=master)
 
 - [Installation](#installation)
     - [Supported Framework](#supportedframeworks)

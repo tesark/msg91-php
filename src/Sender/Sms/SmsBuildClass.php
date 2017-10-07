@@ -243,7 +243,7 @@ class SmsBuildClass extends SmsDefineClass
      * This function for sms array Build with Authkey
      * @param  int $category
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $root
      *
      */
@@ -259,7 +259,7 @@ class SmsBuildClass extends SmsDefineClass
      * This function for sms array Build with sender
      * @param  int $category
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $root
      *
      */
@@ -274,7 +274,7 @@ class SmsBuildClass extends SmsDefineClass
     /**
      * This function for sms array build with country
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $root
      */
     public function addCountry($buildSmsData, $category, $xmlDoc = null)
@@ -287,7 +287,7 @@ class SmsBuildClass extends SmsDefineClass
     /**
      * This function for sms array build with flash
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $root
      *
      */
@@ -301,7 +301,7 @@ class SmsBuildClass extends SmsDefineClass
     /**
      * This function for sms array build with flash
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $buildSmsData
      *
      */
@@ -316,7 +316,7 @@ class SmsBuildClass extends SmsDefineClass
      * This function for sms array build with schtime
      * @param  int $category
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $root
      *
      */
@@ -330,7 +330,7 @@ class SmsBuildClass extends SmsDefineClass
     /**
      * This function for sms array build with
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $buildSmsData
      *
      */
@@ -344,7 +344,7 @@ class SmsBuildClass extends SmsDefineClass
     /**
      * This function for sms array build with Response
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $buildSmsData
      */
     public function addResponse($buildSmsData, $category)
@@ -357,7 +357,7 @@ class SmsBuildClass extends SmsDefineClass
     /**
      * This function for sms array build with campaign
      *
-     * @throws ParameterException missing parameters or tpye error
+     * @throws ParameterException missing parameters or type error
      * @return array $root
      */
     public function addCampaign($buildSmsData, $category, $xmlDoc = null)
