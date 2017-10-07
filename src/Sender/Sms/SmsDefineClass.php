@@ -310,4 +310,47 @@ class SmsDefineClass
     {
         return $this->campaign;
     }
+    /**
+     * Check key present
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function keyPresent($key)
+    {
+        if ($this->isKeyPresent($key)) {
+            return true;
+        } else {
+            $message = $key."Must be present";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function get Category wise mobile Number
+     * @param int $category
+     *
+     */
+    public function categoryWiseAddedMobile()
+    {
+        if ($this->isKeyExists('mobile', $this->inputData) && $this->setMobile()) {
+            $value = $this->getMobile();
+            return $value;
+        } else {
+            $message = "Missing mobile key ";
+            throw ParameterException::missinglogic($message);
+        }
+    }
+    /**
+     * This function for Add mobile number
+     * @param array $xmlDoc
+     * @param array $smsTag
+     *
+     */
+    public function addMobileNumber($xmlDoc, $smsTag)
+    {
+        if ($this->setMobile() && $this->getMobile()) {
+            $result = $this->isValidNumber($this->getMobile());
+            $this->addMobileToXml($xmlDoc, $smsTag, $result);
+        }
+    }
 }

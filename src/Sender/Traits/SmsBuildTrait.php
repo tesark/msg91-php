@@ -86,6 +86,7 @@ trait SmsBuildTrait
      */
     public function messageCondition($category, $key, $buildSmsData, $value, $xmlDoc)
     {
+        var_dump($this);
         if (!$this->isKeyExists('unicode', $this->inputData)) {
             $buildSmsData = $this->checkMessageLength($key, $buildSmsData, 160, $value, $category, $xmlDoc);
         } elseif ($this->isKeyExists('unicode', $this->inputData)) {
@@ -117,7 +118,9 @@ trait SmsBuildTrait
     {
         if ($lenOfBulkSms != 0) {
             for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                $this->inputData = $bulkSms[$j];
+                $currentData = $bulkSms[$j];
+                $this->inputData['message'] = $currentData['message'];
+                $this->inputData['mobile'] = $currentData['mobile'];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
                 //check message length
                 $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
@@ -200,20 +203,6 @@ trait SmsBuildTrait
             $message = "interger or string comma seperate values";
             throw ParameterException::invalidInput($key, "string or integer", $value, $message);
         }
-        return $buildSmsData;
-    }
-    /**
-     * This function add data to xml string
-     *
-     */
-    public function addXml($buildSmsData, $xmlDoc, $key, $value)
-    {
-        if ($key === 'schtime') {
-            $key = 'scheduledatetime';
-        }
-        $key = strtoupper(trim($key));
-        //create a country element
-        $buildSmsData->appendChild($xmlDoc->createElement($key, $value));
         return $buildSmsData;
     }
 }
