@@ -73,4 +73,4 @@ class LogTest extends TestCase
         $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
         $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
     }
-}    
+}

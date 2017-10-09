@@ -3,6 +3,7 @@ namespace Sender;
 
 use PHPUnit\Framework\TestCase;
 use Sender\MobileNumber;
+use Sender\ExceptionClass\ParameterException;
 
 /**
 * This test class for testing mobile number
@@ -10,7 +11,7 @@ use Sender\MobileNumber;
 
 class MobileNumberTest extends TestCase
 {
-    private $Mobile;
+    private $mobile;
     protected function setUp()
     {
         $this->mobile = new MobileNumber();
@@ -83,6 +84,24 @@ class MobileNumberTest extends TestCase
             "mobile"=> "true"
         ];
         $result = $this->mobile->isValidNumber("true");
+        $this->assertEquals($expectArray, $result);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testIsValidNumberMaxlength()
+    {
+        $mobile = '9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532';
+        $result = $this->mobile->isValidNumber($mobile);
+    }
+    public function testIsValidNumberMinlength()
+    {
+        $expectArray = [
+            "value"=> true,
+            "mobile"=> ['9514028541','9791466728','8148597834','9514028532','9514028541','9791466728','8148597834','9514028532','9514028541','9791466728','8148597834','9514028532','9514028541','9791466728','8148597834','9514028532','9514028541','9791466728','8148597834']
+        ];
+        $mobile = '9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834,9514028532,9514028541,9791466728,8148597834';
+        $result = $this->mobile->isValidNumber($mobile);
         $this->assertEquals($expectArray, $result);
     }
 }
