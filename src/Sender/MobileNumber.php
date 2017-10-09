@@ -25,29 +25,34 @@ class MobileNumber
     public static function isValidNumber($mobileNumber)
     {
         if (isset($mobileNumber) && is_string($mobileNumber)) {
-            $data    = [];
-            $mobiles = explode(",", $mobileNumber);
-            $len     = sizeof($mobiles);
-            if ($len < 20) {
-                for ($i = 0; $i < $len; $i++) {
-                    $lenva = strlen($mobiles[$i]);
-                    if (is_numeric($mobiles[$i]) && $lenva >= 8 && $lenva < 15) {
-                        if ($i == $len-1) {
-                            $data += ["value" => true];
-                            $data += ["mobile" => $mobiles];
-                        }
-                    } else {
-                        $data += ["value" => false];
-                        $data += ["mobile" => $mobiles[$i]];
-                    }
-                }
-            } else {
-                $message = "Minimum 20 mobile numbers";
-                throw ParameterException::missinglogic($message);
-            }
+            $data = self::checkMobileLengthAndSize($mobileNumber);
             return $data;
         } else {
             return false;
         }
+    }
+    protected function checkMobileLengthAndSize($mobileNumber)
+    {
+        $data  = [];
+        $mobiles = explode(",", $mobileNumber);
+        $len     = sizeof($mobiles);
+        if ($len < 20) {
+            for ($i = 0; $i < $len; $i++) {
+                $lenva = strlen($mobiles[$i]);
+                if (is_numeric($mobiles[$i]) && $lenva >= 8 && $lenva < 15) {
+                    if ($i == $len-1) {
+                        $data += ["value" => true];
+                        $data += ["mobile" => $mobiles];
+                    }
+                } else {
+                    $data += ["value" => false];
+                    $data += ["mobile" => $mobiles[$i]];
+                }
+            }
+        } else {
+            $message = "Minimum 20 mobile numbers";
+            throw ParameterException::missinglogic($message);
+        }
+        return $data;
     }
 }
