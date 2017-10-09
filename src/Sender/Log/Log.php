@@ -53,14 +53,14 @@ class Log
      * This function for Delete automatially with in 10 days old files
      *
      */
-    public function deleteOldFiles()
+    public function deleteOldFiles($day = 240)
     {
         $path = self::$path;
         if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 $filelastmodified = filemtime($path."/".$file);
                 //10 days older files deleted
-                if ((time() - $filelastmodified) > 240*3600) {
+                if ((time() - $filelastmodified) > $day*3600) {
                     unlink($path."/".$file);
                 }
             }
