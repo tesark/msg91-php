@@ -2,6 +2,7 @@
 namespace Sender;
 
 use Propaganistas\LaravelPhone\PhoneNumber;
+use Sender\ExceptionClass\ParameterException;
 
 /**
  * This Class for splite mobile number given string
@@ -27,17 +28,22 @@ class MobileNumber
             $data    = [];
             $mobiles = explode(",", $mobileNumber);
             $len     = sizeof($mobiles);
-            for ($i = 0; $i < $len; $i++) {
-                $lenva = strlen($mobiles[$i]);
-                if (is_numeric($mobiles[$i]) && $lenva >= 8 && $lenva < 15) {
-                    if ($i == $len-1) {
-                        $data += ["value" => true];
-                        $data += ["mobile" => $mobiles];
+            if ($len < 20) {
+                for ($i = 0; $i < $len; $i++) {
+                    $lenva = strlen($mobiles[$i]);
+                    if (is_numeric($mobiles[$i]) && $lenva >= 8 && $lenva < 15) {
+                        if ($i == $len-1) {
+                            $data += ["value" => true];
+                            $data += ["mobile" => $mobiles];
+                        }
+                    } else {
+                        $data += ["value" => false];
+                        $data += ["mobile" => $mobiles[$i]];
                     }
-                } else {
-                    $data += ["value" => false];
-                    $data += ["mobile" => $mobiles[$i]];
                 }
+            } else {
+                $message = "Minimum 20 mobile numbers";
+                throw ParameterException::missinglogic($message);
             }
             return $data;
         } else {

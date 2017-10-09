@@ -60,7 +60,7 @@ class Log
             while (false !== ($file = readdir($handle))) {
                 $filelastmodified = filemtime($path."/".$file);
                 //10 days older files deleted
-                if ((time() - $filelastmodified) > $day*3600) {
+                if ((time() - $filelastmodified) > $day * 3600) {
                     unlink($path."/".$file);
                 }
             }
