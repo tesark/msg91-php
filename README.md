@@ -37,7 +37,7 @@ composer require venkatsamuthiram/deliver
 
 ## Config file setup
 
-- Config file Now, using only for send Authkey. comming soon added all features  
+- Config file Now, using only for send Authkey.
 
 `Three ways send Authkey`
 
@@ -65,7 +65,12 @@ $sms = new TransactionalSms("17043...........59969531");
 $sms->sendTransactional("919******541,919******728",$sample);
 
 ```
+Tips 3: `Dot Env File`
 
+```sh
+TRANSAUTHKEY=170***************a87a1
+OTPAUTHKEY=1704***************531
+```
 ### Coding Standards
 
 The entire library is intended to be PSR-1, PSR-2 compliant.
@@ -138,7 +143,7 @@ $sms->sendTransactional("919******541,919******728",$sample);
 Tips 2:
 $sample = [ 
     'message'      => 'WELCOME TO TESARK',
-    'sender'       => 'UTOOWE',
+    'sender'       => 'TOOME',
     'country'      => 91,
     'flash'        => 1,
     'unicode'      => 1,
