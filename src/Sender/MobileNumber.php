@@ -31,7 +31,7 @@ class MobileNumber
             return false;
         }
     }
-    protected function checkMobileLengthAndSize($mobileNumber)
+    protected static function checkMobileLengthAndSize($mobileNumber)
     {
         $data  = [];
         $mobiles = explode(",", $mobileNumber);
