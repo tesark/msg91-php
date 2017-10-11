@@ -678,8 +678,6 @@ class PromotionalSmsTest extends TestCase
     //         [
     //             'authkey' => '170867ARdROqjKklk599a87a1',
     //             'sender' => 'MULSMS',
-    //             'schtime' => '2017-10-06 11:17:39',
-    //             'campaign' => 'venkat',
     //             'country' => '91',
     //             'flash' => 1,
     //             'unicode' => 1,
