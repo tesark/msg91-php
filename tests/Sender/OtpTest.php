@@ -21,17 +21,17 @@ class OtpTest extends TestCase
         $this->otp = null;
     }
     //------------Send OTP----------
-    // public function testSendOtp()
-    // {
-    //     $sendArray = [
-    //       'message'       => "Your verification code is ##5421##",
-    //       'sender'        => "Venkat",
-    //       'otp'           => 5421,
-    //     ];
-    //     $otpResponse = $this->otp->sendOtp(919514028541, $sendArray);
-    //     $array = json_decode($otpResponse);
-    //     $this->assertObjectHasAttribute("type", $array);
-    // }
+    public function testSendOtp()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => 5421,
+        ];
+        $otpResponse = $this->otp->sendOtp(919514028541, $sendArray);
+        $array = json_decode($otpResponse);
+        $this->assertObjectHasAttribute("type", $array);
+    }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
@@ -229,18 +229,18 @@ class OtpTest extends TestCase
         $otp = $this->otp->sendOtp(919514028541, $sendArray);
     }
     //----------Retry Otp ---------
-    // public function testRetryOtpTextformat()
-    // {
-    //     $response   = $this->otp->resendOtp(919514028541, "text");
-    //     $array = json_decode($response);
-    //     $this->assertObjectHasAttribute("type", $array);
-    // }
-    // public function testRetryOtpVoiceformat()
-    // {
-    //     $response   = $this->otp->resendOtp(919514028541, "voice");
-    //     $array = json_decode($response);
-    //     $this->assertObjectHasAttribute("type", $array);
-    // }
+    public function testRetryOtpTextformat()
+    {
+        $response   = $this->otp->resendOtp(919514028541, "text");
+        $array = json_decode($response);
+        $this->assertObjectHasAttribute("type", $array);
+    }
+    public function testRetryOtpVoiceformat()
+    {
+        $response   = $this->otp->resendOtp(919514028541, "voice");
+        $array = json_decode($response);
+        $this->assertObjectHasAttribute("type", $array);
+    }
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
@@ -277,16 +277,16 @@ class OtpTest extends TestCase
         $response   = $this->otp->resendOtp(919514028541, true);
     }
     //----------- Verify OTP --------
-    // public function testVerifyOtp()
-    // {
-    //     $verifyResponse   = $this->otp->verifyOtp(919514028541, 5421);
-    //     $array = json_decode($verifyResponse);
-    //     $this->assertObjectHasAttribute("type", $array);
-    // }
-    // public function testVerifyOtpIsString()
-    // {
-    //     $verifyResponse   = $this->otp->verifyOtp(919514028541, "5421");
-    //     $array = json_decode($verifyResponse);
-    //     $this->assertObjectHasAttribute("type", $array);
-    // }
+    public function testVerifyOtp()
+    {
+        $verifyResponse   = $this->otp->verifyOtp(919514028541, 5421);
+        $array = json_decode($verifyResponse);
+        $this->assertObjectHasAttribute("type", $array);
+    }
+    public function testVerifyOtpIsString()
+    {
+        $verifyResponse   = $this->otp->verifyOtp(919514028541, "5421");
+        $array = json_decode($verifyResponse);
+        $this->assertObjectHasAttribute("type", $array);
+    }
 }
