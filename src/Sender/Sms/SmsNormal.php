@@ -43,12 +43,13 @@ class SmsNormal extends SmsBuildClass
             $promoAuthKey    = $commonValue['promoAuthKey'];
         }
         if ($category === 1) {
-            //transactional SMS content
+            //transactional SMS content Route 4
             $sendData = array(
                 'authkey'     => $checkAuth ? $authKey : $transAuthKey,
                 'route'       => 4,
             );
         } else {
+            //Promotional SMS content Route 1
             $sendData = array(
                 'authkey'     => $checkAuth ? $authKey : $promoAuthKey,
                 'route'       => 1,
