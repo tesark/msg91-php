@@ -158,6 +158,7 @@ class OtpTest extends TestCase
         ];
         $otp = $this->otp->sendOtp(919514028541, $sendArray);
     }
+    //------------------------Message----------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
@@ -175,6 +176,49 @@ class OtpTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testSendOtpMessageIntegerSentException()
+    {
+        $sendArray = [
+          'message'       => 63475374,
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpMessageDoubleSentException()
+    {
+        $sendArray = [
+          'message'       => 63.475374,
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpMessageArraySentException()
+    {
+        $sendArray = [
+          'message'       => ['63.475374'],
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    //--------------------Sender------------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testSendOtpSenderBooleanException()
     {
         $sendArray = [
@@ -186,6 +230,49 @@ class OtpTest extends TestCase
         ];
         $otp = $this->otp->sendOtp(919514028541, $sendArray);
     }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpSenderArrayException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => ['true'],
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpSenderIntegerException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => 444444,
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpSenderDoubleException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => 34.534534,
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    //--------------------OTP--------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
@@ -203,6 +290,35 @@ class OtpTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testSendOtpArrayException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => ['true'],
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpDoubleException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => 44.566666666,
+          'otp_expiry'    => 1,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    //--------------------OTP Expiry --------------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testSendOtpExpiryBooleanException()
     {
         $sendArray = [
@@ -217,6 +333,35 @@ class OtpTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testSendOtpExpiryArrayException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => ['true'],
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpExpiryDoubleException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => 56.54545,
+          'otp_length'    => 8
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    //-------------------OTP Length-------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testSendOtpLengthBooleanException()
     {
         $sendArray = [
@@ -225,6 +370,34 @@ class OtpTest extends TestCase
           'otp'           => 5424,
           'otp_expiry'    => 1,
           'otp_length'    => true,
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpLengthArrayException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => ['true'],
+        ];
+        $otp = $this->otp->sendOtp(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testSendOtpLengthDoubleException()
+    {
+        $sendArray = [
+          'message'       => "Your verification code is ##5421##",
+          'sender'        => "Venkat",
+          'otp'           => 5424,
+          'otp_expiry'    => 1,
+          'otp_length'    => 45.34534,
         ];
         $otp = $this->otp->sendOtp(919514028541, $sendArray);
     }
@@ -258,6 +431,34 @@ class OtpTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testRetryOtpMissingFirstParameterIsBooleanformat()
+    {
+        $response   = $this->otp->resendOtp(true, 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testRetryOtpMissingFirstParameterIsArrayformat()
+    {
+        $response   = $this->otp->resendOtp(['true'], 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testRetryOtpMissingFirstParameterIsStringformat()
+    {
+        $response   = $this->otp->resendOtp('true', 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testRetryOtpMissingFirstParameterIsDoubleformat()
+    {
+        $response   = $this->otp->resendOtp(45.76345343, 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testRetryOtpMissingSecondParameterIsNumberformat()
     {
         $response   = $this->otp->resendOtp(919514028541, 4565);
@@ -276,6 +477,20 @@ class OtpTest extends TestCase
     {
         $response   = $this->otp->resendOtp(919514028541, true);
     }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testRetryOtpMissingSecondParameterIsArrayformat()
+    {
+        $response   = $this->otp->resendOtp(919514028541, ['true']);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testRetryOtpMissingSecondParameterIsIntegerformat()
+    {
+        $response   = $this->otp->resendOtp(919514028541, 345343434);
+    }
     //----------- Verify OTP --------
     // public function testVerifyOtp()
     // {
@@ -289,4 +504,67 @@ class OtpTest extends TestCase
     //     $array = json_decode($verifyResponse);
     //     $this->assertObjectHasAttribute("type", $array);
     // }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingFirstParameterIsBooleanformat()
+    {
+        $response   = $this->otp->verifyOtp(true, 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingFirstParameterIsArrayformat()
+    {
+        $response   = $this->otp->verifyOtp(['true'], 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingFirstParameterIsStringformat()
+    {
+        $response   = $this->otp->verifyOtp('true', 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingFirstParameterIsDoubleformat()
+    {
+        $response   = $this->otp->verifyOtp(45.76345343, 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingSecondParameterIsNumberformat()
+    {
+        $response   = $this->otp->verifyOtp(true, 4565);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingSecondParameterIsFloatformat()
+    {
+        $response   = $this->otp->verifyOtp(['true'], 45.65);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingSecondParameterIsBooleanformat()
+    {
+        $response   = $this->otp->verifyOtp(['true'], true);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingSecondParameterIsArrayformat()
+    {
+        $response   = $this->otp->verifyOtp(true, ['true']);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testVerifyOtpMissingSecondParameterIsIntegerformat()
+    {
+        $response   = $this->otp->verifyOtp(91951.4028541, 345343434);
+    }
 }
