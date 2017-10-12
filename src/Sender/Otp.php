@@ -60,7 +60,7 @@ class Otp
         $data      = [];
         $otpAuthKey = null;
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        $otpAuthKey = getAuthkey($otpAuthKey);
+        $otpAuthKey = $this->getAuthkey($otpAuthKey);
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpSend();
@@ -78,7 +78,7 @@ class Otp
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        $otpAuthKey = getAuthkey($otpAuthKey);
+        $otpAuthKey = $this->getAuthkey($otpAuthKey);
         $verifyAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $otp        = new OtpVerifyAndResend();
         $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
@@ -95,7 +95,7 @@ class Otp
     public function resendOtp($mobileNumber, $retrytype = null)
     {
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        $otpAuthKey = getAuthkey($otpAuthKey);
+        $otpAuthKey = $this->getAuthkey($otpAuthKey);
         $resendAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $otp        = new OtpVerifyAndResend();
         $resendOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $resendAuth, 0);
