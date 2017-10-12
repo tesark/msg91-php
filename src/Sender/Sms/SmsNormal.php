@@ -52,7 +52,7 @@ class SmsNormal extends SmsBuildClass
             //Promotional SMS content Route 1
             $sendData = array(
                 'authkey'     => $checkAuth ? $authKey : $promoAuthKey,
-                'route'       => 1,
+                'route'       => 4,
             );
         }
         $output = $this->sendSms($data, $sendData);

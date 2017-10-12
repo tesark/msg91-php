@@ -32,6 +32,22 @@ class Otp
         $this->otpAuth = $authkey;
     }
     /**
+     * This function for get Authkey from config file
+     *
+     *
+     */
+    public function getAuthkey($otpAuthKey)
+    {
+        if (!$otpAuthKey) {
+            // Get Envirionment variable and config file values
+            $config      = new ConfigClass();
+            $container   = $config->getDefaults();
+            $common      = $container['common'];
+            $otpAuthKey  = $common['otpAuthKey'];
+        }
+        return $otpAuthKey;
+    }
+    /**
      * Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
      *
      * @param int|string $mobileNumber
@@ -44,13 +60,7 @@ class Otp
         $data      = [];
         $otpAuthKey = null;
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        if (!$checkAuth) {
-            // Get Envirionment variable and config file values
-            $config      = new ConfigClass();
-            $container   = $config->getDefaults();
-            $common      = $container['common'];
-            $otpAuthKey  = $common['otpAuthKey'];
-        }
+        $otpAuthKey = $this->getAuthkey($checkAuth);
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpSend();
@@ -67,7 +77,9 @@ class Otp
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
-        $verifyAuth = $this->otpAuth;
+        $checkAuth = Validation::isAuthKey($this->otpAuth);
+        $otpAuthKey = $this->getAuthkey($checkAuth);
+        $verifyAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $otp        = new OtpVerifyAndResend();
         $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
         return $verifyOtpResponse;
@@ -82,7 +94,9 @@ class Otp
      */
     public function resendOtp($mobileNumber, $retrytype = null)
     {
-        $resendAuth = $this->otpAuth;
+        $checkAuth = Validation::isAuthKey($this->otpAuth);
+        $otpAuthKey = $this->getAuthkey($checkAuth);
+        $resendAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $otp        = new OtpVerifyAndResend();
         $resendOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $resendAuth, 0);
         return $resendOtpResponse;

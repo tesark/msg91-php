@@ -46,6 +46,26 @@ class LogTest extends TestCase
         $this->log->error(["Request:"], [true], [true]);
         $this->assertFileIsReadable($this->path.'/Error_'.$this->dateTime.'.log');
         $this->assertFileIsWritable($this->path.'/Error_'.$this->dateTime.'.log');
+
+        $this->log->error(["Request45555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555"]);
+        $this->assertFileIsReadable($this->path.'/Error_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Error_'.$this->dateTime.'.log');
+
+        $this->log->error(["455544444444444444444444444444444"]);
+        $this->assertFileIsReadable($this->path.'/Error_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Error_'.$this->dateTime.'.log');
+
+        $this->log->error([true]);
+        $this->assertFileIsReadable($this->path.'/Error_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Error_'.$this->dateTime.'.log');
+
+        $this->log->error([34534534534343453444334]);
+        $this->assertFileIsReadable($this->path.'/Error_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Error_'.$this->dateTime.'.log');
+
+        $this->log->error([5676575675676565], [true]);
+        $this->assertFileIsReadable($this->path.'/Error_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Error_'.$this->dateTime.'.log');
     }
     public function testInfo()
     {
@@ -70,6 +90,26 @@ class LogTest extends TestCase
         $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
 
         $this->log->info(["Request:"], [true], [true]);
+        $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
+
+        $this->log->info(["Request45555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555"]);
+        $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
+
+        $this->log->info(["455544444444444444444444444444444"]);
+        $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
+
+        $this->log->info([true]);
+        $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
+
+        $this->log->info([34534534534343453444334]);
+        $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
+        $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
+
+        $this->log->info([5676575675676565], [true]);
         $this->assertFileIsReadable($this->path.'/Info_'.$this->dateTime.'.log');
         $this->assertFileIsWritable($this->path.'/Info_'.$this->dateTime.'.log');
     }
