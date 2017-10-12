@@ -33,7 +33,7 @@ class MobileNumber
     }
     protected static function checkMobileLengthAndSize($mobileNumber)
     {
-        $data  = [];
+        $data = [];
         $mobiles = explode(",", $mobileNumber);
         $len     = sizeof($mobiles);
         if ($len < 20) {

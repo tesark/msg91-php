@@ -82,153 +82,153 @@ class PromotionalSmsTest extends TestCase
     }
     //--------------------- Correct format No Error---------------------
     //-----------------------------Country Code-------------------------
-    public function testPromotionalSmsWithCountryCodeInteger()
-    {
-        $sendArray = [
-           'message'   => 'WELCOME TO TESARK',
-           'sender'    => 'UTOOWE',
-           'country'   => 91,
-        ];
-        $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsWithOutCountryCodeInteger()
-    {
-        $sendArray = [
-           'message'   => 'WELCOME TO TESARK',
-           'sender'    => 'UTOOWE',
-        ];
-        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsWithCountryCodeNumericString()
-    {
-        $sendArray = [
-           'message'   => 'WELCOME TO TESARK',
-           'sender'    => 'UTOOWE',
-           'country'   => "91",
-        ];
-        $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728", $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsWithCountryCodeStringMobile()
-    {
-        $sendArray = [
-           'message'   => 'WELCOME TO TESARK',
-           'sender'    => 'UTOOWE',
-           'country'   => 91,
-        ];
-        $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728", $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsWithOutCountryCodeString()
-    {
-        $sendArray = [
-           'message'   => 'WELCOME TO TESARK',
-           'sender'    => 'UTOOWE',
-        ];
-        $result = $this->PromotionalSms->sendPromotional("919514028541,919791466728", $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    //------------------------------Flash only -----------------
-    public function testPromotionalSmsFlash()
-    {
-        $sendArray = [
-           'message' => 'WELCOME TO TESARK',
-           'sender' => 'UTOOWE',
-           'flash' => 1,
-        ];
-        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsFlashZero()
-    {
-        $sendArray = [
-           'message' => 'WELCOME TO TESARK',
-           'sender' => 'UTOOWE',
-           'flash' => 0,
-        ];
-        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsFlashCountryCode()
-    {
-        $sendArray = [
-           'message' => 'WELCOME TO TESARK',
-           'sender' => 'UTOOWE',
-           'flash' => 1,
-           'country' => 91,
-        ];
-        $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    //----------------------- Unicode ------------------------
-    public function testPromotionalSmsUnicode()
-    {
-        $sendArray = [
-            'message'      => 'WELCOME TO TESARK',
-            'sender'       => 'UTOOWE',
-            'unicode'      => 1,
-          ];
-        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    //---------------------- Schtime -------------------------
-    public function testPromotionalSmsSchtimedashFormat()
-    {
-        $sendArray = [
-           'message'      => 'WELCOME TO TESARK',
-           'sender'       => 'UTOOWE',
-           'schtime'      => "2020-01-01 10:10:00",
-        ];
-        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testPromotionalSmsSchtimeFrontslashFormat()
-    {
-        $sendArray = [
-           'message'      => 'WELCOME TO TESARK',
-           'sender'       => 'UTOOWE',
-           'schtime'      => "2020/01/01 10:10:00",
-        ];
-        $result  = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    //----------------------- Response-----------------------
-    public function testPromotionalSmsResponseJson()
-    {
-        $sendArray = [
-           'message'      => 'WELCOME TO TESARK',
-           'sender'       => 'UTOOWE',
-           'response'     => "json",
-        ];
-        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
-        $array = json_decode($result);
-        $this->assertObjectHasAttribute("type", $array);
-    }
-    //------------------------ Afterminutes-----------------
-    public function testPromotionalSmsWithoutCountryCode()
-    {
-        $sendArray = [
-           'message'      => 'WELCOME TO TESARK',
-           'sender'       => 'UTOOWE',
-           'country'      => 91,
-           'afterminutes' => 10
-        ];
-        $result  = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    //----------------------- Campaign ---------------------
-    public function testPromotionalSmsCampaign()
-    {
-        $sendArray = [
-           'message'      => 'WELCOME TO TESARK',
-           'sender'       => 'UTOOWE',
-           'campaign'     => "venkat"
-        ];
-        $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
+    // public function testPromotionalSmsWithCountryCodeInteger()
+    // {
+    //     $sendArray = [
+    //        'message'   => 'WELCOME TO TESARK',
+    //        'sender'    => 'UTOOWE',
+    //        'country'   => 91,
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsWithOutCountryCodeInteger()
+    // {
+    //     $sendArray = [
+    //        'message'   => 'WELCOME TO TESARK',
+    //        'sender'    => 'UTOOWE',
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsWithCountryCodeNumericString()
+    // {
+    //     $sendArray = [
+    //        'message'   => 'WELCOME TO TESARK',
+    //        'sender'    => 'UTOOWE',
+    //        'country'   => "91",
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728", $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsWithCountryCodeStringMobile()
+    // {
+    //     $sendArray = [
+    //        'message'   => 'WELCOME TO TESARK',
+    //        'sender'    => 'UTOOWE',
+    //        'country'   => 91,
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728", $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsWithOutCountryCodeString()
+    // {
+    //     $sendArray = [
+    //        'message'   => 'WELCOME TO TESARK',
+    //        'sender'    => 'UTOOWE',
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional("919514028541,919791466728", $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // //------------------------------Flash only -----------------
+    // public function testPromotionalSmsFlash()
+    // {
+    //     $sendArray = [
+    //        'message' => 'WELCOME TO TESARK',
+    //        'sender' => 'UTOOWE',
+    //        'flash' => 1,
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsFlashZero()
+    // {
+    //     $sendArray = [
+    //        'message' => 'WELCOME TO TESARK',
+    //        'sender' => 'UTOOWE',
+    //        'flash' => 0,
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsFlashCountryCode()
+    // {
+    //     $sendArray = [
+    //        'message' => 'WELCOME TO TESARK',
+    //        'sender' => 'UTOOWE',
+    //        'flash' => 1,
+    //        'country' => 91,
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // //----------------------- Unicode ------------------------
+    // public function testPromotionalSmsUnicode()
+    // {
+    //     $sendArray = [
+    //         'message'      => 'WELCOME TO TESARK',
+    //         'sender'       => 'UTOOWE',
+    //         'unicode'      => 1,
+    //       ];
+    //     $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // //---------------------- Schtime -------------------------
+    // public function testPromotionalSmsSchtimedashFormat()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'sender'       => 'UTOOWE',
+    //        'schtime'      => "2020-01-01 10:10:00",
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testPromotionalSmsSchtimeFrontslashFormat()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'sender'       => 'UTOOWE',
+    //        'schtime'      => "2020/01/01 10:10:00",
+    //     ];
+    //     $result  = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // //----------------------- Response-----------------------
+    // public function testPromotionalSmsResponseJson()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'sender'       => 'UTOOWE',
+    //        'response'     => "json",
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+    //     $array = json_decode($result);
+    //     $this->assertObjectHasAttribute("type", $array);
+    // }
+    // //------------------------ Afterminutes-----------------
+    // public function testPromotionalSmsWithoutCountryCode()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'sender'       => 'UTOOWE',
+    //        'country'      => 91,
+    //        'afterminutes' => 10
+    //     ];
+    //     $result  = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // //----------------------- Campaign ---------------------
+    // public function testPromotionalSmsCampaign()
+    // {
+    //     $sendArray = [
+    //        'message'      => 'WELCOME TO TESARK',
+    //        'sender'       => 'UTOOWE',
+    //        'campaign'     => "venkat"
+    //     ];
+    //     $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
     //--------------- Wrong format with Error Exception -------
     //-------------------------Message-------------------------
     /**
@@ -646,81 +646,81 @@ class PromotionalSmsTest extends TestCase
         ];
         $result  = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
     }
-    // //---------------------------Bulk SMS ------------------------
-    public function testBulkMessage()
-    {
-        $sendArray = [
-            [
-                'authkey' => '170867ARdROqjKklk599a87a1',
-                'sender' => 'MULSMS',
-                'campaign' => 'venkat',
-                'content' =>[
-                  [
-                    'message' => 'welcome multi sms',
-                    'mobile' => '919514028541,919791466728'
-                  ],
-                  [
-                    'message' => 'tesark world',
-                    'mobile' => '919514028541,919791466728'
-                  ],
-                ]
-            ]
-        ];
-        $result = $this->PromotionalSms->sendBulkSms($sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testBulkMessageWithCountryCode()
-    {
-        $sendArray = [
-            [
-                'authkey' => '170867ARdROqjKklk599a87a1',
-                'sender' => 'MULSMS',
-                'country' => '91',
-                'unicode' => 1,
-                'content' => [
-                  [
-                    'message' => 'welcome multi sms',
-                    'mobile' => '9514028541'
-                  ],
-                ]
-            ]
-        ];
-        $result = $this->PromotionalSms->sendBulkSms($sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
-    public function testBulkMessageTwoAuthkey()
-    {
-        $sendArray = [
-          [
-           'authkey' => '170867ARdROqjKklk599a87a1',
-           'sender' => 'MULSMS',
-           'content' =>[ [
-                'message' => 'welcome multi sms',
-                'mobile' => '919514028541',
-              ],
-              [
-                'message' => 'tesark world',
-                'mobile' => '919514028541',
-              ]
-            ]
-          ],
-          [
-           'authkey' => '170867ARdROqjKklk599a87a1',
-           'sender' => 'SUNSMS',
-           'content' =>[ [
-                'message' => 'hai how are u',
-                'mobile' => '919514028541',
-              ],
-              [
-                'message' => 'hai welcome',
-                'mobile' => '919514028541',
-              ]
-            ]
-          ]
-        ];
-        $result = $this->PromotionalSms->sendBulkSms($sendArray);
-        $this->assertEquals(24, strlen($result));
-    }
+    //---------------------------Bulk SMS ------------------------
+    // public function testBulkMessage()
+    // {
+    //     $sendArray = [
+    //         [
+    //             'authkey' => '170867ARdROqjKklk599a87a1',
+    //             'sender' => 'MULSMS',
+    //             'campaign' => 'venkat',
+    //             'content' =>[
+    //               [
+    //                 'message' => 'welcome multi sms',
+    //                 'mobile' => '919514028541,919791466728'
+    //               ],
+    //               [
+    //                 'message' => 'tesark world',
+    //                 'mobile' => '919514028541,919791466728'
+    //               ],
+    //             ]
+    //         ]
+    //     ];
+    //     $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testBulkMessageWithCountryCode()
+    // {
+    //     $sendArray = [
+    //         [
+    //             'authkey' => '170867ARdROqjKklk599a87a1',
+    //             'sender' => 'MULSMS',
+    //             'country' => '91',
+    //             'unicode' => 1,
+    //             'content' => [
+    //               [
+    //                 'message' => 'welcome multi sms',
+    //                 'mobile' => '9514028541'
+    //               ],
+    //             ]
+    //         ]
+    //     ];
+    //     $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
+    // public function testBulkMessageTwoAuthkey()
+    // {
+    //     $sendArray = [
+    //       [
+    //        'authkey' => '170867ARdROqjKklk599a87a1',
+    //        'sender' => 'MULSMS',
+    //        'content' =>[ [
+    //             'message' => 'welcome multi sms',
+    //             'mobile' => '919514028541',
+    //           ],
+    //           [
+    //             'message' => 'tesark world',
+    //             'mobile' => '919514028541',
+    //           ]
+    //         ]
+    //       ],
+    //       [
+    //        'authkey' => '170867ARdROqjKklk599a87a1',
+    //        'sender' => 'SUNSMS',
+    //        'content' =>[ [
+    //             'message' => 'hai how are u',
+    //             'mobile' => '919514028541',
+    //           ],
+    //           [
+    //             'message' => 'hai welcome',
+    //             'mobile' => '919514028541',
+    //           ]
+    //         ]
+    //       ]
+    //     ];
+    //     $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    //     $this->assertEquals(24, strlen($result));
+    // }
     //------------------Wrong format Bulk sms----------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException

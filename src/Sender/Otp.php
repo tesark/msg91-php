@@ -58,7 +58,6 @@ class Otp
     public function sendOtp($mobileNumber, $dataArray)
     {
         $data      = [];
-        $otpAuthKey = null;
         $checkAuth = Validation::isAuthKey($this->otpAuth);
         $otpAuthKey = $this->getAuthkey($checkAuth);
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
