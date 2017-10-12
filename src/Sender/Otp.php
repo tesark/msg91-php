@@ -38,7 +38,7 @@ class Otp
      */
     public function getAuthkey($otpAuthKey)
     {
-        if (!$checkAuth) {
+        if (!$otpAuthKey) {
             // Get Envirionment variable and config file values
             $config      = new ConfigClass();
             $container   = $config->getDefaults();
@@ -60,7 +60,7 @@ class Otp
         $data      = [];
         $otpAuthKey = null;
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        $otpAuthKey = $this->getAuthkey($otpAuthKey);
+        $otpAuthKey = $this->getAuthkey($checkAuth);
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $data['mobile']  = $mobileNumber;
         $otp             = new OtpSend();
@@ -78,7 +78,7 @@ class Otp
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        $otpAuthKey = $this->getAuthkey($otpAuthKey);
+        $otpAuthKey = $this->getAuthkey($checkAuth);
         $verifyAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $otp        = new OtpVerifyAndResend();
         $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
@@ -95,7 +95,7 @@ class Otp
     public function resendOtp($mobileNumber, $retrytype = null)
     {
         $checkAuth = Validation::isAuthKey($this->otpAuth);
-        $otpAuthKey = $this->getAuthkey($otpAuthKey);
+        $otpAuthKey = $this->getAuthkey($checkAuth);
         $resendAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
         $otp        = new OtpVerifyAndResend();
         $resendOtpResponse = $otp->otpApiCategory($mobileNumber, $retrytype, $resendAuth, 0);
