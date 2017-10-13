@@ -246,10 +246,34 @@ class TransactionalSmsTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testTransactionalSmsMessageArray()
+    {
+        $sendArray = [
+           'message'   => [4521.24555555],
+           'sender'    => 'UTOOWE',
+           'country'   => 91,
+        ];
+        $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testTransactionalSmsMessageDouble()
     {
         $sendArray = [
            'message'   => 4521.24555555,
+           'sender'    => 'UTOOWE',
+           'country'   => 91,
+        ];
+        $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsMessageNull()
+    {
+        $sendArray = [
+           'message'   => null,
            'sender'    => 'UTOOWE',
            'country'   => 91,
         ];
@@ -335,6 +359,28 @@ class TransactionalSmsTest extends TestCase
         ];
         $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
     }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsSenderNull()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => null,
+        ];
+        $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsSenderArray()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => ['true'],
+        ];
+        $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
     //------------------------ Country Code ----------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
@@ -357,6 +403,30 @@ class TransactionalSmsTest extends TestCase
            'message'   => 'WELCOME TO TESARK',
            'sender'    => 'UTOOWE',
            'country'   => "IND",
+        ];
+        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsWithCountryCodeArray()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+           'country'   => ["IND"],
+        ];
+        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsWithCountryCodeNull()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+           'country'   => null,
         ];
         $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
     }
@@ -385,6 +455,18 @@ class TransactionalSmsTest extends TestCase
         ];
         $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
     }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsFlashArray()
+    {
+        $sendArray = [
+           'message' => 'WELCOME TO TESARK',
+           'sender' => 'UTOOWE',
+           'flash' => ['7'],
+        ];
+        $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
     //----------------------- Unicode -------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
@@ -395,6 +477,30 @@ class TransactionalSmsTest extends TestCase
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'unicode'      => null,
+        ];
+        $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsUnicodeDefaultNull()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'unicode'      => 7,
+        ];
+        $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsUnicodeArray()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'unicode'      => ['7'],
         ];
         $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
     }
@@ -531,6 +637,30 @@ class TransactionalSmsTest extends TestCase
         ];
         $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
     }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsSchtimeFormatNull()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'schtime'      => null,
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsSchtimeFormatArray()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'schtime'      => ['7845.637'],
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
     //----------------------- Response-------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
@@ -547,12 +677,36 @@ class TransactionalSmsTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testTransactionalSmsResponseNull()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'response'     => null,
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testTransactionalSmsResponseInteger()
     {
         $sendArray = [
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'response'     => 4545,
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsResponseArray()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'response'     => ['4545'],
         ];
         $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
     }
@@ -621,6 +775,19 @@ class TransactionalSmsTest extends TestCase
         ];
         $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
     }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsAfterminutesArray()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'country'      => 91,
+           'afterminutes' => ["20001"]
+        ];
+        $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+    }
     //----------------------- Campaign ----------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
@@ -643,6 +810,30 @@ class TransactionalSmsTest extends TestCase
            'message'      => 'WELCOME TO TESARK',
            'sender'       => 'UTOOWE',
            'campaign'     =>  4334
+        ];
+        $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsCampaignArray()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'campaign'     =>  [4334]
+        ];
+        $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testTransactionalSmsCampaignDouble()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'campaign'     =>  43.88834
         ];
         $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
     }

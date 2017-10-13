@@ -65,16 +65,14 @@ class OtpVerifyAndResend extends OtpBuildClass
     protected function otpFinalVerifyAndResend($data, $uri)
     {
         $this->sendData = $data;
-        if ($this->hasSendData()) {
-            if ($this->checkAuthKey() && $this->checkMobile()) {
-                $data = $this->sendData;
-                //add retry type on array
-                $data = $this->addRetryType($data);
-                //add otp on array
-                $data = $this->addOneTimePass($data);
-            }
+        if ($this->checkAuthKey() && $this->checkMobile()) {
+            $data = $this->sendData;
+            //add retry type on array
+            $data = $this->addRetryType($data);
+            //add otp on array
+            $data = $this->addOneTimePass($data);
         } else {
-            $message = "The parameters not found";
+            $message = "The parameters Authkey or Mobile missing";
             throw ParameterException::missinglogic($message);
         }
         $delivery = new Deliver();
