@@ -103,11 +103,11 @@ class SmsBuildClass extends SmsDefineClass
     {
         if ($this->setSchtime()) {
             $value = $this->getSchtime();
-            if ($this->isVaildDateTime($value)) {
+            if ($this->isString($value) && $this->isVaildDateTime($value)) {
                 $buildSmsData = $this->buildData($category, $key, $value, $buildSmsData, $xmlDoc);
                 return $buildSmsData;
             } else {
-                $message = "Allowed can use Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
+                $message = "Allowed string value format like Y-m-d h:i:s Or Y/m/d h:i:s Or timestamp ";
                 throw ParameterException::invalidInput($key, "string", $value, $message);
             }
         }
