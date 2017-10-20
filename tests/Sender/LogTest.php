@@ -1,5 +1,5 @@
 <?php
-namespace Sender\Log;
+namespace Sender;
 
 use PHPUnit\Framework\TestCase;
 use Sender\Log\Log;
@@ -15,7 +15,7 @@ class LogTest extends TestCase
     {
         $this->log = new Log("Req & Res");
         $this->dateTime = date_create('now')->format('Y-m-d');
-        $this->path = realpath(__DIR__.'/../../../src/Sender/Log');
+        $this->path = realpath(__DIR__.'/../../src/Sender/Log');
     }
     public function tearDown()
     {

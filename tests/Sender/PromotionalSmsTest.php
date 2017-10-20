@@ -82,9 +82,6 @@ class PromotionalSmsTest extends TestCase
     }
     //--------------------- Correct format No Error---------------------
     //-----------------------------Country Code-------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsWithCountryCodeInteger()
     {
         $sendArray = [
@@ -95,9 +92,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsWithOutCountryCodeInteger()
     {
         $sendArray = [
@@ -107,9 +101,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsWithCountryCodeNumericString()
     {
         $sendArray = [
@@ -120,9 +111,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728", $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsWithCountryCodeStringMobile()
     {
         $sendArray = [
@@ -133,9 +121,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional("9514028541,9791466728", $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsWithOutCountryCodeString()
     {
         $sendArray = [
@@ -146,9 +131,6 @@ class PromotionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //------------------------------Flash only -----------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsFlash()
     {
         $sendArray = [
@@ -159,9 +141,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsFlashZero()
     {
         $sendArray = [
@@ -172,9 +151,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsFlashCountryCode()
     {
         $sendArray = [
@@ -187,9 +163,6 @@ class PromotionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Unicode ------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsUnicode()
     {
         $sendArray = [
@@ -201,9 +174,6 @@ class PromotionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //---------------------- Schtime -------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsSchtimedashFormat()
     {
         $sendArray = [
@@ -214,9 +184,6 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsSchtimeFrontslashFormat()
     {
         $sendArray = [
@@ -228,9 +195,6 @@ class PromotionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Response-----------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsResponseJson()
     {
         $sendArray = [
@@ -242,10 +206,18 @@ class PromotionalSmsTest extends TestCase
         $array = json_decode($result);
         $this->assertObjectHasAttribute("type", $array);
     }
+    public function testPromotionalSmsResponseJsonCapital()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'response'     => "JSON",
+        ];
+        $result = $this->PromotionalSms->sendPromotional(919514028541, $sendArray);
+        $array = json_decode($result);
+        $this->assertObjectHasAttribute("type", $array);
+    }
     //------------------------ Afterminutes-----------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsWithoutCountryCode()
     {
         $sendArray = [
@@ -258,9 +230,6 @@ class PromotionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Campaign ---------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testPromotionalSmsCampaign()
     {
         $sendArray = [
@@ -880,14 +849,11 @@ class PromotionalSmsTest extends TestCase
         $result  = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
     }
     //---------------------------Bulk SMS ------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testBulkMessage()
     {
         $sendArray = [
             [
-                'authkey' => '170867ARdROqjKklk599a87a1',
+                'authkey' => '170867ARdROqjKklk599a87a1aa',
                 'sender' => 'MULSMS',
                 'campaign' => 'venkat',
                 'content' =>[
@@ -905,14 +871,11 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendBulkSms($sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testBulkMessageWithCountryCode()
     {
         $sendArray = [
             [
-                'authkey' => '170867ARdROqjKklk599a87a1',
+                'authkey' => '170867ARdROqjKklk599a87a1aa',
                 'sender' => 'MULSMS',
                 'country' => '91',
                 'unicode' => 1,
@@ -927,14 +890,11 @@ class PromotionalSmsTest extends TestCase
         $result = $this->PromotionalSms->sendBulkSms($sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testBulkMessageTwoAuthkey()
     {
         $sendArray = [
           [
-           'authkey' => '170867ARdROqjKklk599a87a1',
+           'authkey' => '170867ARdROqjKklk599a87a1aa',
            'sender' => 'MULSMS',
            'content' =>[ [
                 'message' => 'welcome multi sms',
@@ -947,7 +907,7 @@ class PromotionalSmsTest extends TestCase
             ]
           ],
           [
-           'authkey' => '170867ARdROqjKklk599a87a1',
+           'authkey' => '170867ARdROqjKklk599a87a1aa',
            'sender' => 'SUNSMS',
            'content' =>[ [
                 'message' => 'hai how are u',
