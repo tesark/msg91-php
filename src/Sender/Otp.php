@@ -65,7 +65,7 @@ class Otp
     }
     /**
      * @param int $mobileNumber
-     * @param int $oneTimePass
+     * @param int|string $oneTimePass
      *
      * @return string
      */
