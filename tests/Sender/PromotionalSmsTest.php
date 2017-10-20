@@ -792,6 +792,18 @@ class PromotionalSmsTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testPromotionalSmsCampaignnull()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'campaign'     =>  null
+        ];
+        $result  = $this->PromotionalSms->sendPromotional(9514028541, $sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testPromotionalSmsCampaignInteger()
     {
         $sendArray = [
@@ -900,7 +912,81 @@ class PromotionalSmsTest extends TestCase
     //     $result = $this->PromotionalSms->sendBulkSms($sendArray);
     //     $this->assertEquals(24, strlen($result));
     // }
-    //------------------Wrong format Bulk sms----------------------
+    //------------------Wrong format Bulk sms---------------------
+    //---------------- Mandatory fields missing-------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingMandatoryAuthKey()
+    {
+        $sendArray = [
+            [
+                'sender' => 'MULSMSAA',
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                    'mobile' => '919514028541'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingMandatorySender()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                    'mobile' => '919514028541'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingMandatoryMobile()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => 'MULSMS',
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingMandatoryMessage()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => 'MULSMS',
+                'content' =>[
+                  [
+                    'mobile' => '919514028541'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    //-------------------------- Sender --------------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
@@ -961,6 +1047,64 @@ class PromotionalSmsTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testBulkMessageSenderArray()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => ['true'],
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                    'mobile' => '919514028541,919791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSenderDouble()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => 67.564545,
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                    'mobile' => '919514028541,919791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSenderInteger()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => 45345,
+                'content' =>[
+                  [
+                    'message' => 'welcome multi sms',
+                    'mobile' => '919514028541,919791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    //-----------------------unicode--------------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testBulkMessageSenderUnicode()
     {
         $sendArray = [
@@ -968,6 +1112,46 @@ class PromotionalSmsTest extends TestCase
                 'authkey' => '170867ARdROqjKklk599a87a1',
                 'sender' => "VENKAT",
                 'unicode' => 1,
+                'content' =>[
+                  [
+                    'message' => 'welcome multi smsyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyrrrrrrrrrrrrrr',
+                    'mobile' => '919514028541,919791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSenderUnicodeNull()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'unicode' => null,
+                'content' =>[
+                  [
+                    'message' => 'welcome multi smsyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyrrrrrrrrrrrrrr',
+                    'mobile' => '919514028541,919791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSenderUnicodeArray()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'unicode' => [1],
                 'content' =>[
                   [
                     'message' => 'welcome multi smsyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyrrrrrrrrrrrrrr',
@@ -998,21 +1182,462 @@ class PromotionalSmsTest extends TestCase
         ];
         $result = $this->PromotionalSms->sendBulkSms($sendArray);
     }
+    //------------------------Country code --------------------
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
-    public function testBulkMessageSenderInteger()
+    public function testBulkMessageCountryCodeArray()
     {
         $sendArray = [
             [
                 'authkey' => '170867ARdROqjKklk599a87a1',
                 'sender' => "VENKAT",
-                'campaign' => 'venkat',
-                'country' => '91',
+                'country' => ['91'],
                 'content' =>[
                   [
-                    'message' => 'welcome multi sms',
-                    'mobile' => 97914.66728
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageCountryCodeBoolean()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => true,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageCountryCodeAlphaString()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "IND",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageCountryCodeMobileFormatWrong()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '95541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    //---------------------- Schtime --------------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongOne()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "2020-01/01 10:10:00",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongTwo()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "2020-01/01",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongThree()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "2020-01/01 10-10-00",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongFour()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "10:10:00",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongFive()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "2020/01/01 10-10-00",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongSix()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "10-10-00",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongSeven()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => 30,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongEight()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => "1Days",
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongNine()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => true,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongTen()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => 7845.637,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongArray()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => ['true'],
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageSchtimeFormatWrongNull()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'schtime' => null,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    //----------------------- flash ---------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageFlashNull()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'flash' => null,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageFlashArray()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'flash' => ['7'],
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageFlashInvalidInput()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'flash' => 7,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    //-------------------- campaign --------------------
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageCampaignNull()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'campaign' => null,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageCampaignArray()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'campaign' => ['venkat'],
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
+                  ],
+                ]
+            ]
+        ];
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageCampaignBoolean()
+    {
+        $sendArray = [
+            [
+                'authkey' => '170867ARdROqjKklk599a87a1',
+                'sender' => "VENKAT",
+                'country' => "91",
+                'campaign' => true,
+                'content' =>[
+                  [
+                    'message' => 'welcome sms',
+                    'mobile' => '9514028541,9791466728'
                   ],
                 ]
             ]

@@ -34,7 +34,6 @@ class Otp
     /**
      * This function for get Authkey from config file
      *
-     *
      */
     public function getAuthkey($otpAuthKey)
     {
@@ -48,8 +47,7 @@ class Otp
         return $otpAuthKey;
     }
     /**
-     * Send OTP using MSG91 Service, you want to send OTP using this "sendOtp method"
-     *
+     * Send OTP
      * @param int|string $mobileNumber
      * @param array $dataArray
      *
@@ -67,10 +65,9 @@ class Otp
         return $response;
     }
     /**
-     * Verify OTP using MSG91 Service, you want to Verify OTP using this "verifyOtp method"
-     *
+     * Verify OTP
      * @param int $mobileNumber
-     * @param int $dataArray
+     * @param int $oneTimePass
      *
      * @return string MSG91 response
      */
@@ -84,8 +81,7 @@ class Otp
         return $verifyOtpResponse;
     }
     /**
-     * Resend OTP using MSG91 Service, you want to Resend OTP using this "verifyOtp method"
-     *
+     * Resend OTP
      * @param int $mobileNumber
      * @param string $retrytype
      *
