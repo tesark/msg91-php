@@ -47,15 +47,14 @@ class Otp
         return $otpAuthKey;
     }
     /**
-     * Send OTP
      * @param int|string $mobileNumber
      * @param array $dataArray
      *
-     * @return string MSG91 response
+     * @return string
      */
     public function sendOtp($mobileNumber, $dataArray)
     {
-        $data      = [];
+        $data = [];
         $checkAuth = Validation::isAuthKey($this->otpAuth);
         $otpAuthKey = $this->getAuthkey($checkAuth);
         $data['authkey'] = $checkAuth ? $this->otpAuth : $otpAuthKey;
@@ -65,11 +64,10 @@ class Otp
         return $response;
     }
     /**
-     * Verify OTP
      * @param int $mobileNumber
      * @param int $oneTimePass
      *
-     * @return string MSG91 response
+     * @return string
      */
     public function verifyOtp($mobileNumber, $oneTimePass)
     {
@@ -81,11 +79,10 @@ class Otp
         return $verifyOtpResponse;
     }
     /**
-     * Resend OTP
      * @param int $mobileNumber
      * @param string $retrytype
      *
-     * @return string MSG91 response
+     * @return string
      */
     public function resendOtp($mobileNumber, $retrytype = null)
     {

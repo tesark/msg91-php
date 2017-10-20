@@ -3,6 +3,7 @@ namespace Sender\Log;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Sender\ExceptionClass\ParameterException;
 
 /**
  * This class for Log errors and store request and response status
@@ -58,13 +59,17 @@ class Log
         $path = self::$path;
         if ($handle = @opendir($path)) {
             while (false !== ($file = readdir($handle))) {
-                $filelastmodified = filemtime($path."/".$file);
-                //10 days older files deleted
-                if ((time() - $filelastmodified) > 240 * 3600) {
-                    $filepath = $path."/".$file;
-                    @unlink($filepath);
-                }
-            }
+                if ($file!='.' && $file!='..'){
+                    $filelastmodified = filemtime($path."/".$file);
+                    //10 days older files deleted
+                    if ((time()-$filelastmodified) > 240 * 3600) {
+                        $filepath = $path."/".$file;
+                        @unlink($filepath);
+                        if (@unlink($filepath) === false && $file !== '..') {
+                            throw ParameterException::missinglogic('The directory could not be created.');
+                        }
+                    }
+            }   }
             @closedir($handle);
         }
     }

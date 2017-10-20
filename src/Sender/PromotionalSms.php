@@ -43,14 +43,12 @@ class PromotionalSms
 
     /**
      * Send Bulk promotional SMS MSG91 Service
-     *
      * @param array $data
      *
      * @throws ParameterException missing parameters or return empty
-     *
      * @return string
      */
-    public static function sendBulkSms($data)
+    public function sendBulkSms($data)
     {
         if (is_array($data)) {
             $response = null;
