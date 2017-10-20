@@ -82,153 +82,195 @@ class TransactionalSmsTest extends TestCase
     }
     //--------------------- Correct format No Error---------------------
     //-----------------------------Country Code-------------------------
-    // public function testTransactionalSmsWithCountryCodeInteger()
-    // {
-    //     $sendArray = [
-    //        'message'   => 'WELCOME TO TESARK',
-    //        'sender'    => 'UTOOWE',
-    //        'country'   => 91,
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsWithOutCountryCodeInteger()
-    // {
-    //     $sendArray = [
-    //        'message'   => 'WELCOME TO TESARK',
-    //        'sender'    => 'UTOOWE',
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsWithCountryCodeNumericString()
-    // {
-    //     $sendArray = [
-    //        'message'   => 'WELCOME TO TESARK',
-    //        'sender'    => 'UTOOWE',
-    //        'country'   => "91",
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsWithCountryCodeStringMobile()
-    // {
-    //     $sendArray = [
-    //        'message'   => 'WELCOME TO TESARK',
-    //        'sender'    => 'UTOOWE',
-    //        'country'   => 91,
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsWithOutCountryCodeString()
-    // {
-    //     $sendArray = [
-    //        'message'   => 'WELCOME TO TESARK',
-    //        'sender'    => 'UTOOWE',
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional("919514028541,919791466728", $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // //------------------------------Flash only -----------------
-    // public function testTransactionalSmsFlash()
-    // {
-    //     $sendArray = [
-    //        'message' => 'WELCOME TO TESARK',
-    //        'sender' => 'UTOOWE',
-    //        'flash' => 1,
-    //     ];
-    //     $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsFlashZero()
-    // {
-    //     $sendArray = [
-    //        'message' => 'WELCOME TO TESARK',
-    //        'sender' => 'UTOOWE',
-    //        'flash' => 0,
-    //     ];
-    //     $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsFlashCountryCode()
-    // {
-    //     $sendArray = [
-    //        'message' => 'WELCOME TO TESARK',
-    //        'sender' => 'UTOOWE',
-    //        'flash' => 1,
-    //        'country' => 91,
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // //----------------------- Unicode ------------------------
-    // public function testTransactionalSmsUnicode()
-    // {
-    //     $sendArray = [
-    //        'message'      => 'WELCOME TO TESARK',
-    //        'sender'       => 'UTOOWE',
-    //        'unicode'      => 1,
-    //     ];
-    //     $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // //---------------------- Schtime -------------------------
-    // public function testTransactionalSmsSchtimedashFormat()
-    // {
-    //     $sendArray = [
-    //        'message'      => 'WELCOME TO TESARK',
-    //        'sender'       => 'UTOOWE',
-    //        'schtime'      => "2020-01-01 10:10:00",
-    //     ];
-    //     $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // public function testTransactionalSmsSchtimeFrontslashFormat()
-    // {
-    //     $sendArray = [
-    //        'message'      => 'WELCOME TO TESARK',
-    //        'sender'       => 'UTOOWE',
-    //        'schtime'      => "2020/01/01 10:10:00",
-    //     ];
-    //     $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // //----------------------- Response-----------------------
-    // public function testTransactionalSmsResponseJson()
-    // {
-    //     $sendArray = [
-    //        'message'      => 'WELCOME TO TESARK',
-    //        'sender'       => 'UTOOWE',
-    //        'response'     => "json",
-    //     ];
-    //     $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
-    //     $array = json_decode($result);
-    //     $this->assertObjectHasAttribute("type", $array);
-    // }
-    // //------------------------ Afterminutes-----------------
-    // public function testTransactionalSmsWithoutCountryCode()
-    // {
-    //     $sendArray = [
-    //        'message'      => 'WELCOME TO TESARK',
-    //        'sender'       => 'UTOOWE',
-    //        'country'      => 91,
-    //        'afterminutes' => 10
-    //     ];
-    //     $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
-    // //----------------------- Campaign ---------------------
-    // public function testTransactionalSmsCampaign()
-    // {
-    //     $sendArray = [
-    //        'message'      => 'WELCOME TO TESARK',
-    //        'sender'       => 'UTOOWE',
-    //        'campaign'     => "venkat"
-    //     ];
-    //     $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
-    //     $this->assertEquals(24, strlen($result));
-    // }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsWithCountryCodeInteger()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+           'country'   => 91,
+        ];
+        $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsWithOutCountryCodeInteger()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+        ];
+        $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsWithCountryCodeNumericString()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+           'country'   => "91",
+        ];
+        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsWithCountryCodeStringMobile()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+           'country'   => 91,
+        ];
+        $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsWithOutCountryCodeString()
+    {
+        $sendArray = [
+           'message'   => 'WELCOME TO TESARK',
+           'sender'    => 'UTOOWE',
+        ];
+        $result = $this->TransactionSms->sendTransactional("919514028541,919791466728", $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    //------------------------------Flash only -----------------
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsFlash()
+    {
+        $sendArray = [
+           'message' => 'WELCOME TO TESARK',
+           'sender' => 'UTOOWE',
+           'flash' => 1,
+        ];
+        $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsFlashZero()
+    {
+        $sendArray = [
+           'message' => 'WELCOME TO TESARK',
+           'sender' => 'UTOOWE',
+           'flash' => 0,
+        ];
+        $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsFlashCountryCode()
+    {
+        $sendArray = [
+           'message' => 'WELCOME TO TESARK',
+           'sender' => 'UTOOWE',
+           'flash' => 1,
+           'country' => 91,
+        ];
+        $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    //----------------------- Unicode ------------------------
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsUnicode()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'unicode'      => 1,
+        ];
+        $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    //---------------------- Schtime -------------------------
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsSchtimedashFormat()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'schtime'      => "2020-01-01 10:10:00",
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsSchtimeFrontslashFormat()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'schtime'      => "2020/01/01 10:10:00",
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    //----------------------- Response-----------------------
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsResponseJson()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'response'     => "json",
+        ];
+        $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
+        $array = json_decode($result);
+        $this->assertObjectHasAttribute("type", $array);
+    }
+    //------------------------ Afterminutes-----------------
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsWithoutCountryCode()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'country'      => 91,
+           'afterminutes' => 10
+        ];
+        $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
+    //----------------------- Campaign ---------------------
+    /**
+     * @requires function deleteOldFiles
+     */
+    public function testTransactionalSmsCampaign()
+    {
+        $sendArray = [
+           'message'      => 'WELCOME TO TESARK',
+           'sender'       => 'UTOOWE',
+           'campaign'     => "venkat"
+        ];
+        $result  = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
+        $this->assertEquals(24, strlen($result));
+    }
     //--------------- Wrong format with Error Exception -------
     //-------------------------Message-------------------------
     /**
