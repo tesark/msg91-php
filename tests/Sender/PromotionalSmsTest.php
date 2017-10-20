@@ -928,6 +928,46 @@ class PromotionalSmsTest extends TestCase
     /**
      * @expectedException Sender\ExceptionClass\ParameterException
      */
+    public function testBulkMessageMissingParametersString()
+    {
+        $sendArray = '9414028541';
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingParametersBoolean()
+    {
+        $sendArray = true;
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingParametersInteger()
+    {
+        $sendArray = 9414028541;
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingParametersDouble()
+    {
+        $sendArray = 94.14028541;
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
+    public function testBulkMessageMissingParametersNull()
+    {
+        $sendArray = null;
+        $result = $this->PromotionalSms->sendBulkSms($sendArray);
+    }
+    /**
+     * @expectedException Sender\ExceptionClass\ParameterException
+     */
     public function testBulkMessageMissingMandatoryAuthKey()
     {
         $sendArray = [
