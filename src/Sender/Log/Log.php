@@ -56,15 +56,16 @@ class Log
     public function deleteOldFiles()
     {
         $path = self::$path;
-        if ($handle = opendir($path)) {
+        if ($handle = @opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 $filelastmodified = filemtime($path."/".$file);
                 //10 days older files deleted
                 if ((time() - $filelastmodified) > 240 * 3600) {
-                    unlink($path."/".$file);
+                    $filepath = $path."/".$file;
+                    @unlink($filepath);
                 }
             }
-            closedir($handle);
+            @closedir($handle);
         }
     }
 }

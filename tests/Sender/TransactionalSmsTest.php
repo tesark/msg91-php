@@ -14,7 +14,7 @@ class TransactionalSmsTest extends TestCase
     public $TransactionSms;
     public function setUp()
     {
-        $this->TransactionSms = new TransactionalSms("170867ARdROqjKklk599a87a1");
+        $this->TransactionSms = new TransactionalSms("170867ARdROqjKklk599a87a1aa");
     }
     public function tearDown()
     {
@@ -82,9 +82,6 @@ class TransactionalSmsTest extends TestCase
     }
     //--------------------- Correct format No Error---------------------
     //-----------------------------Country Code-------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsWithCountryCodeInteger()
     {
         $sendArray = [
@@ -95,9 +92,6 @@ class TransactionalSmsTest extends TestCase
         $result = $this->TransactionSms->sendTransactional(9514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsWithOutCountryCodeInteger()
     {
         $sendArray = [
@@ -107,9 +101,6 @@ class TransactionalSmsTest extends TestCase
         $result = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsWithCountryCodeNumericString()
     {
         $sendArray = [
@@ -120,9 +111,6 @@ class TransactionalSmsTest extends TestCase
         $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsWithCountryCodeStringMobile()
     {
         $sendArray = [
@@ -133,9 +121,6 @@ class TransactionalSmsTest extends TestCase
         $result = $this->TransactionSms->sendTransactional("9514028541,9791466728", $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsWithOutCountryCodeString()
     {
         $sendArray = [
@@ -146,9 +131,6 @@ class TransactionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //------------------------------Flash only -----------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsFlash()
     {
         $sendArray = [
@@ -159,9 +141,6 @@ class TransactionalSmsTest extends TestCase
         $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsFlashZero()
     {
         $sendArray = [
@@ -172,9 +151,6 @@ class TransactionalSmsTest extends TestCase
         $result   = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsFlashCountryCode()
     {
         $sendArray = [
@@ -187,9 +163,6 @@ class TransactionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Unicode ------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsUnicode()
     {
         $sendArray = [
@@ -201,9 +174,6 @@ class TransactionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //---------------------- Schtime -------------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsSchtimedashFormat()
     {
         $sendArray = [
@@ -214,9 +184,6 @@ class TransactionalSmsTest extends TestCase
         $result  = $this->TransactionSms->sendTransactional(919514028541, $sendArray);
         $this->assertEquals(24, strlen($result));
     }
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsSchtimeFrontslashFormat()
     {
         $sendArray = [
@@ -228,9 +195,6 @@ class TransactionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Response-----------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsResponseJson()
     {
         $sendArray = [
@@ -243,9 +207,6 @@ class TransactionalSmsTest extends TestCase
         $this->assertObjectHasAttribute("type", $array);
     }
     //------------------------ Afterminutes-----------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsWithoutCountryCode()
     {
         $sendArray = [
@@ -258,9 +219,6 @@ class TransactionalSmsTest extends TestCase
         $this->assertEquals(24, strlen($result));
     }
     //----------------------- Campaign ---------------------
-    /**
-     * @requires function deleteOldFiles
-     */
     public function testTransactionalSmsCampaign()
     {
         $sendArray = [
