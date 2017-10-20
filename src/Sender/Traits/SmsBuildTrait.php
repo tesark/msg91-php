@@ -116,9 +116,9 @@ trait SmsBuildTrait
      */
     public function checkContent($lenOfBulkSms, $bulkSms, $root, $category, $xmlDoc)
     {
-        if ($lenOfBulkSms != 0) {
-            for ($j = 0; $j < $lenOfBulkSms; $j++) {
-                $currentData = $bulkSms[$j];
+        for ($j = 0; $j < $lenOfBulkSms; $j++) {
+            $currentData = $bulkSms[$j];
+            if (array_key_exists('message', $currentData) && array_key_exists('mobile', $currentData)) {
                 $this->inputData['message'] = $currentData['message'];
                 $this->inputData['mobile'] = $currentData['mobile'];
                 $smsTag = $this->createElement($xmlDoc, "SMS", $root);
@@ -126,10 +126,10 @@ trait SmsBuildTrait
                 $smsTag = $this->buildMessage($category, 'message', $smsTag, $xmlDoc);
                 //check mobile contents
                 $this->addMobileNumber($xmlDoc, $smsTag);
+            } else {
+                $message = "parameters authkey or message missing";
+                throw ParameterException::missinglogic($message);
             }
-        } else {
-            $message = "content Empty";
-            throw ParameterException::missinglogic($message);
         }
     }
     /**
