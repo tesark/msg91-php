@@ -27,4 +27,4 @@ after_script:
   - travis_retry php vendor/bin/coveralls -v
 
 notifications:
-  email: false
+  email: true
