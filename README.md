@@ -23,11 +23,11 @@
 Run the following command to install the latest applicable version of the package:
 
 ```sh
-composer require venkatsamuthiram/deliver
+composer require tesark/msg91-php
 ```
 ```sh
 "require": {
-        "venkatsamuthiram/deliver": "dev-master"
+        "tesark/msg91-php": "dev-master"
         }
 ```
 ## Supported FrameWorks
