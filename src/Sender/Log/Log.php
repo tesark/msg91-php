@@ -57,7 +57,7 @@ class Log
     public function deleteOldFiles()
     {
         $path = self::$path;
-        if ($handle = @opendir($path)) {
+        if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 if ($file!='.' && $file!='..'){
                     $filelastmodified = filemtime($path."/".$file);
@@ -65,12 +65,12 @@ class Log
                     if ((time()-$filelastmodified) > 240 * 3600) {
                         $filepath = $path."/".$file;
                         @unlink($filepath);
-                        if (@unlink($filepath) === false && $file !== '..') {
-                            throw ParameterException::missinglogic('The directory could not be created.');
-                        }
                     }
             }   }
             @closedir($handle);
+            if (@closedir($handle)) {
+                throw ParameterException::missinglogic('The directory could not be created.');
+            }
         }
     }
 }
