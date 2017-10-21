@@ -1,11 +1,9 @@
 # MSG91 SMS & OTP Composer Package
 
-[![image](https://travis-ci.org/venkatsamuthiram/deliver.svg?branch=master)](https://travis-ci.org/venkatsamuthiram/deliver)
-[![Build Status](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/build.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/venkatsamuthiram/deliver/?branch=master)
-
-
+[![image](https://travis-ci.org/tesark/msg91-php.svg?branch=master)](https://travis-ci.org/tesark/msg91-php)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tesark/msg91-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tesark/msg91-php/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/tesark/msg91-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tesark/msg91-php/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/tesark/msg91-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/tesark/msg91-php/?branch=master)
 
 - [Installation](#installation)
     - [Supported Framework](#supportedframeworks)
