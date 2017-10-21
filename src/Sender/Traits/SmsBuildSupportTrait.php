@@ -71,7 +71,7 @@ trait SmsBuildSupportTrait
             }
         } else {
             $message = "string comma seperate values you given:".$result['mobile'];
-            throw ParameterException::invalidInput("mobiles", "string", $result['mobile'], $message);
+            throw ParameterException::invalidInput("mobile", "string", $result['mobile'], $message);
         }
     }
     /**

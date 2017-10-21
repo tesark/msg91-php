@@ -34,9 +34,14 @@ class SmsBuildClass extends SmsDefineClass
      */
     public function addMobileNumber($xmlDoc, $smsTag)
     {
-        if ($this->setMobile() && $this->getMobile()) {
-            $result = $this->isValidNumber($this->getMobile());
-            $this->addMobileToXml($xmlDoc, $smsTag, $result);
+        if ($this->setMobile()) {
+            $mobile = $this->getMobile();
+            if (isset($mobile) && is_string($mobile)) {
+                $result = $this->isValidNumber($mobile);
+                $this->addMobileToXml($xmlDoc, $smsTag, $result);
+            } else {
+                throw ParameterException::invalidArrtibuteType("mobile", "numericString", $mobile);
+            }
         }
     }
     /**

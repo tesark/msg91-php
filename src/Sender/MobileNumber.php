@@ -1,7 +1,6 @@
 <?php
 namespace Sender;
 
-use Propaganistas\LaravelPhone\PhoneNumber;
 use Sender\ExceptionClass\ParameterException;
 
 /**

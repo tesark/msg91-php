@@ -74,7 +74,7 @@ class Otp
         $checkAuth = Validation::isAuthKey($this->otpAuth);
         $otpAuthKey = $this->getAuthkey($checkAuth);
         $verifyAuth = $checkAuth ? $this->otpAuth : $otpAuthKey;
-        $otp        = new OtpVerifyAndResend();
+        $otp = new OtpVerifyAndResend();
         $verifyOtpResponse = $otp->otpApiCategory($mobileNumber, $oneTimePass, $verifyAuth, 1);
         return $verifyOtpResponse;
     }
