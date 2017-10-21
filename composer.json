@@ -1,19 +1,24 @@
 {
-    "name": "venkatsamuthiram/deliver",
+    "name": "tesark/msg91-php",
     "description": "Send SMS and OTP using MSG91 service",
-    "keywords": ["sms and otp", "sms", "otp", "mobile sms", "mobile otp", "laravel sms", "laravel otp", "sms otp"],
+    "keywords": ["sms and otp", "sms", "otp", "mobile sms", "mobile otp", "laravel sms", "laravel otp", "sms otp", "msg91 sms", "msg91 otp"],
     "type": "package",
     "license": "UNLICENSED",
     "require": {
         "guzzlehttp/guzzle": "~6.2",
-        "propaganistas/laravel-phone": "dev-master",
         "monolog/monolog": "~1.13 ",
         "hassankhan/config": "dev-master"
     },
-    "authors": [{
-        "name": "VenkaSkpi",
-        "email": "venkatsamuthiram5@gmail.com"
-    }],
+    "authors": [
+        {
+            "name": "VenkaSkpi",
+            "email": "venkatsamuthiram5@gmail.com"
+        },
+        {
+            "name": "Chandresh Rajkumar Manonmani",
+            "email": "chan@tqube.com"
+        }
+    ],
     "version": "1.0.0",
     "minimum-stability": "dev",
     "require-dev": {
