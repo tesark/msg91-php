@@ -11,8 +11,8 @@ use Sender\ExceptionClass\ParameterException;
  *
  * @package    Sender\PromotionalSms
  * @author     VenkatS <venkatsamuthiram5@gmail.com>
- * @link       https://github.com/venkatsamuthiram/deliver
- * @license
+ * @link       https://github.com/tesark/msg91-php
+ * @license    MIT
  */
 
 class PromotionalSms
