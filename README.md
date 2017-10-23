@@ -1,3 +1,5 @@
+[![image](https://www.tesark.com/wp-content/uploads/2016/04/TESARKTech_Royal@1x.png)](https://www.tesark.com/)
+
 # MSG91 SMS & OTP Composer Package
 
 [![image](https://travis-ci.org/tesark/msg91-php.svg?branch=master)](https://travis-ci.org/tesark/msg91-php)
