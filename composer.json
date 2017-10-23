@@ -3,7 +3,7 @@
     "description": "Send SMS and OTP using MSG91 service",
     "keywords": ["sms and otp", "sms", "otp", "mobile sms", "mobile otp", "laravel sms", "laravel otp", "sms otp", "msg91 sms", "msg91 otp"],
     "type": "package",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "require": {
         "guzzlehttp/guzzle": "~6.2",
         "monolog/monolog": "~1.13 ",
