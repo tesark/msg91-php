@@ -34,7 +34,7 @@ class Log
     {
         $error = array("ERROR" => $error);
         $dateTime = date_create('now')->format('Y-m-d');
-        self::$logger->pushHandler(new StreamHandler(self::$path.'/Error_'.$dateTime.'.log', Logger::ERROR));
+        self::$logger->pushHandler(new StreamHandler(self::$path.'/Logger'.'/Error_'.$dateTime.'.log', Logger::ERROR));
         self::$logger->error("\r\n \n TRACE:", $error);
     }
 
@@ -47,7 +47,7 @@ class Log
     {
         $info = array('INFO' => $info);
         $dateTime = date_create('now')->format('Y-m-d');
-        self::$logger->pushHandler(new StreamHandler(self::$path.'/Info_'.$dateTime.'.log', Logger::INFO));
+        self::$logger->pushHandler(new StreamHandler(self::$path.'/Logger'.'/Info_'.$dateTime.'.log', Logger::INFO));
         self::$logger->info("\r\n \n TRACE:", $info);
     }
     /**
@@ -56,7 +56,7 @@ class Log
      */
     public function deleteOldFiles()
     {
-        $path = self::$path;
+        $path = self::$path.'/Logger';
         if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 if ($file!='.' && $file!='..'){
